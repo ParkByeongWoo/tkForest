@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style>
+		ul>li {
+			margin : 30px 0px; 
+		}
+	</style>
+	<script th:src="@{/jquery-3.7.1.min.js}"></script>
+	<script>
+		$(function(){
+			$("#req1").on('click', req1);
+			$("#req2").on('click', req2);
+			$("#req3").on('click', req3);
+		});
+		
+		// 3) 세 번째 요청 처리(송신데이터는 없고 수신데이터가 여러 개)
+		function req3() {
+			$.ajax({
+				url: 'ajaxReq3'
+				, method: 'GET'
+				, success : function (resp) {  // let resp = ["사과", "복숭아"]
+					let data = '';
+				
+					$.each(resp, function(index, item){
+						data += item + "<br>"
+					});
+					
+					$("#req3result").html(data);
+				}
+			});
+		}
+		// 2) 두 번째 요청 처리(데이터를 주고 받음)
+		function req2() {
+			let name = $('#name').val();
+			let phone = $('#phone').val();
+			
+			// 보낼 데이터를 JSON으로 만듦
+			let sendData = {"name" : name, "phone" : phone};
+			
+			$.ajax({
+				url: 'ajaxReq2'
+				, method: 'GET'
+				, data : sendData
+				, success: function(resp){   // let resp = {"name": "홍길동님", "phone": "010"};   
+					//$("#req2result").text(JSON.stringify(resp));
+					let name = resp["name"];
+					let phone = resp["phone"];
+					let data = `이름: ${name}<br>
+								번호: ${phone}`;
+					$("#req2result").html(data);
+				}
+			})
+		}
+		
+		// 1) 첫 번째 요청 처리
+		function req1() {
+			$.ajax({
+				url: 'ajaxReq1'
+				, method: 'GET'
+				, success: function(resp){
+					console.log('req1의 응답데이터: ' + resp);
+				}
+			});
+		}
+	</script>
+</head>
+<body>
+	<h2>AJAX를 이용한 데이터 송수신-기초(1)</h2>
+	<ul>
+		<li>
+			<input type="button" id="req1" value="1_AJAX로 서버에 요청보내기">
+			<span>응답의 결과는 콘솔창에서 확인할 것.</span>
+		</li>
+		
+		<li>
+			<br>
+			<label>이름 : <input type="text" id="name"></label><br>
+			<label>번호 : <input type="text" id="phone"></label><br><br>
+			<input type="button" id="req2" value="2_AJAX로 데이터를 송신">
+			<p id="req2result" style="color:red;"> </p>
+		</li>
+		
+		<li>
+			<br>
+			<input type="button" id="req3" value="3_문자열 리스트 요청">
+			<p id="req3result" style="color:orange;"></p>
+		</li>
+	</ul>
+	<!-- 다음 페이지 요청 -->
+	<p>
+		<a th:href="@{/secondpage}">다음 페이지</a><br><br>
+		<a th:href="@{/guestbookpage}">방명록 페이지</a>
+	</p>
+	
+</body>
+</html>
+
+
+
+

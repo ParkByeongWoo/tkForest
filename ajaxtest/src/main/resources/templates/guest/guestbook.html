@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>방명록</title>
+	<link rel="stylesheet" th:href="@{/guestbook.css}">
+	<script th:src="@{/jquery-3.7.1.min.js}"></script>
+	<script defer th:src="@{/guestbook.js}"></script>
+</head>
+<body>
+	<h2> 방명록 </h2>
+	<!-- 데이터 입력 구간 -->
+	<div class="inputdata">
+		<form action="" method="POST">
+			<label>이름: <input type="text" name="name" id="name"></label>&nbsp;
+			<label>비밀번호: <input type="password" name="pwd" id="pwd"></label>&nbsp;
+			<label>방명록: <input type="text" name="content" id="content"></label>&nbsp;
+			<input type="button" id="save" value="등록">
+		</form>
+	</div>
+	
+	<!-- 데이터 출력 구간 -->
+	<div class="outputdata">
+        <table>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>방명록 내용</th>
+                    <th>날짜</th>
+                    <th>버튼</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

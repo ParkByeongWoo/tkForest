@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+div.inputdata {
+	margin-bottom : 20px;
+}
+div.inputdata input#content {
+	width : 400px;
+}
+
+table {
+	width: 1000px;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	border-collapse: collapse;
+}
+
+thead>tr {
+	background-color: #50a9ef;
+}
+
+tr {
+	border-bottom: 1px dotted gray;
+}
+
+td, th {
+	padding: 5px;
+	text-align: center;
+}
+
+tbody tr:hover {
+	background-color: #eee;
+	cursor: pointer;
+}

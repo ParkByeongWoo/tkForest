@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org"
+                xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 보기 화면</title>
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/reply.js}"></script>
+    <script defer th:src="@{/script/modify.js}"></script>
+</head>
+
+<body>
+	<!-- Ajax 전송할 때 필요한 정보 -->
+	<input type="hidden" id="boardNum" th:value="${board.boardNum}">
+	<input type="hidden" id="loginId"  th:value="${#authentication.name}">
+	
+    <div class="container" th:replace="fragment/header(title='게시글 보기(f)')">
+    <!-- 
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" alt="logo">
+            </a>
+            <h2>게시글 보기</h2>
+        </div>
+        --> 
+    </div> <!-- end .container -->
+
+    <!-- 게시글 보기 화면-->
+    <div class="content">
+        <table border="1">
+            <tr>
+                <th>작성자</th>
+                <td><!-- 로그인한 사람의 아이디 -->
+                    <span th:text="${board.boardWriter}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>글제목</th>
+                <td>
+                    <span th:text="${board.boardTitle}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>작성일</th>
+                <td>
+                    <span th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>수정일</th>
+                <td>
+                    <span th:text="${#temporals.format(board.updateDate, 'yyyy-MM-dd HH:mm')}"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>글내용</th>
+                <td>
+                    <pre>[[ ${board.boardContent} ]]</pre>
+                </td>
+            </tr>
+            <tr>
+                <th>첨부파일</th> <!-- 인증이 된 사람만 링크를 제공 -->
+                <td>
+                    <span th:if="${board.originalFileName != null}">
+                    	<a th:href="@{/board/download(boardNum=${board.boardNum})}" 
+                    	   th:text="${board.originalFileName}">파일명</a>
+                    </span>
+                </td>
+            </tr>
+			<tr>
+			    <th colspan="2">
+			    	<!-- 글수정과 삭제는 로그인한 사람과 글쓴 사람이 같을 경우에만 보이도록 함-->
+			    	<th:block th:if="${board.boardWriter == #authentication.name}">
+				        <a href="#" id="updateBtn" class="btn btn-primary">수정</a>&nbsp;
+				        <a href="#" id="deleteBtn" class="btn btn-danger">삭제</a>&nbsp;
+			        </th:block>
+			        <a th:href="@{/board/boardList(searchItem=${searchItem}, searchWord=${searchWord})}" class="btn btn-light">목록</a>
+			    </th>
+			</tr>
+        </table>
+        
+		<!-- 검색 키워드를 출력하는 위치 -->
+		<form action="" method="GET" id="modifyForm">
+			<input type="hidden" id="boardNum"   name="boardNum"   th:value="${board.boardNum}">
+			<input type="hidden" id="searchItem" name="searchItem" th:value="${searchItem}">
+			<input type="hidden" id="searchWord" name="searchWord" th:value="${searchWord}">
+		</form>
+		
+        <!-- 댓글 목록 처리 부분 -->
+        
+        <!-- 댓글 입력란: 입력상자와 버튼 (board_num, reply_text / date, writer  -->
+        <div class="reply-write">
+        	<input type="text" id="replyText" >
+        	<input type="button" id="replyBtn" class="btn btn-light" value="댓글입력">
+        </div>
+        
+        <!--  댓글 출력란 -->
+        <div id="reply-list"></div>
+        
+    </div>
+</body>
+
+</html>

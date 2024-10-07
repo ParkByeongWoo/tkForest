@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org"
+                xmlns:sec="http://thymeleaf.org/extras/spring-security" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 등록화면</title>
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+</head>
+
+<body>
+    <div class="container" th:replace="fragment/header(title='게시글 쓰기(f)')">
+        <!-- 
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" alt="logo">
+            </a>
+            <h2>게시글 쓰기</h2>
+        </div>
+         -->
+    </div> <!-- end .container -->
+
+    <!-- 게시글 쓰기 화면-->
+    <div class="content">
+        <form th:action="@{/board/boardWrite}" method="POST" enctype="multipart/form-data">
+            <table border="1">
+                <tr>
+                    <th>작성자</th>
+                    <td><!-- 로그인한 사람의 아이디 -->
+                        <input type="text" id="boardWriter" name="boardWriter" th:value="${#authentication.name}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <th>글제목</th>
+                    <td>
+                        <input type="text" id="boardTitle" name="boardTitle" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>글내용</th>
+                    <td>
+                        <textarea name="boardContent" id="boardContent" cols="30" rows="10" required></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>첨부파일</th> <!-- 첨부파일 작성 시 수정-->
+                    <td>
+                        <input type="file" id="uploadFile" name="uploadFile" class="btn btn-light">
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <input type="submit" value="글등록" class="btn btn-primary"> &nbsp;
+                        <input type="reset" value="초기화"  class="btn btn-danger">
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

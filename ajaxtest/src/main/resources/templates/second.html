@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Ajax 테스트</title>
+    <style>
+        table {
+            width: 1000px;
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            border-collapse: collapse;
+        }
+
+        thead>tr {
+            background-color: #50a9ef;
+        }
+
+        tr {
+            border-bottom: 1px dotted gray;
+        }
+
+        td,
+        th {
+            padding: 5px;
+            text-align: center;
+        }
+
+        tbody tr:hover {
+            background-color: #eee;
+            cursor: pointer;
+        }
+    </style>
+    <script th:src="@{/jquery-3.7.1.min.js}"></script>
+    <script>
+    	$(function(){
+    		$("#receive").on('click', receive);
+    	    // 2) 전체 선택 checkbox를 체크하면 모두 체크되도록 설정
+    	    $("#checkAll").on('click', function () {
+    	        if ($(this).is(':checked')) {
+    	            $('tbody input[type=checkbox]').prop('checked', true);
+    	        } else {
+    	            $('tbody input[type=checkbox]').prop('checked', false);
+    	        }
+    	    });
+
+    	    //  3) 삭제 버튼을 클릭하면 체크된 모든 고객 명단을 삭제
+    	    $("#deleteMember").on('click', function () {
+    	        let checkItem = $('tbody input[type=checkbox]:checked');
+    	        checkItem.parent().parent().remove(); 
+    	    });
+    	    
+    	});
+    	
+    	function receive() {
+    		$.ajax({
+    			url: 'receive'
+    			, method : 'GET'
+    			, success : output
+    		});
+    	}
+    	// 전송된 데이터 출력
+    	function output(resp) {
+    		// 화면에 결과 출력하시오.
+    	    let final = '';
+
+    	    $.each(resp, function (index, item) {
+    	        let name = item['name'];
+    	        let email = item['email'];
+    	        let phone = item['phone'];
+
+    	        // tbody에 삽입될 tag를 만드는 코드
+    	        final += `
+    	                    <tr>
+    	                    <td class="box"><input type="checkbox"></td>
+    	                    <td class="name">${name}</td>
+    	                    <td class="email">${email}</td>
+    	                    <td class="phone">${phone}</td>
+    	                    <td class="btn"><input type="button" class="btn" value="삭제" </td>
+    	                </tr>
+    	                `;
+    	    });
+    	    $('tbody').html(final);
+    	    $('.btn').on('click', deleteItem);
+    	}
+    	
+    	function deleteItem() {
+    	    $(this).parent().parent().remove();
+    	}
+    	
+    </script>
+</head>
+
+<body>
+    <h2>[ Ajax를 이용한 데이터 송수신-기초(2) ]</h2>
+    <div id="active">
+        <button id="receive">수신</button><br><br>
+        <input type="checkbox" id="checkAll">
+        <input type="button" id="deleteMember" value="삭제">
+    </div><br>
+
+    <!-- 고객 목록 -->
+    <div id="member">
+        <table>
+            <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>전화번호</th>
+                    <th>버튼</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
