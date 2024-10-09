@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인콰이어리 리스트</title>
+    <script defer th:src="@{/script/search.js}"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .pagination {
+            margin: 10px 0;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>인콰이어리 리스트</h1>
+
+    <!-- 전체 인콰이어리 개수 표시 -->
+
+    <div class="count">
+        <p>게시글 개수: [[ ${list.totalElements } ]]</p>
+    </div>
+
+
+    <!-- 검색창 -->
+    <div class="search">
+        <form action="boardList" method="GET" id="searchForm">
+            <input type="hidden" name="page" id="requestPage" th:value="${page}">
+            <select name="searchItem" id="searchItem">
+                <option value="subject" th:selected="${searchItem == 'subject'}">인콰이어리 제목</option>
+                <option value="buyerMemberNo" th:selected="${searchItem == 'buyerMemberNo'}">작성자(바이어)</option>
+                <option value="contents" th:selected="${searchItem == 'contents'}">인콰이어리 내용</option>
+            </select>
+            <input type="text" name="searchWord" id="searchWord" th:value="${searchWord}">
+            <input type="button" id="search" value="검색">
+        </form>
+    </div>
+    <!-- end .search-->
+
+    <!-- 인콰이어리 리스트-->
+    <table>
+        <thead>
+            <tr>
+                <th class="no">인콰이어리 번호</th>
+                <th>인콰이어리 제목</th>
+                <th class="buyerMemberNo">작성자</th>
+                <th class="offerSendDate">발송일</th>
+            </tr>
+            <th:block th:unless="${#lists.isEmpty(list)}">
+
+        </thead>
+        <tbody id="inquiryList">
+            <!-- 인콰이어리 내용이 여기에 출력됩니다 -->
+        </tbody>
+    </table>
+
+    <!-- 페이징 기능 -->
+    <div class="pagination" id="pagination">
+        <!-- 페이징 버튼이 여기에 출력됩니다 -->
+    </div>
+
+    <!-- 작성 버튼 (인증 여부에 따라 표시) -->
+    <div id="writeBtnContainer">
+        <button id="writeBtn" style="display: none;" onclick="location.href='write.html'">작성하기</button>
+    </div>
+
+    <script>
+        const inquiries = [
+            { id: 1, title: '첫 번째 인콰이어리', content: '첫 번째 인콰이어리 내용', author: '사용자1' },
+            { id: 2, title: '두 번째 인콰이어리', content: '두 번째 인콰이어리 내용', author: '사용자2' },
+            // 더 많은 인콰이어리 데이터를 여기에 추가
+        ];
+
+        const inquiriesPerPage = 5; // 한 페이지당 표시할 인콰이어리 개수
+        let currentPage = 1;
+        let totalPages = Math.ceil(inquiries.length / inquiriesPerPage);
+
+        // 페이지 로딩 시 실행
+        window.onload = function () {
+            loadInquiries();
+            checkUserAuthentication();
+        };
+
+        // 인콰이어리 리스트 출력
+        function loadInquiries(page = 1) {
+            currentPage = page;
+            const startIndex = (page - 1) * inquiriesPerPage;
+            const endIndex = startIndex + inquiriesPerPage;
+            const displayedInquiries = inquiries.slice(startIndex, endIndex);
+
+            const tbody = document.getElementById('inquiryList');
+            tbody.innerHTML = '';
+
+            displayedInquiries.forEach(inquiry => {
+                const row = `<tr>
+                    <td>${inquiry.id}</td>
+                    <td>${inquiry.title}</td>
+                    <td>${inquiry.content}</td>
+                    <td>${inquiry.author}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+            document.getElementById('totalCount').innerText = inquiries.length;
+            generatePagination();
+        }
+
+        // 검색 기능
+        function searchInquiries() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const filteredInquiries = inquiries.filter(inquiry =>
+                inquiry.title.toLowerCase().includes(searchTerm) ||
+                inquiry.content.toLowerCase().includes(searchTerm) ||
+                inquiry.author.toLowerCase().includes(searchTerm)
+            );
+
+            const tbody = document.getElementById('inquiryList');
+            tbody.innerHTML = '';
+
+            filteredInquiries.forEach(inquiry => {
+                const row = `<tr>
+                    <td>${inquiry.id}</td>
+                    <td>${inquiry.title}</td>
+                    <td>${inquiry.content}</td>
+                    <td>${inquiry.author}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // 페이징 기능
+        function generatePagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = `<a href="#" class="${i === currentPage ? 'active' : ''}" onclick="loadInquiries(${i})">${i}</a>`;
+                pagination.innerHTML += pageLink;
+            }
+        }
+
+        // 인증 여부 확인 (로그인 여부에 따라 작성 버튼 표시)
+        function checkUserAuthentication() {
+            const isAuthenticated = true; // 예시로 로그인 상태를 true로 설정
+            if (isAuthenticated) {
+                document.getElementById('writeBtn').style.display = 'block';
+            } else {
+                document.getElementById('writeBtn').style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
