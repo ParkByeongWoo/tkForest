@@ -11,16 +11,18 @@ import com.tkForest.entity.InquiryEntity;
 
 
 public interface InquiryRepository extends JpaRepository<InquiryEntity, Integer> {
-	// 3) 페이징 + 검색 기능
+	// 기존 페이징 + 검색 기능
 	Page<InquiryEntity> findBySubjectContains(String searchWord, PageRequest of);
 	Page<InquiryEntity> findBybuyerMemberNoContains(String searchWord, PageRequest of);
 	Page<InquiryEntity> findBycontentsContains(String searchWord, PageRequest of);
 	
-	
-	// 2) 검색기능을 위해 추가
-	/*
-	List<InquiryEntity> findByInquiryTitleContains(String searchWord, Sort sort);
-	List<InquiryEntity> findByInquiryWriterContains(String searchWord, Sort sort);
-	List<InquiryEntity> findByInquiryContentContains(String searchWord, Sort sort);
-	*/
+//	 // 해당 바이어 또는 셀러만 조회할 수 있도록 조건 추가한 메서드들
+//    Page<InquiryEntity> findBySubjectContainsAndBuyerMemberNoOrSellerMemberNo(
+//        String searchWord, Integer buyerMemberNo, Integer sellerMemberNo, PageRequest of);
+//    
+//    Page<InquiryEntity> findByBuyerMemberNoContainsAndBuyerMemberNoOrSellerMemberNo(
+//        String searchWord, Integer buyerMemberNo, Integer sellerMemberNo, PageRequest of);
+//    
+//    Page<InquiryEntity> findByContentsContainsAndBuyerMemberNoOrSellerMemberNo(
+//        String searchWord, Integer buyerMemberNo, Integer sellerMemberNo, PageRequest of);
 }

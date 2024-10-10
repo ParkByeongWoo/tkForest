@@ -81,12 +81,13 @@ public class InquiryController {
 		return "inquiry/inquiryList";
 	}
 
+
 	/**
 	 * 인콰 작성 화면 요청
 	 * @return
 	 */
 	@GetMapping("/inquiryWrite")
-	public String inquiryWriter(
+	public String buyerMemberNo(
 			@AuthenticationPrincipal LoginUserDetails loginUser
 			, Model model
 			) {
@@ -97,6 +98,40 @@ public class InquiryController {
 		}
 		return "inquiry/inquiryWrite";
 	}
+
+//	// 셀러와 상품 정보를 연결하는 코드 (상품 기능 구현 후 수정하기) & 인콰write에서 수신자 th:value 같이 수정하기
+//	/**
+//	 * 인콰이어리 작성 화면 요청
+//	 * @param productNo 상품 고유 번호
+//	 * @param loginUser 현재 로그인한 사용자 정보
+//	 * @param model 모델 객체
+//	 * @return 인콰이어리 작성 화면
+//	 */
+//	@GetMapping("/inquiryWrite/{productNo}")
+//	public String inquiryWrite(
+//	        @PathVariable Integer productNo, 
+//	        @AuthenticationPrincipal LoginUserDetails loginUser, 
+//	        Model model) {
+//
+//	    // 인증된 사용자 정보 추가
+//	    if (loginUser != null) {
+//	        model.addAttribute("loginName", loginUser.getUserName()); // 로그인한 사용자 이름
+//	        model.addAttribute("buyerId", loginUser.getUserName()); // 바이어 ID
+//	    }
+//
+//	    // 상품 정보 조회
+//	    ProductEntity product = productRepository.findById(productNo)
+//	            .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+//	    
+//	    // 셀러 ID를 모델에 추가
+//	    String sellerId = product.getSellerMemberNo(); // 상품의 셀러 ID
+//	    model.addAttribute("sellerId", sellerId); // 셀러 ID 추가
+//	    model.addAttribute("productNo", productNo); // 상품 고유 번호 추가
+//	    model.addAttribute("subject", "No Title"); // 제목 기본값 추가
+//
+//	    return "inquiry/inquiryWrite";
+//	}
+
 	
 	/**
 	 * DB에 글을 등록 처리하는 요청
@@ -104,7 +139,7 @@ public class InquiryController {
 	 * @return
 	 */
 	@PostMapping("/inquiryWrite")
-	public String inquiryWriter(@ModelAttribute InquiryDTO inquiryDTO) {
+	public String buyerMemberNo(@ModelAttribute InquiryDTO inquiryDTO) {
 		log.info("클라이언트에서 전송된 데이터 : {}", inquiryDTO.toString());
 
 		inquiryService.insertInquiry(inquiryDTO);
@@ -122,7 +157,7 @@ public class InquiryController {
 	@GetMapping("/inquiryDetail")
 	public String InquiryDetail(
 			@AuthenticationPrincipal LoginUserDetails loginUser
-			, @RequestParam(name="inquiryNo") int inquiryNo
+			, @RequestParam(name="inquiryNo") Integer inquiryNo
 			, @RequestParam(name="searchItem", defaultValue="subject") String searchItem
 			, @RequestParam(name="searchWord", defaultValue="") String searchWord
 			, Model model) {
@@ -154,7 +189,7 @@ public class InquiryController {
 	 */
 	@GetMapping("/inquiryDelete")
 	public String inquiryDelete(
-			@RequestParam(name="inquiryNo") int inquiryNo
+			@RequestParam(name="inquiryNo") Integer inquiryNo
 			, @RequestParam(name="searchItem", defaultValue="subject") String searchItem
 			, @RequestParam(name="searchWord", defaultValue="") String searchWord
 			, RedirectAttributes rttr
@@ -175,7 +210,7 @@ public class InquiryController {
 	 */
 	@GetMapping("/download")
 	public String download(
-			@RequestParam(name="inquiryNo") int inquiryNo
+			@RequestParam(name="inquiryNo") Integer inquiryNo
 			, HttpServletResponse response
 			) {
 
@@ -189,7 +224,6 @@ public class InquiryController {
 		log.info("저장 디렉토리 : {}", uploadPath);
 
 		try {
-			// 파일명이 영어가 아닌 경우 사용자 입장에서는 파일명이 깨지지 않도록 해야하므로 필요
 			String tempName = URLEncoder.encode(
 					originalFileName, 
 					StandardCharsets.UTF_8.toString());

@@ -37,10 +37,10 @@ public class InquiryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="INQUIRYNO")
-	private int inquiryNo;
+	private Integer inquiryNo;
 	
 	@Column(name="PRODUCTNO")
-	private int productNo;
+	private Integer productNo;
 	
 	@Column(name="BUYER_MEMBERNO")
 	private String buyerMemberNo;
@@ -63,13 +63,13 @@ public class InquiryEntity {
 	private LocalDateTime offerExpireDate;
 	
 	@Column(name="ORDERQUANTITY")
-	private int orderQuantity;
+	private Integer orderQuantity;
 	
 	@Column(name="ORDERUNITETC")
 	private String orderUnitEtc;
 	
 	@Column(name="EXPECTEDPRICE")
-	private double expectedPrice;
+	private Double expectedPrice;
 	
 	// 첨부파일이 있을 경우 추가
 	@Column(name="original_file_name")
@@ -80,7 +80,7 @@ public class InquiryEntity {
 		
 	// 댓글 개수 처리
 	@Formula("(SELECT count(1) FROM INQUIRY_REPLY WHERE INQUIRYNO  = INQUIRY_REPLY.INQUIRYNO)")
-	private int replyCount;
+	private Integer replyCount;
 	
 	// Entity를 받아서 ----> DTO로 반환 
 	public static InquiryEntity toEntity(InquiryDTO inquiryDTO) {

@@ -20,17 +20,17 @@ import lombok.ToString;
 @ToString
 @Builder
 public class InquiryDTO {
-	private int inquiryNo;
-	private int productNo;
+	private Integer inquiryNo;
+	private Integer productNo;
 	private String buyerMemberNo;
 	private String sellerMemberNo;
 	private String subject;
 	private String contents;
 	private LocalDateTime offerSendDate;
 	private LocalDateTime offerExpireDate;
-	private int orderQuantity;
+	private Integer orderQuantity;
 	private String orderUnitEtc;
-	private double expectedPrice;
+	private Double expectedPrice;
 	
 	// 업로드 하는 파일을 받는 멤버변수 
 	private MultipartFile uploadFile;
@@ -40,17 +40,17 @@ public class InquiryDTO {
 
 	// 생성자 ==> 페이징을 처리를 위해 BoardService.java에서 Page형태로 받은 데이터 중
 	// 목록에 출력할 멤버만 간추리기 위해 만든 생성자
-	public InquiryDTO(int inquiryNo
-	        , int productNo
+	public InquiryDTO(Integer inquiryNo
+	        , Integer productNo
 	        , String buyerMemberNo
 	        , String sellerMemberNo
 	        , String subject
 	        , String contents
 	        , LocalDateTime offerSendDate
 	        , LocalDateTime offerExpireDate
-	        , int orderQuantity
+	        , Integer orderQuantity
 	        , String orderUnitEtc
-	        , double expectedPrice
+	        , Double expectedPrice
 	        , String originalFileName) {
 	    this.inquiryNo = inquiryNo;
 	    this.productNo = productNo;

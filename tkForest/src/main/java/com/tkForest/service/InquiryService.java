@@ -66,7 +66,7 @@ public class InquiryService {
 	}
 	
 	/**
-	 * 게시글 목록 요청 (검색기능 추가)
+	 * 인콰이어리 목록 요청 (검색기능 추가)
 	 * @param pageable 
 	 * @param searchWord 
 	 * @param searchItem 
@@ -83,44 +83,22 @@ public class InquiryService {
 		Page<InquiryEntity> entityList = null;
 
 		switch(searchItem) {
-		case "inquiryTitle"   :
+		case "subject"   :
 			entityList = inquiryRepository.findBySubjectContains(
 					searchWord, 
-					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNum") ));
+					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNo") ));
 			break;
-		case "inquiryWriter"  :
+		case "buyerMemberNo"  :
 			entityList = inquiryRepository.findBybuyerMemberNoContains(
 					searchWord, 
-					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNum") ));
+					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNo") ));
 			break;
-		case "inquiryContent" :
+		case "contents" :
 			entityList = inquiryRepository.findBycontentsContains(
 					searchWord, 
-					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNum") ));
+					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNo") ));
 			break;
 		}
-
-		/* 2) 검색기능이 추가된 조회
-		List<InquiryEntity> entityList = null;
-
-		switch(searchItem) {
-		case "inquiryTitle"   :
-			entityList = inquiryRepository.findByInquiryTitleContains(searchWord, Sort.by(Sort.Direction.DESC, "inquiryNum"));
-			break;
-		case "inquiryWriter"  :
-			entityList = inquiryRepository.findByInquiryWriterContains(searchWord, Sort.by(Sort.Direction.DESC, "inquiryNum"));
-			break;
-		case "inquiryContent" :
-			entityList = inquiryRepository.findByInquiryContentContains(searchWord, Sort.by(Sort.Direction.DESC, "inquiryNum"));
-			break;
-		}
-		 */
-
-
-		// 1) 1단계 - 단순 조회
-		// List<InquiryEntity> entityList = inquiryRepository.findAll(Sort.by(Sort.Direction.DESC, "inquiryNum"));
-
-		// Entity를 DTO로 바꾸는 작업 수행
 
 		Page<InquiryDTO> list = null;
 
@@ -147,14 +125,75 @@ public class InquiryService {
 				);
 
 		return list;
-	}
+	}	
+	
+//	/**
+//	 * 인콰이어리 목록 요청 (검색기능 및 접근 제한 추가)
+//	 * @param pageable
+//	 * @param searchWord
+//	 * @param searchItem
+//	 * @param buyerMemberNo
+//	 * @param sellerMemberNo
+//	 * @return
+//	 */
+//	public Page<InquiryDTO> selectAll(Pageable pageable, String searchItem, String searchWord) {
+//	    int page = pageable.getPageNumber() - 1;
+//
+//	    // 바이어 또는 셀러가 로그인한 상태에서만 해당 글을 조회할 수 있도록 조건 추가
+//	    Page<InquiryEntity> entityList = null;
+//
+//	    switch (searchItem) {
+//	        case "subject":
+//	            entityList = inquiryRepository.findBySubjectContainsAndBuyerMemberNoOrSellerMemberNo(
+//	                    searchWord, 
+//	                    buyerMemberNo, sellerMemberNo,
+//	                    PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNo"))
+//	            );
+//	            break;
+//	        case "buyerMemberNo":
+//	            entityList = inquiryRepository.findByBuyerMemberNoContainsAndBuyerMemberNoOrSellerMemberNo(
+//	                    searchWord, 
+//	                    buyerMemberNo, sellerMemberNo,
+//	                    PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNo"))
+//	            );
+//	            break;
+//	        case "contents":
+//	            entityList = inquiryRepository.findByContentsContainsAndBuyerMemberNoOrSellerMemberNo(
+//	                    searchWord, 
+//	                    buyerMemberNo, sellerMemberNo,
+//	                    PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "inquiryNo"))
+//	            );
+//	            break;
+//	    }
+//
+//	    // 페이징 리스트를 InquiryDTO로 변환
+//	    Page<InquiryDTO> list = entityList.map(
+//	            (inquiry) -> new InquiryDTO(
+//	                    inquiry.getInquiryNo(),
+//	                    inquiry.getProductNo(),
+//	                    inquiry.getBuyerMemberNo(),
+//	                    inquiry.getSellerMemberNo(),
+//	                    inquiry.getSubject(),
+//	                    inquiry.getContents(),
+//	                    inquiry.getOfferExpireDate(),
+//	                    inquiry.getOfferExpireDate(),
+//	                    inquiry.getOrderQuantity(),
+//	                    inquiry.getOrderUnitEtc(),
+//	                    inquiry.getExpectedPrice(),
+//	                    inquiry.getOriginalFileName()
+//	            )
+//	    );
+//
+//	    return list;
+//	}
+
 	/**
-	 * PK에 해당하는 inquiryNum 값을 이용해 글 한 개 조회
-	 * @param inquiryNum
+	 * PK에 해당하는 inquiryNo 값을 이용해 글 한 개 조회
+	 * @param inquiryNo
 	 * @return
 	 */
-	public InquiryDTO selectOne(Integer inquiryNum) {
-		Optional<InquiryEntity> entity = inquiryRepository.findById(inquiryNum);
+	public InquiryDTO selectOne(Integer inquiryNo) {
+		Optional<InquiryEntity> entity = inquiryRepository.findById(inquiryNo);
 
 		// 데이터를 꺼내 InquiryDTO로 변환
 		if(entity.isPresent()) {
@@ -165,13 +204,13 @@ public class InquiryService {
 	}
 
 	/**
-	 * 전달받은 글번호(inquiryNum)을 DB 에서 삭제
-	 * @param inquiryNum
+	 * 전달받은 글번호(inquiryNo)을 DB 에서 삭제
+	 * @param inquiryNo
 	 */
 	@Transactional
-	public void deleteOne(Integer inquiryNum) {
+	public void deleteOne(Integer inquiryNo) {
 		// 글번호에 해당하는 글이 존재하는지 읽어옴.
-		Optional<InquiryEntity> entity = inquiryRepository.findById(inquiryNum);
+		Optional<InquiryEntity> entity = inquiryRepository.findById(inquiryNo);
 
 		if(entity.isPresent()) {
 			InquiryEntity inquiry = entity.get();
@@ -185,11 +224,8 @@ public class InquiryService {
 				log.info("파일 삭제 여부 : {}", result); // true이면 삭제됨
 			}
 
-			inquiryRepository.deleteById(inquiryNum);
+			inquiryRepository.deleteById(inquiryNo);
 		}
 	}
 
-
-
-	
 }
