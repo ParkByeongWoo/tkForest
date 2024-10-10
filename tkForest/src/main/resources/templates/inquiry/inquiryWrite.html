@@ -1,60 +1,99 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://thymeleaf.org"
-                xmlns:sec="http://thymeleaf.org/extras/spring-security" >
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 등록화면</title>
-    <link rel="stylesheet" th:href="@{/css/write.css}">
+    <title>인콰이어리 작성화면</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script defer th:src="@{/script/expiredate.js}"></script>
 </head>
 
 <body>
-    <div class="container" th:replace="fragment/header(title='게시글 쓰기(f)')">
-        <!-- 
-        <div class="logo">
-            <a th:href="@{/}">
-                <img th:src="@{/images/logo.png}" alt="logo">
-            </a>
-            <h2>게시글 쓰기</h2>
-        </div>
-         -->
-    </div> <!-- end .container -->
+    <div class="container" th:replace="fragment/header(title='게시글 쓰기(f)')"></div>
 
     <!-- 게시글 쓰기 화면-->
     <div class="content">
-        <form th:action="@{/board/boardWrite}" method="POST" enctype="multipart/form-data">
+        <form th:action="@{/inquiry/inquiryWrite}" method="POST" enctype="multipart/form-data">
             <table border="1">
                 <tr>
-                    <th>작성자</th>
-                    <td><!-- 로그인한 사람의 아이디 -->
-                        <input type="text" id="boardWriter" name="boardWriter" th:value="${#authentication.name}" readonly>
+                    <td><label for="subject">제목:</label></td>
+                    <td><input type="text" id="subject" name="subject" placeholder="(No Title)"></td>
+                </tr>
+                <tr>
+                    <td><label for="buyerMemberNo">발신자 (From):</label></td>
+                    <td><input type="text" id="buyerMemberNo" name="buyerMemberNo" th:value="${#authentication.name}"
+                            readonly></td>
+                </tr>
+                <tr>
+                    <td><label for="sellerMemberNo">수신자 (To):</label></td>
+                    <td><input type="text" id="sellerMemberNo" name="sellerMemberNo" th:value="${sellerId}" readonly>
                     </td>
                 </tr>
                 <tr>
-                    <th>글제목</th>
+                    <td><label for="productNo">상품 고유번호:</label></td>
+                    <td><input type="text" id="productNo" name="productNo" th:value="${productNo}" readonly></td>
+                </tr>
+                <tr>
+                    <td><label for="offerSendDate">발송일:</label></td>
+                    <td><input type="datetime-local" id="offerSendDate" name="offerSendDate" required></td>
+                </tr>
+                <tr>
+                    <td><label for="offerExpireDate">만료일:</label></td>
+                    <td><input type="datetime-local" id="offerExpireDate" name="offerExpireDate" readonly></td>
+                </tr>
+                <tr>
+                    <td><label for="expirationOption">만료기간 선택:</label></td>
                     <td>
-                        <input type="text" id="boardTitle" name="boardTitle" required>
+                        <select id="expirationOption" name="expirationOption" required>
+                            <option value="" disabled selected>selected</option>
+                            <option value="1">1 Month</option>
+                            <option value="6">6 Months</option>
+                            <option value="12">12 Months</option>
+                            <option value="24">24 Months</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
-                    <th>글내용</th>
-                    <td>
-                        <textarea name="boardContent" id="boardContent" cols="30" rows="10" required></textarea>
-                    </td>
+                    <td><label for="orderQuantity">주문수량:</label></td>
+                    <td><input type="number" id="orderQuantity" name="orderQuantity" min="1" required></td>
                 </tr>
                 <tr>
-                    <th>첨부파일</th> <!-- 첨부파일 작성 시 수정-->
-                    <td>
-                        <input type="file" id="uploadFile" name="uploadFile" class="btn btn-light">
-                    </td>
+                    <td><label for="orderUnit">주문 수량 단위:</label></td>
+                    <td><select id="orderUnit" name="orderUnit" required>
+                            <option value="" disabled selected>Order unit</option>
+                            <option value="pieces">Pieces (PCS)</option>
+                            <option value="box">Box</option>
+                            <option value="carton">Carton</option>
+                            <option value="pallet">Pallet</option>
+                            <option value="bundle">Bundle</option>
+                            <option value="ton">Ton</option>
+                            <option value="kilogram">Kilogram (KG)</option>
+                            <option value="liter">Liter (L)</option>
+                            <option value="set">Set</option>
+                            <option value="dozen">Dozen</option>
+                        </select></td>
+                </tr>
+
+                <tr>
+                    <td><label for="orderUnitEtc">주문단위 기타:</label></td>
+                    <td><input type="text" id="orderUnitEtc" name="orderUnitEtc"
+                            placeholder="Please specify the order unit in text."></td>
                 </tr>
                 <tr>
-                    <th colspan="2">
-                        <input type="submit" value="글등록" class="btn btn-primary"> &nbsp;
-                        <input type="reset" value="초기화"  class="btn btn-danger">
-                    </th>
+                    <td><label for="contents">내용:</label></td>
+                    <td><textarea id="contents" name="contents" placeholder="(No Contents)" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="file">파일 첨부:</label></td>
+                    <td><input type="file" id="file" name="file"></td>
                 </tr>
             </table>
+            <div>
+                <button type="submit">인콰이어리 발송</button>
+                <button type="button" onclick="location.href='@{/inquiry/list}'">목록</button>
+                <button type="reset">초기화</button>
+            </div>
         </form>
     </div>
 </body>

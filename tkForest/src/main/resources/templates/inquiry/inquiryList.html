@@ -19,7 +19,7 @@
 		<div class="top">
             <!-- 전체 글개수 출력 -->
             <div class="count">
-                <p>게시글 개수: [[ ${list.totalElements } ]]</p>
+                <p>인콰이어리 개수: [[ ${list.totalElements } ]]</p>
             </div>
 
             <!-- 검색창 -->
@@ -54,11 +54,8 @@
 	                    <td>
 	                    	<a th:href="@{/inquiry/inquiryDetail(inquiryNo=${inquiry.inquiryNo}, searchItem=${searchItem}, searchWord=${searchWord})}" 
 	                           th:text="${inquiry.subject}"></a>
-	                       
-	                        <!--  댓글 개수 출력 -->
-	                        <th:block th:if="${inquiry.replyCount != 0}">
-	                        	<span style="font-weight:bold;color:darkred;">([[ ${inquiry.replyCount} ]])</span>
-	                        </th:block>
+	                           
+
 	                        
 	                        <!-- 첨부파일 유무 -->    
 	                        <span th:if="${inquiry.originalFileName != null}">
@@ -66,18 +63,22 @@
 	                        </span>   
 	                   	</td>
 	                   	
-	                    <td class="writer" th:text="${inquiry.buyerMemberNo}"></td>
-	                    <td class="create_date" th:text="${#temporals.format(inquiry.offerSendDate, 'yyyy-MM-dd HH:mm')}">
-	                        2024-08-26</td>
+	                    <td class="buyerMemberNo" th:text="${inquiry.buyerMemberNo}"></td>
+	                    <td class="offerSendDate" th:text="${#temporals.format(inquiry.offerSendDate, 'yyyy-MM-dd HH:mm')}"></td>
 	                </tr>
 	                </th:block>
+	                <!--  댓글 개수 출력 -->
+	                <th:block th:if="${inquiry.replyCount != 0}">
+	                     <span style="font-weight:bold;color:darkred;">([[ ${inquiry.replyCount} ]])</span>
+	                </th:block>	                
+	                
 	            </table>
 	        </div>
 	     </div> <!-- end .head-->
     </div><!-- end .content -->
     <!-- 글쓰기 버튼 : 로그인한 회원만 보임 -->
     <div class="write">
-        <a th:href="@{/inquiry/inquiryWrite}">글쓰기</a>
+        <a th:href="@{/inquiry/inquiryWrite}">인콰이어리 답변 작성</a>
     </div>
 
     <!-- Page Navigation -->
