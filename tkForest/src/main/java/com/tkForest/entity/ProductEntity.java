@@ -31,7 +31,7 @@ import lombok.ToString;
 @Builder
 
 @Entity
-@Table(name="product")
+@Table(name="PRODUCT")
 public class ProductEntity {
 
 	
