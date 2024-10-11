@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tkForest.dto.InquiryDTO;
+import com.tkForest.dto.LoginUserDetails;
 import com.tkForest.service.InquiryService;
 import com.tkForest.util.PageNavigator;
 
