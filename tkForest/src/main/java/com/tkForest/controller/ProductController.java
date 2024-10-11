@@ -43,5 +43,16 @@ public class ProductController {
 		return null;
 	}
 	
+	/**
+	 * 대분류 카테고리
+	 * @return
+	 */
+	@GetMapping("/productList")
+	public String productList() {
+	    return "product/productList";  
+	    
+	}
+	
+	
 
 }
