@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>간단한 페이지</title>
+</head>
+<body>
+    <!-- 헤더 불러오기 -->
+    <div th:replace="fragment/header :: header"></div>
+
+<h2>회원가입-바이어셀러 고르기</h2>
+
+            <li><a th:href="@{/user/sellerSignUp}">셀러 가입창</a></li>           
+            <li><a th:href="@{/user/buyerSignUp}">바이어 가입창</a></li>
+</body>
+</html>
