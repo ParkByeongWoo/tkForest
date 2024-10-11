@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>인콰이어리 작성화면</title>
+    <title>인콰이어리 작성 화면</title>
     <meta name="keywords"
         content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
     <meta name="description" content="Multipurpose eCommerce HTML Template">
@@ -1001,139 +1001,135 @@
                 <h2 class="ms-title">Send Inquiry</h2>
                 <p>You can send Max. 20 inquiries within 24 hours and you have already sent. [ 0 / 20 ] </p>
             </div>
-            <div class="row p-t-15">
-                <div class="col-md-6">
-                    <!-- form 태그에 action 및 method 속성 추가 -->
-                    <form th:action="@{/inquiry/inquiryWrite}" method="POST" enctype="multipart/form-data">
-                        <!-- flex 레이아웃을 위한 스타일 추가 -->
-                        <style>
-                            .form-group {
-                                display: flex;
-                                align-items: center;
-                                margin-bottom: 10px;
-                            }
 
-                            .form-group label {
-                                width: 150px;
-                                margin-right: 10px;
-                                text-align: right;
-                            }
+            <!-- form 태그에 action 및 method 속성 추가 -->
+            <form th:action="@{/inquiry/inquiryWrite}" method="POST" enctype="multipart/form-data">
+                <!-- flex 레이아웃을 위한 스타일 추가 -->
+                <style>
+                    .form-group {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 10px;
+                    }
 
-                            .form-group input,
-                            .form-group select,
-                            .form-group textarea {
-                                flex: 1;
-                            }
-                        </style>
+                    .form-group label {
+                        width: 150px;
+                        margin-right: 10px;
+                        text-align: right;
+                    }
 
-                        <!-- 제목 입력 -->
-                        <div class="form-group">
-                            <label for="subject">제목</label>
-                            <input type="text" id="subject" name="subject" class="form-control" placeholder="subject"
-                                required>
-                        </div>
+                    .form-group input,
+                    .form-group select,
+                    .form-group textarea {
+                        flex: 1;
+                    }
+                </style>
 
-                        <!-- 발신자 (From) -->
-                        <div class="form-group">
-                            <label for="buyerMemberNo">발신자 (From)</label>
-                            <input type="text" id="buyerMemberNo" name="buyerMemberNo" class="form-control"
-                                th:value="${#authentication.name}" readonly>
-                        </div>
-
-                        <!-- 수신자 (To) -->
-                        <div class="form-group">
-                            <label for="sellerMemberNo">수신자 (To)</label>
-                            <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
-                                th:value="${sellerId}" readonly>
-                        </div>
-
-                        <!-- 상품 고유번호 -->
-                        <div class="form-group">
-                            <label for="productNo">상품 고유번호</label>
-                            <input type="text" id="productNo" name="productNo" class="form-control"
-                                th:value="${productNo}" readonly>
-                        </div>
-
-                        <!-- 발송일 -->
-                        <div class="form-group">
-                            <label for="offerSendDate">발송일</label>
-                            <input type="datetime-local" id="offerSendDate" name="offerSendDate" class="form-control"
-                                required>
-                        </div>
-
-                        <!-- 만료일 (readonly) -->
-                        <div class="form-group">
-                            <label for="offerExpireDate">만료일</label>
-                            <input type="datetime-local" id="offerExpireDate" name="offerExpireDate"
-                                class="form-control" readonly>
-                        </div>
-
-                        <!-- 만료 기간 선택 -->
-                        <div class="form-group">
-                            <label for="expirationOption">만료기간 선택</label>
-                            <select id="expirationOption" name="expirationOption" class="form-control" required>
-                                <option value="" disabled selected>Selected</option>
-                                <option value="1">1 Month</option>
-                                <option value="6">6 Months</option>
-                                <option value="12">12 Months</option>
-                                <option value="24">24 Months</option>
-                            </select>
-
-                        </div>
-
-                        <!-- 주문 수량 -->
-                        <div class="form-group">
-                            <label for="orderQuantity">주문 수량</label>
-                            <input type="number" id="orderQuantity" name="orderQuantity" class="form-control" min="1"
-                                required>
-                        </div>
-
-                        <!-- 주문 수량 단위 -->
-                        <div class="form-group">
-                            <label for="orderUnit">주문 수량 단위</label>
-                            <select id="orderUnit" name="orderUnit" class="form-control" required>
-                                <option value="" disabled selected>Order unit</option>
-                                <option value="pieces">Pieces (PCS)</option>
-                                <option value="box">Box</option>
-                                <option value="carton">Carton</option>
-                                <option value="pallet">Pallet</option>
-                                <option value="bundle">Bundle</option>
-                                <option value="ton">Ton</option>
-                                <option value="kilogram">Kilogram (KG)</option>
-                                <option value="liter">Liter (L)</option>
-                                <option value="set">Set</option>
-                                <option value="dozen">Dozen</option>
-                            </select>
-                        </div>
-
-                        <!-- 주문 단위 기타 입력 -->
-                        <div class="form-group">
-                            <label for="orderUnitEtc">주문단위 기타</label>
-                            <input type="text" id="orderUnitEtc" name="orderUnitEtc" class="form-control"
-                                placeholder="Please specify the order unit in text.">
-                        </div>
-
-                        <!-- 내용 -->
-                        <div class="form-group">
-                            <label for="contents">내용</label>
-                            <textarea id="contents" name="contents" class="form-control" rows="3" placeholder="Contents"
-                                required></textarea>
-                        </div>
-
-                        <!-- 파일 첨부 -->
-                        <div class="form-group">
-                            <label for="file">파일 첨부</label>
-                            <input type="file" id="uploadFile" name="uploadFile" class="form-control">
-                        </div>
-                    </form>
+                <!-- 제목 입력 -->
+                <div class="form-group">
+                    <label for="subject">제목</label>
+                    <input type="text" id="subject" name="subject" class="form-control" placeholder="subject" required>
                 </div>
-                <!-- 전송 버튼 -->
-                <button type="submit" class="ms-btn-2">Submit</button>
-                <button type="button" class="ms-btn-2" onclick="location.href='@{/inquiry/list}'">List</button>
-                <button type="reset" class="ms-btn-2">Reset</button>
 
-                </form>
-            </div>
+                <!-- 발신자 (From) -->
+                <div class="form-group">
+                    <label for="buyerMemberNo">발신자 (From)</label>
+                    <input type="text" id="buyerMemberNo" name="buyerMemberNo" class="form-control"
+                        th:value="${#authentication.name}" readonly>
+                </div>
+
+                <!-- 수신자 (To) -->
+                <div class="form-group">
+                    <label for="sellerMemberNo">수신자 (To)</label>
+                    <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
+                        th:value="${sellerId}" readonly>
+                </div>
+
+                <!-- 상품 고유번호 -->
+                <div class="form-group">
+                    <label for="productNo">상품 고유번호</label>
+                    <input type="text" id="productNo" name="productNo" class="form-control" th:value="${productNo}"
+                        readonly>
+                </div>
+
+                <!-- 발송일 -->
+                <div class="form-group">
+                    <label for="offerSendDate">발송일</label>
+                    <input type="datetime-local" id="offerSendDate" name="offerSendDate" class="form-control" required>
+                </div>
+
+                <!-- 만료일 (readonly) -->
+                <div class="form-group">
+                    <label for="offerExpireDate">만료일</label>
+                    <input type="datetime-local" id="offerExpireDate" name="offerExpireDate" class="form-control"
+                        readonly>
+                </div>
+
+                <!-- 만료 기간 선택 -->
+                <div class="form-group">
+                    <label for="expirationOption">만료기간 선택</label>
+                    <select id="expirationOption" name="expirationOption" class="form-control" required>
+                        <option value="" disabled selected>Selected</option>
+                        <option value="1">1 Month</option>
+                        <option value="6">6 Months</option>
+                        <option value="12">12 Months</option>
+                        <option value="24">24 Months</option>
+                    </select>
+
+                </div>
+
+                <!-- 주문 수량 -->
+                <div class="form-group">
+                    <label for="orderQuantity">주문 수량</label>
+                    <input type="number" id="orderQuantity" name="orderQuantity" class="form-control" min="1" required>
+                </div>
+
+                <!-- 주문 수량 단위 -->
+                <div class="form-group">
+                    <label for="orderUnit">주문 수량 단위</label>
+                    <select id="orderUnit" name="orderUnit" class="form-control" required>
+                        <option value="" disabled selected>Order unit</option>
+                        <option value="pieces">Pieces (PCS)</option>
+                        <option value="box">Box</option>
+                        <option value="carton">Carton</option>
+                        <option value="pallet">Pallet</option>
+                        <option value="bundle">Bundle</option>
+                        <option value="ton">Ton</option>
+                        <option value="kilogram">Kilogram (KG)</option>
+                        <option value="liter">Liter (L)</option>
+                        <option value="set">Set</option>
+                        <option value="dozen">Dozen</option>
+                    </select>
+                </div>
+
+                <!-- 주문 단위 기타 입력 -->
+                <div class="form-group">
+                    <label for="orderUnitEtc">주문단위 기타</label>
+                    <input type="text" id="orderUnitEtc" name="orderUnitEtc" class="form-control"
+                        placeholder="Please specify the order unit in text.">
+                </div>
+
+                <!-- 내용 -->
+                <div class="form-group">
+                    <label for="contents">내용</label>
+                    <textarea id="contents" name="contents" class="form-control" rows="3" placeholder="Contents"
+                        required></textarea>
+                </div>
+
+                <!-- 파일 첨부 -->
+                <div class="form-group">
+                    <label for="file">파일 첨부</label>
+                    <input type="file" id="uploadFile" name="uploadFile" class="form-control">
+                </div>
+            </form>
+        </div>
+        <!-- 전송 버튼 -->
+        <button type="submit" class="ms-btn-2">Submit</button>
+        <button type="button" class="ms-btn-2" onclick="location.href='@{/inquiryList}'">List</button>
+        <button type="reset" class="ms-btn-2">Reset</button>
+
+        </form>
+
 
         </div>
         <div class="row p-t-60 ms-contact-detail m-tb-minus-12">

@@ -9,7 +9,7 @@ $(function() {
 
 // 모든 댓글 목록(게시글의 모든 댓글)을 읽어옴 
 function init() {
-	let inquiuryNo = $("#inquiryNo").val();   // '${board.boardNum}'
+	let inquiuryNo = $("#inquiryNo").val();  
 	
 	$.ajax({
 		url: '/reply/replyAll'
@@ -20,7 +20,7 @@ function init() {
 }
 
 // 댓글 목록 출력
-function output(resp) {  // let resp = [{}, {}];
+function output(resp) {  
 	if(resp.length == 0) return;
 	let tag = `
 	<table>
@@ -72,7 +72,7 @@ function deleteReply() {
 // 댓글 쓰기
 function replyWrite() {
 	let replyWriter = $('#loginId').val();    				// 로그인한 사람의 이름
-	let replyContents = $('#replyText').val();  // 댓글을 입력하지 않고 전송버튼을 누를 경우 처리 
+	let replyContents = $('#replyContents').val();  // 댓글을 입력하지 않고 전송버튼을 누를 경우 처리 
 	let inquiryNo = $("#inquiryNo").val();
 	
 	let sendData = {
