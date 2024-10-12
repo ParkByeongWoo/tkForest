@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;A
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tkForest.dto.InquiryDTO;
-import com.tkForest.dto.LoginUserDetails;
+import com.tkForest.dto.LoginBuyerDetails;
+import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.service.InquiryService;
 import com.tkForest.util.PageNavigator;
 
@@ -36,225 +37,197 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class InquiryController {
 
-	final InquiryService inquiryService;
-	
-	// 한 페이지의 게시글 수
-	@Value("${user.inquiry.pageLimit}")
-	private int pageLimit;	
+    final InquiryService inquiryService;
 
-	@Value("${spring.servlet.multipart.location}")
-	private String uploadPath;	
-	
-	/**
-	 * 게시글 목록 조회를 위해 DB에 요청처리
-	 * 1) index에서 넘어올 경우에는 searchItem/searchWord가 없는 상태이므로 기본값 세팅
-	 * 2) list에서 직접 입력해서 넘어올 경우 searchItem/searchWord가 있으므로 그 값을 사용
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/inquiryList")
-	public String inquiryList(
-			@AuthenticationPrincipal LoginUserDetails loginUser
-			, @PageableDefault(page=1) Pageable pageable
-			, @RequestParam(name="searchItem", defaultValue="subject") String searchItem
-			, @RequestParam(name="searchWord", defaultValue="") String searchWord
-			, Model model) {
+    // 한 페이지의 게시글 수
+    @Value("${user.inquiry.pageLimit}")
+    private int pageLimit;
 
-		// 검색기능 + 페이징
-		Page<InquiryDTO> list = inquiryService.selectAll(pageable, searchItem, searchWord); 
+    @Value("${spring.servlet.multipart.location}")
+    private String uploadPath;
 
+    /**
+     * 게시글 목록 조회를 위해 DB에 요청처리
+     * @param model
+     * @return
+     */
+    @GetMapping("/inquiryList")
+    public String inquiryList(
+            @AuthenticationPrincipal UserDetails loginUser,
+            @PageableDefault(page=1) Pageable pageable,
+            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
+            @RequestParam(name="searchWord", defaultValue="") String searchWord,
+            Model model) {
 
-		int totalPages = list.getTotalPages();	// DB에서 받아온 정보에서 추출
-		int page = pageable.getPageNumber();	// 사용자가 요청한 정보에서 추출
+        // 인증되지 않은 사용자는 접근 불가
+        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
+            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
+        }
 
-		PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
+        // 검색기능 + 페이징
+        Page<InquiryDTO> list = inquiryService.selectAll(pageable, searchItem, searchWord);
 
+        int totalPages = list.getTotalPages();
+        int page = pageable.getPageNumber();
 
-		model.addAttribute("list", list);
-		model.addAttribute("searchItem", searchItem);
-		model.addAttribute("searchWord", searchWord);
-		model.addAttribute("navi", navi);
+        PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
 
-		// 인증을 받은 사용자
-		if(loginUser != null) {
-			model.addAttribute("loginName",loginUser.getUserName());
-		}
-		return "inquiry/inquiryList";
-	}
+        model.addAttribute("list", list);
+        model.addAttribute("searchItem", searchItem);
+        model.addAttribute("searchWord", searchWord);
+        model.addAttribute("navi", navi);
 
+        if (loginUser instanceof LoginSellerDetails) {
+            LoginSellerDetails sellerDetails = (LoginSellerDetails) loginUser;
+            model.addAttribute("loginName", sellerDetails.getUsername());
+        } else if (loginUser instanceof LoginBuyerDetails) {
+            LoginBuyerDetails buyerDetails = (LoginBuyerDetails) loginUser;
+            model.addAttribute("loginName", buyerDetails.getUsername());
+        }
 
-	/**
-	 * 인콰 작성 화면 요청
-	 * @return
-	 */
-	@GetMapping("/inquiryWrite")
-	public String buyerMemberNo(
-			@AuthenticationPrincipal LoginUserDetails loginUser
-			, Model model
-			) {
-		
-		// 인증을 받은 사용자
-		if(loginUser != null) {
-			model.addAttribute("loginName",loginUser.getUserName());
-		}
-		return "inquiry/inquiryWrite";
-	}
+        return "inquiry/inquiryList";
+    }
 
-//	// 셀러와 상품 정보를 연결하는 코드 (상품 기능 구현 후 수정하기) & 인콰write에서 수신자 th:value 같이 수정하기
-//	/**
-//	 * 인콰이어리 작성 화면 요청
-//	 * @param productNo 상품 고유 번호
-//	 * @param loginUser 현재 로그인한 사용자 정보
-//	 * @param model 모델 객체
-//	 * @return 인콰이어리 작성 화면
-//	 */
-//	@GetMapping("/inquiryWrite/{productNo}")
-//	public String inquiryWrite(
-//	        @PathVariable Integer productNo, 
-//	        @AuthenticationPrincipal LoginUserDetails loginUser, 
-//	        Model model) {
-//
-//	    // 인증된 사용자 정보 추가
-//	    if (loginUser != null) {
-//	        model.addAttribute("loginName", loginUser.getUserName()); // 로그인한 사용자 이름
-//	        model.addAttribute("buyerId", loginUser.getUserName()); // 바이어 ID
-//	    }
-//
-//	    // 상품 정보 조회
-//	    ProductEntity product = productRepository.findById(productNo)
-//	            .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-//	    
-//	    // 셀러 ID를 모델에 추가
-//	    String sellerId = product.getSellerMemberNo(); // 상품의 셀러 ID
-//	    model.addAttribute("sellerId", sellerId); // 셀러 ID 추가
-//	    model.addAttribute("productNo", productNo); // 상품 고유 번호 추가
-//	    model.addAttribute("subject", "No Title"); // 제목 기본값 추가
-//
-//	    return "inquiry/inquiryWrite";
-//	}
+    /**
+     * 인콰 작성 화면 요청
+     * @return
+     */
+    @GetMapping("/inquiryWrite")
+    public String buyerMemberNo(
+            @AuthenticationPrincipal UserDetails loginUser,
+            Model model) {
 
-	
-	/**
-	 * DB에 글을 등록 처리하는 요청
-	 * 첨부 파일도 포함
-	 * @return
-	 */
-	@PostMapping("/inquiryWrite")
-	public String buyerMemberNo(@ModelAttribute InquiryDTO inquiryDTO) {
-		log.info("클라이언트에서 전송된 데이터 : {}", inquiryDTO.toString());
+        // 인증되지 않은 사용자는 접근 불가
+        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
+            return "redirect:/user/login";
+        }
 
-		inquiryService.insertInquiry(inquiryDTO);
+        // 인증된 사용자 이름 추가
+        if (loginUser instanceof LoginSellerDetails) {
+            model.addAttribute("loginName", ((LoginSellerDetails) loginUser).getUsername());
+        } else if (loginUser instanceof LoginBuyerDetails) {
+            model.addAttribute("loginName", ((LoginBuyerDetails) loginUser).getUsername());
+        }
 
-		return "redirect:/inquiry/inquiryList";
-	}
+        return "inquiry/inquiryWrite";
+    }
 
-	/**
-	 * 글 자세히 보기
-	 * 검색 후의 정보를 전달받도록 함 
-	 * @param inquiryNo
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/inquiryDetail")
-	public String InquiryDetail(
-			@AuthenticationPrincipal LoginUserDetails loginUser
-			, @RequestParam(name="inquiryNo") Integer inquiryNo
-			, @RequestParam(name="searchItem", defaultValue="subject") String searchItem
-			, @RequestParam(name="searchWord", defaultValue="") String searchWord
-			, Model model) {
+    /**
+     * DB에 글을 등록 처리하는 요청
+     * 첨부 파일도 포함
+     * @return
+     */
+    @PostMapping("/inquiryWrite")
+    public String buyerMemberNo(@AuthenticationPrincipal UserDetails loginUser,
+                                   @ModelAttribute InquiryDTO inquiryDTO) {
 
-		InquiryDTO inquiry = inquiryService.selectOne(inquiryNo);
-		System.out.println(inquiryNo);
+        // 인증되지 않은 사용자는 접근 불가
+        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
+            return "redirect:/user/login";
+        }
 
-		if(inquiry == null) {
-			return "redirect:/inquiry/inquiryList"; 
-		}
+        log.info("클라이언트에서 전송된 데이터 : {}", inquiryDTO.toString());
 
-		model.addAttribute("inquiry", inquiry);
-		// 검색 기능이 추가되면 계속 달고 다녀야 함
-		model.addAttribute("searchItem", searchItem);
-		model.addAttribute("searchWord", searchWord);
+        inquiryService.insertInquiry(inquiryDTO);
 
-		// 로그인이 된 사용자의 경우 로그인 아이디를 가져감
-		if(loginUser != null) {
-			model.addAttribute("loginName", loginUser.getUserName());  // 실명
-		}
+        return "redirect:/inquiry/inquiryList";
+    }
 
-		return "inquiry/inquiryDetail"; 
-	}
+    /**
+     * 글 자세히 보기
+     * @param inquiryNo
+     * @param model
+     * @return
+     */
+    @GetMapping("/inquiryDetail")
+    public String inquiryDetail(
+            @AuthenticationPrincipal UserDetails loginUser,
+            @RequestParam(name="inquiryNo") Integer inquiryNo,
+            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
+            @RequestParam(name="searchWord", defaultValue="") String searchWord,
+            Model model) {
 
-	/**
-	 * 전달받은 글번호(inquiryNo)을 받아 service로 전달
-	 * @param inquiryNo
-	 * @return
-	 */
-	@GetMapping("/inquiryDelete")
-	public String inquiryDelete(
-			@RequestParam(name="inquiryNo") Integer inquiryNo
-			, @RequestParam(name="searchItem", defaultValue="subject") String searchItem
-			, @RequestParam(name="searchWord", defaultValue="") String searchWord
-			, RedirectAttributes rttr
-			) {
+        // 인증되지 않은 사용자는 접근 불가
+        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
+            return "redirect:/user/login";
+        }
 
-		inquiryService.deleteOne(inquiryNo);
+        InquiryDTO inquiry = inquiryService.selectOne(inquiryNo);
 
-		rttr.addAttribute("searchItem", searchItem);
-		rttr.addAttribute("searchWord", searchWord);
+        if (inquiry == null) {
+            return "redirect:/inquiry/inquiryList";
+        }
 
-		return "redirect:/inquiry/inquiryList";
-	}
+        model.addAttribute("inquiry", inquiry);
+        model.addAttribute("searchItem", searchItem);
+        model.addAttribute("searchWord", searchWord);
 
-	
-	/**
-	 * 전달받은 게시글 번호에 파일을 다운로드
-	 * @return
-	 */
-	@GetMapping("/download")
-	public String download(
-			@RequestParam(name="inquiryNo") Integer inquiryNo
-			, HttpServletResponse response
-			) {
+        // 로그인 사용자 이름 추가
+        if (loginUser != null) {
+            model.addAttribute("loginName", loginUser.getUsername());
+        }
 
-		InquiryDTO inquiryDTO = inquiryService.selectOne(inquiryNo);
+        return "inquiry/inquiryDetail";
+    }
 
-		String originalFileName= inquiryDTO.getOriginalFileName(); 
-		String savedFileName= inquiryDTO.getSavedFileName(); 
+    /**
+     * 글 삭제 처리
+     * @param inquiryNo
+     * @return
+     */
+    @GetMapping("/inquiryDelete")
+    public String inquiryDelete(
+            @RequestParam(name="inquiryNo") Integer inquiryNo,
+            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
+            @RequestParam(name="searchWord", defaultValue="") String searchWord,
+            RedirectAttributes rttr) {
 
-		log.info("원본 파일명 : {}", originalFileName);
-		log.info("저장 파일명 : {}", savedFileName);
-		log.info("저장 디렉토리 : {}", uploadPath);
+        inquiryService.deleteOne(inquiryNo);
 
-		try {
-			String tempName = URLEncoder.encode(
-					originalFileName, 
-					StandardCharsets.UTF_8.toString());
+        rttr.addAttribute("searchItem", searchItem);
+        rttr.addAttribute("searchWord", searchWord);
 
-			response.setHeader("Content-Disposition", "attachment;filename="+tempName);
+        return "redirect:/inquiry/inquiryList";
+    }
 
-		} catch (UnsupportedEncodingException e) {
+    /**
+     * 파일 다운로드
+     * @param inquiryNo
+     * @param response
+     * @return
+     */
+    @GetMapping("/download")
+    public String download(
+            @RequestParam(name="inquiryNo") Integer inquiryNo,
+            HttpServletResponse response) {
 
-			e.printStackTrace();
-		}
+        InquiryDTO inquiryDTO = inquiryService.selectOne(inquiryNo);
 
-		String fullPath = uploadPath + "/" + savedFileName;
+        String originalFileName = inquiryDTO.getOriginalFileName();
+        String savedFileName = inquiryDTO.getSavedFileName();
 
-		FileInputStream filein = null;
-		ServletOutputStream fileout = null;
+        log.info("원본 파일명 : {}", originalFileName);
+        log.info("저장 파일명 : {}", savedFileName);
+        log.info("저장 디렉토리 : {}", uploadPath);
 
-		try {
-			filein = new FileInputStream(fullPath);
-			fileout = response.getOutputStream();
+        try {
+            String tempName = URLEncoder.encode(originalFileName, StandardCharsets.UTF_8.toString());
+            response.setHeader("Content-Disposition", "attachment;filename=" + tempName);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-			FileCopyUtils.copy(filein, fileout);
+        String fullPath = uploadPath + "/" + savedFileName;
 
-			fileout.close();
-			filein.close();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+        try (FileInputStream filein = new FileInputStream(fullPath);
+             ServletOutputStream fileout = response.getOutputStream()) {
 
-		return null;
-	}
-	
-	
+            FileCopyUtils.copy(filein, fileout);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
+
