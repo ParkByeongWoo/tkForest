@@ -59,7 +59,7 @@ public class InquiryEntity {
 	private LocalDateTime offerSendDate;
 	
 	@Column(name="OFFEREXPIREDATE")
-	/* 만료일자 정해야 됨 */
+	/* 만료일자 expiredate.js*/
 	private LocalDateTime offerExpireDate;
 	
 	@Column(name="ORDERQUANTITY")

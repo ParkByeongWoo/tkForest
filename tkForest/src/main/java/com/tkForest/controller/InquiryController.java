@@ -7,9 +7,10 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;A
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -89,28 +90,27 @@ public class InquiryController {
     }
 
     /**
-     * 인콰 작성 화면 요청
+     * 인콰 작성 화면 요청 (바이어만 접근 가능)
      * @return
      */
     @GetMapping("/inquiryWrite")
-    public String buyerMemberNo(
+    public String inquiryWrite(
             @AuthenticationPrincipal UserDetails loginUser,
             Model model) {
 
         // 인증되지 않은 사용자는 접근 불가
-        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-            return "redirect:/user/login";
+        if (!(loginUser instanceof LoginBuyerDetails)) {
+            return "redirect:/user/login";  // 바이어가 아니면 로그인 페이지로 리다이렉트
         }
 
-        // 인증된 사용자 이름 추가
-        if (loginUser instanceof LoginSellerDetails) {
-            model.addAttribute("loginName", ((LoginSellerDetails) loginUser).getUsername());
-        } else if (loginUser instanceof LoginBuyerDetails) {
+        // 인증된 바이어의 이름 추가
+        if (loginUser instanceof LoginBuyerDetails) {
             model.addAttribute("loginName", ((LoginBuyerDetails) loginUser).getUsername());
         }
 
         return "inquiry/inquiryWrite";
     }
+
 
     /**
      * DB에 글을 등록 처리하는 요청
@@ -118,7 +118,7 @@ public class InquiryController {
      * @return
      */
     @PostMapping("/inquiryWrite")
-    public String buyerMemberNo(@AuthenticationPrincipal UserDetails loginUser,
+    public String inquiryWrite(@AuthenticationPrincipal UserDetails loginUser,
                                    @ModelAttribute InquiryDTO inquiryDTO) {
 
         // 인증되지 않은 사용자는 접근 불가

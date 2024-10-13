@@ -9,7 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.tkForest.handler.LoginFailureHandler;
 import com.tkForest.handler.LoginSuccessHandler;
-import com.tkForest.service.LoginUserDetailService;
+import com.tkForest.service.LoginUserDetailsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 	
-	private final LoginUserDetailService loginUserDetailService;
+	private final LoginUserDetailsService loginUserDetailService;
 	
 	private final LoginFailureHandler failureHandler;	// 로그인 실패시 처리할 객체 - 필터같은 역할을 함
 	private final LoginSuccessHandler successHandler;	// 로그인 성공시 처리할 객체
@@ -32,13 +32,9 @@ public class SecurityConfig {
 					// 로그인 안해도 모든 사람이 접근 가능한 목록
 					.requestMatchers(
 							"/"
-							, "/board/boardList"
-							, "/board/boardDetail"
 							, "/user/join"
 							, "/user/login"			// 에러 발생시 경로
 							, "/user/confirmId"
-							, "/reply/replyAll"
-							, "/predict"
 //							, "/images/**"
 //							, "/css/**"
 //							, "/script/**"

@@ -21,30 +21,23 @@ public class LoginBuyerDetails implements UserDetails {
 	private String password;
 	private Boolean buyerStatus;
 	
-	// 생성자
+	// 생성자 
 	public LoginBuyerDetails(BuyerDTO buyerDTO) {
 		this.buyerMemberNo = buyerDTO.getBuyerMemberNo();
 		this.id = buyerDTO.getId();
 		this.password = buyerDTO.getPassword();
 	}
 	
-	// 사용자의 Role의 정보 반환
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {	// 관리자
-		Collection<GrantedAuthority> collection = new ArrayList<>();	// granted된 사용자인지 반환	// Collection은 list 아부지
-		
-		collection.add(new GrantedAuthority() {
-			
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public String getAuthority() {
-				return null;	// 수정해야함
-			}
-		});
-		
-		return collection;
-	}
+	// 사용자의 Role의 정보 반환 (ROLE_SELLER)
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> collection = new ArrayList<>();
+        
+        // 셀러 권한 부여
+        collection.add(new SimpleGrantedAuthority("ROLE_BUYER"));
+        
+        return collection;
+    }
 
 	@Override
 	public String getPassword() {	// Security에서 비밀번호 확인을 위해 비밀번호 달라는 것
