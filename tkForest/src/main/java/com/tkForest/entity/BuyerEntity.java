@@ -80,7 +80,7 @@ public class BuyerEntity {
                 .companyName(buyerDTO.getCompanyName())
                 .bizPhoneNumber(buyerDTO.getBizPhoneNumber())
                 .companyDescription(buyerDTO.getCompanyDescription())
-                .picName(buyerDTO.getName())
+                .picName(buyerDTO.getPicName())
                 .phoneNumber(buyerDTO.getPhoneNumber())
                 .id(buyerDTO.getId())
                 .password(buyerDTO.getPassword())
