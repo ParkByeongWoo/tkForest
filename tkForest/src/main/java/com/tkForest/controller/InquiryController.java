@@ -97,18 +97,20 @@ public class InquiryController {
      */
     @GetMapping("/inquiryWrite")
     public String inquiryWrite(
-            @AuthenticationPrincipal UserDetails loginUser,
-            Model model) {
-
-        // 인증되지 않은 사용자는 접근 불가
-        if (!(loginUser instanceof LoginBuyerDetails)) {
-            return "redirect:/user/login";  // 바이어가 아니면 로그인 페이지로 리다이렉트
-        }
-
-        // 인증된 바이어의 이름 추가
-        if (loginUser instanceof LoginBuyerDetails) {
-            model.addAttribute("loginName", ((LoginBuyerDetails) loginUser).getUsername());
-        }
+//  		  우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리    		
+//            @AuthenticationPrincipal UserDetails loginUser,
+//            Model model
+    		) {
+//
+//        // 인증되지 않은 사용자는 접근 불가
+//        if (!(loginUser instanceof LoginBuyerDetails)) {
+//            return "redirect:/user/login";  // 바이어가 아니면 로그인 페이지로 리다이렉트
+//        }
+//
+//        // 인증된 바이어의 이름 추가
+//        if (loginUser instanceof LoginBuyerDetails) {
+//            model.addAttribute("loginName", ((LoginBuyerDetails) loginUser).getUsername());
+//        }
 
         return "inquiry/inquiryWrite";
     }
@@ -119,21 +121,21 @@ public class InquiryController {
      * 첨부 파일도 포함
      * @return
      */
-    @PostMapping("/inquiryWrite")
-    public String inquiryWrite(@AuthenticationPrincipal UserDetails loginUser,
-                                   @ModelAttribute InquiryDTO inquiryDTO) {
-
-        // 인증되지 않은 사용자는 접근 불가
-        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-            return "redirect:/user/login";
-        }
-
-        log.info("클라이언트에서 전송된 데이터 : {}", inquiryDTO.toString());
-
-        inquiryService.insertInquiry(inquiryDTO);
-
-        return "redirect:/inquiry/inquiryList";
-    }
+//    @PostMapping("/inquiryWrite")
+//    public String inquiryWrite(@AuthenticationPrincipal UserDetails loginUser,
+//                                   @ModelAttribute InquiryDTO inquiryDTO) {
+//
+//        // 인증되지 않은 사용자는 접근 불가
+//        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
+//            return "redirect:/user/login";
+//        }
+//
+//        log.info("클라이언트에서 전송된 데이터 : {}", inquiryDTO.toString());
+//
+//        inquiryService.insertInquiry(inquiryDTO);
+//
+//        return "redirect:/inquiry/inquiryList";
+//    }
 
     /**
      * 글 자세히 보기
