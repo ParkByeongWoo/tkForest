@@ -22,79 +22,90 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
 	final UserService userService;
+   
+   /**
+    * 회원가입 전 바이어/셀러 구분 화면을 요청
+    * @param model
+    * @return
+    */
+   @GetMapping("/signUp")
+   public String signUp() {
 
-    /**
-     * 회원가입 전 바이어/셀러 구분 화면을 요청
-     * @return
-     */
-    @GetMapping("/signUp")
-    public String signUp() {
-    	
-        return "user/signUp";
-    }
-
-    /**
-     * 회원가입(셀러) 화면 요청
-     * @return
-     */
-    @GetMapping("/sellerSignUp")
-    public String sellerSignUp() {
-        return "user/sellerSignUp";
-    }
-
-    /**
-     * 회원가입(셀러) 처리
-     * 전달받은 sellerDTO를 sellerEntity로 변경한 후에 DB에 저장
-     * @param sellerDTO
+      return "user/signUp";
+   }
+   
+   /**
+    * 회원가입(셀러) 화면 요청
+    * @return
+    */
+   @GetMapping("/sellerSignUp")
+   public String sellerSignUp() {
+      
+      return "user/sellerSignUp";
+   }
+    
+  	/**
+    * 회원가입(셀러) 처리
+    * 전달받은 sellerDTO를 sellerEntity로 변경한 후에 DB에 저장
+    * @param sellerDTO
 	 * @return boolean
-     */
-    @PostMapping("/sellerSignUp")
-    public String sellerSignUp(
-    		@ModelAttribute SellerDTO sellerDTO
-    		) {
-    	 log.info("SellerDTO: {}", sellerDTO.toString());
-    	
-    	// UserService를 통해 셀러 회원가입 처리 로직 호출
-    	boolean result = userService.sellerSignUp(sellerDTO);
-    	log.info("셀러 회원가입 성공여부: {}", result);
+    */
+   @PostMapping("/sellerSignUp")
+   public String sellerSignUp(
+   		@ModelAttribute SellerDTO sellerDTO
+   		) {
+   	 log.info("SellerDTO: {}", sellerDTO.toString());
+   	
+   	// UserService를 통해 셀러 회원가입 처리 로직 호출
+   	boolean result = userService.sellerSignUp(sellerDTO);
+   	log.info("셀러 회원가입 성공여부: {}", result);
 
-    	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
-    }
+   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
+   }
 
-    /**
-     * 회원가입(바이어) 화면 요청
-     * @return
-     */
-    @GetMapping("/buyerSignUp")
-    public String buyerSignUp() {
-        return "user/buyerSignUp";
-    }
+   /**
+    * 회원가입(바이어) 화면 요청
+    * @return
+    */
+   @GetMapping("/buyerSignUp")
+   public String buyerSignUp() {
+       return "user/buyerSignUp";
+   }
 
-    /**
-     * 회원가입(바이어) 처리
-     * 전달받은 buyerDTO를 buyerEntity로 변경한 후에 DB에 저장
-     * @param buyerDTO
+   /**
+    * 회원가입(바이어) 처리
+    * 전달받은 buyerDTO를 buyerEntity로 변경한 후에 DB에 저장
+    * @param buyerDTO
 	 * @return boolean
-     */
-    @PostMapping("/buyerSignUp")
-    public String buyerSignUp(
-    		@ModelAttribute BuyerDTO buyerDTO
-    		) {
-    	 log.info("BuyerDTO: {}", buyerDTO.toString());
-    	
-    	// UserService를 통해 셀러 회원가입 처리 로직 호출
-    	boolean result = userService.buyerSignUp(buyerDTO);
-    	log.info("바이어 회원가입 성공여부: {}", result);
+    */
+   @PostMapping("/buyerSignUp")
+   public String buyerSignUp(
+   		@ModelAttribute BuyerDTO buyerDTO
+   		) {
+   	 log.info("BuyerDTO: {}", buyerDTO.toString());
+   	
+   	// UserService를 통해 셀러 회원가입 처리 로직 호출
+   	boolean result = userService.buyerSignUp(buyerDTO);
+   	log.info("바이어 회원가입 성공여부: {}", result);
 
-    	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
-    }
+   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
+   }
+   
+   /**
+    * 로그인(공통) 화면 요청
+    * @return
+    */
+   @GetMapping("/login")
+   public String login() {
+      
+      return "user/login";
+   }
 
-    /**
-     * 로그인(공통) 화면 요청
-     * @return
-     */
-    @GetMapping("/login")
-    public String login() {
-        return "user/login";
-    }
+   @GetMapping("/buyerMypage")
+   public String buyerMypage() {
+        
+	  return "user/buyerMypage"; 
+   }
+
 }
+

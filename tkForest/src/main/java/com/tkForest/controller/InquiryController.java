@@ -54,37 +54,39 @@ public class InquiryController {
      */
     @GetMapping("/inquiryList")
     public String inquiryList(
-            @AuthenticationPrincipal UserDetails loginUser,
-            @PageableDefault(page=1) Pageable pageable,
-            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
-            @RequestParam(name="searchWord", defaultValue="") String searchWord,
-            Model model) {
+//    		  우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리
+//            @AuthenticationPrincipal UserDetails loginUser,
+//            @PageableDefault(page=1) Pageable pageable,
+//            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
+//            @RequestParam(name="searchWord", defaultValue="") String searchWord,
+//            Model model
+            ) {
 
-        // 인증되지 않은 사용자는 접근 불가
-        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
-        }
-
-        // 검색기능 + 페이징
-        Page<InquiryDTO> list = inquiryService.selectAll(pageable, searchItem, searchWord);
-
-        int totalPages = list.getTotalPages();
-        int page = pageable.getPageNumber();
-
-        PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
-
-        model.addAttribute("list", list);
-        model.addAttribute("searchItem", searchItem);
-        model.addAttribute("searchWord", searchWord);
-        model.addAttribute("navi", navi);
-
-        if (loginUser instanceof LoginSellerDetails) {
-            LoginSellerDetails sellerDetails = (LoginSellerDetails) loginUser;
-            model.addAttribute("loginName", sellerDetails.getUsername());
-        } else if (loginUser instanceof LoginBuyerDetails) {
-            LoginBuyerDetails buyerDetails = (LoginBuyerDetails) loginUser;
-            model.addAttribute("loginName", buyerDetails.getUsername());
-        }
+//        // 인증되지 않은 사용자는 접근 불가
+//        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
+//            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
+//        }
+//
+//        // 검색기능 + 페이징
+//        Page<InquiryDTO> list = inquiryService.selectAll(pageable, searchItem, searchWord);
+//
+//        int totalPages = list.getTotalPages();
+//        int page = pageable.getPageNumber();
+//
+//        PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
+//
+//        model.addAttribute("list", list);
+//        model.addAttribute("searchItem", searchItem);
+//        model.addAttribute("searchWord", searchWord);
+//        model.addAttribute("navi", navi);
+//
+//        if (loginUser instanceof LoginSellerDetails) {
+//            LoginSellerDetails sellerDetails = (LoginSellerDetails) loginUser;
+//            model.addAttribute("loginName", sellerDetails.getUsername());
+//        } else if (loginUser instanceof LoginBuyerDetails) {
+//            LoginBuyerDetails buyerDetails = (LoginBuyerDetails) loginUser;
+//            model.addAttribute("loginName", buyerDetails.getUsername());
+//        }
 
         return "inquiry/inquiryList";
     }

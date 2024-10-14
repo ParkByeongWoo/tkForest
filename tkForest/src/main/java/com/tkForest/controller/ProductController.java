@@ -1,7 +1,10 @@
 package com.tkForest.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.tkForest.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,10 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
-//
-//// 컨트롤러	
-//	
-//	final ProductService productService;
+
+// 컨트롤러	
+	
+	final ProductService productService;
 //	
 //	/**
 //	 * 상품 등록 화면을 요청
@@ -38,15 +41,27 @@ public class ProductController {
 //		return null;
 //	}
 //	
-//	/**
-//	 * 대분류 카테고리
-//	 * @return
-//	 */
-//	@GetMapping("/productList")
-//	public String productList() {
-//	    return "product/productList";  
-//	    
-//	}
+	/**
+	 * 대분류 카테고리
+	 * @return
+	 */
+	@GetMapping("/productList")
+	public String productList() {
+		
+	    return "product/productList";  
+	    
+	}
+	
+	/**
+	 * 상품 등록 화면
+	 * @return
+	 */
+	@GetMapping("/productCreate")
+	public String productCreate() {
+		
+	    return "product/productCreate";  
+	    
+	}
 	
 	
 

@@ -37,10 +37,25 @@ public class SecurityConfig {
 							, "/user/sellerSignUp"
 							, "/user/buyerSignUp"
 //							, "/user/confirmId"
+		                    , "/user/signUp"        // join에서 변경
+		                    , "/user/sellerSignUp"  // 셀러가입창
+		                    , "/user/buyerSignUp"   // 바이어가입창
+		                    , "/user/login"			// 에러 발생시 경로
+		                    , "/user/logout"         // 로그아웃
+		                    , "/user/confirmId"
+		                    , "/aboutUs"            // 어바웃 어스 경로
+		                    , "/user/buyerMypage"
+		                    , "/user/sellerMypage"
+		                    , "/product/productList" // 대분류 카테고리
+		                    , "/rec/recList"         // 추천 페이지
+		                    , "/inquiry/inquiryList" // 인콰이어리 페이지
+		                    , "/product/productCreate" // 상품 등록 화면
+		                    , "/product/productList" 
+		                    , "/assets/**"           // 정적 자원 경로
 //							, "/images/**"
 //							, "/css/**"
 //							, "/script/**"
-							, "/assets/**"
+							
 							).permitAll()	// permitAll() 인증절차 없이도 접근가능한 요청 정보		
 					.requestMatchers("/admin/**").hasRole("ADMIN")
 					.requestMatchers("/my/**").hasAnyRole("ADMIN", "SELLER", "BUYER")

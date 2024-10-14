@@ -40,7 +40,8 @@ public class InquiryDTO {
 
 	// 생성자 ==> 페이징을 처리를 위해 BoardService.java에서 Page형태로 받은 데이터 중
 	// 목록에 출력할 멤버만 간추리기 위해 만든 생성자
-	public InquiryDTO(Integer inquiryNo
+	public InquiryDTO(
+			Integer inquiryNo
 	        , Integer productNo
 	        , String buyerMemberNo
 	        , String sellerMemberNo
