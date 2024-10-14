@@ -51,8 +51,8 @@ public class BuyerEntity {
     @Column(name = "COMPANYDESCRIPTION")
     private String companyDescription;
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+    @Column(name = "PICNAME", nullable = false)
+    private String picName;
 
     @Column(name = "PHONENUMBER")
     private String phoneNumber;
@@ -80,7 +80,7 @@ public class BuyerEntity {
                 .companyName(buyerDTO.getCompanyName())
                 .bizPhoneNumber(buyerDTO.getBizPhoneNumber())
                 .companyDescription(buyerDTO.getCompanyDescription())
-                .name(buyerDTO.getName())
+                .picName(buyerDTO.getName())
                 .phoneNumber(buyerDTO.getPhoneNumber())
                 .id(buyerDTO.getId())
                 .password(buyerDTO.getPassword())
