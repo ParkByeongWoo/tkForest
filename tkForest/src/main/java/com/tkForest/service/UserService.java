@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserService {
 
+
     final SellerRepository sellerRepository;
     final BuyerRepository buyerRepository;
     final BCryptPasswordEncoder bCryptPasswordEncoder;
