@@ -82,14 +82,14 @@ public class ProductEntity {
 				.productNo(productDTO.getProductNo())
 				.categoryNo(productDTO.getCategoryNo())
 				.sellerMemberNo(productDTO.getSellerMemberNo())
-				.registrationDate(productDTO.getRegistrationDate())	// 등록일은 자동생성
-				.productName(productDTO.getProductName())
-				.brand(productDTO.getBrand())
-				.productImagePath1(productDTO.getProductImagePath1())
-				.productImagePath2(productDTO.getProductImagePath2())
-				.productDescription(productDTO.getProductDescription())
-				.keyword(productDTO.getKeyword())
-				.viewCnt(productDTO.getViewCnt())
+//				.registrationDate(productDTO.getRegistrationDate())	// 등록일은 자동생성
+//				.productName(productDTO.getProductName())
+//				.brand(productDTO.getBrand())
+//				.productImagePath1(productDTO.getProductImagePath1())
+//				.productImagePath2(productDTO.getProductImagePath2())
+//				.productDescription(productDTO.getProductDescription())
+//				.keyword(productDTO.getKeyword())
+//				.viewCnt(productDTO.getViewCnt())
 				.build();
 	}
 	
