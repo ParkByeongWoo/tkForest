@@ -44,7 +44,7 @@ public class LoginUserDetailsService implements UserDetailsService {
             }
         }
 
-        // 3. ID가 없으면 예외 처리
+        // 3. ID가 없으면 예외 처리!!!!
         throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
     }
 }
