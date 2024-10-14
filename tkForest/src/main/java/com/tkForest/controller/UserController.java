@@ -69,5 +69,30 @@ public class UserController {
 		
 		return "user/login";
 	}
+
+    /**
+     * 바이어 마이페이지 화면 요청
+     * @return
+     */
+    @GetMapping("/buyerMypage")
+    public String buyerMypage() {
+        return "user/buyerMypage"; 
+    }
+
+    /**
+     * 셀러 마이페이지 화면 요청
+     * @return
+     */
+    @GetMapping("/sellerMypage")
+    public String sellerMypage() {
+        return "user/sellerMypage"; 
+    }
+
+	
+	
+	
+	
+	
+	
 	
 }
