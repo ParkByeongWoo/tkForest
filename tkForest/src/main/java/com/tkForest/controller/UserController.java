@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tkForest.service.ProductService;
+import com.tkForest.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 
-    final ProductService productService;
+    final UserService userService;
 
     /**
      * 회원가입 전 바이어/셀러 구분 화면을 요청
@@ -42,7 +43,7 @@ public class UserController {
     @PostMapping("/sellerSignUp")
     public String processSellerSignUp() {
         // ProductService를 통해 셀러 회원가입 처리 로직 호출
-        productService.processSellerSignUp();
+        userService.processSellerSignUp();
         log.info("Seller Sign Up Processed");
         return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
     }
@@ -62,7 +63,7 @@ public class UserController {
     @PostMapping("/buyerSignUp")
     public String processBuyerSignUp() {
         // ProductService를 통해 바이어 회원가입 처리 로직 호출
-        productService.processBuyerSignUp();
+        userService.processBuyerSignUp();
         log.info("Buyer Sign Up Processed");
         return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
     }

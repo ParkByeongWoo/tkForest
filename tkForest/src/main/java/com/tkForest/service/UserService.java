@@ -145,4 +145,14 @@ public class UserService {
 
         return false;
     }
+
+	public static void processSellerSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void processBuyerSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }
