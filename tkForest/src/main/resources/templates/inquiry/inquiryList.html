@@ -109,18 +109,20 @@
 
 <body>
 	<!-- Header Fragment Include -->
-	<div class="container" th:replace="fragment/header(title='인콰이어리 목록')">
+	<div class="container" th:replace="fragment/header(title='인콰이어리 리스트')">
 	</div>
 
 	<!-- 인콰이어리 전체 목록 출력 -->
 	<div class="content">
 		<div class="top">
 			<!-- 전체 글개수 출력 -->
-			<div class="count">
-				<p>인콰이어리 개수: [[ ${list.totalElements} ]]</p>
-				<span th:if="${list != null}" th:text="${list.totalElements}">0</span>
-
+			<div th:if="${list != null}">
+				<p>Total Elements: <span th:text="${list.totalElements}"></span></p>
+				<p th:each="inquiry : ${list.content}">
+					<span th:text="${inquiry.subject}"></span>
+				</p>
 			</div>
+
 
 			<!-- 검색창 -->
 			<div class="search">
