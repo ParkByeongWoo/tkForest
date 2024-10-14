@@ -34,11 +34,16 @@ public class BuyerEntity {
     private String buyerMemberNo;
     
     // 국가 코드 외래키 참조
+<<<<<<< HEAD
 
     // @ManyToOne
     // @JoinColumn(name = "NATIONCODE")
 //    @ManyToOne
 //    @JoinColumn(name = "NATIONCODE")
+=======
+//    @ManyToOne
+    @JoinColumn(name = "NATIONCODE")
+>>>>>>> 883be9ed8f38c691aca7810d943b582fc1d62759
     private String nationCode;
 
     @Column(name = "BUYER_MEMBER_JOINDATE", nullable = false)
@@ -54,8 +59,8 @@ public class BuyerEntity {
     @Column(name = "COMPANYDESCRIPTION")
     private String companyDescription;
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+    @Column(name = "PICNAME", nullable = false)
+    private String picName;
 
     @Column(name = "PHONENUMBER")
     private String phoneNumber;
@@ -83,7 +88,7 @@ public class BuyerEntity {
                 .companyName(buyerDTO.getCompanyName())
                 .bizPhoneNumber(buyerDTO.getBizPhoneNumber())
                 .companyDescription(buyerDTO.getCompanyDescription())
-                .name(buyerDTO.getName())
+                .picName(buyerDTO.getPicName())
                 .phoneNumber(buyerDTO.getPhoneNumber())
                 .id(buyerDTO.getId())
                 .password(buyerDTO.getPassword())
