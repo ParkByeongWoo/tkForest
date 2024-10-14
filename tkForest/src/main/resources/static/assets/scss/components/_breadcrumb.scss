@@ -1,0 +1,58 @@
+/*-------------------------------------------------
+  Breadcrumb Style CSS
+---------------------------------------------------*/
+.ms-breadcrumb {
+	padding: 30px 0;
+	background-color: $light-grey-bg;
+	border-bottom: 1px solid $border-color-grey;
+	.ms-breadcrumb-title {
+		text-decoration: none;
+		color: $title-color;
+		display: block;
+		font-size: 15px;
+		font-family: $font-family-text;
+		line-height: 22px;
+		font-weight: 600;
+		margin: 0 auto;
+		text-transform: capitalize;
+	}
+}
+.ms-breadcrumb-list {
+	text-align: right;
+	li {
+		display: inline-block;
+		font-size: 14px;
+		font-weight: 400;
+		letter-spacing: 0.02rem;
+		line-height: 1.2;
+		text-transform: capitalize;
+		a {
+			position: relative;
+			color: $title-color;
+		}
+	}
+	li.active {
+		color: $main-primary-color;
+	}
+	.ms-breadcrumb-item.active {
+		&::before {
+			color: $main-primary-color;
+		}
+	}
+}
+.ms-breadcrumb-item {
+	display: flex;
+	+ {
+		.ms-breadcrumb-item {
+			padding-left: 7px;
+			&::before {
+				display: inline-block;
+				padding-right: 7px;
+				color: $title-color;
+				content: "\f105";
+				font-family: $MsIcons;
+				font-size: 15px;
+			}
+		}
+	}
+}

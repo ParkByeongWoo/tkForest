@@ -1,0 +1,86 @@
+<!-- chatGPT통한 임시코드 -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추천 목록</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- 헤더 불러오기 -->
+    <div th:replace="fragment/header :: header"></div>
+    
+    <div class="container">
+        <h2>추천 목록</h2>
+
+        <!-- 탭 메뉴 -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="algorithm-tab" data-toggle="tab" href="#algorithm" role="tab" aria-controls="algorithm" aria-selected="true">알고리즘 추천</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="random-tab" data-toggle="tab" href="#random" role="tab" aria-controls="random" aria-selected="false">랜덤 추천</a>
+            </li>
+        </ul>
+
+        <!-- 탭 내용 -->
+        <div class="tab-content">
+            <!-- 알고리즘 추천 탭 내용 -->
+            <div class="tab-pane fade show active" id="algorithm" role="tabpanel" aria-labelledby="algorithm-tab">
+                <h3>알고리즘 추천</h3>
+                <div id="algorithm-content">
+                    <!-- AJAX로 데이터를 로드할 영역 -->
+                    <p>알고리즘을 통해 추천된 항목들이 여기에 표시됩니다.</p>
+                </div>
+            </div>
+
+            <!-- 랜덤 추천 탭 내용 -->
+            <div class="tab-pane fade" id="random" role="tabpanel" aria-labelledby="random-tab">
+                <h3>랜덤 추천</h3>
+                <div id="random-content">
+                    <!-- AJAX로 데이터를 로드할 영역 -->
+                    <p>무작위로 추천된 항목들이 여기에 표시됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // 알고리즘 추천 탭 클릭 시 AJAX로 데이터 로드
+            $('#algorithm-tab').on('click', function() {
+                $('#algorithm-content').html('<p>로딩 중...</p>'); // 로딩 메시지
+                $.ajax({
+                    url: '/board/recList/algorithm', // 서버에서 데이터를 가져올 URL
+                    method: 'GET',
+                    success: function(data) {
+                        $('#algorithm-content').html(data); // 받은 데이터를 탭에 표시
+                    },
+                    error: function() {
+                        $('#algorithm-content').html('<p>데이터를 가져오는 데 실패했습니다.</p>');
+                    }
+                });
+            });
+
+            // 랜덤 추천 탭 클릭 시 AJAX로 데이터 로드
+            $('#random-tab').on('click', function() {
+                $('#random-content').html('<p>로딩 중...</p>');
+                $.ajax({
+                    url: '/board/recList/random', // 서버에서 데이터를 가져올 URL
+                    method: 'GET',
+                    success: function(data) {
+                        $('#random-content').html(data);
+                    },
+                    error: function() {
+                        $('#random-content').html('<p>데이터를 가져오는 데 실패했습니다.</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
