@@ -16,22 +16,23 @@ import lombok.ToString;
 @ToString
 @Builder
 public class UserDTO {
-	private String userId;
-	private String userName;
-	private String userPwd;
-	private String email;
-	private String roles;
-	private Boolean enabled;
-	
-	// Entity를 전달받아 DTO 변환하는 메소드
-	public static UserDTO toDTO(UserEntity userEntity) {
-		return UserDTO.builder()
-				.userId(userEntity.getUserId())
-				.userName(userEntity.getUserName())
-				.userPwd(userEntity.getUserPwd())
-				.email(userEntity.getEmail())
-				.roles(userEntity.getRoles())
-				.enabled(userEntity.getEnabled())
-				.build();	
-	}
+private String userId;
+private String userName;
+private String userPwd;
+private String email;
+private String roles;
+private Boolean enabled;
+
+// Entity를 전달받아 DTO 변환하는 메소드
+public static UserDTO toDTO(UserEntity userEntity) {
+return UserDTO.builder()
+.userId(userEntity.getUserId())
+.userName(userEntity.getUserName())
+.userPwd(userEntity.getUserPwd())
+.email(userEntity.getEmail())
+.roles(userEntity.getRoles())
+.enabled(userEntity.getEnabled())
+.build();
 }
+}
+
