@@ -109,13 +109,13 @@ public class InquiryService {
 		// 목록에서 사용할 필요한 데이터만 간추림(생성자 만듦)
 		list = entityList.map(
 				(inquiry) -> new InquiryDTO(
-						inquiry.getProductNo(),
+						inquiry.getInquiryNo(),
 						inquiry.getProductNo(),
 						inquiry.getBuyerMemberNo(),
-						inquiry.getBuyerMemberNo(),
+						inquiry.getSellerMemberNo(),
 						inquiry.getSubject(),
 						inquiry.getContents(),
-						inquiry.getOfferExpireDate(),
+						inquiry.getOfferSendDate(),
 						inquiry.getOfferExpireDate(),
 						inquiry.getOrderQuantity(),
 						inquiry.getOrderUnitEtc(),
