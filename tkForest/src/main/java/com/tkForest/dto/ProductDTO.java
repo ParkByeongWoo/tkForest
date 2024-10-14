@@ -23,7 +23,6 @@ public class ProductDTO {
     private Long productNo;
     private int categoryNo;
     private int sellerMemberNo;
-
     private LocalDateTime registrationDate;  // 자동으로 생성되지만 필요함
     private String productName;
     private String brand;
