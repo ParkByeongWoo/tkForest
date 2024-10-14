@@ -32,9 +32,11 @@ public class SecurityConfig {
 					// 로그인 안해도 모든 사람이 접근 가능한 목록
 					.requestMatchers(
 							"/"
-							, "/user/join"
+							, "/user/signUp"
 							, "/user/login"			// 에러 발생시 경로
-							, "/user/confirmId"
+							, "/user/sellerSignUp"
+							, "/user/buyerSignUp"
+//							, "/user/confirmId"
 //							, "/images/**"
 //							, "/css/**"
 //							, "/script/**"

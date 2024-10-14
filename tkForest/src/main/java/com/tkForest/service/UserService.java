@@ -7,13 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SellerDTO;
-import com.tkForest.dto.UserDTO;
 import com.tkForest.entity.BuyerEntity;
 import com.tkForest.entity.SellerEntity;
-import com.tkForest.entity.UserEntity;
 import com.tkForest.repository.BuyerRepository;
 import com.tkForest.repository.SellerRepository;
-import com.tkForest.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,55 +26,57 @@ public class UserService {
 	final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
-     * 전달 받은 sellerDTO 또는 buyerDTO를 엔티티로 변경한 후 DB에 저장.
+     * 전달 받은 sellerDTO를 sellerEntity로 변경한 후 DB에 저장.
      * @param sellerDTO
-     * @param buyerDTO
+     * @return boolean
      */
-    public boolean join(SellerDTO sellerDTO, BuyerDTO buyerDTO) {
-        // 셀러인지 바이어인지 구분
-        if (sellerDTO != null) {
-            // 셀러의 ID가 이미 사용 중인지 확인
-            boolean isExistSeller = sellerRepository.existsById(sellerDTO.getId());
-            if (isExistSeller) return false; // 이미 사용 중인 아이디이므로 가입 실패
-
-            // 비밀번호 암호화
-            sellerDTO.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
-
-            // 엔티티로 변환 후 저장
-            SellerEntity sellerEntity = SellerEntity.toEntity(sellerDTO);
-            sellerRepository.save(sellerEntity);
-            return true;
+    public boolean sellerSignUp(SellerDTO sellerDTO) {
+        
+    	// 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
+        boolean isExistId = sellerRepository.existsById(sellerDTO.getId()) 
+                            || buyerRepository.existsById(sellerDTO.getId());  // 셀러 또는 바이어 테이블에 이미 존재하면 true
+        
+        if (isExistId) {
+            // 이미 존재하는 ID라면 회원가입 불가 처리
+            return false;
         }
 
-        if (buyerDTO != null) {
-            // 바이어의 ID가 이미 사용 중인지 확인
-            boolean isExistBuyer = buyerRepository.existsById(buyerDTO.getId());
-            if (isExistBuyer) return false; // 이미 사용 중인 아이디이므로 가입 실패
-
-            // 비밀번호 암호화
-            buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
-
-            // 엔티티로 변환 후 저장
-            BuyerEntity buyerEntity = BuyerEntity.toEntity(buyerDTO);
-            buyerRepository.save(buyerEntity);
-            return true;
-        }
-
-        return false;
+        // 비밀번호 암호화
+        // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
+        sellerDTO.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
+        
+        // 존재하지 않는 ID일 경우 회원가입 처리
+        SellerEntity sellerEntity = SellerEntity.toEntity(sellerDTO);
+        sellerRepository.save(sellerEntity);	// 가입 성공
+        return true;
+ 
     }
 
     /**
-     * sellerId 또는 buyerId에 해당하는 사용자 존재 여부 확인
-     * 회원가입 시 아이디 중복 확인 용
-     * @param id
-     * @return
+     * 전달 받은 buyerDTO를 buyerEntity로 변경한 후 DB에 저장.
+     * @param buyerDTO
+     * @return boolean
      */
-    public boolean existId(String id, boolean isSeller) {
-        if (isSeller) {
-            return sellerRepository.existsById(id); // sellerId가 존재하면 true
-        } else {
-            return buyerRepository.existsById(id);  // buyerId가 존재하면 true
+    public boolean buyerSignUp(BuyerDTO buyerDTO) {
+        
+    	// 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
+        boolean isExistId = sellerRepository.existsById(buyerDTO.getId()) 
+                            || buyerRepository.existsById(buyerDTO.getId());  // 셀러 또는 바이어 테이블에 이미 존재하면 true
+        
+        if (isExistId) {
+            // 이미 존재하는 ID라면 회원가입 불가 처리
+            return false;
         }
+
+        // 비밀번호 암호화
+        // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
+        buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
+        
+        // 존재하지 않는 ID일 경우 회원가입 처리
+        BuyerEntity buyerEntity = BuyerEntity.toEntity(buyerDTO);
+        buyerRepository.save(buyerEntity);	// 가입 성공
+        return true;
+ 
     }
 
     /**
