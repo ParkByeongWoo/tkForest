@@ -34,8 +34,11 @@ public class BuyerEntity {
     private String buyerMemberNo;
     
     // 국가 코드 외래키 참조
+
     // @ManyToOne
     // @JoinColumn(name = "NATIONCODE")
+//    @ManyToOne
+//    @JoinColumn(name = "NATIONCODE")
     private String nationCode;
 
     @Column(name = "BUYER_MEMBER_JOINDATE", nullable = false)

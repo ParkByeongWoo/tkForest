@@ -1,11 +1,10 @@
 package com.tkForest.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tkForest.service.ProductService;
+//import com.tkForest.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 
-	final ProductService productService;
+//	final ProductService productService;
 	
 	/**
 	 * 회원가입 전 바이어/셀러 구분 화면을 요청
@@ -26,7 +25,7 @@ public class UserController {
 	@GetMapping("/signUp")
 	public String signUp() {
 
-		return "user/accountType";
+		return "user/signUp";
 	}
 	
 	/**
@@ -42,9 +41,6 @@ public class UserController {
 	/**
 	 * 회원가입(셀러)
 	 */
-	
-	
-	
 	
 	
 	
