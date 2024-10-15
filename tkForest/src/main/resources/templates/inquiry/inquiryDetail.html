@@ -12,6 +12,9 @@
     <meta name="description" content="Multipurpose eCommerce HTML Template">
     <meta name="author" content="ashishmaraviya">
 
+    <!-- 댓글 css-->
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+
     <!-- site Favicon -->
     <link rel="icon" href="assets/img/favicon/favicon.png" sizes="32x32">
 
@@ -1134,8 +1137,8 @@
 
             <!-- 댓글 목록 처리 부분 -->
 
-            <!-- 댓글 입력란: 입력 reply-write상자와 버튼 (inqury_no, reply_text / date, writer)  -->
-            <div class="form-group">
+            <!-- 댓글 입력란: 입력 reply-write상자와 버튼 (inqury_no, reply_contents / date, writer)  -->
+            <div class="reply-write">
                 <input type="text" id="replyContents">
                 <input type="button" id="replyBtn" value="답변 입력">
             </div>
