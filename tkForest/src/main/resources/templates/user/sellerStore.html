@@ -144,11 +144,12 @@
             <!-- Product items will be dynamically added here -->
         </div>
 
-        <div class="buttons">
-            <button class="button">Send Inquiry</button>
-            <button class="button">Add to My Favorites</button>
-            <button class="button">View Website</button>
-        </div>
+		<div class="buttons">
+		    <button class="button" th:onclick="'window.location.href=\'' + @{/inquiry/inquiryWrite} + '\';'">Send Inquiry</button>
+		    <button class="button">Add to My Favorites</button>
+		    <button class="button">View Website</button>
+		</div>
+
     </div>
 
 </body>
