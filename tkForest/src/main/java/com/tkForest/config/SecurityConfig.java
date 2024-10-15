@@ -32,6 +32,7 @@ public class SecurityConfig {
 					// 로그인 안해도 모든 사람이 접근 가능한 목록
 					.requestMatchers(
 							"/"
+							, "/user/*"
 		                    , "/user/signUp"        // join에서 변경
 		                    , "/user/sellerSignUp"  // 셀러가입창
 		                    , "/user/buyerSignUp"   // 바이어가입창
@@ -44,6 +45,7 @@ public class SecurityConfig {
 		                    , "/product/productList" // 대분류 카테고리
 		                    , "/rec/recList"         // 추천 페이지
 		                    , "/inquiry/inquiryList" // 인콰이어리 페이지
+		                    , "/inquiry/inquiryWrite"
 		                    , "/product/productCreate" // 상품 등록 화면
 		                    , "/product/productList" 
 		                    , "/assets/**"           // 정적 자원 경로
