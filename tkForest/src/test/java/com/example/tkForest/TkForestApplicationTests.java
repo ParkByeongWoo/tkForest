@@ -1,64 +1,54 @@
 package com.example.tkForest;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.tkForest.entity.InquiryEntity;
-import com.tkForest.repository.InquiryRepository;
-import com.tkForest.repository.ReplyRepository;
-import com.tkForest.service.InquiryService;
-import com.tkForest.service.UserService;
+import com.tkForest.TkForestApplication;
+import com.tkForest.entity.SellerEntity;
+import com.tkForest.repository.SellerRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@SpringBootTest
+@SpringBootTest(classes = TkForestApplication.class)
 @Slf4j
 class TkForestApplicationTests {
 
-	@Autowired 
-	private UserService userservice;
-	
-	@Test
-	void contextLoads() {
-	}
+    @Autowired
+    private SellerRepository sellerRepository;
 
-	void test_yeah () {
-		Object dto = userservice.existId("1", true);
-		log.info("회원: {}",dto.toString());
-	}
+    @Test
+    public void testSellerFetch() {
+        // 테스트에 필요한 셀러 NO
+        String sellerMemberNo = "S250134";
+
+        // 테스트 전용 데이터를 DB에 삽입하거나, 실제 데이터가 존재하는지 확인
+        SellerEntity seller = sellerRepository.findById(sellerMemberNo)
+            .orElseThrow(() -> new RuntimeException("Seller with ID " + sellerMemberNo + " not found"));
+
+        // 셀러가 null이 아닌지 검증
+        assertNotNull(seller);
+
+        // 로그를 통해 결과 출력
+        log.info("Fetched Seller: {}", seller);
+    }
+}
+
 	
-	@Autowired
-	private ReplyRepository repository;	
-	
-//	// 게시글 여러 개를 삽입하는 테스트 코드
+//	@Autowired 
+//	private UserService userservice;
 //	@Test
-//	void testInsertBoard() {
-//		String[] w = {"이몽룡", "성춘향", "김방자", "전우치", "콩쥐", "팥쥐"};
-//		String[] c = {"나리나리 개나리 입에따다 물고요", 
-//				"송아지 송아지 얼룩 송아지 엄마소도 얼룩소", 
-//				"파란하늘 파란하늘 꿈이 드리운 푸른 언덕에..." ,
-//				"학교 종이 땡땡땡 어서모이자", 
-//				"동해물과 백두산이 마르고 닳도록 하느님이 보우하사", 
-//				"이 기상과 이 맘으로 충성을 다하여", 
-//				"가을 하늘 공활한데 높고 구름 없이", 
-//				"오늘은 목요일, 내일은 금요일이군요", 
-//				"날씨가 매우 좋네요.", 
-//				"아무 말이나 해 봅시다"};
-//		for(int i=0; i<10; ++i) {
-//			int index = (int)(Math.random() * w.length);
-//			String writer = w[index];
-//			
-//			index = (int)(Math.random() * c.length);
-//			String contents = c[index];
-//			String subject = "제목: " + contents;
-//			
-//			InquiryEntity entity = new InquiryEntity();
-//			entity.setInquiryWrite(buyerMemberNo);
-//			entity.setInquiryNo(subject);
-//			entity.setInquiryContent(contents);
-//			
-//			repository.save(entity);
-//		}
-	}
-//}
+//	void contextLoads() {
+//	}
+//
+//	void test_yeah () {
+//		Object dto = userservice.existId("1", true);
+//		log.info("회원: {}",dto.toString());
+//	}
+//	
+//	@Autowired
+//	private ReplyRepository repository;	
+	
+

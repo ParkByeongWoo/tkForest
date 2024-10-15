@@ -41,6 +41,7 @@ public class SecurityConfig {
 		                    , "/aboutUs"            // 어바웃 어스 경로
 		                    , "/user/buyerMypage"
 		                    , "/user/sellerMypage"
+		                    , "/user/sellerStore" // 셀러스토어 
 		                    , "/product/productList" // 대분류 카테고리
 		                    , "/rec/recList"         // 추천 페이지
 		                    , "/inquiry/inquiryList" // 인콰이어리 페이지
