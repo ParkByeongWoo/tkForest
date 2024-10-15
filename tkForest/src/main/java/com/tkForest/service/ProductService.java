@@ -76,18 +76,18 @@ public class ProductService {
 		Page<ProductEntity> entityList = null;
 
 		switch(searchItem) {
-		case "subject"   :
-			entityList = productRepository.findBySubjectContains(
+		case "brand"   :
+			entityList = productRepository.findByBrandContains(
 					searchWord, 
 					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
 			break;
-		case "productNo"  :
-			entityList = productRepository.findBybuyerMemberNoContains(
+		case "productName"  :
+			entityList = productRepository.findByProductNoContains(
 					searchWord, 
 					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
 			break;
-		case "contents" :
-			entityList = productRepository.findBycontentsContains(
+		case "productDescription" :
+			entityList = productRepository.findByProductDescriptionContains(
 					searchWord, 
 					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
 			break;

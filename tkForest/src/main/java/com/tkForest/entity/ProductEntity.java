@@ -2,6 +2,7 @@ package com.tkForest.entity;
 
 import java.time.LocalDateTime;
 
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -10,13 +11,10 @@ import com.tkForest.dto.ProductDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,19 +33,13 @@ import lombok.ToString;
 @Entity
 @Table(name="PRODUCT")
 @EntityListeners(AuditingEntityListener.class)
-
 public class ProductEntity {
 
    
    // Entity
    @Id
    @GeneratedValue(strategy=GenerationType.IDENTITY)
-   @Column(name="PRODUCTNO")
-   private int productNo;
-   
-   // product : category의 관계 => 1 : 多
-   // categoryNo : Join컬럼
-   // @ManyToMany(fetch=FetchType.LAZY)   // One:상품(나), Many:카테고리
+   private Integer productNo;
    
    @Column(name="SELLER_MEMBERNO")
    private String sellerMemberNo;
@@ -75,8 +67,9 @@ public class ProductEntity {
    private String keyword;
    
    @Column(name="VIEWCNT")
-   private int viewCnt;
+   private Integer viewCnt;
 
+   
    // DTO -> Entity
    public static ProductEntity toEntity(ProductDTO productDTO) {
       return ProductEntity.builder()

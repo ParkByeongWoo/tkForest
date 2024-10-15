@@ -20,7 +20,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class ProductDTO {
-   private int productNo;
+   private Integer productNo;
    private String sellerMemberNo;
    private LocalDateTime registrationDate;
    private String productName;
@@ -29,11 +29,11 @@ public class ProductDTO {
    private String productImagePath2;
    private String productDescription;
    private String keyword;
-   private int viewCnt;
+   private Integer viewCnt;
    
    private MultipartFile uploadFile;
 
-   public ProductDTO(int productNo
+   public ProductDTO(Integer productNo
 		   , String sellerMemeberNo
 		   , LocalDateTime registrationDate
 		   , String productName
@@ -41,7 +41,7 @@ public class ProductDTO {
 		   , String productImagePath1
 		   , String productDescription
 		   , String keyword
-		   , int viewCnt) {
+		   , Integer viewCnt) {
 	   this.productNo = productNo;
 	   this.sellerMemberNo = sellerMemeberNo;
 	   this.registrationDate = registrationDate;

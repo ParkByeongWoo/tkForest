@@ -8,10 +8,10 @@ import com.tkForest.entity.ProductEntity;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer>{
 
-	Page<ProductEntity> findBySubjectContains(String searchWord, PageRequest of);
+	Page<ProductEntity> findByBrandContains(String searchWord, PageRequest of);
 
-	Page<ProductEntity> findBybuyerMemberNoContains(String searchWord, PageRequest of);
+	Page<ProductEntity> findByProductNoContains(String searchWord, PageRequest of);
 
-	Page<ProductEntity> findBycontentsContains(String searchWord, PageRequest of);
+	Page<ProductEntity> findByProductDescriptionContains(String searchWord, PageRequest of);
 
 }
