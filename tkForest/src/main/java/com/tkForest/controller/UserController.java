@@ -10,8 +10,6 @@ import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.service.UserService;
 
-//import com.tkForest.service.ProductService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -123,6 +121,5 @@ public class UserController {
    }
 
    
-
 }
 
