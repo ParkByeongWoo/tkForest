@@ -68,8 +68,8 @@ public class SecurityConfig {
 					.loginPage("/user/login")
 					.failureHandler(failureHandler) 	// 로그인 실패시 처리할 핸들러 등록
 					.successHandler(successHandler) 	// 로그인 성공시 처리할 핸들러 등록
-					.usernameParameter("userId")
-					.passwordParameter("userPwd")
+					.usernameParameter("id")
+					.passwordParameter("password")
 					.loginProcessingUrl("/user/loginProc").permitAll()
 					// .defaultSuccessUrl("/").permitAll()		// 로그인 성공하면	// successHandler가 등록돼서 필요없어짐;
 					);

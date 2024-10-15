@@ -92,7 +92,7 @@ public class UserController {
    }
    
    /**
-    * 로그인(공통) 화면 요청
+    * 로그인(공통) 화면 요청(security 하면 중복되는 내용)
     * @return
     */
    @GetMapping("/login")
@@ -101,11 +101,7 @@ public class UserController {
       return "user/login";
    }
 
-   @GetMapping("/buyerMypage")
-   public String buyerMypage() {
-        
-	  return "user/buyerMypage"; 
-   }
+   
 
 }
 
