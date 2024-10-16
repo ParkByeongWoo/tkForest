@@ -1,0 +1,309 @@
+<!-- 셀러 데이터 없을 때 index에서 랜딩만 하기 위한 코드 -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            margin-right: 20px;
+        }
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .country {
+            display: flex;
+            align-items: center;
+        }
+        .country img {
+            width: 20px;
+            margin-right: 5px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .info-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+        .markets {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .market-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+        .products {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .product {
+            width: 22%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo" id="company-logo"></div>
+            <!-- seller가 null일 때 대비 -->
+            <div th:if="${seller != null}">
+                <div class="company-name" th:text="${seller.companyName != null ? seller.companyName : 'No Company Name'}">No Company Name</div>
+            </div>
+            <div th:if="${seller == null}">
+                <div class="company-name">No Seller Data</div>
+            </div>
+
+            <div class="country">
+                <span id="country-name"></span>
+            </div>
+        </div>
+
+        <table class="info-table">
+            <tr>
+                <td>President</td>
+                <td th:text="${seller != null && seller.ownerName != null ? seller.ownerName : '정보 없음'}">정보 없음</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td th:text="${seller != null && seller.address != null ? seller.address : '정보 없음'}">정보 없음</td>
+            </tr>
+            <tr>
+                <td>Company Contact Number</td>
+                <td th:text="${seller != null && seller.bizPhoneNumber != null ? seller.bizPhoneNumber : '정보 없음'}">정보 없음</td>
+            </tr>
+            <tr>
+                <td>Product Category</td>
+                <td id="productCategory">정보 없음</td>
+            </tr>
+            <tr>
+                <td>Seller Keyword</td>
+                <td th:text="${seller != null && seller.sellerKeyword != null ? seller.sellerKeyword : '정보 없음'}">정보 없음</td>
+            </tr>
+            <tr>
+                <td>Company Introduction</td>
+                <td th:text="${seller != null && seller.companyDescription != null ? seller.companyDescription : '정보 없음'}">정보 없음</td>
+            </tr>
+        </table>
+
+        <!-- 상품 리스트는 나중에 처리 -->
+        <div class="products" id="product-list">
+            <!-- Product items will be dynamically added here -->
+        </div>
+
+		<div class="buttons">
+		    <button class="button" th:onclick="'window.location.href=\'' + @{/inquiry/inquiryWrite} + '\';'">Send Inquiry</button>
+		    <button class="button">Add to My Favorites</button>
+		    <button class="button">View Website</button>
+		</div>
+
+    </div>
+
+</body>
+</html>
+
+
+<!--  원본 코드 (앞 기능 완성하면 사용하기) -->
+<!--  
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            margin-right: 20px;
+        }
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .country {
+            display: flex;
+            align-items: center;
+        }
+        .country img {
+            width: 20px;
+            margin-right: 5px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .info-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+        .markets {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .market-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+        .products {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .product {
+            width: 22%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo" id="company-logo"></div>
+            <div>
+                <div class="company-name" th:text="${seller.companyName}"></div>
+                <div class="country">
+                    <span id="country-name"></span>
+                </div>
+            </div>
+        </div>
+
+        <table class="info-table">
+        	
+            <tr>
+                <td>President</td>
+                <td th:text="${seller.ownerName}"></td>             
+            </tr>
+            <tr>
+                <td>address</td>
+                <td th:text="${seller.address}"></td>
+            </tr>
+            <tr>
+                <td>Company Contact Number</td>
+                <td th:text="${seller.bizPhoneNumber}"></td>
+            </tr>         
+            <tr>
+                <td>Product Category</td> 
+                <td id="productCategory"></td>
+            </tr>
+            <tr>
+                <td>Seller Keyword</td>
+                <td th:text="${seller.sellerKeyword}"></td>
+            </tr>           
+            <tr>
+                <td>Company Introduction</td>
+                <td th:text="${seller.companyDescription}"></td>
+            </tr>
+        </table>
+        <div class="products" id="product-list">
+
+        </div>
+
+        <div class="buttons">
+            <button class="button">Send Inquiry</button>
+            <button class="button">Add to My Favorites</button>
+            <button class="button">View Website</button>
+        </div>
+    </div>
+
+</body>
+</html>
+-->
