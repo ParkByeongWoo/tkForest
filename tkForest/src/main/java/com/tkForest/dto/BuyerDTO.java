@@ -25,7 +25,7 @@ public class BuyerDTO {
     private String companyDescription;
     private String picName; 
     private String phoneNumber;
-    private String id;
+    private String buyerId;
     private String password;
     private String email;
     private String concernKeyword;
@@ -42,7 +42,7 @@ public class BuyerDTO {
                 .companyDescription(buyerEntity.getCompanyDescription())
                 .picName(buyerEntity.getPicName()) 
                 .phoneNumber(buyerEntity.getPhoneNumber())
-                .id(buyerEntity.getId())
+                .buyerId(buyerEntity.getBuyerId())
                 .password(buyerEntity.getPassword())
                 .email(buyerEntity.getEmail())
                 .concernKeyword(buyerEntity.getConcernKeyword())

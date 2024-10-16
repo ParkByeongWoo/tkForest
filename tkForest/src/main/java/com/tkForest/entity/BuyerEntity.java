@@ -59,7 +59,7 @@ public class BuyerEntity {
     private String phoneNumber;
 
     @Column(name = "ID", nullable = false, unique = true)
-    private String id;
+    private String buyerId;
 
     @Column(name = "PWD", nullable = false)
     private String password;
@@ -85,7 +85,7 @@ public class BuyerEntity {
                 .companyDescription(buyerDTO.getCompanyDescription())
                 .picName(buyerDTO.getPicName())
                 .phoneNumber(buyerDTO.getPhoneNumber())
-                .id(buyerDTO.getId())
+                .buyerId(buyerDTO.getBuyerId())
                 .password(buyerDTO.getPassword())
                 .email(buyerDTO.getEmail())
                 .concernKeyword(buyerDTO.getConcernKeyword())

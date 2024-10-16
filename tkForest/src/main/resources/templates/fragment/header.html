@@ -2,12 +2,12 @@
 <html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <body>
-    <div class="container" th:fragment="header(title)">
+    <div class="container" th:fragment="header">
         <div class="logo">
             <a th:href="@{/}">
                 <img th:src="@{/images/logo.png}" alt="logo">
             </a>
-            <h2 th:text="${title}"></h2>
+
         </div>
 
         <!-- 로그인 정보 -->
