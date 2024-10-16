@@ -29,6 +29,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests((auth) -> auth
 					.requestMatchers(
 							"/"
+							, "/user/userAccountType"
 							, "/board/boardList"
 							, "/board/boardDetail"
 							, "/user/join"

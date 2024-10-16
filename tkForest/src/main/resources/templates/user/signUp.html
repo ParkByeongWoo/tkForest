@@ -1,80 +1,129 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>가입할 유형 선택창 Masterkart - Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    <!-- CSS 설정 -->
-    <link rel="stylesheet" th:href="@{/css/user.css}">
-    <script src="https://kit.fontawesome.com/def97ee41b.js" crossorigin="anonymous"></script>
+        header {
+            background-color: #f8f8f8;
+            padding: 10px 0;
+        }
 
-	<!-- 검증 설정 -->
-	<script th:src="@{/script/jquery-3.7.1.min.js}"></script>
-	<script defer th:src="@{/script/signUp.js}"></script>
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+
+        nav {
+            float: right;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #4a4a4a;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        main {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .register-options {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .option {
+            margin: 0 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- 헤더 불러오기 -->
-    <div th:replace="fragment/header :: header"></div>
-	<h2>signUp입니다</h2>
-    <div class="container">
-        <div class="logo">
-            <a th:href="@{/}">
-                <img th:src="@{/images/logo.png}" alt="logo">
-            </a>
-            <h2>회원 가입</h2>
+    <header>
+        <div class="container">
+            <span class="logo">Masterkart</span>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Categories</a>
+                <a href="#">Sign In</a>
+                <a href="#" class="btn">SIGN UP</a>
+            </nav>
         </div>
-    </div> <!-- end .container -->
+    </header>
 
-    <div class="content">
-    
-            <li><a th:href="@{/user/sellerSignUp}">회원가입(셀러) 화면</a></li>           
-            <li><a th:href="@{/user/buyerSignUp}">회원가입(바이어) 화면</a></li>
+    <main>
+        <h1>Register</h1>
+        <p>Choose your account type</p>
+        <div class="register-options">
+            <div class="option">
+                <h2>BUYER</h2>
+                <p>I purchase products from Korea</p>
+                <a th:href="@{/user/sellerSignUp}" class="btn">Register(셀러 가입창)</a>
 
-<!-- 
-        <form th:action="@{/user/signUp}" method="POST" id="signUpForm">
-            <div class="section pointColor">
-                <div class="article">
-                    <ul>
-                        <li>
-                            <i class="fa-solid fa-fingerprint"></i>
-                            <input type="text" name="userId" id="userId" placeholder="ID 입력">
-                            <div id="confirmId" style="font-size:0.8em;"></div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-lock"></i>
-                            <input type="password" name="userPwd" id="userPwd" placeholder="Password 입력">
-                        	<div id="confirmPwd" style="font-size:0.8em;"></div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-key"></i>
-                            <input type="password" id="userPwdCheck" placeholder="Password 확인">
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-user"></i>
-                            <input type="text" name="userName" id="userName" placeholder="이름 입력" required>
-                            <div id="userNameCheck" style="font-size:0.8em;"></div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope"></i>
-                            <input type="email" name="email" id="email" placeholder="email 입력" required>
-                            <div id="emailCheck" style="font-size:0.8em;"></div>
-                        </li>
-                    </ul>
+            </div>
+            <div class="option">
+                <h2>SELLER</h2>
+                <p>I offer products from Korea for sale</p>
+                <a th:href="@{/user/buyerSignUp}" class="btn">Register(바이어 가입창)</a>
+            </div>
+        </div>
+    </main>
 
-                    <div class="btns">
-                        <input type="button" id="submitBtn" value="회원가입" class="btn btn-primary">
-                        <input type="reset" id="resetBtn" value="초기화" class="btn btn-light">
-                    </div>
-
-                </div> <!-- end .article-->
-            </div> <!-- end .section.pointColor-->
-
-        </form> 
--->
-    </div>
+    <footer>
+        <div class="container">
+            <div>
+                <h3>COMPANY</h3>
+                <p>About Us</p>
+                <p>Terms of Service</p>
+                <p>Privacy Policy</p>
+            </div>
+            <div>
+                <h3>ACCOUNT</h3>
+                <p>Sign In</p>
+                <p>Sign Up</p>
+                <p>Forgot Password</p>
+            </div>
+            <div>
+                <h3>CONTACT</h3>
+                <p>Phone: +82-2-6949-2879</p>
+                <p>Email: help@masterkart.co</p>
+                <p>[Social Media Icons]</p>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

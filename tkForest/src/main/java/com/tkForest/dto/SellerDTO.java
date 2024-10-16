@@ -18,11 +18,11 @@ import lombok.ToString;
 @ToString
 @Builder
 public class SellerDTO {
-    private String sellerMemberNo;
+   private String sellerMemberNo;
     private LocalDateTime sellerMemberJoinDate;
     private String companyName;
     private String address;
-    private String bizRegNo;
+    private String bizregNo;
     private String ownerName;
     private String bizPhoneNumber;
     private String companyDescription;
@@ -41,7 +41,7 @@ public class SellerDTO {
                 .sellerMemberJoinDate(sellerEntity.getSellerMemberJoinDate())
                 .companyName(sellerEntity.getCompanyName())
                 .address(sellerEntity.getAddress())
-                .bizRegNo(sellerEntity.getBizRegNo())
+                .bizregNo(sellerEntity.getBizregNo())
                 .ownerName(sellerEntity.getOwnerName())
                 .bizPhoneNumber(sellerEntity.getBizPhoneNumber())
                 .companyDescription(sellerEntity.getCompanyDescription())

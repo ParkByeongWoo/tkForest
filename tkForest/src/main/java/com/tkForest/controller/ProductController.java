@@ -52,17 +52,6 @@ public class ProductController {
 	    
 	}
 	
-	/**
-	 * 상품 등록 화면
-	 * @return
-	 */
-	@GetMapping("/productCreate")
-	public String productCreate() {
-		
-	    return "product/productCreate";  
-	    
-	}
-	
 	
 
 }
