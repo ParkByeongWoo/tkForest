@@ -45,10 +45,11 @@ public class UserService {
          // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
          sellerDTO.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
         
-       // sellerDTO.setSellerMemberNo("S2");
-       
-        sellerDTO.setSellerMemberNo(generateUniqueSellerMemberNo());
-       
+    	// sellerDTO.setSellerMemberNo("S2");
+    	
+    	 sellerDTO.setSellerMemberNo(generateUniqueSellerMemberNo());
+    	
+
         // 존재하지 않는 ID일 경우 회원가입 처리
         SellerEntity sellerEntity = SellerEntity.toEntity(sellerDTO);
         sellerRepository.save(sellerEntity);   // 가입 성공
@@ -121,18 +122,18 @@ public class UserService {
    }
     
     /**
-    * (셀러) 이미 존재하는 ID인지 확인
-    * 회원가입 시 아이디 중복확인용
-    * @param userId
-    * @return
-    */
-   public boolean existId(String userId) {
-      
-      boolean result = sellerRepository.findById(userId).isPresent() 
-              || buyerRepository.findById(userId).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true(사용 불가)
-      
-      return result;
-   }
+	 * (셀러) 이미 존재하는 ID인지 확인
+	 * 회원가입 시 아이디 중복확인용
+	 * @param userId
+	 * @return
+	 */
+	public boolean existId(String userId) {
+		
+		boolean result = sellerRepository.findBySellerId(userId).isPresent() 
+              || buyerRepository.findByBuyerId(userId).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true(사용 불가)
+		
+		return result;
+	}
     
     /**
      * 개인정보 수정을 위해 아이디와 비밀번호 확인처리 요청

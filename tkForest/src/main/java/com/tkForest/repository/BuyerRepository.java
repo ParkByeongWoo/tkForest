@@ -9,7 +9,8 @@ import com.tkForest.entity.BuyerEntity;
 
 public interface BuyerRepository extends JpaRepository<BuyerEntity, String> {
 
-    Optional<BuyerEntity> findByBuyerId(String buyerId);
+    Optional<BuyerEntity> findByBuyerId(String id);
+
     
     @Query("SELECT MAX(b.buyerMemberNo) FROM BuyerEntity b")
 	String findLastMemberNo();
