@@ -43,7 +43,7 @@ public class SellerEntity {
     private String address;
 
     @Column(name = "BIZREGNO", nullable = false, unique = true)
-    private String bizRegNo;
+    private String bizregNo;
 
     @Column(name = "OWNERNAME")
     private String ownerName;
@@ -82,7 +82,7 @@ public class SellerEntity {
         entity.sellerMemberJoinDate = sellerDTO.getSellerMemberJoinDate();
         entity.companyName = sellerDTO.getCompanyName();
         entity.address = sellerDTO.getAddress();
-        entity.bizRegNo = sellerDTO.getBizRegNo();
+        entity.bizregNo = sellerDTO.getBizregNo();
         entity.ownerName = sellerDTO.getOwnerName();
         entity.bizPhoneNumber = sellerDTO.getBizPhoneNumber();
         entity.companyDescription = sellerDTO.getCompanyDescription();

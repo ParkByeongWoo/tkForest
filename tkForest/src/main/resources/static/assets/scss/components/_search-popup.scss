@@ -1,0 +1,75 @@
+/*===== Header css =====*/
+.ms-search-popup {
+  width: 100%;
+  height: 100vh;
+  display: none;
+  background-color: rgba(0, 0, 0, .8);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 18;
+}
+
+.ms-search-detail {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    input {
+      width: 700px;
+      max-width: 100%;
+      height: 2rem;
+      padding: 2rem 2rem 1.5rem 0rem;
+      background: transparent;
+      border: solid $border-color-1;
+      border-width: 0 0 2px 0;
+      color: $white;
+      flex: 1 0 auto;
+      font-size: 2rem;
+      outline: 0;
+
+      &::placeholder {
+        color: $text-color-999;
+      }
+    }
+
+    button {
+      margin-left: -40px;
+      background: transparent;
+      border: 0;
+
+      .svg_img {
+        width: 30px;
+        height: 30px;
+
+        path {
+          fill: $white;
+        }
+      }
+    }
+  }
+
+  .ms-search-close {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+
+    .svg_img {
+      width: 20px;
+      height: 20px;
+
+      path {
+        fill: $white;
+      }
+    }
+  }
+}

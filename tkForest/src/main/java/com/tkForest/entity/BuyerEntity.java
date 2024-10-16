@@ -34,8 +34,9 @@ public class BuyerEntity {
     private String buyerMemberNo;
     
     // 국가 코드 외래키 참조
-//    @ManyToOne
-    @JoinColumn(name = "NATIONCODE")
+    // @ManyToOne
+    // @JoinColumn(name = "NATIONCODE")
+    @Column(name = "NATIONCODE", nullable = false)
     private String nationCode;
 
     @Column(name = "BUYER_MEMBER_JOINDATE", nullable = false)
@@ -76,6 +77,8 @@ public class BuyerEntity {
     public static BuyerEntity toEntity(BuyerDTO buyerDTO) {
         return BuyerEntity.builder()
                 .buyerMemberNo(buyerDTO.getBuyerMemberNo())
+                //nationCode는 FK인 것 참고!
+                .nationCode(buyerDTO.getNationCode())
                 .buyerMemberJoinDate(buyerDTO.getBuyerMemberJoinDate())
                 .companyName(buyerDTO.getCompanyName())
                 .bizPhoneNumber(buyerDTO.getBizPhoneNumber())

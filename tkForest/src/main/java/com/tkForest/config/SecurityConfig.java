@@ -32,6 +32,11 @@ public class SecurityConfig {
 					// 로그인 안해도 모든 사람이 접근 가능한 목록
 					.requestMatchers(
 							"/"
+							, "/user/signUp"
+							, "/user/login"			// 에러 발생시 경로
+							, "/user/sellerSignUp"
+							, "/user/buyerSignUp"
+//							, "/user/confirmId"
 		                    , "/user/signUp"        // join에서 변경
 		                    , "/user/sellerSignUp"  // 셀러가입창
 		                    , "/user/buyerSignUp"   // 바이어가입창
@@ -66,8 +71,8 @@ public class SecurityConfig {
 					.loginPage("/user/login")
 					.failureHandler(failureHandler) 	// 로그인 실패시 처리할 핸들러 등록
 					.successHandler(successHandler) 	// 로그인 성공시 처리할 핸들러 등록
-					.usernameParameter("userId")
-					.passwordParameter("userPwd")
+					.usernameParameter("id")
+					.passwordParameter("password")
 					.loginProcessingUrl("/user/loginProc").permitAll()
 					// .defaultSuccessUrl("/").permitAll()		// 로그인 성공하면	// successHandler가 등록돼서 필요없어짐;
 					);

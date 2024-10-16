@@ -69,23 +69,23 @@ public class ProductEntity {
    @Column(name="VIEWCNT")
    private Integer viewCnt;
 
-   
-   // DTO -> Entity
-   public static ProductEntity toEntity(ProductDTO productDTO) {
-      return ProductEntity.builder()
-            .productNo(productDTO.getProductNo())
-            .sellerMemberNo(productDTO.getSellerMemberNo())
-            .registrationDate(productDTO.getRegistrationDate())   // 등록일은 자동생성
-            .productName(productDTO.getProductName())
-            .brand(productDTO.getBrand())
-            .productImagePath1(productDTO.getProductImagePath1())
-            .productImagePath2(productDTO.getProductImagePath2())
-            .productDescription(productDTO.getProductDescription())
-            .keyword(productDTO.getKeyword())
-            .viewCnt(productDTO.getViewCnt())
-            .build();
-   }
 
-   
+	// DTO -> Entity
+	public static ProductEntity toEntity(ProductDTO productDTO) {
+		return ProductEntity.builder()
+				.productNo(productDTO.getProductNo())
+				.categoryNo(productDTO.getCategoryNo())
+				.sellerMemberNo(productDTO.getSellerMemberNo())
+//				.registrationDate(productDTO.getRegistrationDate())	// 등록일은 자동생성
+//				.productName(productDTO.getProductName())
+//				.brand(productDTO.getBrand())
+//				.productImagePath1(productDTO.getProductImagePath1())
+//				.productImagePath2(productDTO.getProductImagePath2())
+//				.productDescription(productDTO.getProductDescription())
+//				.keyword(productDTO.getKeyword())
+//				.viewCnt(productDTO.getViewCnt())
+				.build();
+	}
+	
 }
 
