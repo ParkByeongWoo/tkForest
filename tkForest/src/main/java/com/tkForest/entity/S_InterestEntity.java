@@ -8,9 +8,12 @@ import com.tkForest.dto.S_InterestDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -36,14 +39,18 @@ public class S_InterestEntity {
     @Column(name = "INTERESTNO")
     private Integer interestNo;
 
-    @Column(name = "FROM_SELLER_MEMBERNO_INTEREST", length = 10)
-    private String fromSellerMemberNoInterest;
+    // From Seller (외래키로 SellerEntity 참조)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FROM_SELLER_MEMBERNO_INTEREST", referencedColumnName = "sellerMemberNo")
+    private SellerEntity interestfromSellerEntity; // 즐겨찾기 누르는 셀러
 
-    @Column(name = "TO_SELLER_MEMBERNO_INTEREST", length = 10)
-    private String toSellerMemberNoInterest;
+    // To Seller (외래키로 SellerEntity 참조)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TO_SELLER_MEMBERNO_INTEREST", referencedColumnName = "sellerMemberNo")
+    private SellerEntity interestedSellerEntity; //즐겨찾기 받는 셀러
 
     @Column(name = "TO_PRODUCTNO_INTEREST")
-    private Integer toProductNoInterest;
+    private Integer interestedProductNoInterest; // 즐겨찾기 받는 상품
 
     @Column(name = "INTEREST_CREATEDDATE", nullable = false)
     @CreationTimestamp  // 자동으로 현재 시간을 설정
@@ -53,14 +60,15 @@ public class S_InterestEntity {
     private String interestUseYn;
 
     // DTO -> Entity 변환 메서드
-    public static S_InterestEntity toEntity(S_InterestDTO s_InterestDTO) {
+    public static S_InterestEntity toEntity(S_InterestDTO s_InterestDTO, SellerEntity fromSellerEntity, SellerEntity toSellerEntity) {
         return S_InterestEntity.builder()
                 .interestNo(s_InterestDTO.getInterestNo())
-                .fromSellerMemberNoInterest(s_InterestDTO.getFromSellerMemberNoInterest())
-                .toSellerMemberNoInterest(s_InterestDTO.getToSellerMemberNoInterest())
-                .toProductNoInterest(s_InterestDTO.getToProductNoInterest())
+                .interestedSellerEntity(fromSellerEntity)  // 외래키로 SellerEntity 매핑
+                .interestedSellerEntity(toSellerEntity)      // 외래키로 SellerEntity 매핑
+                .interestedProductNoInterest(s_InterestDTO.getToProductNoInterest())
                 .interestCreatedDate(s_InterestDTO.getInterestCreatedDate())
                 .interestUseYn(s_InterestDTO.getInterestUseYn())
                 .build();
     }
 }
+

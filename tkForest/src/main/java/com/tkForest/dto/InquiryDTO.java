@@ -20,70 +20,42 @@ import lombok.ToString;
 @ToString
 @Builder
 public class InquiryDTO {
-	private Integer inquiryNo;
-	private Integer productNo;
-	private String buyerMemberNo;
-	private String sellerMemberNo;
-	private String subject;
-	private String contents;
-	private LocalDateTime offerSendDate;
-	private LocalDateTime offerExpireDate;
-	private Integer orderQuantity;
-	private String orderUnitEtc;
-	private Double expectedPrice;
-	
-	// 업로드 하는 파일을 받는 멤버변수 
-	private MultipartFile uploadFile;
-		
-	private String originalFileName;	// 파일의 원래 파일명
-	private String savedFileName;		// 하드디스크에 저장될 때 사용되는 변경된 파일명
+    private Integer inquiryNo;
 
-	// 생성자 ==> 페이징을 처리를 위해 BoardService.java에서 Page형태로 받은 데이터 중
-	// 목록에 출력할 멤버만 간추리기 위해 만든 생성자
-	public InquiryDTO(
-			Integer inquiryNo
-	        , Integer productNo
-	        , String buyerMemberNo
-	        , String sellerMemberNo
-	        , String subject
-	        , String contents
-	        , LocalDateTime offerSendDate
-	        , LocalDateTime offerExpireDate
-	        , Integer orderQuantity
-	        , String orderUnitEtc
-	        , Double expectedPrice
-	        , String originalFileName) {
-	    this.inquiryNo = inquiryNo;
-	    this.productNo = productNo;
-	    this.buyerMemberNo = buyerMemberNo;
-	    this.sellerMemberNo = sellerMemberNo;
-	    this.subject = subject;
-	    this.contents = contents;
-	    this.offerSendDate = offerSendDate;
-	    this.offerExpireDate = offerExpireDate;
-	    this.orderQuantity = orderQuantity;
-	    this.orderUnitEtc = orderUnitEtc;
-	    this.expectedPrice = expectedPrice;
-	    this.originalFileName = originalFileName;
-	}
-	
-	// Entity를 받아서 ----> DTO로 반환 
-	public static InquiryDTO toDTO(InquiryEntity inquiryEntity) {
-	    return InquiryDTO.builder()
-	            .inquiryNo(inquiryEntity.getInquiryNo())
-	            .productNo(inquiryEntity.getProductNo())
-	            .buyerMemberNo(inquiryEntity.getBuyerMemberNo())
-	            .sellerMemberNo(inquiryEntity.getSellerMemberNo())
-	            .subject(inquiryEntity.getSubject())
-	            .contents(inquiryEntity.getContents())
-	            .offerSendDate(inquiryEntity.getOfferSendDate())
-	            .offerExpireDate(inquiryEntity.getOfferExpireDate())
-	            .orderQuantity(inquiryEntity.getOrderQuantity())
-	            .orderUnitEtc(inquiryEntity.getOrderUnitEtc())
-	            .expectedPrice(inquiryEntity.getExpectedPrice())
-	            .originalFileName(inquiryEntity.getOriginalFileName())
-	            .savedFileName(inquiryEntity.getSavedFileName())
-	            .build();
-	}
+    // 외래 키를 사용하기보다는 관련된 DTO 객체를 사용
+    private ProductDTO product;      // ProductDTO로 변경
+    private BuyerDTO buyer;          // BuyerDTO로 변경
+    private SellerDTO seller;        // SellerDTO로 변경
+    
+    private String subject;
+    private String contents;
+    private LocalDateTime offerSendDate;
+    private LocalDateTime offerExpireDate;
+    private Integer orderQuantity;
+    private String orderUnitEtc;
+    private Double expectedPrice;
+    
+    private MultipartFile uploadFile;
+    private String originalFileName;
+    private String savedFileName;
 
+    // Entity -> DTO 변환 메서드
+    public static InquiryDTO toDTO(InquiryEntity inquiryEntity, ProductDTO productDTO, BuyerDTO buyerDTO, SellerDTO sellerDTO) {
+        return InquiryDTO.builder()
+                .inquiryNo(inquiryEntity.getInquiryNo())
+                .product(productDTO)  // ProductDTO로 매핑
+                .buyer(buyerDTO)      // BuyerDTO로 매핑
+                .seller(sellerDTO)    // SellerDTO로 매핑
+                .subject(inquiryEntity.getSubject())
+                .contents(inquiryEntity.getContents())
+                .offerSendDate(inquiryEntity.getOfferSendDate())
+                .offerExpireDate(inquiryEntity.getOfferExpireDate())
+                .orderQuantity(inquiryEntity.getOrderQuantity())
+                .orderUnitEtc(inquiryEntity.getOrderUnitEtc())
+                .expectedPrice(inquiryEntity.getExpectedPrice())
+                .originalFileName(inquiryEntity.getOriginalFileName())
+                .savedFileName(inquiryEntity.getSavedFileName())
+                .build();
+    }
 }
+
