@@ -5,10 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
-=======
+
 import org.springframework.ui.Model;
->>>>>>> 3d282b4cb27750b3190389f57667bb38c94f1a42
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,57 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ProductController {
 
-<<<<<<< HEAD
-// 컨트롤러	
-	
-	final ProductService productService;
-//	
-//	/**
-//	 * 상품 등록 화면을 요청
-//	 * @param model
-//	 * @return
-//	 */
-//	@GetMapping("/productCreate")
-//	public String productCreate(Model model) {
-//		
-//		log.info("상품 등록 화면 요청 받음");
-//		return "product/productCreate";
-//	}
-//	
-//	
-//	public String productOne() {
-//		Long productNum = 1L;
-//		
-//		ProductDTO product = productService.selectOne(productNum);
-//		log.info("조회된 상품: {}", product.toString());
-//		
-//		return null;
-//	}
-//	
-	/**
-	 * 대분류 카테고리
-	 * @return
-	 */
-	@GetMapping("/productList")
-	public String productList() {
-		
-	    return "product/productList";  
-	    
-	}
-	
-	/**
-	 * 상품 등록 화면
-	 * @return
-	 */
-	@GetMapping("/productCreate")
-	public String productCreate() {
-		
-	    return "product/productCreate";  
-	    
-	}
-	
-	
-=======
 	// 컨트롤러   
    
    final ProductService productService;
@@ -158,7 +106,6 @@ public class ProductController {
 
        return "redirect:/product/productList";
    }
-   
->>>>>>> 3d282b4cb27750b3190389f57667bb38c94f1a42
+
 
 }
