@@ -9,7 +9,7 @@ $(function() {
 
 // 모든 댓글 목록(게시글의 모든 댓글)을 읽어옴 
 function init() {
-	let inquiuryNo = $("#inquiryNo").val();  
+	let inquiryNo = $("#inquiryNo").val();  
 	
 	$.ajax({
 		url: '/reply/replyAll'
@@ -35,9 +35,9 @@ function output(resp) {
 	$.each(resp, function(index, item){
 		tag += `
 		<tr>			
-			<td class='REPLY-WRITER'>${item["replyWriter"]}</td>
-			<td class='REPLY-CONTENTS'>${item["replyContents"]}</td>
-			<td class='REPLY-DATE'>${item["replyDate"]}</td>
+			<td class='reply-writer'>${item["replyWriter"]}</td>
+			<td class='reply-contents'>${item["replyContents"]}</td>
+			<td class='reply-date'>${item["replyDate"]}</td>
 			<td class='btns'>`;
 			
 			// 로그인한 아이디(html에서 읽어온 값)와 댓글 쓴 사용자

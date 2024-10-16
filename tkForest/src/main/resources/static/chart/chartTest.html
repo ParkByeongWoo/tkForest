@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js Doughnut Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js 라이브러리 로드 -->
+    <style>
+        /* canvas의 크기를 명시적으로 지정 */
+        canvas {
+            display: block;
+            margin: 0 auto;
+            /* 중앙에 정렬 */
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Doughnut Chart Example</h1>
+
+    <!-- 도넛 차트를 그릴 canvas 요소 -->
+    <canvas id="doughnut-chart2"></canvas>
+
+    <!-- 차트를 그리는 스크립트 -->
+    <script>
+        var ctx = document.getElementById('doughnut-chart2').getContext('2d');
+        var myDoughnutChart = new Chart(ctx, {
+            type: 'doughnut', // 차트 타입 설정
+            data: {
+                labels: ['Red', 'Blue', 'Yellow'], // 데이터의 레이블 설정
+                datasets: [{
+                    label: 'My Dataset', // 데이터 셋 레이블
+                    data: [300, 50, 100], // 데이터 값
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // 도넛 색상 설정
+                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'] // 마우스를 올렸을 때의 색상
+                }]
+            },
+            options: {
+                responsive: true, // 반응형 설정 (화면 크기에 따라 크기 변경)
+                plugins: {
+                    legend: {
+                        position: 'top', // 범례 위치 설정
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
