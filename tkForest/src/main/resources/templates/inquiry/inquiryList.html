@@ -2,219 +2,219 @@
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>인콰이어리 목록</title>
-   <link rel="stylesheet" th:href="@{/css/list.css}">
-   <script defer th:src="@{/script/search.js}"></script>
-   <style>
-      /* 기본적인 레이아웃 스타일 */
-      body {
-         font-family: Arial, sans-serif;
-         margin: 0;
-         padding: 0;
-      }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>인콰이어리 목록</title>
+	<link rel="stylesheet" th:href="@{/css/list.css}">
+	<script defer th:src="@{/script/search.js}"></script>
+	<style>
+		/* 기본적인 레이아웃 스타일 */
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
 
-      .container {
-         width: 100%;
-         padding: 10px;
-         background-color: #f7f7f7;
-      }
+		.container {
+			width: 100%;
+			padding: 10px;
+			background-color: #f7f7f7;
+		}
 
-      .content {
-         width: 80%;
-         margin: 20px auto;
-      }
+		.content {
+			width: 80%;
+			margin: 20px auto;
+		}
 
-      .count {
-         font-size: 18px;
-         margin-bottom: 15px;
-      }
+		.count {
+			font-size: 18px;
+			margin-bottom: 15px;
+		}
 
-      /* 테이블 스타일 */
-      table {
-         width: 100%;
-         border-collapse: collapse;
-      }
+		/* 테이블 스타일 */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
 
-      th,
-      td {
-         padding: 10px;
-         text-align: center;
-         border: 1px solid #ddd;
-      }
+		th,
+		td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #ddd;
+		}
 
-      th {
-         background-color: #f2f2f2;
-      }
+		th {
+			background-color: #f2f2f2;
+		}
 
-      tr:hover {
-         background-color: #f5f5f5;
-      }
+		tr:hover {
+			background-color: #f5f5f5;
+		}
 
-      /* 버튼 스타일 */
-      .write a,
-      #search {
-         display: inline-block;
-         padding: 8px 16px;
-         background-color: #4CAF50;
-         color: white;
-         text-decoration: none;
-         border-radius: 4px;
-         margin-top: 15px;
-      }
+		/* 버튼 스타일 */
+		.write a,
+		#search {
+			display: inline-block;
+			padding: 8px 16px;
+			background-color: #4CAF50;
+			color: white;
+			text-decoration: none;
+			border-radius: 4px;
+			margin-top: 15px;
+		}
 
-      .write a:hover,
-      #search:hover {
-         background-color: #45a049;
-      }
+		.write a:hover,
+		#search:hover {
+			background-color: #45a049;
+		}
 
-      /* 페이지 네비게이션 */
-      .pagination {
-         margin-top: 20px;
-         text-align: center;
-      }
+		/* 페이지 네비게이션 */
+		.pagination {
+			margin-top: 20px;
+			text-align: center;
+		}
 
-      .page-no {
-         margin: 0 5px;
-         padding: 5px 10px;
-         text-decoration: none;
-         background-color: #f2f2f2;
-         color: #333;
-         border-radius: 4px;
-      }
+		.page-no {
+			margin: 0 5px;
+			padding: 5px 10px;
+			text-decoration: none;
+			background-color: #f2f2f2;
+			color: #333;
+			border-radius: 4px;
+		}
 
-      .page-no:hover {
-         background-color: #ddd;
-      }
+		.page-no:hover {
+			background-color: #ddd;
+		}
 
-      .current {
-         background-color: #4CAF50;
-         color: white;
-      }
+		.current {
+			background-color: #4CAF50;
+			color: white;
+		}
 
-      /* 검색 폼 스타일 */
-      .search {
-         text-align: right;
-         margin-bottom: 15px;
-      }
+		/* 검색 폼 스타일 */
+		.search {
+			text-align: right;
+			margin-bottom: 15px;
+		}
 
-      .search input[type="text"],
-      .search select {
-         padding: 5px;
-         margin-right: 5px;
-      }
-   </style>
+		.search input[type="text"],
+		.search select {
+			padding: 5px;
+			margin-right: 5px;
+		}
+	</style>
 </head>
 
 <body>
-   <!-- Header Fragment Include -->
-   <div class="container" th:replace="fragment/header(title='인콰이어리 리스트')">
-   </div>
+	<!-- Header Fragment Include -->
+	<div class="container" th:replace="fragment/header(title='인콰이어리 리스트')">
+	</div>
 
-   <!-- 인콰이어리 전체 목록 출력 -->
-   <div class="content">
-      <div class="top">
-         <!-- 전체 글개수 출력 -->
-         <div th:if="${list != null}">
-            <p>Total Elements: <span th:text="${list.totalElements}"></span></p>
-            <p th:each="inquiry : ${list.content}">
-               <span th:text="${inquiry.subject}"></span>
-            </p>
-         </div>
+	<!-- 인콰이어리 전체 목록 출력 -->
+	<div class="content">
+		<div class="top">
+			<!-- 전체 글개수 출력 -->
+			<div th:if="${list != null}">
+				<p>Total Elements: <span th:text="${list.totalElements}"></span></p>
+				<p th:each="inquiry : ${list.content}">
+					<span th:text="${inquiry.subject}"></span>
+				</p>
+			</div>
 
 
-         <!-- 검색창 -->
-         <div class="search">
-            <form action="inquiryList" method="GET" id="searchForm">
-               <input type="hidden" name="page" id="requestPage" th:value="${page}">
-               <select name="searchItem" id="searchItem">
-                  <option value="subject" th:selected="${searchItem == 'subject'}">제목</option>
-                  <option value="contents" th:selected="${searchItem == 'contents'}">내용</option>
-               </select>
-               <input type="text" name="searchWord" id="searchWord" th:value="${searchWord}">
-               <input type="submit" id="search" value="검색">
-            </form>
-         </div>
-      </div>
+			<!-- 검색창 -->
+			<div class="search">
+				<form action="inquiryList" method="GET" id="searchForm">
+					<input type="hidden" name="page" id="requestPage" th:value="${page}">
+					<select name="searchItem" id="searchItem">
+						<option value="subject" th:selected="${searchItem == 'subject'}">제목</option>
+						<option value="contents" th:selected="${searchItem == 'contents'}">내용</option>
+					</select>
+					<input type="text" name="searchWord" id="searchWord" th:value="${searchWord}">
+					<input type="submit" id="search" value="검색">
+				</form>
+			</div>
+		</div>
 
-      <!-- 인콰이어리 목록 테이블 -->
-      <div class="head">
-         <table>
-            <thead>
-               <tr>
-                  <th>인콰이어리 번호</th>
-                  <th>제목</th>
-                  <th>작성자</th>
-                  <th>발송일</th>
-               </tr>
-            </thead>
-            <tbody>
-               <th:block th:if="${!#lists.isEmpty(list)}">
-                  <tr th:each="inquiry, status : ${list}">
-                     <td th:text="${(list.number + 1) * list.size - (list.size - status.count)}">1</td>
-                     <td>
-                        <a th:href="@{/inquiry/inquiryDetail(inquiryNo=${inquiry.inquiryNo}, searchItem=${searchItem}, searchWord=${searchWord})}"
-                           th:text="${inquiry.subject}"></a>
-                        <span th:if="${inquiry.originalFileName != null}">
-                           <img th:src="@{/images/attachment.png}" alt="첨부파일" width="15px">
-                        </span>
-                     </td>
-                     <td th:text="${inquiry.buyerMemberNo}"></td>
-                     <td th:text="${#temporals.format(inquiry.offerSendDate, 'yyyy-MM-dd HH:mm')}"></td>
-                  </tr>
-               </th:block>
-            </tbody>
-         </table>
-      </div>
-   </div>
+		<!-- 인콰이어리 목록 테이블 -->
+		<div class="head">
+			<table>
+				<thead>
+					<tr>
+						<th>인콰이어리 번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>발송일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:if="${!#lists.isEmpty(list)}">
+						<tr th:each="inquiry, status : ${list}">
+							<td th:text="${(list.number + 1) * list.size - (list.size - status.count)}">1</td>
+							<td>
+								<a th:href="@{/inquiry/inquiryDetail(inquiryNo=${inquiry.inquiryNo}, searchItem=${searchItem}, searchWord=${searchWord})}"
+									th:text="${inquiry.subject}"></a>
+								<span th:if="${inquiry.originalFileName != null}">
+									<img th:src="@{/images/attachment.png}" alt="첨부파일" width="15px">
+								</span>
+							</td>
+							<td th:text="${inquiry.buyerMemberNo}"></td>
+							<td th:text="${#temporals.format(inquiry.offerSendDate, 'yyyy-MM-dd HH:mm')}"></td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-   <!-- 글쓰기 버튼 -->
-   <div class="write">
-      <a th:href="@{/inquiry/inquiryWrite}">인콰이어리 답변 작성</a>
-   </div>
+	<!-- 글쓰기 버튼 -->
+	<div class="write">
+		<a th:href="@{/inquiry/inquiryDetail}">인콰이어리 답변 작성</a>
+	</div>
 
-   <!-- Page Navigation -->
-   <!--  
-   <nav class="pagination">
-      <th:block th:if="${navi.startPageGroup > 1}">
-         <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.startPageGroup - 1})|">&laquo;</a>
-      </th:block>
-      <th:block th:unless="${navi.startPageGroup > 1}">
-         <span class="page-no navi">&laquo;</span>
-      </th:block>
+	<!-- Page Navigation -->
+	<!--  
+	<nav class="pagination">
+		<th:block th:if="${navi.startPageGroup > 1}">
+			<a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.startPageGroup - 1})|">&laquo;</a>
+		</th:block>
+		<th:block th:unless="${navi.startPageGroup > 1}">
+			<span class="page-no navi">&laquo;</span>
+		</th:block>
 
-      <th:block th:if="${navi.page > 1}">
-         <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.page - 1})|">&lsaquo;</a>
-      </th:block>
-      <th:block th:unless="${navi.page > 1}">
-         <span class="page-no navi">&lsaquo;</span>
-      </th:block>
+		<th:block th:if="${navi.page > 1}">
+			<a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.page - 1})|">&lsaquo;</a>
+		</th:block>
+		<th:block th:unless="${navi.page > 1}">
+			<span class="page-no navi">&lsaquo;</span>
+		</th:block>
 
-      <span th:each="count : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-         <span th:if="${count == navi.page}">
-            <b class="page-no current" th:text="${count}"></b>
-         </span>
-         <span th:unless="${count == navi.page}">
-            <a th:href="|javascript:pageFormSubmit(${count})|" class="page-no" th:text="${count}"></a>
-         </span>
-      </span>
+		<span th:each="count : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+			<span th:if="${count == navi.page}">
+				<b class="page-no current" th:text="${count}"></b>
+			</span>
+			<span th:unless="${count == navi.page}">
+				<a th:href="|javascript:pageFormSubmit(${count})|" class="page-no" th:text="${count}"></a>
+			</span>
+		</span>
 
-      <th:block th:if="${(navi.totalPages) > (navi.page)}">
-         <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.page + 1})|">&rsaquo;</a>
-      </th:block>
-      <th:block th:unless="${(navi.totalPages) > (navi.page)}">
-         <span class="page-no navi">&rsaquo;</span>
-      </th:block>
+		<th:block th:if="${(navi.totalPages) > (navi.page)}">
+			<a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.page + 1})|">&rsaquo;</a>
+		</th:block>
+		<th:block th:unless="${(navi.totalPages) > (navi.page)}">
+			<span class="page-no navi">&rsaquo;</span>
+		</th:block>
 
-      <th:block th:if="${(navi.currentGroup) < (navi.totalGroupCount)}">
-         <a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.endPageGroup + 1})|">&raquo;</a>
-      </th:block>
-      <th:block th:unless="${(navi.currentGroup) < (navi.totalGroupCount)}">
-         <span class="page-no navi">&raquo;</span>
-      </th:block>
-   </nav>
-   -->
+		<th:block th:if="${(navi.currentGroup) < (navi.totalGroupCount)}">
+			<a class="page-no navi" th:href="|javascript:pageFormSubmit(${navi.endPageGroup + 1})|">&raquo;</a>
+		</th:block>
+		<th:block th:unless="${(navi.currentGroup) < (navi.totalGroupCount)}">
+			<span class="page-no navi">&raquo;</span>
+		</th:block>
+	</nav>
+	-->
 
 </body>
 

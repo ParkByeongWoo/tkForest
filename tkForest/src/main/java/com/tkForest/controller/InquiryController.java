@@ -97,10 +97,10 @@ public class InquiryController {
      */
     @GetMapping("/inquiryWrite")
     public String inquiryWrite(
-//          우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리          
+//  		  우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리    		
 //            @AuthenticationPrincipal UserDetails loginUser,
 //            Model model
-          ) {
+    		) {
 //
 //        // 인증되지 않은 사용자는 접근 불가
 //        if (!(loginUser instanceof LoginBuyerDetails)) {
