@@ -900,7 +900,7 @@
                     <div class="ms-login-wrapper">
                         <div class="ms-login-container">
                             <div class="ms-login-form">
-                                <form action="#" method="post">
+                                <form th:action="@{/user/sellerSignUp}" method="get">
                                     <span class="ms-login-wrap">
                                         <label>국내 셀러 회원</label>
                                         <p>*사업자등록번호 필수</p>
@@ -914,7 +914,7 @@
                     <div class="ms-login-wrapper">
                         <div class="ms-login-container">
                             <div class="ms-login-form">
-                                <form action="#" method="post">
+                                <form th:action="@{/user/buyerSignUp}" method="get">
                                     <span class="ms-login-wrap">
                                         <label>Global Buyer</label>
                                         <p>I purchase products from Korea</p>

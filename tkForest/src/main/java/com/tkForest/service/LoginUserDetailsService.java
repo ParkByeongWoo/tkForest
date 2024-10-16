@@ -32,9 +32,24 @@ public class LoginUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         
-       System.out.println("로그인 시도한 아이디: " + id); // 로그 추가
-       
-       // Seller에서 조회
+    	System.out.println("로그인 시도한 아이디: " + id); // 로그 추가
+    	
+    	
+        try {
+            // Seller에서 조회
+            Optional<SellerEntity> sellerOpt = sellerRepository.findBySellerId(id);
+            
+            if (!sellerOpt.isPresent()) {
+                System.out.println("셀러 엔티티가 존재하지 않습니다."); // 추가 로그
+            } else {
+                System.out.println("셀러 엔티티 조회 성공: " + sellerOpt.get().toString());
+            }
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage()); // 예외 발생시 로그
+        }
+    	
+    	
+    	// Seller에서 조회
         Optional<SellerEntity> sellerOpt = sellerRepository.findBySellerId(id);
         
         System.out.println("id로 셀러엔티티에서 조회함");
@@ -42,9 +57,9 @@ public class LoginUserDetailsService implements UserDetailsService {
 //        if (sellerOpt.isPresent() && sellerOpt.get().getSellerMemberNo().startsWith("S")) {
         if (sellerOpt.isPresent()) {
             
-            System.out.println("Seller found: " + sellerOpt.get().getSellerId());
+            System.out.println("조회된 셀러 id: " + sellerOpt.get().getSellerId());
 
-           SellerEntity seller = sellerOpt.get();
+        	SellerEntity seller = sellerOpt.get();
             return new LoginSellerDetails(SellerDTO.toDTO(seller));
         }
 
@@ -54,11 +69,11 @@ public class LoginUserDetailsService implements UserDetailsService {
         System.out.println("id로 바이어엔티티에서 조회함");
         
         if (buyerOpt.isPresent()) {
-//           if (buyerOpt.isPresent() && buyerOpt.get().getBuyerMemberNo().startsWith("B")) {
+//        	if (buyerOpt.isPresent() && buyerOpt.get().getBuyerMemberNo().startsWith("B")) {
             
             System.out.println("Buyer found: " + buyerOpt.get().getBuyerId());
-           
-           BuyerEntity buyer = buyerOpt.get();
+        	
+        	BuyerEntity buyer = buyerOpt.get();
             return new LoginBuyerDetails(BuyerDTO.toDTO(buyer));
         }
 
