@@ -28,7 +28,7 @@ public class SellerDTO {
     private String companyDescription;
     private String picName;
     private String phoneNumber;
-    private String id;
+    private String sellerId;
     private String password;
     private String email;
     private String sellerKeyword;
@@ -47,7 +47,7 @@ public class SellerDTO {
                 .companyDescription(sellerEntity.getCompanyDescription())
                 .picName(sellerEntity.getPicName())
                 .phoneNumber(sellerEntity.getPhoneNumber())
-                .id(sellerEntity.getId())
+                .sellerId(sellerEntity.getSellerId())
                 .password(sellerEntity.getPassword())
                 .email(sellerEntity.getEmail())
                 .sellerKeyword(sellerEntity.getSellerKeyword())

@@ -1,5 +1,7 @@
 package com.tkForest.service;
 
+// import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,10 +16,12 @@ import com.tkForest.dto.SellerDTO;
 import com.tkForest.entity.BuyerEntity;
 import com.tkForest.entity.SellerEntity;
 import com.tkForest.repository.BuyerRepository;
-import com.tkForest.repository.SellerRepository; 
+import com.tkForest.repository.SellerRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LoginUserDetailsService implements UserDetailsService {
@@ -27,17 +31,49 @@ public class LoginUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        // Seller에서 조회
-        Optional<SellerEntity> sellerOpt = sellerRepository.findById(id);
-        if (sellerOpt.isPresent() && sellerOpt.get().getSellerMemberNo().startsWith("S")) {
-            SellerEntity seller = sellerOpt.get();
+        
+    	System.out.println("로그인 시도한 아이디: " + id); // 로그 추가
+    	
+    	
+        try {
+            // Seller에서 조회
+            Optional<SellerEntity> sellerOpt = sellerRepository.findBySellerId(id);
+            
+            if (!sellerOpt.isPresent()) {
+                System.out.println("셀러 엔티티가 존재하지 않습니다."); // 추가 로그
+            } else {
+                System.out.println("셀러 엔티티 조회 성공: " + sellerOpt.get().toString());
+            }
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage()); // 예외 발생시 로그
+        }
+    	
+    	
+    	// Seller에서 조회
+        Optional<SellerEntity> sellerOpt = sellerRepository.findBySellerId(id);
+        
+        System.out.println("id로 셀러엔티티에서 조회함");
+        
+//        if (sellerOpt.isPresent() && sellerOpt.get().getSellerMemberNo().startsWith("S")) {
+        if (sellerOpt.isPresent()) {
+            
+            System.out.println("조회된 셀러 id: " + sellerOpt.get().getSellerId());
+
+        	SellerEntity seller = sellerOpt.get();
             return new LoginSellerDetails(SellerDTO.toDTO(seller));
         }
 
         // Buyer에서 조회
-        Optional<BuyerEntity> buyerOpt = buyerRepository.findById(id);
-        if (buyerOpt.isPresent() && buyerOpt.get().getBuyerMemberNo().startsWith("B")) {
-            BuyerEntity buyer = buyerOpt.get();
+        Optional<BuyerEntity> buyerOpt = buyerRepository.findByBuyerId(id);
+        
+        System.out.println("id로 바이어엔티티에서 조회함");
+        
+        if (buyerOpt.isPresent()) {
+//        	if (buyerOpt.isPresent() && buyerOpt.get().getBuyerMemberNo().startsWith("B")) {
+            
+            System.out.println("Buyer found: " + buyerOpt.get().getBuyerId());
+        	
+        	BuyerEntity buyer = buyerOpt.get();
             return new LoginBuyerDetails(BuyerDTO.toDTO(buyer));
         }
 

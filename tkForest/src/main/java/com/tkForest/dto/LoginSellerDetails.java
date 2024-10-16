@@ -23,7 +23,7 @@ public class LoginSellerDetails implements UserDetails {
 	// 생성자
 	public LoginSellerDetails(SellerDTO sellerDTO) {
 		this.sellerMemberNo = sellerDTO.getSellerMemberNo();
-		this.id = sellerDTO.getId();
+		this.id = sellerDTO.getSellerId();
 		this.password = sellerDTO.getPassword();
 	}
 	

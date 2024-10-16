@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SellerDTO;
@@ -63,7 +65,7 @@ public class UserController {
    	log.info("셀러 회원가입 성공여부: {}", result);
    	log.info("셀러 회원가입 정보: {}", sellerDTO);
 
-   	return "redirect:/";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
+   	return "redirect:/";  // 회원가입 완료 후 메인 페이지로 리다이렉트
 //   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
    }
 
@@ -99,18 +101,24 @@ public class UserController {
 //   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
    }
    
-//   /**
-//	 * (셀러) 회원가입시 ID 중복 체크 (비동기 이용해 처리-ResponseBody 필요)
-//	 * @return
-//	 */
-//	@PostMapping("/confirmId")
-//	@ResponseBody	// ajax요청이므로
-//	public boolean confirmId(@RequestParam(name="userId") String userId) {
-//		log.info("회원 가입 아이디: {}", userId);
-//		
-//		// true일 때 사용가능한 아이디(중복아이디X)		
+   /**
+	 * (셀러) 회원가입시 ID 중복 체크 (비동기 이용해 처리-ResponseBody 필요)
+	 * @return
+	 */
+	@PostMapping("/confirmId")
+	@ResponseBody	// ajax요청이므로
+	public boolean confirmId(@RequestParam(name="userId") String userId) {
+		log.info("회원 가입 아이디: {}", userId);
+		
+		boolean exists = userService.existId(userId);
+		log.info("아이디 존재 여부 확인 결과(true:존재) {}", exists);
+		
+		boolean result = !exists;
+		log.info("아이디 중복 확인 결과(true: 사용 가능 아이디): {}", result);
+		
+		return result;	// !(아이디가 이미 존재하면 true, 없으면 false(사용 가능) 반환)
 //		return !userService.existId(userId);	// !(아이디가 이미 존재하면 true, 없으면 false(사용 가능) 반환)
-//	}
+	}
    
    /**
     * 로그인(공통) 화면 요청(security 하면 중복되는 내용)

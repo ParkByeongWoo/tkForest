@@ -55,9 +55,9 @@ public class SecurityConfig {
 		                    , "/product/productCreate" // 상품 등록 화면
 		                    , "/product/productList" 
 		                    , "/assets/**"           // 정적 자원 경로
-//							, "/images/**"
-//							, "/css/**"
-//							, "/script/**"
+							, "/images/**"
+							, "/css/**"
+							, "/script/**"
 							
 							).permitAll()	// permitAll() 인증절차 없이도 접근가능한 요청 정보		
 					.requestMatchers("/admin/**").hasRole("ADMIN")
