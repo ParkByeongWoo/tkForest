@@ -45,6 +45,7 @@ public class ProductEntity {
     @JoinColumn(name = "SELLER_MEMBERNO", referencedColumnName = "sellerMemberNo")
     private SellerEntity sellerEntity;  // 외래키 관계로 SellerEntity 참조
 
+
     @Column(name="REGISTRATIONDATE")
     @CreationTimestamp  // 상품 등록될 때 자동으로 날짜 세팅
     private LocalDateTime registrationDate;

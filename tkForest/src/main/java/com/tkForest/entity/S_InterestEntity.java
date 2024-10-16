@@ -41,7 +41,9 @@ public class S_InterestEntity {
 
     // From Seller (외래키로 SellerEntity 참조)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FROM_SELLER_MEMBERNO_INTEREST", referencedColumnName = "sellerMemberNo")
+
+    @JoinColumn(name = "FROM_SELLER_MEMBERNO_INTEREST", referencedColumnName = "sellerMemberNo", nullable = false)
+
     private SellerEntity interestfromSellerEntity; // 즐겨찾기 누르는 셀러
 
     // To Seller (외래키로 SellerEntity 참조)
@@ -49,8 +51,10 @@ public class S_InterestEntity {
     @JoinColumn(name = "TO_SELLER_MEMBERNO_INTEREST", referencedColumnName = "sellerMemberNo")
     private SellerEntity interestedSellerEntity; //즐겨찾기 받는 셀러
 
-    @Column(name = "TO_PRODUCTNO_INTEREST")
-    private Integer interestedProductNoInterest; // 즐겨찾기 받는 상품
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TO_PRODUCTNO_INTEREST", referencedColumnName = "productNo")
+    private ProductEntity interestedProductEntity; // 즐겨찾기 받는 상품
 
     @Column(name = "INTEREST_CREATEDDATE", nullable = false)
     @CreationTimestamp  // 자동으로 현재 시간을 설정
@@ -60,12 +64,13 @@ public class S_InterestEntity {
     private String interestUseYn;
 
     // DTO -> Entity 변환 메서드
-    public static S_InterestEntity toEntity(S_InterestDTO s_InterestDTO, SellerEntity fromSellerEntity, SellerEntity toSellerEntity) {
+
+    public static S_InterestEntity toEntity(S_InterestDTO s_InterestDTO, SellerEntity fromSellerEntity, SellerEntity toSellerEntity, ProductEntity interestedProductEntity) {
         return S_InterestEntity.builder()
                 .interestNo(s_InterestDTO.getInterestNo())
-                .interestedSellerEntity(fromSellerEntity)  // 외래키로 SellerEntity 매핑
+                .interestfromSellerEntity(fromSellerEntity)  // 외래키로 SellerEntity 매핑
                 .interestedSellerEntity(toSellerEntity)      // 외래키로 SellerEntity 매핑
-                .interestedProductNoInterest(s_InterestDTO.getToProductNoInterest())
+                .interestedProductEntity(interestedProductEntity)
                 .interestCreatedDate(s_InterestDTO.getInterestCreatedDate())
                 .interestUseYn(s_InterestDTO.getInterestUseYn())
                 .build();

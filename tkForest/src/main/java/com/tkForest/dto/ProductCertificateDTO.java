@@ -1,6 +1,5 @@
 package com.tkForest.dto;
 
-
 import com.tkForest.entity.ProductCertificateEntity;
 
 import lombok.AllArgsConstructor;
@@ -17,13 +16,15 @@ import lombok.ToString;
 @ToString
 @Builder
 public class ProductCertificateDTO {
-	private Integer productNo;
-	private Integer certificateTypeCode;
+	private Integer productCertificateNo;
+	private ProductDTO product;
+	private CertificateDTO certificate;
 	
-	public static ProductCertificateDTO toDTO(ProductCertificateEntity productCertificateEntity) {
+	public static ProductCertificateDTO toDTO(ProductCertificateEntity productCertificateEntity, ProductDTO productDTO, CertificateDTO certificateDTO) {
 		return ProductCertificateDTO.builder()
-				.productNo(productCertificateEntity.getProductNo())
-				.certificateTypeCode(productCertificateEntity.getCertificateTypeCode())
+				.productCertificateNo(productCertificateEntity.getProductCertificateNo())
+				.product(productDTO)
+				.certificate(certificateDTO)
 				.build();
 	}
 }

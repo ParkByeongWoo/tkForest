@@ -1,6 +1,5 @@
 package com.tkForest.dto;
 
-
 import com.tkForest.entity.PCategoryEntity;
 
 import lombok.AllArgsConstructor;
@@ -16,15 +15,16 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-
 public class PCategoryDTO {
-	private Integer productNo;
-	private Integer categoryNo;
-	
-	public static PCategoryDTO toDTO(PCategoryEntity pCategoryEntity) {
-		return PCategoryDTO.builder()
-				.productNo(pCategoryEntity.getProductNo())
-				.categoryNo(pCategoryEntity.getCategoryNo())
-				.build();
-	}
+    private Integer pCategoryNo; 
+    private ProductDTO product;   
+    private CategoryDTO category;  
+
+    public static PCategoryDTO toDTO(PCategoryEntity pCategoryEntity, ProductDTO productDTO, CategoryDTO categoryDTO) {
+        return PCategoryDTO.builder()
+                .pCategoryNo(pCategoryEntity.getPCategoryNo())
+                .product(productDTO)   
+                .category(categoryDTO)  
+                .build();
+    }
 }
