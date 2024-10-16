@@ -16,13 +16,16 @@ import lombok.ToString;
 @ToString
 @Builder
 public class SCategoryDTO {
-	private Integer sellerMemberNo;
-	private Integer categoryNo;
-	
-	public static SCategoryDTO toDTO(SCategoryEntity sCategoryEntity) {
-		return SCategoryDTO.builder()
-				.sellerMemberNo(sCategoryEntity.getSellerMemberNo())
-				.categoryNo(sCategoryEntity.getCategoryNo())
-				.build();
-	}
+    private Integer sCategoryNo; // Primary Key
+    private SellerDTO seller;     // 셀러 DTO
+    private CategoryDTO category;  // 카테고리 DTO
+
+    // Entity -> DTO 변환 메소드
+    public static SCategoryDTO toDTO(SCategoryEntity sCategoryEntity, SellerDTO sellerDTO, CategoryDTO categoryDTO) {
+        return SCategoryDTO.builder()
+                .sCategoryNo(sCategoryEntity.getSCategoryNo())
+                .seller(sellerDTO)          // SellerDTO 설정
+                .category(categoryDTO)      // CategoryDTO 설정
+                .build();
+    }
 }

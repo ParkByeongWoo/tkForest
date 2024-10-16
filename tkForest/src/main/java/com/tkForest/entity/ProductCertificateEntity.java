@@ -4,7 +4,12 @@ import com.tkForest.dto.ProductCertificateDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,16 +29,23 @@ import lombok.ToString;
 @Table(name="PRODUCTCERTIFICATE")
 public class ProductCertificateEntity {
 	@Id
-	@Column(name="PRODUCTNO")
-	private Integer productNo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="PRODUCTCERTIFICATENO")
+	private Integer productCertificateNo;
 	
-	@Column(name="CERTIFICATETYPECODE")
-	private Integer certificateTypeCode;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="PRODUCTNO", referencedColumnName = "PRODUCTNO", nullable = false)
+	private ProductEntity productEntity;
 	
-	public static ProductCertificateEntity toEntity(ProductCertificateDTO productCertificateDTO) {
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="CERTIFICATETYPECODE", referencedColumnName = "CERTIFICATETYPECODE", nullable = false)
+	private CertificateEntity certificateEntity;
+	
+	public static ProductCertificateEntity toEntity(ProductCertificateDTO productCertificateDTO, ProductEntity productEntity, CertificateEntity certificateEntity) {
 		return ProductCertificateEntity.builder()
-				.productNo(productCertificateDTO.getProductNo())
-				.certificateTypeCode(productCertificateDTO.getCertificateTypeCode())
+				.productCertificateNo(productCertificateDTO.getProductCertificateNo())
+				.productEntity(productEntity)
+				.certificateEntity(certificateEntity)
 				.build();
 	}
 }
