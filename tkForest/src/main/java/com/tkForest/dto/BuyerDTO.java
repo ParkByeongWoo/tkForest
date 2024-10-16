@@ -25,14 +25,14 @@ public class BuyerDTO {
     private String companyDescription;
     private String picName; 
     private String phoneNumber;
-    private String id;
+    private String buyerId;
     private String password;
     private String email;
     private String concernKeyword;
     private Boolean buyerStatus;
-    private String nationCode;
+    private String nationCode;  // NationDTO 대신 nationCode로 변경
 
-    // Entity => DTO 변환하는 메소드
+    // Entity => DTO 변환 메소드
     public static BuyerDTO toDTO(BuyerEntity buyerEntity) {
         return BuyerDTO.builder()
                 .buyerMemberNo(buyerEntity.getBuyerMemberNo())
@@ -42,12 +42,12 @@ public class BuyerDTO {
                 .companyDescription(buyerEntity.getCompanyDescription())
                 .picName(buyerEntity.getPicName()) 
                 .phoneNumber(buyerEntity.getPhoneNumber())
-                .id(buyerEntity.getId())
+                .buyerId(buyerEntity.getBuyerId())
                 .password(buyerEntity.getPassword())
                 .email(buyerEntity.getEmail())
                 .concernKeyword(buyerEntity.getConcernKeyword())
                 .buyerStatus(buyerEntity.getBuyerStatus())
-                .nationCode(buyerEntity.getNationCode())
+                .nationCode(buyerEntity.getNationCode())  // NationCode 매핑
                 .build();
     }
 }

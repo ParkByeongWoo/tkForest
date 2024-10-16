@@ -9,8 +9,6 @@ import com.tkForest.dto.BuyerDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,12 +30,9 @@ public class BuyerEntity {
     @Id
     @Column(name = "BUYER_MEMBERNO")
     private String buyerMemberNo;
-    
-    // 국가 코드 외래키 참조
-    // @ManyToOne
-    // @JoinColumn(name = "NATIONCODE")
+
     @Column(name = "NATIONCODE", nullable = false)
-    private String nationCode;
+    private String nationCode; 
 
     @Column(name = "BUYER_MEMBER_JOINDATE", nullable = false)
     @CreationTimestamp
@@ -58,8 +53,8 @@ public class BuyerEntity {
     @Column(name = "PHONENUMBER")
     private String phoneNumber;
 
-    @Column(name = "ID", nullable = false, unique = true)
-    private String id;
+    @Column(name = "BUYERID", nullable = false, unique = true)
+    private String buyerId;
 
     @Column(name = "PWD", nullable = false)
     private String password;
@@ -77,15 +72,14 @@ public class BuyerEntity {
     public static BuyerEntity toEntity(BuyerDTO buyerDTO) {
         return BuyerEntity.builder()
                 .buyerMemberNo(buyerDTO.getBuyerMemberNo())
-                //nationCode는 FK인 것 참고!
-                .nationCode(buyerDTO.getNationCode())
+                .nationCode(buyerDTO.getNationCode()) 
                 .buyerMemberJoinDate(buyerDTO.getBuyerMemberJoinDate())
                 .companyName(buyerDTO.getCompanyName())
                 .bizPhoneNumber(buyerDTO.getBizPhoneNumber())
                 .companyDescription(buyerDTO.getCompanyDescription())
                 .picName(buyerDTO.getPicName())
                 .phoneNumber(buyerDTO.getPhoneNumber())
-                .id(buyerDTO.getId())
+                .buyerId(buyerDTO.getBuyerId())
                 .password(buyerDTO.getPassword())
                 .email(buyerDTO.getEmail())
                 .concernKeyword(buyerDTO.getConcernKeyword())

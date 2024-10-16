@@ -2,11 +2,15 @@ package com.tkForest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/hyun0_new
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.service.UserService;
@@ -22,7 +26,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/hyun0_new
 	final UserService userService;
    
    /**
@@ -124,7 +131,10 @@ public class UserController {
       return "user/login";
    }
 
+<<<<<<< HEAD
    
 
+=======
+>>>>>>> origin/hyun0_new
 }
 

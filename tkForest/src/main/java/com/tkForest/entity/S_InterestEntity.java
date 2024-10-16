@@ -72,3 +72,4 @@ public class S_InterestEntity {
                 .build();
     }
 }
+
