@@ -12,5 +12,5 @@ public interface BuyerRepository extends JpaRepository<BuyerEntity, String> {
     Optional<BuyerEntity> findById(String id);
     
     @Query("SELECT MAX(b.buyerMemberNo) FROM BuyerEntity b")
-   String findLastMemberNo();
+	String findLastMemberNo();
 }

@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class SellerDTO {
-   private String sellerMemberNo;
+	private String sellerMemberNo;
     private LocalDateTime sellerMemberJoinDate;
     private String companyName;
     private String address;

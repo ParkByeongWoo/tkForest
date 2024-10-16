@@ -13,5 +13,5 @@ public interface SellerRepository extends JpaRepository<SellerEntity, String> {
     Optional<SellerEntity> findById(String id);
 
     @Query("SELECT MAX(s.sellerMemberNo) FROM SellerEntity s")
-   String findLastMemberNo();
+	String findLastMemberNo();
 }

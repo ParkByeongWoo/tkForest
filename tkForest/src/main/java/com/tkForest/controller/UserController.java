@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 
-   final UserService userService;
+	final UserService userService;
    
    /**
     * 회원가입 전 바이어/셀러 구분 화면을 요청
@@ -44,27 +44,27 @@ public class UserController {
       return "user/sellerSignUp";
    }
     
-     /**
+  	/**
     * 회원가입(셀러) 처리
     * 전달받은 sellerDTO를 sellerEntity로 변경한 후에 DB에 저장
     * @param sellerDTO
-    * @return boolean
+	* @return boolean
     */
    @PostMapping("/sellerSignUp")
    public String sellerSignUp(@ModelAttribute SellerDTO sellerDTO) {
-      
-   log.info("SellerDTO: {}", sellerDTO.toString());
-      
-   // 기본값으로 설정
-   sellerDTO.setSellerStatus(true);
-   
-      // UserService를 통해 셀러 회원가입 처리 로직 호출
-      boolean result = userService.sellerSignUp(sellerDTO);
-      log.info("셀러 회원가입 성공여부: {}", result);
-      log.info("셀러 회원가입 정보: {}", sellerDTO);
+   	
+	log.info("SellerDTO: {}", sellerDTO.toString());
+   	
+	// 기본값으로 설정
+	sellerDTO.setSellerStatus(true);
+	
+   	// UserService를 통해 셀러 회원가입 처리 로직 호출
+   	boolean result = userService.sellerSignUp(sellerDTO);
+   	log.info("셀러 회원가입 성공여부: {}", result);
+   	log.info("셀러 회원가입 정보: {}", sellerDTO);
 
-      return "redirect:/";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
-//      return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
+   	return "redirect:/";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
+//   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
    }
 
    /**
@@ -80,37 +80,37 @@ public class UserController {
     * 회원가입(바이어) 처리
     * 전달받은 buyerDTO를 BuyerEntity로 변경한 후에 DB에 저장
     * @param buyerDTO
-    * @return boolean
+	* @return boolean
     */
    @PostMapping("/buyerSignUp")
    public String buyerSignUp(@ModelAttribute BuyerDTO buyerDTO) {
-      
-   log.info("BuyerDTO: {}", buyerDTO.toString());
-      
-   // 기본값으로 설정
-   buyerDTO.setBuyerStatus(true);
-   
-      // UserService를 통해 바이어 회원가입 처리 로직 호출
-      boolean result = userService.buyerSignUp(buyerDTO);
-      log.info("바이어 회원가입 성공여부: {}", result);
-      log.info("바이어 회원가입 정보: {}", buyerDTO);
+   	
+	log.info("BuyerDTO: {}", buyerDTO.toString());
+   	
+	// 기본값으로 설정
+	buyerDTO.setBuyerStatus(true);
+	
+   	// UserService를 통해 바이어 회원가입 처리 로직 호출
+   	boolean result = userService.buyerSignUp(buyerDTO);
+   	log.info("바이어 회원가입 성공여부: {}", result);
+   	log.info("바이어 회원가입 정보: {}", buyerDTO);
 
-      return "redirect:/";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
-//      return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
+   	return "redirect:/";  // 회원가입 완료 후 /로 리다이렉트
+//   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
    }
    
 //   /**
-//    * (셀러) 회원가입시 ID 중복 체크 (비동기 이용해 처리-ResponseBody 필요)
-//    * @return
-//    */
-//   @PostMapping("/confirmId")
-//   @ResponseBody   // ajax요청이므로
-//   public boolean confirmId(@RequestParam(name="userId") String userId) {
-//      log.info("회원 가입 아이디: {}", userId);
-//      
-//      // true일 때 사용가능한 아이디(중복아이디X)      
-//      return !userService.existId(userId);   // !(아이디가 이미 존재하면 true, 없으면 false(사용 가능) 반환)
-//   }
+//	 * (셀러) 회원가입시 ID 중복 체크 (비동기 이용해 처리-ResponseBody 필요)
+//	 * @return
+//	 */
+//	@PostMapping("/confirmId")
+//	@ResponseBody	// ajax요청이므로
+//	public boolean confirmId(@RequestParam(name="userId") String userId) {
+//		log.info("회원 가입 아이디: {}", userId);
+//		
+//		// true일 때 사용가능한 아이디(중복아이디X)		
+//		return !userService.existId(userId);	// !(아이디가 이미 존재하면 true, 없으면 false(사용 가능) 반환)
+//	}
    
    /**
     * 로그인(공통) 화면 요청(security 하면 중복되는 내용)
