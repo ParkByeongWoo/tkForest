@@ -44,7 +44,8 @@ public class UserService {
          // 비밀번호 암호화
          // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
          sellerDTO.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
-    	
+        
+    	// sellerDTO.setSellerMemberNo("S2");
          // SellerMemberNo는 중복되면 안되므로 기존 SellerMemberNo의 최대값 +1로 set
     	 sellerDTO.setSellerMemberNo(generateUniqueSellerMemberNo());
     	
@@ -90,10 +91,10 @@ public class UserService {
 
       // 비밀번호 암호화
       // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
-      // buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
+      buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
       
        buyerDTO.setBuyerMemberNo("B1");
-//       buyerDTO.setBuyerMemberNo(generateUniqueBuyerMemberNo());
+       buyerDTO.setBuyerMemberNo(generateUniqueBuyerMemberNo());
      
       // 존재하지 않는 ID일 경우 회원가입 처리
       BuyerEntity buyerEntity = BuyerEntity.toEntity(buyerDTO);

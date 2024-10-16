@@ -77,7 +77,6 @@ public class SellerEntity {
 
     // DTO -> Entity
     public static SellerEntity toEntity(SellerDTO sellerDTO) {
-
         return SellerEntity.builder()
                 .sellerMemberNo(sellerDTO.getSellerMemberNo())
                 .sellerMemberJoinDate(sellerDTO.getSellerMemberJoinDate())
@@ -95,6 +94,5 @@ public class SellerEntity {
                 .sellerKeyword(sellerDTO.getSellerKeyword())
                 .sellerStatus(sellerDTO.getSellerStatus())
                 .build();
-
     }
 }

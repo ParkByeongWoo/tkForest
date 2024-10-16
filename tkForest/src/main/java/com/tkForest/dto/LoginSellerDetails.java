@@ -24,6 +24,7 @@ public class LoginSellerDetails implements UserDetails {
 	public LoginSellerDetails(SellerDTO sellerDTO) {
 		this.sellerMemberNo = sellerDTO.getSellerMemberNo();
 		this.id = sellerDTO.getSellerId();
+
 		this.password = sellerDTO.getPassword();
 	}
 	

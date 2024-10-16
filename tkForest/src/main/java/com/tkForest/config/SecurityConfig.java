@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity   // 웹 보안은 모두 이 설정파일을 따른다.
 @RequiredArgsConstructor
 public class SecurityConfig {
-
 	
 	private final LoginUserDetailsService loginUserDetailService;
 	
@@ -99,6 +98,5 @@ public class SecurityConfig {
 	BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
 
 }
