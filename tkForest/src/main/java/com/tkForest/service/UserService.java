@@ -32,21 +32,20 @@ public class UserService {
      */
     public boolean sellerSignUp(SellerDTO sellerDTO) {
     	
-//    	// 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
-//        boolean isExistId = sellerRepository.findById(sellerDTO.getId()).isPresent() 
-//                            || buyerRepository.findById(sellerDTO.getId()).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true
-//        
-//        if (isExistId) {
-//            // 이미 존재하는 ID라면 회원가입 불가 처리
-//            return false;
-//        }
+    	// 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
+        boolean isExistId = sellerRepository.findBySellerId(sellerDTO.getSellerId()).isPresent() 
+                            || buyerRepository.findByBuyerId(sellerDTO.getSellerId()).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true
+        
+        if (isExistId) {
+            // 이미 존재하는 ID라면 회원가입 불가 처리
+            return false;
+        }
 
          // 비밀번호 암호화
          // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
          sellerDTO.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
-        
-    	// sellerDTO.setSellerMemberNo("S2");
     	
+         // SellerMemberNo는 중복되면 안되므로 기존 SellerMemberNo의 최대값 +1로 set
     	 sellerDTO.setSellerMemberNo(generateUniqueSellerMemberNo());
     	
         // 존재하지 않는 ID일 경우 회원가입 처리
