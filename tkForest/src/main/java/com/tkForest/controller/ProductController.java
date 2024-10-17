@@ -1,10 +1,13 @@
 package com.tkForest.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tkForest.dto.LoginSellerDetails;
+import com.tkForest.dto.PCategoryDTO;
+import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
@@ -49,12 +55,16 @@ public class ProductController {
    }
    
    @PostMapping("/productCreate")
-   public String productCreate(@ModelAttribute ProductDTO productDTO) {
-	   
+   public String productCreate(
+		   @ModelAttribute ProductDTO productDTO
+		   , @ModelAttribute PCategoryDTO pCategoryDTO
+		   , @ModelAttribute ProductCertificateDTO productCertificateDTO) {
 	 log.info("클라이언트에서 전송된 데이터 : {}", productDTO.toString());
-
-	 productService.ProductCreate(productDTO);
-      
+	 log.info("클라이언트에서 전송된 데이터 : {}", pCategoryDTO.toString());
+	 log.info("클라이언트에서 전송된 데이터 : {}", productCertificateDTO.toString());
+	 productService.productCreate(productDTO);
+     productService.categoryInsert(pCategoryDTO);
+     productService.certificateInsert(productCertificateDTO);
      return "product/productCreate"; //마이페이지-상품관리페이지로 넘어갈 것
    }
    
@@ -64,13 +74,16 @@ public class ProductController {
     * @return
     */
    @GetMapping("/productDetail")
-   public String productOne(
+   public String productSelectOne(
 		   @RequestParam(name="productNo") Integer productNo
 		   , @RequestParam(name="searchItem", defaultValue="") String searchItem
 		   , @RequestParam(name="searchWord", defaultValue="") String searchWord
 		   , Model model) {
       
       ProductDTO product = productService.selectOne(productNo);
+      List<PCategoryDTO> pCategory = productService.categoryAll(productNo);
+      List<ProductCertificateDTO> productCertificate = productService.certificateAll(productNo);
+      
       log.info("조회된 상품: {}", product.toString());
       productService.incrementHitcount(productNo);
       
@@ -79,6 +92,8 @@ public class ProductController {
       }
       
       model.addAttribute("product", product);
+      model.addAttribute("pCategory", pCategory);
+      model.addAttribute("productCertificate", productCertificate);
 		// 검색 기능이 추가되면 계속 달고 다녀야 함
       model.addAttribute("searchItem", searchItem);
       model.addAttribute("searchWord", searchWord);

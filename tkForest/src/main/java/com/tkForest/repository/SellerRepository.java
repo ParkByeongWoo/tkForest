@@ -1,10 +1,13 @@
 package com.tkForest.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.tkForest.entity.PCategoryEntity;
+import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
 
 public interface SellerRepository extends JpaRepository<SellerEntity, String> {
@@ -14,5 +17,7 @@ public interface SellerRepository extends JpaRepository<SellerEntity, String> {
 
     @Query("SELECT MAX(s.sellerMemberNo) FROM SellerEntity s")
 	String findLastMemberNo();
+    
+
 }
  

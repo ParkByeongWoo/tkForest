@@ -36,7 +36,7 @@ public class ProductDTO {
 
     public ProductDTO(
     		Integer productNo
-    		, Integer sellerMemberNo
+    		, String sellerMemberNo
     		, LocalDateTime registrationDate
     		, String productName
     		, String brand
@@ -50,7 +50,7 @@ public class ProductDTO {
     }
     
     // Entity -> DTO 변환 메서드
-    public static ProductDTO toDTO(ProductEntity productEntity, Integer sellerMemberNo) {
+    public static ProductDTO toDTO(ProductEntity productEntity, String sellerMemberNo) {
         return ProductDTO.builder()
                 .productNo(productEntity.getProductNo())
                 .sellerMemberNo(sellerMemberNo)  // SellerDTO로 변환 후 매핑

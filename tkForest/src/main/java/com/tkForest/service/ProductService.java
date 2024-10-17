@@ -1,5 +1,8 @@
 package com.tkForest.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -10,11 +13,22 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tkForest.dto.PCategoryDTO;
+import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
 import com.tkForest.dto.SellerDTO;
+import com.tkForest.entity.CategoryEntity;
+import com.tkForest.entity.CertificateEntity;
+import com.tkForest.entity.PCategoryEntity;
+import com.tkForest.entity.ProductCertificateEntity;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
+import com.tkForest.repository.CategoryRepository;
+import com.tkForest.repository.CertificateRepository;
+import com.tkForest.repository.PCategoryRepository;
+import com.tkForest.repository.ProductCertificateRepository;
 import com.tkForest.repository.ProductRepository;
+import com.tkForest.repository.SellerRepository;
 import com.tkForest.util.FileService;
 
 import jakarta.transaction.Transactional;
@@ -27,8 +41,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductService {
    
    final ProductRepository productRepository;
-   final SellerDTO sellerDTO;
-   final SellerEntity sellerEntity;
+   final PCategoryRepository pCategoryRepository;
+   final SellerRepository sellerRepository;
+   final CategoryRepository categoryRepository;
+   final CertificateRepository certificateRepository;
+   final ProductCertificateRepository productCertificateRepository;
+
    
    // 페이징할 때 한 페이지 출력할 글 개수
    @Value("${user.product.pageLimit}")
@@ -42,9 +60,9 @@ public class ProductService {
     * DB에 상품 저장
     * @param productDTO : 저장해야 하는 상품
     */
-   public void ProductCreate(ProductDTO productDTO) {
+   public void productCreate(ProductDTO productDTO) {
       log.info("저장 경로: {}", uploadPath);
-
+      Optional<SellerEntity> sellerEntity = sellerRepository.findById(productDTO.getSellerMemberNo());
       // 첨부 파일 처리
       String productImagePath1 = null;
       String productImagePath2 = null;
@@ -58,23 +76,80 @@ public class ProductService {
          productDTO.setProductImagePath1(productImagePath1);
       }
 
+      SellerEntity entity = sellerEntity.get();
+   
       
       // 1) Entity로 변환
-      ProductEntity productEntity = ProductEntity.toEntity(productDTO, sellerEntity);
-
+      ProductEntity productEntity = ProductEntity.toEntity(productDTO, entity);
       // 2) save()로 데이터 저장
       productRepository.save(productEntity);
    }
+   public void categoryInsert(PCategoryDTO pCategoryDTO) {
+      Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
+      Optional<CategoryEntity> categoryEntity = categoryRepository.findById(pCategoryDTO.getCategoryNo());
+      if(productEntity.isPresent() && categoryEntity.isPresent()) {
+	    	  
+	      ProductEntity entity1 = productEntity.get();
+	      CategoryEntity entity2 = categoryEntity.get();
+	      
+	      PCategoryEntity pCategoryEntity = PCategoryEntity.toEntity(pCategoryDTO, entity1, entity2);
+	
+	      System.out.println(pCategoryEntity);
+	      
+	      pCategoryRepository.save(pCategoryEntity);
+      }
+      return ;
+   }
+   
+   public void certificateInsert(ProductCertificateDTO productCertificateDTO) {
+	   Optional<ProductEntity> productEntity = productRepository.findById(productCertificateDTO.getProductNo());
+	   Optional<CertificateEntity> certificateEntity = certificateRepository.findById(productCertificateDTO.getCertificateTypeCode());
+	   if (productEntity.isPresent() && certificateEntity.isPresent()){   
+		   ProductEntity entity1 = productEntity.get();
+		   CertificateEntity entity2 = certificateEntity.get();
+		   
+		   ProductCertificateEntity productCertificateEntity = ProductCertificateEntity.toEntity(productCertificateDTO, entity1, entity2);
+		      
+		   System.out.println(productCertificateEntity);
 
+		   productCertificateRepository.save(productCertificateEntity);
+	   }
+	   return ;
+   }
+   
 	public ProductDTO selectOne(int productNo) {
 		Optional<ProductEntity> entity = productRepository.findById(productNo);
 		
-		// 데이터를 꺼내 InquiryDTO로 변환
 		if(entity.isPresent()) {
 			ProductEntity temp = entity.get();
-			return ProductDTO.toDTO(temp, sellerDTO);
+			return ProductDTO.toDTO(temp, temp.getSellerEntity().getSellerMemberNo());
 		}
 		return null;
+	}
+	
+	public List<PCategoryDTO> categoryAll(Integer productNo) {
+	    Optional<ProductEntity> productEntity = productRepository.findById(productNo);
+
+	    List<PCategoryEntity> pCategoryEntityList = pCategoryRepository.findAllByProductEntityOrderByPCategoryNoDesc(productEntity);
+	    
+	    List<PCategoryDTO> pCategoryDTOList = new ArrayList<>();
+	    pCategoryEntityList.forEach(
+	            (entity) -> pCategoryDTOList.add(PCategoryDTO.toDTO(entity, productNo, entity.getCategoryEntity().getCategoryNo())));
+	    
+	    System.out.println("====" + pCategoryDTOList);
+	    return pCategoryDTOList;
+	}
+	
+	public List<ProductCertificateDTO> certificateAll(Integer productNo){
+		Optional<ProductEntity> productEntity = productRepository.findById(productNo);
+	
+		List<ProductCertificateEntity> productCertificateEntityList = productCertificateRepository.findAllByProductEntityOrderByProductCertificateNoDesc(productEntity);
+	
+		List<ProductCertificateDTO> productCertificateDTOList = new ArrayList<>();
+		productCertificateEntityList.forEach(
+				(entity) -> productCertificateDTOList.add(ProductCertificateDTO.toDTO(entity, productNo, entity.getCertificateEntity().getCertificateTypeCode())));
+		System.out.println("====" + productCertificateDTOList);
+		return productCertificateDTOList;
 	}
 
 	public Page<ProductDTO> selectAll(Pageable pageable, String searchItem, String searchWord) {
@@ -107,7 +182,7 @@ public class ProductService {
 		list = entityList.map(
 				(product) -> new ProductDTO(
 						product.getProductNo(),
-						sellerDTO, // ******혹시 나중에 오류나면 확인해보시길******
+						product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
 						product.getRegistrationDate(),
 						product.getProductName(),
 						product.getBrand(),
