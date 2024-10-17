@@ -94,25 +94,5 @@ public class SellerEntity {
                 .sellerKeyword(sellerDTO.getSellerKeyword())
                 .sellerStatus(sellerDTO.getSellerStatus())
                 .build();
-        
-        SellerEntity entity = new SellerEntity();
-        
-        entity.sellerMemberNo = sellerDTO.getSellerMemberNo();
-        entity.sellerMemberJoinDate = sellerDTO.getSellerMemberJoinDate();
-        entity.companyName = sellerDTO.getCompanyName();
-        entity.address = sellerDTO.getAddress();
-        entity.bizregNo = sellerDTO.getBizregNo();
-        entity.ownerName = sellerDTO.getOwnerName();
-        entity.bizPhoneNumber = sellerDTO.getBizPhoneNumber();
-        entity.companyDescription = sellerDTO.getCompanyDescription();
-        entity.picName = sellerDTO.getPicName();
-        entity.phoneNumber = sellerDTO.getPhoneNumber();
-        entity.sellerId = sellerDTO.getSellerId();
-        entity.password = sellerDTO.getPassword();
-        entity.email = sellerDTO.getEmail();
-        entity.sellerKeyword = sellerDTO.getSellerKeyword();
-        entity.sellerStatus = sellerDTO.getSellerStatus();
-        
-        return entity;
     }
 }
