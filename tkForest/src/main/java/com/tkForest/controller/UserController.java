@@ -148,19 +148,6 @@ public class UserController {
        return "user/buyerMypage"; //
    }
    
-   
-   /**
-    * 셀러 셀러스토어 가기
-    * @return
-    */
-   @GetMapping("/sellerStore")
-   public String sellerStore() {
-       return "user/sellerStore"; //
-   }
-   
-   
-
-   
 
 }
 
