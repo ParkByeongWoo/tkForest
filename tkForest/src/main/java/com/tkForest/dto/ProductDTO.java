@@ -23,7 +23,7 @@ public class ProductDTO {
 
     // ProductDTO의 필드들 (ProductEntity와 동일한 필드)
     private Integer productNo;
-    private Integer sellerMemberNo; 
+    private String sellerMemberNo; 
     private LocalDateTime registrationDate;  // 자동으로 생성되지만 필요함
     private String productName;
     private String brand;
