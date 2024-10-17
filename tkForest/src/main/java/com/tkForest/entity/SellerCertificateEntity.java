@@ -34,7 +34,7 @@ public class SellerCertificateEntity {
 	private Integer sellerCertificateNo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="SELLERNO", referencedColumnName = "SELLERNO", nullable = false)
+	@JoinColumn(name="SELLER_MEMBERNO", referencedColumnName = "SELLER_MEMBERNO", nullable = false)
 	private SellerEntity sellerEntity;
 	
     @ManyToOne(fetch = FetchType.LAZY)

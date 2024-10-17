@@ -37,12 +37,13 @@ import lombok.ToString;
 public class ProductEntity {
 
     @Id
+    @Column(name="PRODUCTNO")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer productNo;
 
     // SellerEntity와 @ManyToOne 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SELLER_MEMBERNO", referencedColumnName = "sellerMemberNo")
+    @JoinColumn(name = "SELLER_MEMBERNO", referencedColumnName = "SELLER_MEMBERNO", nullable=false)
     private SellerEntity sellerEntity;  // 외래키 관계로 SellerEntity 참조
 
 

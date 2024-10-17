@@ -44,17 +44,17 @@ public class InquiryEntity {
 
     // 외래 키 설정 (ProductEntity와 Many-to-One 관계)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCTNO", referencedColumnName = "productNo")
+    @JoinColumn(name = "PRODUCTNO", referencedColumnName = "PRODUCTNO")
     private ProductEntity productEntity;
 
     // 외래 키 설정 (BuyerEntity와 Many-to-One 관계)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BUYER_MEMBERNO", referencedColumnName = "buyerMemberNo")
+    @JoinColumn(name = "BUYER_MEMBERNO", referencedColumnName = "BUYER_MEMBERNO")
     private BuyerEntity buyerEntity;
 
     // 외래 키 설정 (SellerEntity와 Many-to-One 관계)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SELLER_MEMBERNO", referencedColumnName = "sellerMemberNo")
+    @JoinColumn(name = "SELLER_MEMBERNO", referencedColumnName = "SELLER_MEMBERNO")
     private SellerEntity sellerEntity;
 
     @Column(name = "SUBJECT")

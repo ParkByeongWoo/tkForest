@@ -41,17 +41,17 @@ public class B_LikeEntity {
 
     // From Buyer (외래키로 BuyerEntity 참조)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FROM_BUYER_MEMBERNO_LIKE", referencedColumnName = "buyerMemberNo", nullable = false)
+    @JoinColumn(name = "FROM_BUYER_MEMBERNO_LIKE", referencedColumnName = "BUYER_MEMBERNO", nullable = false)
     private BuyerEntity likefromBuyerEntity; // 좋아요 누르는 바이어
 
     // To Seller (외래키로 SellerEntity 참조)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TO_SELLER_MEMBERNO_LIKE", referencedColumnName = "sellerMemberNo")
+    @JoinColumn(name = "TO_SELLER_MEMBERNO_LIKE", referencedColumnName = "SELLER_MEMBERNO")
     private SellerEntity likedSellerEntity; // 좋아요 받는 셀러
 
     // To Product (외래키로 ProductEntity 참조)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TO_PRODUCTNO_LIKE", referencedColumnName = "productNo")
+    @JoinColumn(name = "TO_PRODUCTNO_LIKE", referencedColumnName = "PRODUCTNO")
     private ProductEntity likedProductEntity; //  좋아요 받는 상품 
 
     @Column(name = "LIKE_CREATEDDATE", nullable = false)

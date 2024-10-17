@@ -43,7 +43,7 @@ public class ReplyEntity {
 	 * 댓글이 다의 위치, inquiryNo은 Join컬럼
 	 */
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="INQUIRYNO")
+	@JoinColumn(name="INQUIRYNO", referencedColumnName = "INQUIRYNO", nullable = false)
 	private InquiryEntity inquiryEntity;
 	
 	@Column(name="REPLY_PARENT")

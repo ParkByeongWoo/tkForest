@@ -61,7 +61,7 @@ public class SellerEntity {
     private String phoneNumber;
 
     @Column(name = "ID", nullable = false, unique = true)
-    private String id;
+    private String sellerId;
 
     @Column(name = "PWD", nullable = false)
     private String password;
@@ -88,7 +88,7 @@ public class SellerEntity {
         entity.companyDescription = sellerDTO.getCompanyDescription();
         entity.picName = sellerDTO.getPicName();
         entity.phoneNumber = sellerDTO.getPhoneNumber();
-        entity.id = sellerDTO.getId();
+        entity.sellerId = sellerDTO.getSellerId();
         entity.password = sellerDTO.getPassword();
         entity.email = sellerDTO.getEmail();
         entity.sellerKeyword = sellerDTO.getSellerKeyword();

@@ -41,16 +41,16 @@ public class S_InterestEntity {
 
     // From Seller (외래키로 SellerEntity 참조)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FROM_SELLER_MEMBERNO_INTEREST", referencedColumnName = "sellerMemberNo", nullable = false)
+    @JoinColumn(name = "FROM_SELLER_MEMBERNO_INTEREST", referencedColumnName = "SELLER_MEMBERNO", nullable = false)
     private SellerEntity interestfromSellerEntity; // 즐겨찾기 누르는 셀러
 
     // To Seller (외래키로 SellerEntity 참조)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TO_SELLER_MEMBERNO_INTEREST", referencedColumnName = "sellerMemberNo")
+    @JoinColumn(name = "TO_SELLER_MEMBERNO_INTEREST", referencedColumnName = "SELLER_MEMBERNO")
     private SellerEntity interestedSellerEntity; //즐겨찾기 받는 셀러
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TO_PRODUCTNO_INTEREST", referencedColumnName = "productNo")
+    @JoinColumn(name = "TO_PRODUCTNO_INTEREST", referencedColumnName = "PRODUCTNO")
     private ProductEntity interestedProductEntity; // 즐겨찾기 받는 상품
 
     @Column(name = "INTEREST_CREATEDDATE", nullable = false)
