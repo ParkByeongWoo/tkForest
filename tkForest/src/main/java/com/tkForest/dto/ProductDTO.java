@@ -2,6 +2,8 @@ package com.tkForest.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tkForest.entity.ProductEntity;
 
 import lombok.AllArgsConstructor;
@@ -25,12 +27,28 @@ public class ProductDTO {
     private LocalDateTime registrationDate;  // 자동으로 생성되지만 필요함
     private String productName;
     private String brand;
+	private MultipartFile uploadFile;
     private String productImagePath1;
     private String productImagePath2;
     private String productDescription;
     private String keyword;
     private Integer viewCnt;
 
+    public ProductDTO(
+    		Integer productNo
+    		, SellerDTO seller
+    		, LocalDateTime registrationDate
+    		, String productName
+    		, String brand
+    		, String productImagePath1) {
+    	this.productNo = productNo;
+    	this.seller = seller;
+    	this.registrationDate = registrationDate;
+    	this.productName = productName;
+    	this.brand = brand;
+    	this.productImagePath1 = productImagePath1;
+    }
+    
     // Entity -> DTO 변환 메서드
     public static ProductDTO toDTO(ProductEntity productEntity, SellerDTO sellerDTO) {
         return ProductDTO.builder()

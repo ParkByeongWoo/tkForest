@@ -35,11 +35,11 @@ public class BCategoryEntity {
     private Integer bCategoryNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BUYER_MEMBERNO", referencedColumnName = "buyerMemberNO", nullable = false)
+    @JoinColumn(name = "BUYER_MEMBERNO", referencedColumnName = "BUYER_MEMBERNO", nullable = false)
     private BuyerEntity buyerEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CATEGORYNO", referencedColumnName = "categoryNo", nullable = false)
+    @JoinColumn(name = "CATEGORYNO", referencedColumnName = "CATEGORYNO", nullable = false)
     private CategoryEntity categoryEntity;
 
     public static BCategoryEntity toEntity(BCategoryDTO bCategoryDTO, BuyerEntity buyerEntity, CategoryEntity categoryEntity) {
