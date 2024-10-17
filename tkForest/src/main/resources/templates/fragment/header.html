@@ -1,3 +1,5 @@
+header.html
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
@@ -20,6 +22,18 @@
                 <li sec:authorize="isAuthenticated()">
                     <a th:href="@{/user/logout}">[[${loginName}]]([[ ${#authentication.name} ]])님, 로그아웃</a>
                 </li>
+
+                <!-- ROLE_SELLER일 경우 셀러 마이페이지 링크 표시 -->
+                <li sec:authorize="hasAuthority('ROLE_SELLER')">
+                    <a th:href="@{/user/sellerMypage}">셀러 마이페이지</a>
+                    <a th:href="@{/user/sellerStore}">셀러 셀러스토어</a>
+
+                    <!-- ROLE_BUYER일 경우 셀러 마이페이지 링크 표시 -->
+                <li sec:authorize="hasAuthority('ROLE_BUYER')">
+                    <a th:href="@{/user/buyerMypage}">바이어 마이페이지</a>
+
+
+                <li> --------------------------------------------------------------------------------- </li>
             </ul>
         </div>
     </div> <!-- end .container -->

@@ -1,61 +1,49 @@
+index.html
+
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>게시판</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>간단한 페이지</title>
 </head>
 
 <body>
 
-    <!-- 헤더 불러오기 -->
-    <!-- <div th:replace="~{fragment/header :: header}"></div> -->
-
-    <!-- 네비게이션 링크 -->
-    <nav>
-        <ul>
-            <h3> 모든 사용자 접근 가능 <h3>
-            <li><a th:href="@{/aboutUs}">어바웃어스</a></li>
-            <li><a th:href="@{/product/productList}">대분류 카테고리</a></li>
-            <li><a th:href="@{/aboutUs}">통계(우선어바웃어스)</a></li>
-            <li><a th:href="@{/rec/recList}">추천 페이지</a></li>
-            <li><a th:href="@{/inquiry/inquiryList}">인콰이어리 페이지</a></li>
-
-            <li><a th:href="@{/user/sellerStore}">기본 셀러 스토어 </a></li>
-            <!--<li><a th:href="@{/user/sellerStore/{sellerMemberNo}(sellerMemberNo=${seller.sellerMemberNo})}">특정 셀러 스토어</a></li>-->
-            <li><a th:href="@{/chart/chartTest}">차트 테스트</a></li>
-
-            <h3> 비회원만 접근 가능 </h3>
-            <li sec:authorize="isAnonymous()"><a th:href="@{/user/signUp}">회원가입선택-바이어셀러고르는창</a></li>
-            <li sec:authorize="isAnonymous()"><a th:href="@{/user/login}">로그인(공통) 화면</a></li>
-            
-                       <h3> 셀러와 바이어 모두 접근 가능 </h3>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/user/logout}">로그아웃</a></li>
-            <li sec:authorize="hasRole('ROLE_SELLER') or hasRole('ROLE_BUYER')"><a th:href="@{/inquiry/inquiryList}">인콰이어리 페이지</a></li>
-           
-           
-            <h3> 셀러만 접근 가능 </h3>
-            <li sec:authorize="hasRole('ROLE_SELLER')"><a th:href="@{/user/sellerMypage}">마이페이지(셀러)</a></li>
-            <li sec:authorize="hasRole('ROLE_SELLER')"><a th:href="@{/user/sellerSignUp}">회원가입(셀러) 화면</a></li>
-            <li sec:authorize="hasRole('ROLE_SELLER')"><a th:href="@{/product/productCreate}">상품 등록 화면 later</a></li>
+   <!-- 헤더 불러오기 -->
+   <div th:replace="fragment/header :: header"></div>
 
 
-            <h3> 바이어만 접근 가능 인데 수정해야 함</h3>
-            <li sec:authorize="hasRole('ROLE_BUYER')"><a th:href="@{/buyer/buyerMypage}">마이페이지(바이어)</a></li>
-            <li sec:authorize="hasRole('ROLE_BUYER')"><a th:href="@{/user/buyerSignUp}">회원가입(바이어) 화면</a></li>
-            <li sec:authorize="hasRole('ROLE_BUYER')"><a th:href="@{/user/buyerProfileUpdate}">사용자 정보 수정</a></li>
-           
-           
+   <!-- 네비게이션 링크 -->
+   <nav>
+      <ul>
+         <li><a th:href="@{/user/userAccountType}">회원가입선택-바이어셀러고르는창</a></li>
+         <li><a th:href="@{/user/sellerSignUp}"> ㄴ 회원가입(셀러) 화면</a></li>
+         <li><a th:href="@{/user/buyerSignUp}"> ㄴ 회원가입(바이어) 화면</a></li>
+         <li><a th:href="@{/user/login}">로그인(공통) 화면 -- 후에 로그아웃으로 바뀌는기능 있어야 함</a></li>
+         <li><a th:href="@{/user/logout}">로그아웃</a></li>
+         <li><a th:href="@{/aboutUs}">어바웃어스</a></li>
 
-        </ul>
-    </nav>
+         <li><a th:href="@{/user/buyerMypage}">마이페이지(바이어)</a></li>
+         <li><a th:href="@{/user/sellerMypage}">마이페이지(셀러)</a></li>
+         <li><a th:href="@{/user/buyerProfileUpdate}">사용자 정보 수정</a></li>
 
-    <!-- 푸터 -->
-    <footer>
-        <p>푸터</p>
-    </footer>
+         <li><a th:href="@{/product/productList}">대분류 카테고리</a></li>
+
+         <li><a th:href="@{/aboutUs}">통계(우선어바웃어스)</a></li>
+         <li><a th:href="@{/rec/recList}">보따리추천 페이지</a></li>
+         <li><a th:href="@{/inquiry/inquiryList}">인콰이어리 페이지</a></li>
+         <li><a th:href="@{/product/productCreate}">상품 등록 화면 later </a></li>
+
+      </ul>
+   </nav>
+
+   <!-- 푸터 -->
+   <footer>
+      <p>푸터</p>
+   </footer>
 
 </body>
+
 </html>

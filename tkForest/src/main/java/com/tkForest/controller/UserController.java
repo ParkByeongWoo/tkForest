@@ -129,6 +129,34 @@ public class UserController {
       
       return "user/login";
    }
+
+   /**
+    * 셀러 마이페이지 가기 
+    * @return
+    */
+   @GetMapping("/sellerMypage")
+   public String sellerMypage() {
+       return "user/sellerMypage"; //
+   }
+   
+   /**
+    * 바이어 마이페이지 가기 
+    * @return
+    */
+   @GetMapping("/buyerMypage")
+   public String buyerMypage() {
+       return "user/buyerMypage"; //
+   }
+   
+   
+   /**
+    * 셀러 셀러스토어 가기
+    * @return
+    */
+   @GetMapping("/sellerStore")
+   public String sellerStore() {
+       return "user/sellerStore"; //
+   }
    
    
 
