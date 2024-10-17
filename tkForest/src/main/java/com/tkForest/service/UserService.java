@@ -30,22 +30,22 @@ public class UserService {
      * @param sellerDTO
      * @return boolean
      */
+	@Transactional
     public boolean sellerSignUp(SellerDTO sellerDTO) {
     	
     	// 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
-        boolean isExistId = sellerRepository.findBySellerId(sellerDTO.getSellerId()).isPresent() 
-                            || buyerRepository.findByBuyerId(sellerDTO.getSellerId()).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true
-        
-        if (isExistId) {
-            // 이미 존재하는 ID라면 회원가입 불가 처리
-            return false;
-        }
+		
+		if (isUserIdExists(sellerDTO.getSellerId())) {
+	        return false; // 이미 존재하는 ID라면 회원가입 불가 처리
+	    }
+		log.info("isExistId 확인함");
 
          // 비밀번호 암호화
          // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
          sellerDTO.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
-        
-    	// sellerDTO.setSellerMemberNo("S2");
+
+         log.info("암호화된 비밀번호 set 함");
+    	
          // SellerMemberNo는 중복되면 안되므로 기존 SellerMemberNo의 최대값 +1로 set
     	 sellerDTO.setSellerMemberNo(generateUniqueSellerMemberNo());
     	
@@ -55,8 +55,25 @@ public class UserService {
         return true;
  
     }
-    
+	
+	
+	
+	
+	
     /**
+     * (셀/바 공통) 이미 존재하는 id인지 확인
+     * @param sellerId
+     * @return
+     */
+    private boolean isUserIdExists(String userId) {
+
+    	boolean isExistId = sellerRepository.findBySellerId(userId).isPresent() 
+                || buyerRepository.findByBuyerId(userId).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true
+    	
+    	return isExistId;
+	}
+
+	/**
      * SellerMemberNo 중복되지 않도록 하기 위함(기존 최대값 +1)
      * @return
      */
@@ -121,7 +138,7 @@ public class UserService {
    }
     
     /**
-	 * (셀러) 이미 존재하는 ID인지 확인
+	 * (셀/바 공통) 이미 존재하는 ID인지 확인
 	 * 회원가입 시 아이디 중복확인용
 	 * @param userId
 	 * @return
