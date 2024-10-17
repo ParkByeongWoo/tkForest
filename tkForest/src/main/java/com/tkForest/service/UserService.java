@@ -55,10 +55,6 @@ public class UserService {
  
     }
 	
-	
-	
-	
-	
     /**
      * (셀/바 공통) 이미 존재하는 id인지 확인
      * @param sellerId
@@ -181,43 +177,51 @@ public class UserService {
         return null; // 일치하는 사용자 없음
     }
 
-//    /**
-//     * 개인정보 수정
-//     * 수정하려는 정보를 setter를 통해 수정
-//     * JPA의 save() 메소드 : 저장 + 수정 가능
-//     * @param sellerDTO
-//     * @param buyerDTO
-//     */
-//    @Transactional
-//    public boolean update(SellerDTO sellerDTO, BuyerDTO buyerDTO) {
-//        if (sellerDTO != null) {
-//            Optional<SellerEntity> sellerEntity = sellerRepository.findById(sellerDTO.getId());
-//            if (sellerEntity.isPresent()) {
-//                SellerEntity entity = sellerEntity.get();
-//                
-//                // 비밀번호 암호화하여 DB 정보 갱신
-//                entity.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
-//                entity.setEmail(sellerDTO.getEmail());
-//                sellerRepository.save(entity); // 수정 후 저장
-//                return true;
-//            }
-//        }
-//
-//        if (buyerDTO != null) {
-//            Optional<BuyerEntity> buyerEntity = buyerRepository.findById(buyerDTO.getId());
-//            if (buyerEntity.isPresent()) {
-//                BuyerEntity entity = buyerEntity.get();
-//                
-//                // 비밀번호 암호화하여 DB 정보 갱신
-//                entity.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
-//                entity.setEmail(buyerDTO.getEmail());
-//                buyerRepository.save(entity); // 수정 후 저장
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-    
-  
+    /**
+     * 개인정보 수정
+     * 수정하려는 정보를 setter를 통해 수정
+     * JPA의 save() 메소드 : 저장 + 수정 가능
+     * @param sellerDTO
+     * @param buyerDTO
+     */
+    @Transactional
+    public boolean update(SellerDTO sellerDTO, BuyerDTO buyerDTO) {
+        if (sellerDTO != null) {
+            Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerId(sellerDTO.getSellerId());
+            if (sellerEntity.isPresent()) {
+                SellerEntity entity = sellerEntity.get();
+                
+                // 비밀번호 암호화하여 DB 정보 갱신
+                entity.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
+                entity.setEmail(sellerDTO.getEmail());
+                sellerRepository.save(entity); // 수정 후 저장
+                return true;
+            }
+        }
+
+        if (buyerDTO != null) {
+            Optional<BuyerEntity> buyerEntity = buyerRepository.findByBuyerId(buyerDTO.getBuyerId());
+            if (buyerEntity.isPresent()) {
+                BuyerEntity entity = buyerEntity.get();
+                
+                // 비밀번호 암호화하여 DB 정보 갱신
+                entity.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
+                entity.setEmail(buyerDTO.getEmail());
+                buyerRepository.save(entity); // 수정 후 저장
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+	public static void processSellerSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void processBuyerSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }
