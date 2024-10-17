@@ -30,7 +30,7 @@
     <!-- Main Style -->
     <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
-
+    
 </head>
 
 <body>
@@ -697,8 +697,7 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img
-                                            src="/assets/img/icons/perfume-8.svg" class="svg_img"
+                                    <div class="ms-sidebar-block-item"><img                                           src="/assets/img/icons/perfume-8.svg" class="svg_img"
                                             alt="drink">perfume</div>
                                     <ul>
                                         <li>
@@ -1052,12 +1051,16 @@
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>아이디*</label>
-                                    <input type="text" name="id" id="id" placeholder="아이디" required>
+
+                                    <input type="text" name="sellerId" id="sellerId" placeholder="아이디" required>
+
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
                                 	<label>아이디 확인*</label>
-                                    <input type="button" placeholder="아이디 확인">
-                                    <div id="confirmId" style="font-size:0.8em;"></div>
+                                    <input type="button" id="confirmsSellerId" placeholder="아이디 확인">
+                                </span>
+                                <span class="ms-register-wrap">
+                                	<div id="sellerIdCheck" style="font-size:0.8em;"></div>
                                 </span>
                                 <span class="ms-register-wrap">
                                     <label>비밀번호*</label>
@@ -1071,14 +1074,12 @@
                                 </span>
                                  -->
                                 
-                                <!-- 
                                 <span class="ms-register-wrap">
-                                    <label>관심 카테고리*</label> -->
+                                    <label>관심 카테고리*</label>
                                     <!-- 카테고리 선택하고 required 로 수정예정 -->
-                                <!-- 
                                     <input type="button" name="sellerCategory" placeholder="카테고리">
                                 </span>
-                                 -->
+                                
                                 
                                 <span class="ms-register-wrap">
                                     <label>관심 키워드*</label>
@@ -1357,7 +1358,13 @@
 
     <!-- Main Js -->
     <script src="/assets/js/main.js"></script>
+    
+    <!-- 검증 설정 -->
+	<script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/script/signup.js}"></script>
+    
 </body>
 
 </html>
 
+                                    

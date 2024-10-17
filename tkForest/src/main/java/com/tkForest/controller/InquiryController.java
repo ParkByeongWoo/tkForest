@@ -54,7 +54,7 @@ public class InquiryController {
      */
     @GetMapping("/inquiryList")
     public String inquiryList(
-//    		  우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리
+//            우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리
 //            @AuthenticationPrincipal UserDetails loginUser,
 //            @PageableDefault(page=1) Pageable pageable,
 //            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,

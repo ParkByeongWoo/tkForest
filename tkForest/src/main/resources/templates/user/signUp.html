@@ -34,110 +34,6 @@
 
 </head>
 
-<body>
-<<<<<<< HEAD
-    <!-- Loader -->
-    <div id="ms-overlay">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Header start  -->
-    <header class="ms-header">
-        <!-- Header Top Start -->
-        <div class="header-top">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Header Top social Start -->
-                    <div class="col text-left header-top-left d-none d-lg-block">
-                        <div class="header-top-social">
-                            <ul class="mb-0">
-                                <li class="list-inline-item">
-                                    <a href="javascript:void(0)"><i class="msicon msi-phone"></i></a>+91 987 654 3210
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="javascript:void(0)"><i class="msicon msi-whatsapp"></i></a>+91 987 654 3210
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Header Top social End -->
-                    <!-- Header Top Message Start -->
-                    <div class="col text-center header-top-center">
-                        <div class="header-top-message">
-                            World's Fastest Online Shopping Destination
-                        </div>
-                    </div>
-                    <!-- Header Top Message End -->
-                    <!-- Header Top Language Currency -->
-                    <div class="col header-top-right d-none d-lg-block">
-                        <div class="header-top-right-inner d-flex justify-content-end">
-                            <!-- Language Start -->
-                            <div class="header-top-lan-curr header-top-lan dropdown">
-                                <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i
-                                        class="msicon msi-angle-down" aria-hidden="true"></i></button>
-                                <ul class="dropdown-menu">
-                                    <li class="active"><a class="dropdown-item" href="#">English</a></li>
-                                    <li><a class="dropdown-item" href="#">Italiano</a></li>
-                                </ul>
-                            </div>
-                            <!-- Language End -->
-                            <!-- Currency Start -->
-                            <div class="header-top-lan-curr header-top-curr dropdown">
-                                <button class="dropdown-toggle" data-bs-toggle="dropdown">Dollar <i
-                                        class="msicon msi-angle-down" aria-hidden="true"></i></button>
-                                <ul class="dropdown-menu">
-                                    <li class="active"><a class="dropdown-item" href="#">USD $</a></li>
-                                    <li><a class="dropdown-item" href="#">EUR €</a></li>
-                                </ul>
-                            </div>
-                            <!-- Currency End -->
-                            <a class="ms-help" href="faq.html">Help?</a>
-                            <a class="ms-help" href="track-order.html">Track Order?</a>
-                        </div>
-                    </div>
-                    <!-- Header Top Language Currency -->
-                    <!-- Header Top responsive Action -->
-                    <div class="col header-top-res d-lg-none">
-                        <div class="ms-header-bottons">
-                            <!-- Category Toggle -->
-                            <div class="col ms-category-icon-block">
-                                <div class="ms-category-menu">
-                                    <div class="ms-category-toggle">
-                                        <img src="/assets/img/icons/category-icon.svg"
-                                            class="svg_img header_svg svg_cat" alt="icon">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right-icons">
-                                <!-- Header User Start -->
-                                <a href="login.html" class="ms-header-btn ms-header-user">
-                                    <div class="header-icon"><img src="/assets/img/icons/user.svg"
-                                            class="svg_img header_svg" alt=""></div>
-                                </a>
-                                <!-- Header User End -->
-                                <!-- Header Wishlist Start -->
-                                <a href="javascript:void(0)" class="ms-header-btn ms-wish-toggle">
-                                    <div class="header-icon"><img src="/assets/img/icons/wishlist.svg"
-                                            class="svg_img header_svg" alt=""></div>
-                                    <span class="ms-header-count ms-wishlist-count">3</span>
-                                </a>
-                                <!-- Header Wishlist End -->
-                                <!-- Header Cart Start -->
-                                <a href="javascript:void(0)" class="ms-header-btn ms-cart-toggle">
-                                    <div class="header-icon"><img src="/assets/img/icons/pro_cart.svg"
-                                            class="svg_img header_svg" alt="">
-                                        <span class="main-label-note-new"></span>
-                                    </div>
-                                    <span class="ms-header-count ms-cart-count">3</span>
-                                </a>
-                                <!-- Header Cart End -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Header Top responsive Action -->
-                </div>
-            </div>
-=======
     <!-- 헤더 불러오기 -->
     <div th:replace="fragment/header :: header"></div>
 	<h2>signUp입니다</h2>
@@ -147,7 +43,6 @@
                 <img th:src="@{/images/logo.png}" alt="logo">
             </a>
             <h2>회원 가입</h2>
->>>>>>> cc19de81e8d429f424d9bd9b597b06ca7cb7baad
         </div>
         <!-- Header Top  End -->
 
@@ -1005,7 +900,7 @@
                     <div class="ms-login-wrapper">
                         <div class="ms-login-container">
                             <div class="ms-login-form">
-                                <form action="#" method="post">
+                                <form th:action="@{/user/sellerSignUp}" method="get">
                                     <span class="ms-login-wrap">
                                         <label>국내 셀러 회원</label>
                                         <p>*사업자등록번호 필수</p>
@@ -1019,7 +914,7 @@
                     <div class="ms-login-wrapper">
                         <div class="ms-login-container">
                             <div class="ms-login-form">
-                                <form action="#" method="post">
+                                <form th:action="@{/user/buyerSignUp}" method="get">
                                     <span class="ms-login-wrap">
                                         <label>Global Buyer</label>
                                         <p>I purchase products from Korea</p>
