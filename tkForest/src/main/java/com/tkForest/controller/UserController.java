@@ -1,6 +1,8 @@
 package com.tkForest.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BuyerDTO;
+import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.service.UserService;
 
@@ -130,15 +133,7 @@ public class UserController {
       return "user/login";
    }
 
-   /**
-    * 셀러 마이페이지 가기 
-    * @return
-    */
-   @GetMapping("/sellerMypage")
-   public String sellerMypage() {
-       return "user/sellerMypage"; //
-   }
-   
+  
    /**
     * 바이어 마이페이지 가기 
     * @return
@@ -148,6 +143,76 @@ public class UserController {
        return "user/buyerMypage"; //
    }
    
+   /**
+    * 수정 처리 요청
+    * @param sellerDTO
+    * @param buyerDTO
+    * @return
+    */
+   @PostMapping("/update")
+   public String update(
+           @ModelAttribute SellerDTO sellerDTO,
+           @ModelAttribute BuyerDTO buyerDTO) {
+
+       log.info("===== 셀러 DTO 정보: {}", sellerDTO != null ? sellerDTO.toString() : "셀러 DTO가 null입니다.");
+       log.info("===== 바이어 DTO 정보: {}", buyerDTO != null ? buyerDTO.toString() : "바이어 DTO가 null입니다.");
+
+       boolean result = userService.update(sellerDTO, buyerDTO);
+       log.info("===== 수정 결과: {}", result);
+
+       if(result) {
+           log.info("===== 개인정보 수정 성공 - 로그아웃 처리");
+           return "redirect:/user/logout"; // 수정 성공 시 로그아웃
+       }
+
+       log.info("===== 개인정보 수정 실패");
+       return "redirect:/"; // 수정 실패 시 메인 페이지로 리다이렉트
+   }
+
+   
+   /**
+    * 셀러 마이페이지 들어가기 + 
+    * 셀러 마이페이지에 로그인한 회원의 정보를 가져오기
+    * @param sellerDTO
+    * @param buyerDTO
+    * @return
+    */
+   @GetMapping("/sellerMypage")
+   public String sellerMyPage(
+		   Model model, @AuthenticationPrincipal LoginSellerDetails userDetails) {
+       // 로그인한 판매자의 ID를 가져옵니다.
+       String sellerId = userDetails.getUsername();
+       // 셀러 아이디를 이용해 셀러의 정보를 DB에서 가져옴
+       SellerDTO sellerDTO = userService.getSellerById(sellerId); //서비스에서 가져와야함
+       // 모델에 sellerDTO를 추가합니다.
+       model.addAttribute("userDTO", sellerDTO); // sellerDTO는 sellerMypage.html 때문에 userDTO라고 칭하게 됨
+       
+       // 템플릿 이름을 반환합니다.
+       return "user/sellerMypage"; // 템플릿 이름
+   }
+   
+   
+   /**
+    * 마이페이지에 로그인한 회원의 정보를 가져오기
+    * @param sellerDTO
+    * @param buyerDTO
+    * @return
+    */
+   @GetMapping("/sellerProfileUpdate")
+   public String sellerProfileUpdate(
+		   Model model, @AuthenticationPrincipal LoginSellerDetails userDetails) {
+       // 로그인한 판매자의 ID를 가져옵니다.
+       String sellerId = userDetails.getUsername();
+       // 셀러 아이디를 이용해 셀러의 정보를 DB에서 가져옴
+       SellerDTO sellerDTO = userService.getSellerById(sellerId); //서비스에서 가져와야함
+       // 모델에 sellerDTO를 추가합니다.
+       model.addAttribute("userDTO", sellerDTO); // sellerDTO는 sellerMypage.html 때문에 userDTO라고 칭하게 됨
+       
+       // 템플릿 이름을 반환합니다.
+       return "user/sellerProfileUpdate"; // 템플릿 이름
+   }
+   
+
 
 }
 

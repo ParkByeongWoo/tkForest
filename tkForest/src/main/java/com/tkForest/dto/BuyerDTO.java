@@ -30,9 +30,9 @@ public class BuyerDTO {
     private String email;
     private String concernKeyword;
     private Boolean buyerStatus;
-    private String nationCode;
+    private String nationCode;  // NationDTO 대신 nationCode로 변경
 
-    // Entity => DTO 변환하는 메소드
+    // Entity => DTO 변환 메소드
     public static BuyerDTO toDTO(BuyerEntity buyerEntity) {
         return BuyerDTO.builder()
                 .buyerMemberNo(buyerEntity.getBuyerMemberNo())
@@ -47,7 +47,7 @@ public class BuyerDTO {
                 .email(buyerEntity.getEmail())
                 .concernKeyword(buyerEntity.getConcernKeyword())
                 .buyerStatus(buyerEntity.getBuyerStatus())
-                .nationCode(buyerEntity.getNationCode())
+                .nationCode(buyerEntity.getNationCode())  // NationCode 매핑
                 .build();
     }
 }
