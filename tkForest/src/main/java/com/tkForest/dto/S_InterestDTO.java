@@ -20,19 +20,19 @@ import lombok.ToString;
 public class S_InterestDTO {
 
     private Integer interestNo;
-    private SellerDTO fromSeller;
-    private SellerDTO toSeller;
-    private ProductDTO toProduct;
+    private String fromSeller;
+    private String toSeller;
+    private Integer productNo;
     private LocalDateTime interestCreatedDate;
     private String interestUseYn;
 
     // Entity -> DTO 변환 메서드
-    public static S_InterestDTO toDTO(S_InterestEntity s_InterestEntity, SellerDTO fromSellerDTO, SellerDTO toSellerDTO, ProductDTO toProductDTO) {
+    public static S_InterestDTO toDTO(S_InterestEntity s_InterestEntity, String fromSellerDTO, String toSellerDTO, Integer productNo) {
         return S_InterestDTO.builder()
                 .interestNo(s_InterestEntity.getInterestNo())
                 .fromSeller(fromSellerDTO)
                 .toSeller(toSellerDTO)
-                .toProduct(toProductDTO)
+                .productNo(productNo)
                 .interestCreatedDate(s_InterestEntity.getInterestCreatedDate())
                 .interestUseYn(s_InterestEntity.getInterestUseYn())
                 .build();

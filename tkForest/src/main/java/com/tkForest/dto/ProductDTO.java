@@ -23,7 +23,7 @@ public class ProductDTO {
 
     // ProductDTO의 필드들 (ProductEntity와 동일한 필드)
     private Integer productNo;
-    private SellerDTO seller; 
+    private Integer sellerMemberNo; 
     private LocalDateTime registrationDate;  // 자동으로 생성되지만 필요함
     private String productName;
     private String brand;
@@ -36,13 +36,13 @@ public class ProductDTO {
 
     public ProductDTO(
     		Integer productNo
-    		, SellerDTO seller
+    		, Integer sellerMemberNo
     		, LocalDateTime registrationDate
     		, String productName
     		, String brand
     		, String productImagePath1) {
     	this.productNo = productNo;
-    	this.seller = seller;
+    	this.sellerMemberNo = sellerMemberNo;
     	this.registrationDate = registrationDate;
     	this.productName = productName;
     	this.brand = brand;
@@ -50,10 +50,10 @@ public class ProductDTO {
     }
     
     // Entity -> DTO 변환 메서드
-    public static ProductDTO toDTO(ProductEntity productEntity, SellerDTO sellerDTO) {
+    public static ProductDTO toDTO(ProductEntity productEntity, Integer sellerMemberNo) {
         return ProductDTO.builder()
                 .productNo(productEntity.getProductNo())
-                .seller(sellerDTO)  // SellerDTO로 변환 후 매핑
+                .sellerMemberNo(sellerMemberNo)  // SellerDTO로 변환 후 매핑
                 .registrationDate(productEntity.getRegistrationDate())
                 .productName(productEntity.getProductName())
                 .brand(productEntity.getBrand())
