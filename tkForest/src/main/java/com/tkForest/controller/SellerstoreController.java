@@ -17,20 +17,21 @@ public class SellerstoreController {
     @Autowired
     private SellerstoreService sellerstoreService;
 
-    // 기본 셀러 스토어 페이지(sellerMemberNo가 없는 기본 페이지 접근)
-    @GetMapping("/sellerStore")
-    public String showDefaultSellerStore(Model model) {
-        // 필요시 기본 셀러 데이터를 설정
-    	model.addAttribute("message", "No seller selected");
-        return "user/sellerStore";
-    }
-
-//    // 특정 셀러 페이지
-//    @GetMapping("/sellerStore/{sellerMemberNo}")
-//    public String getSellerStore(@PathVariable String sellerMemberNo, Model model) {
-//        SellerDTO sellerDTO = sellerstoreService.getSellerByMemberNo(sellerMemberNo);
-//        model.addAttribute("seller", sellerDTO);
+//    // 기본 셀러 스토어 페이지(sellerMemberNo가 없는 기본 페이지 접근)
+//    @GetMapping("/sellerStore")
+//    public String showDefaultSellerStore(Model model) {
+//        model.addAttribute("message", "No seller selected");
 //        return "user/sellerStore";
 //    }
+
+    // 특정 셀러 페이지 (sellerMemberNo가 'S99'인 셀러 정보를 표시)
+    @GetMapping("/sellerStore")
+    public String getSellerStore(Model model) {
+        String sellerMemberNo = "S99"; // 고정된 sellerMemberNo
+        SellerDTO sellerDTO = sellerstoreService.getSellerByMemberNo(sellerMemberNo);
+        model.addAttribute("seller", sellerDTO);
+        return "user/sellerStore"; // 페이지 이름은 동일
+    }
 }
+
 
