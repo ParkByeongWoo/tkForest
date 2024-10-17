@@ -17,14 +17,14 @@ import lombok.ToString;
 @Builder
 public class PCategoryDTO {
     private Integer pCategoryNo; 
-    private ProductDTO product;   
-    private CategoryDTO category;  
+    private Integer productNo;   
+    private Integer categoryNo;  
 
-    public static PCategoryDTO toDTO(PCategoryEntity pCategoryEntity, ProductDTO productDTO, CategoryDTO categoryDTO) {
+    public static PCategoryDTO toDTO(PCategoryEntity pCategoryEntity, Integer productNo, Integer categoryNo) {
         return PCategoryDTO.builder()
                 .pCategoryNo(pCategoryEntity.getPCategoryNo())
-                .product(productDTO)   
-                .category(categoryDTO)  
+                .productNo(productNo)   
+                .categoryNo(categoryNo)  
                 .build();
     }
 }
