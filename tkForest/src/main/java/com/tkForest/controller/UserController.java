@@ -59,6 +59,7 @@ public class UserController {
    	
 	// 기본값으로 설정
 	sellerDTO.setSellerStatus(true);
+	log.info("셀러 Status를 true로 설정함");
 	
    	// UserService를 통해 셀러 회원가입 처리 로직 호출
    	boolean result = userService.sellerSignUp(sellerDTO);
@@ -102,22 +103,27 @@ public class UserController {
    }
    
    /**
-	 * (셀러) 회원가입시 ID 중복 체크 (비동기 이용해 처리-ResponseBody 필요)
+	 * (셀/바 공통) 회원가입시 ID 중복, 공백 체크 (비동기 이용해 처리-ResponseBody 필요)
 	 * @return
 	 */
 	@PostMapping("/confirmId")
 	@ResponseBody	// ajax요청이므로
 	public boolean confirmId(@RequestParam(name="userId") String userId) {
-		log.info("회원 가입 아이디: {}", userId);
+		log.info("회원 가입하려는 아이디: {}", userId);
+		
+		// userId가 공백인지 확인
+	    if (userId == null || userId.trim().isEmpty()) {
+	        log.info("아이디가 공백입니다.");
+	        return false; // 공백인 경우 false 반환
+	    }
 		
 		boolean exists = userService.existId(userId);
 		log.info("아이디 존재 여부 확인 결과(true:존재) {}", exists);
 		
 		boolean result = !exists;
-		log.info("아이디 중복 확인 결과(true: 사용 가능 아이디): {}", result);
+		log.info("아이디 중복 확인 결과(true:사용 가능 아이디) {}", result);
 		
-		return result;	// !(아이디가 이미 존재하면 true, 없으면 false(사용 가능) 반환)
-//		return !userService.existId(userId);	// !(아이디가 이미 존재하면 true, 없으면 false(사용 가능) 반환)
+		return result;		// true : 사용가능
 	}
    
    /**
