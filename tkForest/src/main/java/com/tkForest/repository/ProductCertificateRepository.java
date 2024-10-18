@@ -10,6 +10,6 @@ import com.tkForest.entity.ProductCertificateEntity;
 import com.tkForest.entity.ProductEntity;
 
 public interface ProductCertificateRepository extends JpaRepository<ProductCertificateEntity, Integer> {
-	List<ProductCertificateEntity> findAllByProductEntityOrderByProductCertificateNoDesc(Optional<ProductEntity> productEntity);
-	List<ProductCertificateEntity> findAllByCertificateEntityOrderByProductCertificateNoDesc(Optional<CertificateEntity> certificateEntity);
+	List<Integer> findByProductEntityProductNo(Integer productNo);
+//	List<ProductCertificateEntity> findAllByCertificateEntityOrderByProductCertificateNoDesc(Optional<CertificateEntity> certificateEntity);
 }

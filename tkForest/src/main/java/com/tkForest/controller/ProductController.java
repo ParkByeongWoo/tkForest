@@ -65,7 +65,7 @@ public class ProductController {
 	 productService.productCreate(productDTO);
      productService.categoryInsert(pCategoryDTO);
      productService.certificateInsert(productCertificateDTO);
-     return "product/productCreate"; //마이페이지-상품관리페이지로 넘어갈 것
+     return "/"; //마이페이지-상품관리페이지로 넘어갈 것
    }
    
    /**
@@ -81,8 +81,8 @@ public class ProductController {
 		   , Model model) {
       
       ProductDTO product = productService.selectOne(productNo);
-      List<PCategoryDTO> pCategory = productService.categoryAll(productNo);
-      List<ProductCertificateDTO> productCertificate = productService.certificateAll(productNo);
+      List<Integer> categoryNos = productService.categoryAll(productNo);
+      List<Integer> productCertificate = productService.certificateAll(productNo);
       
       log.info("조회된 상품: {}", product.toString());
       productService.incrementHitcount(productNo);
@@ -92,7 +92,7 @@ public class ProductController {
       }
       
       model.addAttribute("product", product);
-      model.addAttribute("pCategory", pCategory);
+      model.addAttribute("categoryNos", categoryNos);
       model.addAttribute("productCertificate", productCertificate);
 		// 검색 기능이 추가되면 계속 달고 다녀야 함
       model.addAttribute("searchItem", searchItem);

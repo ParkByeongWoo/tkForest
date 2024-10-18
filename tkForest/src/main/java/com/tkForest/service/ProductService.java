@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,16 +41,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductService {
    
-   final ProductRepository productRepository;
-   final PCategoryRepository pCategoryRepository;
-   final SellerRepository sellerRepository;
-   final CategoryRepository categoryRepository;
-   final CertificateRepository certificateRepository;
-   final ProductCertificateRepository productCertificateRepository;
-
+	final ProductRepository productRepository;
+	final SellerRepository sellerRepository;
+	final PCategoryRepository pCategoryRepository;
+	final CategoryRepository categoryRepository;
+	final CertificateRepository certificateRepository;
+	final ProductCertificateRepository productCertificateRepository;
    
    // 페이징할 때 한 페이지 출력할 글 개수
-   @Value("${user.product.pageLimit}")
+   @Value("${user.inquiry.pageLimit}")
 	private int pageLimit;	
 	
    // 업로드된 파일이 저장될 디렉토리 경로를 읽어옴
@@ -127,53 +127,44 @@ public class ProductService {
 		return null;
 	}
 	
-	public List<PCategoryDTO> categoryAll(Integer productNo) {
-	    Optional<ProductEntity> productEntity = productRepository.findById(productNo);
-
-	    List<PCategoryEntity> pCategoryEntityList = pCategoryRepository.findAllByProductEntityOrderByPCategoryNoDesc(productEntity);
+	public List<Integer> categoryAll(Integer productNo) {
+		List<Integer> categoryNos = pCategoryRepository.findByProductEntityProductNo(productNo);
+	    System.out.println(categoryNos);
 	    
-	    List<PCategoryDTO> pCategoryDTOList = new ArrayList<>();
-	    pCategoryEntityList.forEach(
-	            (entity) -> pCategoryDTOList.add(PCategoryDTO.toDTO(entity, productNo, entity.getCategoryEntity().getCategoryNo())));
-	    
-	    System.out.println("====" + pCategoryDTOList);
-	    return pCategoryDTOList;
+	    return categoryNos;
 	}
 	
-	public List<ProductCertificateDTO> certificateAll(Integer productNo){
-		Optional<ProductEntity> productEntity = productRepository.findById(productNo);
+	public List<Integer> certificateAll(Integer productNo){
 	
-		List<ProductCertificateEntity> productCertificateEntityList = productCertificateRepository.findAllByProductEntityOrderByProductCertificateNoDesc(productEntity);
+		List<Integer> certificateNos = productCertificateRepository.findByProductEntityProductNo(productNo);
 	
-		List<ProductCertificateDTO> productCertificateDTOList = new ArrayList<>();
-		productCertificateEntityList.forEach(
-				(entity) -> productCertificateDTOList.add(ProductCertificateDTO.toDTO(entity, productNo, entity.getCertificateEntity().getCertificateTypeCode())));
-		System.out.println("====" + productCertificateDTOList);
-		return productCertificateDTOList;
+		System.out.println(certificateNos);
+	    
+	    return certificateNos;
 	}
 
 	public Page<ProductDTO> selectAll(Pageable pageable, String searchItem, String searchWord) {
 		int page = pageable.getPageNumber() - 1;
 		
-		Page<ProductEntity> entityList = null;
+		Page<ProductEntity> entityList = productRepository.findAll(pageable);;
 
-		switch(searchItem) {
-		case "brand"   :
-			entityList = productRepository.findByBrandContains(
-					searchWord, 
-					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
-			break;
-		case "productName"  :
-			entityList = productRepository.findByProductNoContains(
-					searchWord, 
-					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
-			break;
-		case "productDescription" :
-			entityList = productRepository.findByProductDescriptionContains(
-					searchWord, 
-					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
-			break;
-		}
+//		switch(searchItem) {
+//		case "brand"   :
+//			entityList = productRepository.findByBrandContains(
+//					searchWord, 
+//					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
+//			break;
+//		case "productName"  :
+//			entityList = productRepository.findByProductNoContains(
+//					searchWord, 
+//					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
+//			break;
+//		case "productDescription" :
+//			entityList = productRepository.findByProductDescriptionContains(
+//					searchWord, 
+//					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
+//			break;
+//		}
 		
 		Page<ProductDTO> list = null;
 
