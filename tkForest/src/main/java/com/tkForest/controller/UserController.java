@@ -139,7 +139,15 @@ public class UserController {
       return "user/login";
    }
 
-  
+   /**
+    * 셀러 마이페이지 가기 
+    * @return
+    */
+   @GetMapping("/sellerMypage")
+   public String sellerMypage() {
+       return "user/sellerMypage"; //
+   }
+   
    /**
     * 바이어 마이페이지 가기 
     * @return
@@ -217,6 +225,20 @@ public class UserController {
        // 템플릿 이름을 반환합니다.
        return "user/sellerProfileUpdate"; // 템플릿 이름
    }
+// 하나의 경로에 대해 한 컨트롤러 메서드만 매핑되도록 수정하기
+//   /**
+//    * 셀러 셀러스토어 가기
+//    * @return
+//    */
+//   @GetMapping("/sellerStore")
+//   public String sellerStore() {
+//       return "user/sellerStore"; //
+//   }
+
+
+   
+   
+
    
 
 

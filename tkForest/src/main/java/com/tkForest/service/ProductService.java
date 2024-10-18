@@ -72,7 +72,7 @@
 //		// 데이터를 꺼내 InquiryDTO로 변환
 //		if(entity.isPresent()) {
 //			ProductEntity temp = entity.get();
-//			return ProductDTO.toDTO(temp, sellerDTO.getSellerMemberNo());
+//			return ProductDTO.toDTO(temp, sellerDTO);
 //		}
 //		return null;
 //	}
