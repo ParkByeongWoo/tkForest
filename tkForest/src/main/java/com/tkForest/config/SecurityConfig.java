@@ -60,6 +60,7 @@ public class SecurityConfig {
                      , "/script/**"
 //                     , "/img/**"
                      , "/**"
+                     ,"/fragment/**"
                      
                      ).permitAll()   // permitAll() 인증절차 없이도 접근가능한 요청 정보      
                .requestMatchers("/admin/**").hasRole("ADMIN")
