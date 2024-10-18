@@ -1,5 +1,7 @@
 package com.tkForest.controller;
 
+import java.util.Optional;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.LoginSellerDetails;
+import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.SellerDTO;
+import com.tkForest.entity.CategoryEntity;
+import com.tkForest.entity.PCategoryEntity;
+import com.tkForest.entity.ProductEntity;
 import com.tkForest.service.UserService;
 
 //import com.tkForest.service.ProductService;
@@ -73,6 +79,11 @@ public class UserController {
 //   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
    }
 
+   
+
+   
+   
+   
    /**
     * 회원가입(바이어) 화면 요청
     * @return

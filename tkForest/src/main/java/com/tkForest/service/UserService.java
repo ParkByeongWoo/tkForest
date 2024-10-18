@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.tkForest.controller.SCategoryDTO;
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.entity.BuyerEntity;
+import com.tkForest.entity.CategoryEntity;
+import com.tkForest.entity.PCategoryEntity;
+import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
 import com.tkForest.repository.BuyerRepository;
 import com.tkForest.repository.SellerRepository;
@@ -87,7 +91,29 @@ public class UserService {
 
         return "S" + newMemberNoSuffix; // 새로운 SellerMemberNo 생성
    }
-
+    
+    /**
+     * 가입중인 셀러DB에 카테고리 추가함
+     * @param sCategoryDTO
+     */
+    public void categoryInsert(SCategoryDTO sCategoryDTO) {
+	      Optional<SellerEntity> sellerEntity = sellerRepository.findBySellId(pCategoryDTO.getProductNo());
+	      Optional<CategoryEntity> categoryEntity = categoryRepository.findById(pCategoryDTO.getCategoryNo());
+	      if(productEntity.isPresent() && categoryEntity.isPresent()) {
+		    	  
+		      ProductEntity entity1 = productEntity.get();
+		      CategoryEntity entity2 = categoryEntity.get();
+		      
+		      PCategoryEntity pCategoryEntity = PCategoryEntity.toEntity(pCategoryDTO, entity1, entity2);
+		
+		      System.out.println(pCategoryEntity);
+		      
+		      pCategoryRepository.save(pCategoryEntity);
+	      }
+	      return ;
+	   }    
+    
+    
    /**
      * 전달 받은 buyerDTO를 buyerEntity로 변경한 후 DB에 저장.
      * @param buyerDTO

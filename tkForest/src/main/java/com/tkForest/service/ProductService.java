@@ -84,6 +84,11 @@ public class ProductService {
       // 2) save()로 데이터 저장
       productRepository.save(productEntity);
    }
+   
+   /**
+    * 등록된 상품DB에 카테고리 추가하기
+    * @param pCategoryDTO
+    */
    public void categoryInsert(PCategoryDTO pCategoryDTO) {
       Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
       Optional<CategoryEntity> categoryEntity = categoryRepository.findById(pCategoryDTO.getCategoryNo());
@@ -101,6 +106,10 @@ public class ProductService {
       return ;
    }
    
+   /**
+    * 등록된 상품DB에 인증서 추가하기
+    * @param productCertificateDTO
+    */
    public void certificateInsert(ProductCertificateDTO productCertificateDTO) {
 	   Optional<ProductEntity> productEntity = productRepository.findById(productCertificateDTO.getProductNo());
 	   Optional<CertificateEntity> certificateEntity = certificateRepository.findById(productCertificateDTO.getCertificateTypeCode());
@@ -117,6 +126,11 @@ public class ProductService {
 	   return ;
    }
    
+   /**
+    * 상품 1개 조회해오기
+    * @param productNo
+    * @return
+    */
 	public ProductDTO selectOne(int productNo) {
 		Optional<ProductEntity> entity = productRepository.findById(productNo);
 		
@@ -127,6 +141,11 @@ public class ProductService {
 		return null;
 	}
 	
+	/**
+	 * 상품의 모든 카테고리 조회하기
+	 * @param productNo
+	 * @return
+	 */
 	public List<Integer> categoryAll(Integer productNo) {
 		List<Integer> categoryNos = pCategoryRepository.findByProductEntityProductNo(productNo);
 	    System.out.println(categoryNos);
@@ -134,6 +153,11 @@ public class ProductService {
 	    return categoryNos;
 	}
 	
+	/**
+	 * 상품의 인증서 조회하기
+	 * @param productNo
+	 * @return
+	 */
 	public List<Integer> certificateAll(Integer productNo){
 	
 		List<Integer> certificateNos = productCertificateRepository.findByProductEntityProductNo(productNo);
@@ -142,7 +166,14 @@ public class ProductService {
 	    
 	    return certificateNos;
 	}
-
+	
+	/**
+	 * (검색기능 포함) 상품 리스트 불러오기
+	 * @param pageable
+	 * @param searchItem
+	 * @param searchWord
+	 * @return
+	 */
 	public Page<ProductDTO> selectAll(Pageable pageable, String searchItem, String searchWord) {
 		int page = pageable.getPageNumber() - 1;
 		
@@ -183,6 +214,10 @@ public class ProductService {
 		return list;
 	}
 	
+	/**
+	 * 상품 1개 정보 수정하기
+	 * @param product
+	 */
 	@Transactional
 	public void updateProduct(ProductDTO product) {
 		MultipartFile uploadFile = product.getUploadFile();
@@ -225,7 +260,7 @@ public class ProductService {
 	}
 	
 	/**
-	 * 
+	 * 상품 1개 삭제하기
 	 * @param productNo
 	 */
 	@Transactional
