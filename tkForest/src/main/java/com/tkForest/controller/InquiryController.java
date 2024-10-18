@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -137,19 +138,20 @@ public class InquiryController {
 //        return "redirect:/inquiry/inquiryList";
 //    }
 
-//    /**
-//     * 글 자세히 보기
-//     * @param inquiryNo
-//     * @param model
-//     * @return
-//     */
-//    @GetMapping("/inquiryDetail")
-//    public String inquiryDetail(
+    /**
+     * 글 자세히 보기
+     * @param inquiryNo
+     * @param model
+     * @return
+     */
+    @GetMapping("/inquiryDetail")
+    public String inquiryDetail(
 //            @AuthenticationPrincipal UserDetails loginUser,
 //            @RequestParam(name="inquiryNo") Integer inquiryNo,
 //            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
 //            @RequestParam(name="searchWord", defaultValue="") String searchWord,
-//            Model model) {
+//            Model model
+    		) {
 //
 //        // 인증되지 않은 사용자는 접근 불가
 //        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
@@ -171,8 +173,9 @@ public class InquiryController {
 //            model.addAttribute("loginName", loginUser.getUsername());
 //        }
 //
-//        return "inquiry/inquiryDetail";
-//    }
+        return "inquiry/inquiryDetail";
+    }
+
 //
 //    /**
 //     * 글 삭제 처리
