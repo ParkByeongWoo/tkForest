@@ -155,15 +155,17 @@ public class UserController {
        return "user/buyerMypage"; //
    }
    
-   
-   /**
-    * 셀러 셀러스토어 가기
-    * @return
-    */
-   @GetMapping("/sellerStore")
-   public String sellerStore() {
-       return "user/sellerStore"; //
-   }
+// 하나의 경로에 대해 한 컨트롤러 메서드만 매핑되도록 수정하기
+//   /**
+//    * 셀러 셀러스토어 가기
+//    * @return
+//    */
+//   @GetMapping("/sellerStore")
+//   public String sellerStore() {
+//       return "user/sellerStore"; //
+//   }
+
+
    
    
 

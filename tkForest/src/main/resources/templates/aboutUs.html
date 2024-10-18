@@ -1,13 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- 헤더 불러오기 -->
     <div th:replace="fragment/header :: header"></div>
+    
+    <h1>About Us</h1>
+    
+    <h2>All Top 10 Words(pie Chart)</h2>
+    <canvas id="pie-chart" width="400" height="400"></canvas>
+    
+    <h2>Beauty Top 10 Categories(bar Chart)</h2>
+    <canvas id="bar-chart" width="400" height="400"></canvas>
+    
+    <h2>Beauty Top 10 Words Keywords(bar Chart)</h2>
+    <canvas id="keywords-bar-chart" width="400" height="400"></canvas>
+    
+    <script>
+        // 기존 키워드 데이터
+        const words = ['care', 'skin', 'mask', 'beauty', 'face', 'cream', 'jewelry', 'fashion', 'facial', 'accessories'];
+        const frequencies = [11236, 5605, 4950, 4158, 3808, 3774, 3321, 3206, 2963, 2578];
 
-<h2>aboutUs</h2>
+        // 뷰티 상위 10 키워드 데이터
+        const beautyKeywords = ['INJECTION PDRN', 'LIPOLYSIS', 'MAKEUP TOOL', 'PERSNAL CARE', 'PDO THREAD & NEEDLE', 'MASK', 'Botox', 'FACE SKIN', 'WRINKLE CARE', 'FACIAL MASK SHEET'];
+        const beautyKeywordFrequencies = [54, 26, 22, 16, 14, 14, 14, 11, 10, 10];
+
+        // 파이 차트
+        const ctxPie = document.getElementById('pie-chart').getContext('2d');
+        const pieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: words,
+                datasets: [{
+                    label: '키워드 빈도',
+                    data: frequencies,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(100, 255, 100, 0.6)',
+                        'rgba(255, 100, 255, 0.6)',
+                        'rgba(100, 100, 255, 0.6)',
+                        'rgba(255, 255, 100, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(100, 255, 100, 1)',
+                        'rgba(255, 100, 255, 1)',
+                        'rgba(100, 100, 255, 1)',
+                        'rgba(255, 255, 100, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: '상위 10 키워드 빈도 (파이 차트)'
+                    }
+                }
+            }
+        });
+
+        // 뷰티 카테고리 데이터
+        const categories = ['Facial Care', 'Beauty Products', 'Face Cream Lotion', 'Face Mask', 'Skin Care Serum', 'Beauty Equipment', 'Facial Cleanser', 'Skin Toner', 'Skin Care Set', 'Medical Face Mask'];
+        const categoryFrequencies = [1261, 1200, 1029, 853, 852, 711, 522, 496, 490, 327];
+
+        // 막대 차트
+        const ctxBar = document.getElementById('bar-chart').getContext('2d');
+        const barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: '카테고리 빈도',
+                    data: categoryFrequencies,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '빈도'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: '뷰티 상위 10 카테고리 (막대 차트)'
+                    }
+                }
+            }
+        });
+
+        // 뷰티 상위 10 키워드 막대 차트
+        const ctxKeywordsBar = document.getElementById('keywords-bar-chart').getContext('2d');
+        const keywordsBarChart = new Chart(ctxKeywordsBar, {
+            type: 'bar',
+            data: {
+                labels: beautyKeywords,
+                datasets: [{
+                    label: '키워드 빈도',
+                    data: beautyKeywordFrequencies,
+                    backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '빈도'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: '뷰티 상위 10 키워드 (막대 차트)'
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
