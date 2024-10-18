@@ -77,22 +77,22 @@ public class SellerEntity {
 
     // DTO -> Entity
     public static SellerEntity toEntity(SellerDTO sellerDTO) {
-        return SellerEntity.builder()
-                .sellerMemberNo(sellerDTO.getSellerMemberNo())
-                .sellerMemberJoinDate(sellerDTO.getSellerMemberJoinDate())
-                .companyName(sellerDTO.getCompanyName())
-                .address(sellerDTO.getAddress())
-                .bizregNo(sellerDTO.getBizregNo())
-                .ownerName(sellerDTO.getOwnerName())
-                .bizPhoneNumber(sellerDTO.getBizPhoneNumber())
-                .companyDescription(sellerDTO.getCompanyDescription())
-                .picName(sellerDTO.getPicName())
-                .phoneNumber(sellerDTO.getPhoneNumber())
-                .sellerId(sellerDTO.getSellerId())
-                .password(sellerDTO.getPassword())
-                .email(sellerDTO.getEmail())
-                .sellerKeyword(sellerDTO.getSellerKeyword())
-                .sellerStatus(sellerDTO.getSellerStatus())
-                .build();
+        SellerEntity entity = new SellerEntity();
+        entity.sellerMemberNo = sellerDTO.getSellerMemberNo();
+        entity.sellerMemberJoinDate = sellerDTO.getSellerMemberJoinDate();
+        entity.companyName = sellerDTO.getCompanyName();
+        entity.address = sellerDTO.getAddress();
+        entity.bizregNo = sellerDTO.getBizregNo();
+        entity.ownerName = sellerDTO.getOwnerName();
+        entity.bizPhoneNumber = sellerDTO.getBizPhoneNumber();
+        entity.companyDescription = sellerDTO.getCompanyDescription();
+        entity.picName = sellerDTO.getPicName();
+        entity.phoneNumber = sellerDTO.getPhoneNumber();
+        entity.sellerId = sellerDTO.getSellerId();
+        entity.password = sellerDTO.getPassword();
+        entity.email = sellerDTO.getEmail();
+        entity.sellerKeyword = sellerDTO.getSellerKeyword();
+        entity.sellerStatus = sellerDTO.getSellerStatus();
+        return entity;
     }
 }

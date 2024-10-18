@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SELLERPROFILEUPDATE</title>
+    
+    	<!-- 검증 설정 -->
+	<script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+	<script defer th:src="@{/script/update.js}"></script>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -147,14 +152,15 @@
           </div>
         </div>
 
-            <div class="breadcrumb">
-                Home > Seller Profile Update
-            </div>
-
         <div class="content">
+        
+        
+            <div class="breadcrumb">
+                Home > Profile Update
+            </div>
             
-        <form th:action="@{/seller/sellerProfileUpdate}" method="POST" id="sellerProfileUpdate">
-            <h1>Profile</h1>
+        <form th:action="@{/user/sellerProfileUpdate}" method="POST" id="sellerProfileUpdate">
+            <h1>Profile Update</h1>
             <div class="profile-info">
                 <div>
                     <h4> ID </h4>
@@ -201,10 +207,13 @@
                     <input type="text" name="sellerKeyword" id="sellerKeyword" th:value="${userDTO.sellerKeyword != null ? userDTO.sellerKeyword : '정보 없음'}" >
                 
             </div>
-            <div class="edit-button">
-         		<input type="button" id="submitBtn" value="회원정보 수정" class="btn btn-primary">
-                <input type="reset" id="resetBtn" value="초기화" class="btn btn-light">
-            </div>
+ 
+				<div class="btns">
+				    <input type="submit" id="submitBtn" value="회원정보 수정" class="btn btn-primary">
+				    <input type="reset" id="resetBtn" value="초기화" class="btn btn-light">
+				    <input type="submit" id="resetBtn" value="탈퇴" class="btn btn-light">
+				</div>
+
             </div>
           </form>
         </div>
