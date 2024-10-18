@@ -31,7 +31,10 @@
     <!-- Main Style -->
     <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
-
+    
+    <!-- 추가한 css -->
+    <link rel="stylesheet" href="/css/signup.css">
+    
 </head>
 
 <body>
@@ -1025,6 +1028,38 @@
                                     <!-- textarea로 바꿀 수 있으면 바꾸기!!! css 설정 확인해야함 -->
                                     <!-- <textarea name="companyDescription" placeholder="회사 소개"></textarea>  -->
                                 </span>
+								<span class="ms-register-wrap">
+								<label>회사 인증서</label>
+								<div class="certificateTypeCode">
+        <label><input type="checkbox" name="certificateTypeCode" value="1"> GMP</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="2"> ISO</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="3"> CE</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="4"> FDA</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="5"> HACCP</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="6"> HALAL</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="7"> Kosher</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="8"> CPNP</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="9"> HALAL</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="10"> CGMP</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="11"> ECOCERT</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="12"> FSSC22000</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="13"> Vegan</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="14"> Organic</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="15"> Kosher</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="16"> JAS</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="17"> Gluten-free</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="18"> NON-GMO</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="19"> Dermatest</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="20"> NMPA</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="21"> GREENGUARD</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="22"> CCC</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="23"> 무역 거래</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="24"> 샘플 거래</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="25"> 수출의 탑</label><br>
+        <label><input type="checkbox" name="certificateTypeCode" value="26"> DUNS</label><br>
+        </div>
+</span>
+
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>관리자명*</label>
                                     <input type="text" name="picName" placeholder="관리자명" required>
@@ -1043,10 +1078,13 @@
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>아이디 확인*</label>
-                                    <input type="button" id="confirmSellerId" placeholder="아이디 확인">
+                                    <button id="confirmSellerId">중복확인</button>
+                                    <!-- <input type="button" id="confirmSellerId" placeholder="아이디 확인">  -->
+                                    <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
+                                    <input type="text" id="idCheck" placeholder="아이디 사용 가능 여부" required readonly>
                                 </span>
                                 <span class="ms-register-wrap">
-                                    <div id="idCheck" style="font-size:0.8em;"></div>
+                                    <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
                                 </span>
                                 <span class="ms-register-wrap">
                                     <label>비밀번호*</label>
@@ -1062,9 +1100,50 @@
                                 <span class="ms-register-wrap">
                                     <label>관심 카테고리*</label>
                                     <!-- 카테고리 선택하고 required 로 수정예정 -->
-                                    <input type="button" name="sellerCategory" id="openModalBtn" placeholder="카테고리 선택">
+                                    <button id="openModalBtn" style="margin-bottom: 10px;">선택</button>
+                                    <input type="text" name="selectedCategory" id="selectedCategory" placeholder="선택된 카테고리" required readonly>
+                                </span>    
+                                
+                                <span class="ms-register-wrap">    
                                     <!-- 선택된 카테고리 표시 -->
-                                    <div id="selectedCategory"></div>
+                                    <!-- <div class="selectedCategory">
+                                    	<p>선택된 카테고리 : <span id="selectedCategory"></span></p>
+                                    </div>
+                                     -->
+                                    <!-- 선택된 카테고리 전송위한 hidden -->
+    								<input type="hidden" id="selectedCategoryInput" name="selectedCategory"></input>
+                                </span>
+                                    
+                                    <!-- 모달 창 -->
+    								<div id="categoryModal" class="modal">
+        								<div class="modal-content">
+            								<span class="close-btn">&times;</span>
+            								<h2>카테고리 검색</h2>
+
+            								<!-- 카테고리 선택 영역 -->
+            								<div class="category-wrapper">
+                								<label>대분류</label>
+                								<select id="CATEGORY1">
+                    								<option value="">선택1</option>
+                								</select>
+
+								                <label>중분류</label>
+								                <select id="CATEGORY2">
+								                    <option value="">선택2</option>
+								                </select>
+								
+								                <label>소분류</label>
+								                <select id="CATEGORY3">
+								                    <option value="">선택3</option>
+								                </select>
+								
+								                <!-- 카테고리 추가 버튼 -->
+								                <button id="addCategoryBtn">추가</button>
+								            </div>
+								        </div>
+								    </div>
+                                    
+                                    
                                 </span>
 
                                 <span class="ms-register-wrap">

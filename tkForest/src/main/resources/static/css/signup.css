@@ -1,0 +1,164 @@
+/* 모달 창 배경 설정 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* 반투명 검정 배경 */
+}
+
+/* 모달 내용 설정 */
+.modal-content {
+    background-color: white;
+    margin: 15% auto; /* 페이지 중앙 정렬 */
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%; /* 모달 너비 조정 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 닫기 버튼 설정 */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #999;
+}
+
+/* 제목 스타일 */
+.modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #444;
+}
+
+/* 카테고리 선택 영역 스타일 */
+.category-wrapper {
+    display: flex;
+    justify-content: space-between; /* 가로로 정렬 */
+    gap: 15px; /* 선택 박스 간격을 넓게 설정 */
+    align-items: center; /* 세로 정렬 */
+    flex-wrap: nowrap; /* 줄바꿈 방지 */
+}
+
+/* 카테고리 선택 영역 스타일 */
+.category-wrapper {
+    display: flex;
+    justify-content: space-between; /* 가로로 정렬 */
+    gap: 15px; /* 선택 박스와 버튼 간의 간격 */
+    align-items: center; /* 세로 정렬 */
+    flex-wrap: nowrap; /* 줄바꿈 방지 */
+}
+
+/* 레이블 스타일 */
+.category-wrapper label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 0;
+    line-height: 1.5;
+    white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+/* 선택 박스 스타일 */
+.category-wrapper select {
+    flex: 1; /* 선택 박스가 가로 공간을 최대한 차지하도록 설정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    min-width: 200px; /* 최소 너비 설정 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트는 '...'로 표시 */
+}
+
+/* 카테고리 추가 버튼 스타일 */
+#addCategoryBtn {
+    padding: 10px 20px; /* 버튼 패딩을 적절히 설정 */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center; /* 세로 중앙 정렬 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    flex-shrink: 0; /* 버튼 크기가 축소되지 않도록 설정 */
+    width: 100px; /* 버튼 고정 너비 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+#addCategoryBtn:hover {
+    background-color: #0056b3;
+}
+
+
+/**** 인증서 선택 ****/
+
+.certificateTypeCode {
+    display: flex;
+    flex-wrap: wrap; /* This ensures that checkboxes wrap to the next line when space is insufficient */
+    gap: 10px; /* Adds space between items */
+}
+
+.certificateTypeCode label {
+    display: inline-flex; /* Ensures the checkbox and label text are on the same line */
+    align-items: center; /* Vertically centers the checkbox with the label text */
+    white-space: nowrap; /* Prevents the text from wrapping to a new line */
+    width: 200px; /* Adjust width to ensure enough space for the label text */
+}
+
+.certificateTypeCode input[type="checkbox"] {
+    margin-right: 10px; /* Adds space between the checkbox and the label text */
+}
+
+.ms-register-wrap-checkbox input[type="checkbox"] {
+    width: 15px; /* Set checkbox width */
+    height: 15px; /* Set checkbox height */
+}
+
+div.certificateTypeCode input {
+	width: 15px;
+	height: 15px;
+}
+
+/*
+.ms-register-container label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; 
+}
+
+.ms-register-container input[type="checkbox"] {
+  margin-right: 10px;
+}
+*/
+
+.certificateTypeCode label {
+  display: inline-flex; /* Makes the checkbox and label text appear in one line */
+  align-items: center; /* Vertically aligns the checkbox with the label text */
+}
+
+.certificateTypeCode input[type="checkbox"] {
+  margin-right: 10px; /* Adds some space between the checkbox and the label text */
+}
+
+
+
+
+
+

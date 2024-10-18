@@ -139,14 +139,14 @@ public class UserController {
       return "user/login";
    }
 
-   /**
-    * 셀러 마이페이지 가기 
-    * @return
-    */
-   @GetMapping("/sellerMypage")
-   public String sellerMypage() {
-       return "user/sellerMypage"; //
-   }
+//   /**
+//    * 셀러 마이페이지 가기 
+//    * @return
+//    */
+//   @GetMapping("/sellerMypage")
+//   public String sellerMypage() {
+//       return "user/sellerMypage"; //
+//   }
    
    /**
     * 바이어 마이페이지 가기 
