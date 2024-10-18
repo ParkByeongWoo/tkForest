@@ -1,11 +1,42 @@
-<!-- fragments/header.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="header">
-        <headerbar>
-            <h3>헤더입니다</h3>
-            <a th:href="@{/}">로고</a>
-        </headerbar>
-    </div>
-</html>
+header.html
 
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<body>
+    <div class="container" th:fragment="header">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" alt="logo">
+            </a>
+
+        </div>
+
+        <!-- 로그인 정보 -->
+        <div id="user">
+            <ul>
+                <!-- 비회원만 보임 -->
+                <li sec:authorize="isAnonymous()"><a th:href="@{/user/login}">로그인</a></li>
+
+                <!-- 로그인된 사용자만 보임 -->
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/user/logout}">[[${loginName}]]([[ ${#authentication.name} ]])님, 로그아웃</a>
+                </li>
+
+                <!-- ROLE_SELLER일 경우 셀러 마이페이지 링크 표시 -->
+                <li sec:authorize="hasAuthority('ROLE_SELLER')">
+                    <a th:href="@{/user/sellerMypage}">셀러 마이페이지</a>
+                    <a th:href="@{/user/sellerStore}">셀러 셀러스토어</a>
+
+                    <!-- ROLE_BUYER일 경우 셀러 마이페이지 링크 표시 -->
+                <li sec:authorize="hasAuthority('ROLE_BUYER')">
+                    <a th:href="@{/user/buyerMypage}">바이어 마이페이지</a>
+
+
+                <li> --------------------------------------------------------------------------------- </li>
+            </ul>
+        </div>
+    </div> <!-- end .container -->
+</body>
+
+</html>

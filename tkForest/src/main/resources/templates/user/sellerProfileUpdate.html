@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Page - Masterkart</title>
+    <title>SELLERPROFILEUPDATE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -147,11 +147,13 @@
           </div>
         </div>
 
+            <div class="breadcrumb">
+                Home > Seller Profile Update
+            </div>
 
         <div class="content">
-            <div class="breadcrumb">
-                Home > My Page
-            </div>
+            
+        <form th:action="@{/seller/sellerProfileUpdate}" method="POST" id="sellerProfileUpdate">
             <h1>Profile</h1>
             <div class="profile-info">
                 <div>
@@ -164,7 +166,7 @@
                 </div>
                 <div>
                     <h4>address</h4>
-                    <input type="text" name="address" id="address" th:value="${userDTO.address != null ? userDTO.address : '정보 없음'}" readOnly>
+                    <input type="text" name="address" id="address" th:value="${userDTO.address != null ? userDTO.address : '정보 없음'}" >
                 </div>
                 <div>
                     <h4>bizreg No</h4>
@@ -172,36 +174,39 @@
                 </div>
                 <div>
                     <h4>ownerName</h4>
-                    <input type="text" name="ownerName" id="ownerName" th:value="${userDTO.ownerName != null ? userDTO.ownerName : '정보 없음'}" readOnly>
+                    <input type="text" name="ownerName" id="ownerName" th:value="${userDTO.ownerName != null ? userDTO.ownerName : '정보 없음'}" >
                 </div>
                 <div>
                     <h4>Phone Number</h4>
-                    <input type="text" name="bizPhoneNumber" id="bizPhoneNumber" th:value="${userDTO.bizPhoneNumber != null ? userDTO.bizPhoneNumber : '정보 없음'}" readOnly>
+                    <input type="text" name="bizPhoneNumber" id="bizPhoneNumber" th:value="${userDTO.bizPhoneNumber != null ? userDTO.bizPhoneNumber : '정보 없음'}" >
                 </div>
                 <div>
                     <h4>Company Description</h4>
-                    <input type="text" name="companyDescription" id="companyDescription" th:value="${userDTO.companyDescription != null ? userDTO.companyDescription : '정보 없음'}" readOnly>
+                    <input type="text" name="companyDescription" id="companyDescription" th:value="${userDTO.companyDescription != null ? userDTO.companyDescription : '정보 없음'}" >
                 </div>
                 <div>
                     <h4>Name(Person In Charge)</h4>
-                    <input type="text" name="picName" id="picName" th:value="${userDTO.picName != null ? userDTO.picName : '정보 없음'}" readOnly>
+                    <input type="text" name="picName" id="picName" th:value="${userDTO.picName != null ? userDTO.picName : '정보 없음'}" >
                 </div>
                 <div>
                     <h4>phoneNumber</h4>
-                    <input type="text" name="phoneNumber" id="phoneNumber" th:value="${userDTO.phoneNumber != null ? userDTO.phoneNumber : '정보 없음'}" readOnly>
+                    <input type="text" name="phoneNumber" id="phoneNumber" th:value="${userDTO.phoneNumber != null ? userDTO.phoneNumber : '정보 없음'}" >
                 </div>
                 <div>
                     <h4>email</h4>
-                    <input type="text" name="email" id="email" th:value="${userDTO.email != null ? userDTO.email : '정보 없음'}" readOnly>
+                    <input type="text" name="email" id="email" th:value="${userDTO.email != null ? userDTO.email : '정보 없음'}" >
                 </div>
                 <div>
                     <h4>seller Keyword</h4>
-                    <input type="text" name="sellerKeyword" id="sellerKeyword" th:value="${userDTO.sellerKeyword != null ? userDTO.sellerKeyword : '정보 없음'}" readOnly>
-                </div>
+                    <input type="text" name="sellerKeyword" id="sellerKeyword" th:value="${userDTO.sellerKeyword != null ? userDTO.sellerKeyword : '정보 없음'}" >
+                
             </div>
-            <button class="edit-button">
-            <a th:href="@{/seller/sellerProfileUpdate}" class="btn btn-primary">Edit Profile</a>
-            </button>
+            <div class="edit-button">
+         		<input type="button" id="submitBtn" value="회원정보 수정" class="btn btn-primary">
+                <input type="reset" id="resetBtn" value="초기화" class="btn btn-light">
+            </div>
+            </div>
+          </form>
         </div>
     </div>
 </body>

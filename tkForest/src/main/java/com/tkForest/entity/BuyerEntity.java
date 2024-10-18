@@ -9,6 +9,8 @@ import com.tkForest.dto.BuyerDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +32,12 @@ public class BuyerEntity {
     @Id
     @Column(name = "BUYER_MEMBERNO")
     private String buyerMemberNo;
-
+    
+    // 국가 코드 외래키 참조
+    // @ManyToOne
+    // @JoinColumn(name = "NATIONCODE")
     @Column(name = "NATIONCODE", nullable = false)
-    private String nationCode; 
+    private String nationCode;
 
     @Column(name = "BUYER_MEMBER_JOINDATE", nullable = false)
     @CreationTimestamp
@@ -72,7 +77,8 @@ public class BuyerEntity {
     public static BuyerEntity toEntity(BuyerDTO buyerDTO) {
         return BuyerEntity.builder()
                 .buyerMemberNo(buyerDTO.getBuyerMemberNo())
-                .nationCode(buyerDTO.getNationCode()) 
+                //nationCode는 FK인 것 참고!
+                .nationCode(buyerDTO.getNationCode())
                 .buyerMemberJoinDate(buyerDTO.getBuyerMemberJoinDate())
                 .companyName(buyerDTO.getCompanyName())
                 .bizPhoneNumber(buyerDTO.getBizPhoneNumber())

@@ -2,8 +2,11 @@ package com.tkForest.service;
 
 import java.util.Optional;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SellerDTO;
@@ -23,7 +26,7 @@ public class UserService {
 
     final SellerRepository sellerRepository;
     final BuyerRepository buyerRepository;
-	final BCryptPasswordEncoder bCryptPasswordEncoder;
+   final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 전달 받은 sellerDTO를 sellerEntity로 변경한 후 DB에 저장.
@@ -45,12 +48,13 @@ public class UserService {
          sellerDTO.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
          log.info("암호화된 비밀번호 set 함");
     	
+        
          // SellerMemberNo는 중복되면 안되므로 기존 SellerMemberNo의 최대값 +1로 set
     	 sellerDTO.setSellerMemberNo(generateUniqueSellerMemberNo());
     	
         // 존재하지 않는 ID일 경우 회원가입 처리
         SellerEntity sellerEntity = SellerEntity.toEntity(sellerDTO);
-        sellerRepository.save(sellerEntity);	// 가입 성공
+        sellerRepository.save(sellerEntity);   // 가입 성공
         return true;
  
     }
@@ -73,7 +77,7 @@ public class UserService {
      * @return
      */
     private String generateUniqueSellerMemberNo() {
-    	String lastMemberNo = sellerRepository.findLastMemberNo(); // 최대 memberNo 조회
+       String lastMemberNo = sellerRepository.findLastMemberNo(); // 최대 memberNo 조회
         int newMemberNoSuffix;
 
         if (lastMemberNo != null) {
@@ -83,16 +87,16 @@ public class UserService {
         }
 
         return "S" + newMemberNoSuffix; // 새로운 SellerMemberNo 생성
-	}
+   }
 
-	/**
+   /**
      * 전달 받은 buyerDTO를 buyerEntity로 변경한 후 DB에 저장.
      * @param buyerDTO
      * @return boolean
      */
     public boolean buyerSignUp(BuyerDTO buyerDTO) {
         
-//    	// 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
+//       // 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
 //      boolean isExistId = sellerRepository.findById(buyerDTO.getId()).isPresent() 
 //                          || buyerRepository.findById(buyerDTO.getId()).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true
 //      
@@ -103,14 +107,14 @@ public class UserService {
 
       // 비밀번호 암호화
       // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
-      // buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
+      buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
       
-    	buyerDTO.setBuyerMemberNo("B1");
-//    	buyerDTO.setBuyerMemberNo(generateUniqueBuyerMemberNo());
-  	
+       buyerDTO.setBuyerMemberNo("B1");
+       buyerDTO.setBuyerMemberNo(generateUniqueBuyerMemberNo());
+     
       // 존재하지 않는 ID일 경우 회원가입 처리
       BuyerEntity buyerEntity = BuyerEntity.toEntity(buyerDTO);
-      buyerRepository.save(buyerEntity);	// 가입 성공
+      buyerRepository.save(buyerEntity);   // 가입 성공
       return true;
  
     }
@@ -120,7 +124,7 @@ public class UserService {
      * @return
      */
     private String generateUniqueBuyerMemberNo() {
-    	String lastMemberNo = buyerRepository.findLastMemberNo(); // 최대 memberNo 조회
+       String lastMemberNo = buyerRepository.findLastMemberNo(); // 최대 memberNo 조회
         int newMemberNoSuffix;
 
         if (lastMemberNo != null) {
@@ -130,7 +134,7 @@ public class UserService {
         }
 
         return "B" + newMemberNoSuffix; // 새로운 BuyerMemberNo 생성
-	}
+   }
     
     /**
 	 * (셀/바 공통) 이미 존재하는 ID인지 확인
@@ -155,7 +159,7 @@ public class UserService {
      */
     public Object pwdCheck(String id, String password, boolean isSeller) {
         if (isSeller) {
-            Optional<SellerEntity> sellerEntity = sellerRepository.findById(id);
+            Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerId(id);
             if (sellerEntity.isPresent()) {
                 SellerEntity temp = sellerEntity.get();
                 String pwd = temp.getPassword(); // DB에 저장된 비밀번호
@@ -164,7 +168,7 @@ public class UserService {
                 if (result) return SellerDTO.toDTO(temp); // 비밀번호 일치 시 DTO로 반환
             }
         } else {
-            Optional<BuyerEntity> buyerEntity = buyerRepository.findById(id);
+            Optional<BuyerEntity> buyerEntity = buyerRepository.findByBuyerId(id);
             if (buyerEntity.isPresent()) {
                 BuyerEntity temp = buyerEntity.get();
                 String pwd = temp.getPassword(); // DB에 저장된 비밀번호
@@ -224,4 +228,23 @@ public class UserService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public SellerDTO getSellerById(String sellerId) {
+	    // 셀러 엔티티를 데이터베이스에서 조회
+	    Optional<SellerEntity> optionalSellerEntity = sellerRepository.findBySellerId(sellerId);
+
+	    // 셀러 엔티티가 존재하는 경우
+	    if (optionalSellerEntity.isPresent()) {
+	        SellerEntity sellerEntity = optionalSellerEntity.get();
+	        System.out.println("----- 데이터 존재?? " +sellerEntity );
+	        // 셀러 엔티티를 SellerDTO로 변환하여 반환
+	        return SellerDTO.toDTO(sellerEntity);
+	    } else {
+	        // 셀러가 존재하지 않는 경우 null 반환 또는 예외 처리
+	        return null; // 또는 예외를 던질 수 있습니다
+	    }
+	}
+	
+	
+
 }
