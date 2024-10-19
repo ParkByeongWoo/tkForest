@@ -7,14 +7,17 @@
  */
 let idCheck = false;	// 일단 기본은 false(가입 불가능)
 let pwdCheck = false;
+let bizregNoCheck = false;
 let categoryData = {};
 
 $(function(){
 	
-	// 아이디 확인 버튼 클릭 -> 중복 아이디 체크	
+	$('#confirmBizregNo').on('click', confirmBizregNo);
 	$('#confirmSellerId').on('click', confirmSellerId);
 	$('#confirmBuyerId').on('click', confirmBuyerId);
-	
+	// $('#password').on('keyup', confirmPassword);
+	// $('#passwordCheck').on('keyup', confirmPassword);
+		
 	// 국가 목록 가져오기
 	fetchCountries();
 	
@@ -24,10 +27,9 @@ $(function(){
 		initializeModal();   // 카테고리 json 불러온 후 모달창 초기화
 
 	});
-		
 	
-	// 가입 버튼 클릭 시 확인 (시간상 일단 pass)
-	// $('#submitBtn').on('click', join);		
+	// 가입 버튼 클릭 시 확인
+	// $('#submitBtn').on('click', sellerSignUp);
 	
 });
 
@@ -38,22 +40,15 @@ function confirmSellerId(){
 	
 	let userId = $('[data-role="userId"]').val();
 
-	/*	
+	/*
 	if (userId.trim().length < 3 || userId.trim().length > 5) {
 		$('#confirmId').css('color', 'red');
 		$('#confirmId').html('id는 3~5자 사이로 입력하세요❗');
 		return;
 	}
-	
-	
-	// 아이디 공백인지 체크
-	if (userId.trim().length == 0) {
-		$('#confirmId').css('color', 'red');
-		$('#confirmId').html('입력된 id가 없습니다.');
-		return;
-	}
 	*/
 	
+	// 아이디 공백인지 체크
 	if (userId.trim().length == 0) {
 		$('#idCheck').css('color', 'red');
 		$('#idCheck').val('id를 입력해주세요.');
@@ -78,6 +73,49 @@ function confirmSellerId(){
 				// $('#idCheck').html('이미 사용중인 아이디입니다.');
 				idCheck = false;
 			}
+		}
+	});
+	
+	// $('#confirmId').html('');
+	
+}
+
+// (셀러) 사업자등록번호 중복 여부를 판단(ajax로 작업);
+function confirmBizregNo(){
+	event.preventDefault();
+	
+	let bizregNo = $('#bizregNo').val();
+
+	// 입력값이 비어 있으면 경고 메시지
+	if (bizregNo.trim().length == 0) {
+		$('#bizregNoCheck').css('color', 'red');
+		$('#bizregNoCheck').val('사업자등록번호를 입력해주세요.');
+		return;
+	}
+	
+	// 입력값이 있으면 중복확인 요청 메시지
+	// $('#bizregNoCheck').val('중복확인 버튼을 클릭해주세요.');
+
+	
+	// 중복 사업자등록번호지 체크
+	$.ajax({
+		url: "/user/confirmBizregNo"
+		, method: "POST"
+		, data: {"bizregNo":bizregNo}
+		, success: function(resp) {	// resp = true이면 사용가능한 아이디
+			if (resp) {
+				$('#bizregNoCheck').css('color', 'blue');
+				$('#bizregNoCheck').val('가입 가능한 사업자등록번호입니다.');
+				// $('#idCheck').html('사용가능한 아이디입니다.');
+				// $('#idCheck').html('');
+				bizregNoCheck = true;
+			} else {
+				$('#bizregNoCheck').css('color', 'red');
+				$('#bizregNoCheck').val('이미 가입된 사업자등록번호입니다.');
+				// $('#idCheck').html('이미 사용중인 아이디입니다.');
+				bizregNoCheck = false;
+				
+				}
 		}
 	});
 	
@@ -132,21 +170,42 @@ function confirmBuyerId(){
 }
 
 /*
-function join() {
+// 비밀번호 = 비밀번호확인 체크
+function confirmPassword() {
+	
+let userPwd = $('#password').val();
+let userPwdCheck = $('#passwordCheck').val();
+
+if (userPwd.trim() != userPwdCheck.trim()) {
+	$('#confirmPwd').css('color', 'red');
+	$('#confirmPwd').text('비밀번호가 같지 않습니다.');
+	pwdCheck = false;
+	return;
+}
+$('#confirmPwd').html('');
+pwdCheck = true;
+}
+*/
+
+
+/*
+// (셀러) 가입버튼 클릭시 체크
+function sellerSignUp() {
+	
+	event.preventDefault();
 	
 	// 비밀번호 = 비밀번호확인 체크
-	let userPwd = $('#userPwd').val();
+	let userPwd = $('#password').val();
 	let userPwdCheck = $('#passwordCheck').val();
 
 	if (userPwd.trim() != userPwdCheck.trim()) {
 		$('#confirmPwd').css('color', 'red');
-		$('#confirmPwd').html('비밀번호가 같지 않습니다.');
+		$('#confirmPwd').text('비밀번호가 같지 않습니다.');
 		pwdCheck = false;
 		return;
 	}
 	$('#confirmPwd').html('');
 	pwdCheck = true;
-	
 	
 	// 가입
 	if (!idCheck) {
@@ -159,10 +218,49 @@ function join() {
 		return;
 	}
 	
-	$('#joinForm').submit();
+	if (!bizregNoCheck) {
+		alert('사업자등록번호를 정확히 입력해 주세요');
+		return;
+	}
+	
+	$('#sellerSignUpForm').submit();
 	
 }
 */
+
+// 바이어 가입시 체크
+function buyerSignUp() {
+	
+	/*
+	// 비밀번호 = 비밀번호확인 체크
+	let userPwd = $('#userPwd').val();
+	let userPwdCheck = $('#passwordCheck').val();
+
+	if (userPwd.trim() != userPwdCheck.trim()) {
+		$('#confirmPwd').css('color', 'red');
+		$('#confirmPwd').html('비밀번호가 같지 않습니다.');
+		pwdCheck = false;
+		return;
+	}
+	$('#confirmPwd').html('');
+	pwdCheck = true;
+	*/
+	
+	// 가입
+	if (!idCheck) {
+		alert('아이디를 정확히 입력해 주세요');
+		return;
+	} 
+		
+	if (!pwdCheck) {
+		alert('비밀번호를 정확히 입력해 주세요');
+		return;
+	}
+	
+	$('#buyerSignUpForm').submit();
+	
+}
+
 
 // 국가 목록 가져오기 함수
 function fetchCountries() {
@@ -295,21 +393,50 @@ function addCategory(CATEGORY1, CATEGORY2, CATEGORY3, selectedCategory, modal) {
 
     // CATEGORY3이 선택된 경우, CATEGORY3만 추가
     if (CATEGORY3.val()) {
-        categoryText += CATEGORY3.val(); // 3단계 카테고리 추가
+        categoryText = CATEGORY3.val(); // 3단계 카테고리 추가
     }
     // CATEGORY2가 선택된 경우, CATEGORY2만 추가
     else if (CATEGORY2.val()) {
-        categoryText += CATEGORY2.val(); // 2단계 카테고리 추가
+        categoryText = CATEGORY2.val(); // 2단계 카테고리 추가
     }
     // CATEGORY1이 선택된 경우, CATEGORY1만 추가
     else if (CATEGORY1.val()) {
-        categoryText += CATEGORY1.val(); // 1단계 카테고리 추가
+        categoryText = CATEGORY1.val(); // 1단계 카테고리 추가
     }
 
-    selectedCategory.val(categoryText);
+    if (categoryText) {
+        // 선택된 카테고리 표시 영역
+        const selectedCategoryList = $('#selectedCategoryList');
+
+        // 선택된 카테고리 텍스트 추가 (이미 있는 텍스트에 쉼표로 구분)
+        let currentText = selectedCategoryList.text();
+        if (currentText) {
+            selectedCategoryList.text(currentText + ', ' + categoryText); // 기존 텍스트에 쉼표와 함께 추가
+        } else {
+            selectedCategoryList.text(categoryText); // 첫 번째 항목일 경우 쉼표 없이 추가
+        }
+
+        // 선택된 카테고리를 ,로 구분하여 입력 필드에 표시
+        let currentCategories = selectedCategory.val();
+        selectedCategory.val(currentCategories ? currentCategories + ', ' + categoryText : categoryText);
+		
+		// 동적으로 hidden input 추가 (서버로 전달할 데이터)
+		        const hiddenCategoryInputs = $('#hiddenCategoryInputs');
+		        const newHiddenInput = $('<input>')
+		            .attr('type', 'hidden')
+		            .attr('name', 'categoryName[]') // 배열로 전송할 수 있도록 설정
+		            .val(categoryText);
+		        hiddenCategoryInputs.append(newHiddenInput);
+    }
+	
+    
+			/*
+	selectedCategory.val(categoryText);
     
 	// 숨겨진 입력 필드에 카테고리 값 설정
 	$('#selectedCategoryInput').val(categoryText);
+	*/
 	
-	modal.hide(); // 카테고리 선택 후 모달 닫기
+	// modal.hide(); // 카테고리 선택 후 모달 닫기
+
 }

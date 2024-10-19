@@ -1001,9 +1001,14 @@
                     <div class="ms-register-container">
                         <div class="ms-register-form">
                             <form th:action="@{/user/sellerSignUp}" method="post" id="sellerSignUpForm">
-                                <span class="ms-register-wrap">
+                                <span class="ms-register-wrap ms-register-half">
                                     <label>사업자등록번호*</label>
-                                    <input type="text" name="bizregNo" placeholder="사업자등록번호" required>
+                                    <input type="text" id="bizregNo" name="bizregNo" placeholder="사업자등록번호" required>
+                                </span>
+                                <span class="ms-register-wrap ms-register-half">
+                                    <label>사업자등록번호 확인*</label>
+                                    <button id="confirmBizregNo">중복확인</button>
+                                    <input type="text" id="bizregNoCheck" placeholder="중복확인 버튼을 클릭해주세요" required readonly>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>회사명*</label>
@@ -1030,33 +1035,33 @@
                                 </span>
 								<span class="ms-register-wrap">
 								<label>회사 인증서</label>
-								<div class="certificateTypeCode">
-        <label><input type="checkbox" name="certificateTypeCode" value="1"> GMP</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="2"> ISO</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="3"> CE</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="4"> FDA</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="5"> HACCP</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="6"> HALAL</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="7"> Kosher</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="8"> CPNP</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="9"> HALAL</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="10"> CGMP</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="11"> ECOCERT</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="12"> FSSC22000</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="13"> Vegan</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="14"> Organic</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="15"> Kosher</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="16"> JAS</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="17"> Gluten-free</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="18"> NON-GMO</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="19"> Dermatest</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="20"> NMPA</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="21"> GREENGUARD</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="22"> CCC</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="23"> 무역 거래</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="24"> 샘플 거래</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="25"> 수출의 탑</label><br>
-        <label><input type="checkbox" name="certificateTypeCode" value="26"> DUNS</label><br>
+								<div class="sellerCertificateTypeCodes">
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="1"> GMP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="2"> ISO</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="3"> CE</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="4"> FDA</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="5"> HACCP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="6"> HALAL</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="7"> Kosher</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="8"> CPNP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="9"> HALAL</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="10"> CGMP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="11"> ECOCERT</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="12"> FSSC22000</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="13"> Vegan</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="14"> Organic</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="15"> Kosher</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="16"> JAS</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="17"> Gluten-free</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="18"> NON-GMO</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="19"> Dermatest</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="20"> NMPA</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="21"> GREENGUARD</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="22"> CCC</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="23"> 무역 거래</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="24"> 샘플 거래</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="25"> 수출의 탑</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="26"> DUNS</label><br>
         </div>
 </span>
 
@@ -1081,18 +1086,19 @@
                                     <button id="confirmSellerId">중복확인</button>
                                     <!-- <input type="button" id="confirmSellerId" placeholder="아이디 확인">  -->
                                     <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
-                                    <input type="text" id="idCheck" placeholder="아이디 사용 가능 여부" required readonly>
+                                    <input type="text" id="idCheck" placeholder="중복확인 버튼을 클릭해주세요" required readonly>
                                 </span>
                                 <span class="ms-register-wrap">
                                     <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
                                 </span>
-                                <span class="ms-register-wrap">
+                                <span class="ms-register-wrap ms-register-half">
                                     <label>비밀번호*</label>
-                                    <input type="password" name="password" placeholder="비밀번호" required>
+                                    <input type="password" name="password" id="password" placeholder="비밀번호" required>
                                 </span>
 
-                                <span class="ms-register-wrap">
+                                <span class="ms-register-wrap ms-register-half">
                                     <label>비밀번호 확인*</label>
+                                    <span id="confirmPwd"></span>
                                     <input type="password" name="passwordCheck" id="passwordCheck" placeholder="비밀번호확인"
                                         required>
                                 </span>
@@ -1101,7 +1107,7 @@
                                     <label>관심 카테고리*</label>
                                     <!-- 카테고리 선택하고 required 로 수정예정 -->
                                     <button id="openModalBtn" style="margin-bottom: 10px;">선택</button>
-                                    <input type="text" name="selectedCategory" id="selectedCategory" placeholder="선택된 카테고리" required readonly>
+                                    <input type="text" name="" id="selectedCategory" placeholder="선택된 카테고리" required readonly>
                                 </span>    
                                 
                                 <span class="ms-register-wrap">    
@@ -1111,7 +1117,11 @@
                                     </div>
                                      -->
                                     <!-- 선택된 카테고리 전송위한 hidden -->
-    								<input type="hidden" id="selectedCategoryInput" name="selectedCategory"></input>
+    								<!-- <input type="hidden" id="selectedCategoryInput" name="categoryName"></input> -->
+    								
+    								<div id="hiddenCategoryInputs"> 
+    								<!-- 동적으로 input들을 추가할 곳 -->
+    								</div>
                                 </span>
                                     
                                     <!-- 모달 창 -->
@@ -1140,6 +1150,12 @@
 								                <!-- 카테고리 추가 버튼 -->
 								                <button id="addCategoryBtn">추가</button>
 								            </div>
+								            
+								            <!-- 선택된 카테고리 리스트를 표시하는 영역 (버튼 뒤, 가로로 길게 표시) -->
+        <div id="selectedCategoryListContainer">
+            <p>▼선택된 카테고리▼</p>
+            <div id="selectedCategoryList"></div>
+        </div>
 								        </div>
 								    </div>
                                     

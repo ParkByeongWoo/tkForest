@@ -1,7 +1,5 @@
 package com.tkForest.controller;
 
-import java.util.Optional;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.LoginSellerDetails;
-import com.tkForest.dto.PCategoryDTO;
+import com.tkForest.dto.SCategoryDTO;
+import com.tkForest.dto.SellerCertificateDTO;
 import com.tkForest.dto.SellerDTO;
-import com.tkForest.entity.CategoryEntity;
-import com.tkForest.entity.PCategoryEntity;
-import com.tkForest.entity.ProductEntity;
 import com.tkForest.service.UserService;
 
 //import com.tkForest.service.ProductService;
@@ -57,14 +53,20 @@ public class UserController {
     
   	/**
     * 회원가입(셀러) 처리
-    * 전달받은 sellerDTO를 sellerEntity로 변경한 후에 DB에 저장
+    * 전달받은 sellerDTO + sCategoryDTO + sellerCertificateDTO를 각 Entity로 변경한 후에 DB에 저장
     * @param sellerDTO
 	* @return boolean
     */
    @PostMapping("/sellerSignUp")
-   public String sellerSignUp(@ModelAttribute SellerDTO sellerDTO) {
+   public String sellerSignUp(
+		   @ModelAttribute SellerDTO sellerDTO
+		   , @ModelAttribute SCategoryDTO sCategoryDTO
+		   , @ModelAttribute SellerCertificateDTO sellerCertificateDTO
+		   ) {
    	
 	log.info("SellerDTO: {}", sellerDTO.toString());
+	log.info("SCategoryDTO: {}", sCategoryDTO.toString());
+	log.info("SellerCertificateDTO: {}", sellerCertificateDTO.toString());
    	
 	// 기본값으로 설정
 	sellerDTO.setSellerStatus(true);
@@ -72,16 +74,21 @@ public class UserController {
 	
    	// UserService를 통해 셀러 회원가입 처리 로직 호출
    	boolean result = userService.sellerSignUp(sellerDTO);
-   	log.info("셀러 회원가입 성공여부: {}", result);
+   	log.info("셀러 회원가입(기본) 성공여부: {}", result);
    	log.info("셀러 회원가입 정보: {}", sellerDTO);
+   	
+   	// 카테고리 추가
+   	boolean resultCategory = userService.SellerCategoryInsert(sellerDTO, sCategoryDTO);
+   	log.info("셀러 카테고리 추가: {}", resultCategory);
+   	
+   	// 인증서 추가
+   	boolean resultCert = userService.SellerCertificateInsert(sellerDTO, sellerCertificateDTO);
+   	log.info("셀러 인증서 추가: {}", resultCert);
 
    	return "redirect:/";  // 회원가입 완료 후 메인 페이지로 리다이렉트
 //   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
    }
 
-   
-
-   
    
    
    /**
@@ -140,6 +147,30 @@ public class UserController {
 		return result;		// true : 사용가능
 	}
    
+	   /**
+		 * (셀러) 회원가입시 사업자등록번호 중복, 공백 체크 (비동기 이용해 처리-ResponseBody 필요)
+		 * @return
+		 */
+		@PostMapping("/confirmBizregNo")
+		@ResponseBody	// ajax요청이므로
+		public boolean confirmBizregNo(@RequestParam(name="bizregNo") String bizregNo) {
+			log.info("등록하려는 사업자등록번호: {}", bizregNo);
+			
+			// bizregNo가 공백인지 확인
+		    if (bizregNo == null || bizregNo.trim().isEmpty()) {
+		        log.info("사업자등록번호가 공백입니다.");
+		        return false; // 공백인 경우 false 반환
+		    }
+			
+			boolean exists = userService.existBizregNo(bizregNo);
+			log.info("아이디 존재 여부 확인 결과(true:존재) {}", exists);
+			
+			boolean result = !exists;
+			log.info("아이디 중복 확인 결과(true:사용 가능 아이디) {}", result);
+			
+			return result;		// true : 사용가능
+		}
+	
    /**
     * 로그인(공통) 화면 요청(security 하면 중복되는 내용)
     * @return

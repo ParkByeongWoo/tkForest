@@ -2,21 +2,24 @@ package com.tkForest.service;
 
 import java.util.Optional;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import com.tkForest.controller.SCategoryDTO;
 import com.tkForest.dto.BuyerDTO;
+import com.tkForest.dto.SCategoryDTO;
+import com.tkForest.dto.SellerCertificateDTO;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.entity.BuyerEntity;
 import com.tkForest.entity.CategoryEntity;
-import com.tkForest.entity.PCategoryEntity;
-import com.tkForest.entity.ProductEntity;
+import com.tkForest.entity.CertificateEntity;
+import com.tkForest.entity.SCategoryEntity;
+import com.tkForest.entity.SellerCertificateEntity;
 import com.tkForest.entity.SellerEntity;
 import com.tkForest.repository.BuyerRepository;
+import com.tkForest.repository.CategoryRepository;
+import com.tkForest.repository.CertificateRepository;
+import com.tkForest.repository.SCategoryRepository;
+import com.tkForest.repository.SellerCertificateRepository;
 import com.tkForest.repository.SellerRepository;
 
 import jakarta.transaction.Transactional;
@@ -31,6 +34,11 @@ public class UserService {
     final SellerRepository sellerRepository;
     final BuyerRepository buyerRepository;
     final BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    final SCategoryRepository sCategoryRepository;
+    final CategoryRepository categoryRepository;
+    final CertificateRepository certificateRepository;
+    final SellerCertificateRepository sellerCertificateRepository;
 
     /**
      * 전달 받은 sellerDTO를 sellerEntity로 변경한 후 DB에 저장.
@@ -59,7 +67,6 @@ public class UserService {
         SellerEntity sellerEntity = SellerEntity.toEntity(sellerDTO);
         sellerRepository.save(sellerEntity);   // 가입 성공
         return true;
- 
     }
 	
     /**
@@ -92,27 +99,75 @@ public class UserService {
         return "S" + newMemberNoSuffix; // 새로운 SellerMemberNo 생성
    }
     
-    /**
-     * 가입중인 셀러DB에 카테고리 추가함
-     * @param sCategoryDTO
-     */
-    public void categoryInsert(SCategoryDTO sCategoryDTO) {
-	      Optional<SellerEntity> sellerEntity = sellerRepository.findBySellId(pCategoryDTO.getProductNo());
-	      Optional<CategoryEntity> categoryEntity = categoryRepository.findById(pCategoryDTO.getCategoryNo());
-	      if(productEntity.isPresent() && categoryEntity.isPresent()) {
-		    	  
-		      ProductEntity entity1 = productEntity.get();
-		      CategoryEntity entity2 = categoryEntity.get();
-		      
-		      PCategoryEntity pCategoryEntity = PCategoryEntity.toEntity(pCategoryDTO, entity1, entity2);
-		
-		      System.out.println(pCategoryEntity);
-		      
-		      pCategoryRepository.save(pCategoryEntity);
-	      }
-	      return ;
-	   }    
     
+    /**
+     * 가입중인 Seller의 카테고리 추가하기
+     * @param SellerDTO, SCategoryDTO
+     */
+    public boolean SellerCategoryInsert(SellerDTO sellerDTO, SCategoryDTO sCategoryDTO) {
+    	
+    	// sellerId로 셀러 엔티티 찾아오기
+    	Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerMemberNo(sellerDTO.getSellerMemberNo());
+    	// categoryName으로 카테고리 엔티티 찾아오기
+    	Optional<CategoryEntity> categoryEntity = categoryRepository.findByCategoryName(sellerDTO.getCategoryName());
+    	
+    	if(sellerEntity.isPresent() && categoryEntity.isPresent()) {
+	    
+  	      	SellerEntity entity1 = sellerEntity.get();
+  	      	CategoryEntity entity2 = categoryEntity.get();
+  	      
+  	      	SCategoryEntity sCategoryEntity = SCategoryEntity.toEntity(sCategoryDTO, entity1, entity2);
+  	      	sCategoryRepository.save(sCategoryEntity);
+    	
+  	      	log.info("sCategoryEntity 저장 성공");
+  	      	return true;
+    	}
+    	return false;
+    }
+
+    /**
+     * 가입중인 Seller의 인증서 추가하기
+     * @param SellerDTO, SellerCertificateDTO
+     */
+    public boolean SellerCertificateInsert(SellerDTO sellerDTO, SellerCertificateDTO sellerCertificateDTO) {
+    	
+    	// sellerId로 셀러 엔티티 찾아오기
+    	Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerMemberNo(sellerDTO.getSellerMemberNo());
+    	
+    	// 셀러가 있는 경우 실행
+    	if (sellerEntity.isPresent()) {
+    		SellerEntity entity1 = sellerEntity.get();
+    		
+	    	// 인증서 리스트가 null일 경우 해당 로직을 실행하지 않음
+	        if (sellerDTO.getSellerCertificateTypeCodes() != null) {
+	        
+	        	// sellerCertificateDTO에서 선택된 인증서 코드 목록을 가져와서 반복 처리
+	        	for (Integer certCode : sellerDTO.getSellerCertificateTypeCodes()) { 
+	    	
+	        		// certificateCode로 인증서 엔티티 찾아오기
+	        		Optional<CertificateEntity> certificateEntity = certificateRepository.findById(certCode);
+		    	
+		        	if (certificateEntity.isPresent()) {
+		        		
+		        		CertificateEntity entity2 = certificateEntity.get();
+		        		
+		        		SellerCertificateEntity sellerCertificateEntity = SellerCertificateEntity.toEntity(sellerCertificateDTO, entity1, entity2);
+		      	      	sellerCertificateRepository.save(sellerCertificateEntity);
+		        	
+		      	      	log.info("sellerCertificateEntity 저장 성공");
+		      	      	
+		        	}
+	  	      
+	        	} // for문 끝
+	        	return true;
+	        	
+	        } else {
+	                System.out.println("인증서 타입 코드가 없습니다.");
+	                return true;
+	        }
+    	}
+        return false;
+    }
     
    /**
      * 전달 받은 buyerDTO를 buyerEntity로 변경한 후 DB에 저장.
@@ -171,6 +226,19 @@ public class UserService {
 		
 		boolean result = sellerRepository.findBySellerId(userId).isPresent() 
               || buyerRepository.findByBuyerId(userId).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true(사용 불가)
+		
+		return result;
+	}
+	
+    /**
+	 * (셀러) 이미 존재하는 사업자등록번호인지 확인
+	 * 회원가입 시 사업자등록번호 중복확인용
+	 * @param userId
+	 * @return
+	 */
+	public boolean existBizregNo(String bizregNo) {
+		
+		boolean result = sellerRepository.findByBizregNo(bizregNo).isPresent();  // 셀러 테이블에 이미 존재하면 true(사용 불가)
 		
 		return result;
 	}

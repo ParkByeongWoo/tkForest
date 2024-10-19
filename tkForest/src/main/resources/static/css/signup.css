@@ -106,23 +106,44 @@
     background-color: #0056b3;
 }
 
+/* 대분류중분류소분류 세로가운데 */
+#categoryModal label {
+	margin-bottom: 0px;
+}
+
+#selectedCategoryListContainer {
+    margin-top: 20px; /* 선택창들 밑에 여백 추가 */
+}
+
+#selectedCategoryList {
+    display: inline-block;
+    white-space: normal; /* 쉼표로 구분될 때 라인을 바꾸지 않도록 설정 */
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+
+
+
 
 /**** 인증서 선택 ****/
 
-.certificateTypeCode {
+.sellerCertificateTypeCodes {
     display: flex;
     flex-wrap: wrap; /* This ensures that checkboxes wrap to the next line when space is insufficient */
     gap: 10px; /* Adds space between items */
 }
 
-.certificateTypeCode label {
+.sellerCertificateTypeCodes label {
     display: inline-flex; /* Ensures the checkbox and label text are on the same line */
     align-items: center; /* Vertically centers the checkbox with the label text */
     white-space: nowrap; /* Prevents the text from wrapping to a new line */
     width: 200px; /* Adjust width to ensure enough space for the label text */
 }
 
-.certificateTypeCode input[type="checkbox"] {
+.sellerCertificateTypeCodes input[type="checkbox"] {
     margin-right: 10px; /* Adds space between the checkbox and the label text */
 }
 
@@ -131,7 +152,7 @@
     height: 15px; /* Set checkbox height */
 }
 
-div.certificateTypeCode input {
+div.sellerCertificateTypeCodes input {
 	width: 15px;
 	height: 15px;
 }
@@ -148,12 +169,12 @@ div.certificateTypeCode input {
 }
 */
 
-.certificateTypeCode label {
+.sellerCertificateTypeCodes label {
   display: inline-flex; /* Makes the checkbox and label text appear in one line */
   align-items: center; /* Vertically aligns the checkbox with the label text */
 }
 
-.certificateTypeCode input[type="checkbox"] {
+.sellerCertificateTypeCodes input[type="checkbox"] {
   margin-right: 10px; /* Adds some space between the checkbox and the label text */
 }
 
