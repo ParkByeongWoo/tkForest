@@ -108,20 +108,37 @@ public class UserService {
     	
     	// sellerId로 셀러 엔티티 찾아오기
     	Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerMemberNo(sellerDTO.getSellerMemberNo());
-    	// categoryName으로 카테고리 엔티티 찾아오기
-    	Optional<CategoryEntity> categoryEntity = categoryRepository.findByCategoryName(sellerDTO.getCategoryName());
     	
-    	if(sellerEntity.isPresent() && categoryEntity.isPresent()) {
-	    
-  	      	SellerEntity entity1 = sellerEntity.get();
-  	      	CategoryEntity entity2 = categoryEntity.get();
-  	      
-  	      	SCategoryEntity sCategoryEntity = SCategoryEntity.toEntity(sCategoryDTO, entity1, entity2);
-  	      	sCategoryRepository.save(sCategoryEntity);
+    	// 셀러가 있는 경우 실행
+    	if (sellerEntity.isPresent()) {
+    		SellerEntity entity1 = sellerEntity.get();
+    		
+	    	// 카테고리 리스트가 null일 경우 해당 로직을 실행하지 않음
+	        if (sellerDTO.getCategoryNames() != null) {
     	
-  	      	log.info("sCategoryEntity 저장 성공");
-  	      	return true;
-    	}
+	        	// CategoryDTO에서 선택된 카테고리 코드 목록을 가져와서 반복 처리
+	        	for (String cateName : sellerDTO.getCategoryNames()) { 
+	    	
+	        		// cateName으로 카테고리 엔티티 찾아오기
+	        		Optional<CategoryEntity> categoryEntity = categoryRepository.findByCategoryName(cateName);
+		    	
+		        	if (categoryEntity.isPresent()) {
+		        		
+		        		CategoryEntity entity2 = categoryEntity.get();
+		        		
+		        		SCategoryEntity sCategoryEntity = SCategoryEntity.toEntity(sCategoryDTO, entity1, entity2);
+		      	      	sCategoryRepository.save(sCategoryEntity);
+		        	
+		      	      	log.info("sCategoryEntity 저장 성공");
+		        	}
+	        } // for문 끝
+	        	return true;
+	        	
+        	} else {
+                System.out.println("입력된 카테고리명이 없습니다.");
+                return true;
+    	} 
+	        }
     	return false;
     }
 

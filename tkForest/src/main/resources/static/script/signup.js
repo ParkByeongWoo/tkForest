@@ -29,7 +29,7 @@ $(function(){
 	});
 	
 	// 가입 버튼 클릭 시 확인
-	// $('#submitBtn').on('click', sellerSignUp);
+	$('#submitBtn').on('click', sellerSignUp);
 	
 });
 
@@ -188,11 +188,12 @@ pwdCheck = true;
 */
 
 
-/*
+
 // (셀러) 가입버튼 클릭시 체크
 function sellerSignUp() {
 	
 	event.preventDefault();
+	
 	
 	// 비밀번호 = 비밀번호확인 체크
 	let userPwd = $('#password').val();
@@ -207,8 +208,19 @@ function sellerSignUp() {
 	$('#confirmPwd').html('');
 	pwdCheck = true;
 	
+	
 	// 가입
+	
+	if (!bizregNoCheck) {
+		$('#bizregNo').focus();
+		$('#bizregNo').select();
+		alert('사업자등록번호를 정확히 입력해 주세요');
+		return;
+	}
+	
 	if (!idCheck) {
+		$('[data-role="userId"]').focus();
+		$('[data-role="userId"]').select();
 		alert('아이디를 정확히 입력해 주세요');
 		return;
 	} 
@@ -218,15 +230,10 @@ function sellerSignUp() {
 		return;
 	}
 	
-	if (!bizregNoCheck) {
-		alert('사업자등록번호를 정확히 입력해 주세요');
-		return;
-	}
-	
 	$('#sellerSignUpForm').submit();
 	
 }
-*/
+
 
 // 바이어 가입시 체크
 function buyerSignUp() {
@@ -424,7 +431,7 @@ function addCategory(CATEGORY1, CATEGORY2, CATEGORY3, selectedCategory, modal) {
 		        const hiddenCategoryInputs = $('#hiddenCategoryInputs');
 		        const newHiddenInput = $('<input>')
 		            .attr('type', 'hidden')
-		            .attr('name', 'categoryName[]') // 배열로 전송할 수 있도록 설정
+		            .attr('name', 'categoryNames') // 배열로 전송할 수 있도록 설정
 		            .val(categoryText);
 		        hiddenCategoryInputs.append(newHiddenInput);
     }

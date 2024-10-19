@@ -35,8 +35,8 @@ public class SellerDTO {
     private String sellerKeyword;
     private Boolean sellerStatus;
     
-    private String categoryName;
-    // private List<String> categoryNames;
+    // private String categoryName;
+    private List<String> categoryNames;
     private List<Integer> sellerCertificateTypeCodes;
 
     // Entity => DTO 변환하는 메소드
