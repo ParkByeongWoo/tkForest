@@ -54,7 +54,6 @@ public class BuyerEntity {
     private String phoneNumber;
 
     @Column(name = "BUYERID", nullable = false, unique = true)
-
     private String buyerId;
 
     @Column(name = "PWD", nullable = false)

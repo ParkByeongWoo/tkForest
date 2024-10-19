@@ -68,13 +68,13 @@ public class InquiryService {
         log.info("저장 파일명: {}", savedFileName);
 
         // 1) 연관된 엔티티 가져오기
-        ProductEntity productEntity = productRepository.findById(inquiryDTO.getProduct().getProductNo())  // DTO 내부의 값 접근
+        ProductEntity productEntity = productRepository.findById(inquiryDTO.getProductNo())  // DTO 내부의 값 접근
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        BuyerEntity buyerEntity = buyerRepository.findById(inquiryDTO.getBuyer().getBuyerMemberNo())  // DTO 내부의 값 접근
+        BuyerEntity buyerEntity = buyerRepository.findById(inquiryDTO.getBuyerMemberNo())  // DTO 내부의 값 접근
                 .orElseThrow(() -> new RuntimeException("Buyer not found"));
 
-        SellerEntity sellerEntity = sellerRepository.findById(inquiryDTO.getSeller().getSellerMemberNo())  // DTO 내부의 값 접근
+        SellerEntity sellerEntity = sellerRepository.findById(inquiryDTO.getSellerMemberNo())  // DTO 내부의 값 접근
                 .orElseThrow(() -> new RuntimeException("Seller not found"));
 
         // 2) InquiryEntity로 변환

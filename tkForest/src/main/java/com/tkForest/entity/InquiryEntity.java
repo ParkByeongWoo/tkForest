@@ -86,28 +86,28 @@ public class InquiryEntity {
     @Column(name = "SAVED_FILE_NAME")
     private String savedFileName;
 
-		
-	// 댓글 개수 처리
-	@Formula("(SELECT count(1) FROM INQUIRY_REPLY WHERE INQUIRYNO  = INQUIRY_REPLY.INQUIRYNO)")
-	private Integer replyCount;
-	
-	// Entity를 받아서 ----> DTO로 반환 
-	public static InquiryEntity toEntity(InquiryDTO inquiryDTO, ProductEntity productEntity, BuyerEntity buyerEntity, SellerEntity sellerEntity) {
-	    return InquiryEntity.builder()
-	            .inquiryNo(inquiryDTO.getInquiryNo())
-	            .productEntity(productEntity)  // 매개변수로 받은 값을 사용
-	            .buyerEntity(buyerEntity)
-	            .sellerEntity(sellerEntity)
-	            .subject(inquiryDTO.getSubject())
-	            .contents(inquiryDTO.getContents())
-	            .offerSendDate(inquiryDTO.getOfferSendDate())
-	            .offerExpireDate(inquiryDTO.getOfferExpireDate())
-	            .orderQuantity(inquiryDTO.getOrderQuantity())
-	            .orderUnitEtc(inquiryDTO.getOrderUnitEtc())
-	            .expectedPrice(inquiryDTO.getExpectedPrice())
-	            .originalFileName(inquiryDTO.getOriginalFileName())
-	            .savedFileName(inquiryDTO.getSavedFileName())
-	            .build();
-	}
+      
+   // 댓글 개수 처리
+   @Formula("(SELECT count(1) FROM INQUIRY_REPLY WHERE INQUIRYNO  = INQUIRY_REPLY.INQUIRYNO)")
+   private Integer replyCount;
+   
+   // Entity를 받아서 ----> DTO로 반환 
+   public static InquiryEntity toEntity(InquiryDTO inquiryDTO, ProductEntity productEntity, BuyerEntity buyerEntity, SellerEntity sellerEntity) {
+       return InquiryEntity.builder()
+               .inquiryNo(inquiryDTO.getInquiryNo())
+               .productEntity(productEntity)  // 매개변수로 받은 값을 사용
+               .buyerEntity(buyerEntity)
+               .sellerEntity(sellerEntity)
+               .subject(inquiryDTO.getSubject())
+               .contents(inquiryDTO.getContents())
+               .offerSendDate(inquiryDTO.getOfferSendDate())
+               .offerExpireDate(inquiryDTO.getOfferExpireDate())
+               .orderQuantity(inquiryDTO.getOrderQuantity())
+               .orderUnitEtc(inquiryDTO.getOrderUnitEtc())
+               .expectedPrice(inquiryDTO.getExpectedPrice())
+               .originalFileName(inquiryDTO.getOriginalFileName())
+               .savedFileName(inquiryDTO.getSavedFileName())
+               .build();
+   }
 
 }

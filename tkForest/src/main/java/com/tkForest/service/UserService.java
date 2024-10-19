@@ -2,8 +2,11 @@ package com.tkForest.service;
 
 import java.util.Optional;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SellerDTO;
@@ -160,7 +163,7 @@ public class UserService {
      */
     public Object pwdCheck(String id, String password, boolean isSeller) {
         if (isSeller) {
-            Optional<SellerEntity> sellerEntity = sellerRepository.findById(id);
+            Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerId(id);
             if (sellerEntity.isPresent()) {
                 SellerEntity temp = sellerEntity.get();
                 String pwd = temp.getPassword(); // DB에 저장된 비밀번호
@@ -169,7 +172,7 @@ public class UserService {
                 if (result) return SellerDTO.toDTO(temp); // 비밀번호 일치 시 DTO로 반환
             }
         } else {
-            Optional<BuyerEntity> buyerEntity = buyerRepository.findById(id);
+            Optional<BuyerEntity> buyerEntity = buyerRepository.findByBuyerId(id);
             if (buyerEntity.isPresent()) {
                 BuyerEntity temp = buyerEntity.get();
                 String pwd = temp.getPassword(); // DB에 저장된 비밀번호
@@ -183,43 +186,69 @@ public class UserService {
     }
 
 
-//    /**
-//     * 개인정보 수정
-//     * 수정하려는 정보를 setter를 통해 수정
-//     * JPA의 save() 메소드 : 저장 + 수정 가능
-//     * @param sellerDTO
-//     * @param buyerDTO
-//     */
-//    @Transactional
-//    public boolean update(SellerDTO sellerDTO, BuyerDTO buyerDTO) {
-//        if (sellerDTO != null) {
-//            Optional<SellerEntity> sellerEntity = sellerRepository.findById(sellerDTO.getId());
-//            if (sellerEntity.isPresent()) {
-//                SellerEntity entity = sellerEntity.get();
-//                
-//                // 비밀번호 암호화하여 DB 정보 갱신
-//                entity.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
-//                entity.setEmail(sellerDTO.getEmail());
-//                sellerRepository.save(entity); // 수정 후 저장
-//                return true;
-//            }
-//        }
-//
-//        if (buyerDTO != null) {
-//            Optional<BuyerEntity> buyerEntity = buyerRepository.findById(buyerDTO.getId());
-//            if (buyerEntity.isPresent()) {
-//                BuyerEntity entity = buyerEntity.get();
-//                
-//                // 비밀번호 암호화하여 DB 정보 갱신
-//                entity.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
-//                entity.setEmail(buyerDTO.getEmail());
-//                buyerRepository.save(entity); // 수정 후 저장
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-    
-  
+    /**
+     * 개인정보 수정
+     * 수정하려는 정보를 setter를 통해 수정
+     * JPA의 save() 메소드 : 저장 + 수정 가능
+     * @param sellerDTO
+     * @param buyerDTO
+     */
+    @Transactional
+    public boolean update(SellerDTO sellerDTO, BuyerDTO buyerDTO) {
+        if (sellerDTO != null) {
+            Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerId(sellerDTO.getSellerId());
+            if (sellerEntity.isPresent()) {
+                SellerEntity entity = sellerEntity.get();
+                
+                // 비밀번호 암호화하여 DB 정보 갱신
+                entity.setPassword(bCryptPasswordEncoder.encode(sellerDTO.getPassword()));
+                entity.setEmail(sellerDTO.getEmail());
+                sellerRepository.save(entity); // 수정 후 저장
+                return true;
+            }
+        }
+
+        if (buyerDTO != null) {
+            Optional<BuyerEntity> buyerEntity = buyerRepository.findByBuyerId(buyerDTO.getBuyerId());
+            if (buyerEntity.isPresent()) {
+                BuyerEntity entity = buyerEntity.get();
+                
+                // 비밀번호 암호화하여 DB 정보 갱신
+                entity.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
+                entity.setEmail(buyerDTO.getEmail());
+                buyerRepository.save(entity); // 수정 후 저장
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+	public static void processSellerSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void processBuyerSignUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public SellerDTO getSellerById(String sellerId) {
+	    // 셀러 엔티티를 데이터베이스에서 조회
+	    Optional<SellerEntity> optionalSellerEntity = sellerRepository.findBySellerId(sellerId);
+
+	    // 셀러 엔티티가 존재하는 경우
+	    if (optionalSellerEntity.isPresent()) {
+	        SellerEntity sellerEntity = optionalSellerEntity.get();
+	        System.out.println("----- 데이터 존재?? " +sellerEntity );
+	        // 셀러 엔티티를 SellerDTO로 변환하여 반환
+	        return SellerDTO.toDTO(sellerEntity);
+	    } else {
+	        // 셀러가 존재하지 않는 경우 null 반환 또는 예외 처리
+	        return null; // 또는 예외를 던질 수 있습니다
+	    }
+	}
+	
+
 }

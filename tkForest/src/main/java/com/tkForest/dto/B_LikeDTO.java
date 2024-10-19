@@ -20,19 +20,19 @@ import lombok.ToString;
 public class B_LikeDTO {
 
     private Integer likeNo;
-    private BuyerDTO fromBuyer;
-    private SellerDTO toSeller;
-    private ProductDTO toProduct;
+    private String buyerMemberNo;
+    private String sellerMemberNo;
+    private Integer productNo;
     private LocalDateTime likeCreatedDate;
     private String likeUseYn;
 
     // Entity -> DTO 변환 메서드
-    public static B_LikeDTO toDTO(B_LikeEntity b_LikeEntity, BuyerDTO fromBuyerDTO, SellerDTO toSellerDTO, ProductDTO toProductDTO) {
+    public static B_LikeDTO toDTO(B_LikeEntity b_LikeEntity, String buyerMemberNo, String sellerMemberNo, Integer productNo) {
         return B_LikeDTO.builder()
                 .likeNo(b_LikeEntity.getLikeNo())
-                .fromBuyer(fromBuyerDTO)
-                .toSeller(toSellerDTO)
-                .toProduct(toProductDTO)
+                .buyerMemberNo(buyerMemberNo)
+                .sellerMemberNo(sellerMemberNo)
+                .productNo(productNo)
                 .likeCreatedDate(b_LikeEntity.getLikeCreatedDate())
                 .likeUseYn(b_LikeEntity.getLikeUseYn())
                 .build();

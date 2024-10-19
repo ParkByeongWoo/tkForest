@@ -17,14 +17,14 @@ import lombok.ToString;
 @Builder
 public class BCategoryDTO {
 	private Integer bCategoryNo;
-	private BuyerDTO buyer;	
-	private CategoryDTO category;	
+	private String buyerMemberNo;	
+	private Integer categoryNo;	
 	
-	public static BCategoryDTO toDTO(BCategoryEntity bCategoryEntity, BuyerDTO buyerDTO, CategoryDTO categoryDTO) {
+	public static BCategoryDTO toDTO(BCategoryEntity bCategoryEntity, String buyerMemberNo, Integer categoryNo) {
 		return BCategoryDTO.builder()
 				.bCategoryNo(bCategoryEntity.getBCategoryNo())
-				.buyer(buyerDTO)
-				.category(categoryDTO)
+				.buyerMemberNo(buyerMemberNo)
+				.categoryNo(categoryNo)
 				.build();
 	}
 }

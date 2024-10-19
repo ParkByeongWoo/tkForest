@@ -23,9 +23,9 @@ public class InquiryDTO {
     private Integer inquiryNo;
 
     // 외래 키를 사용하기보다는 관련된 DTO 객체를 사용
-    private ProductDTO product;      // ProductDTO로 변경
-    private BuyerDTO buyer;          // BuyerDTO로 변경
-    private SellerDTO seller;        // SellerDTO로 변경
+    private Integer productNo;      // ProductDTO로 변경
+    private String buyerMemberNo;          // BuyerDTO로 변경
+    private String sellerMemberNo;        // SellerDTO로 변경
     
     private String subject;
     private String contents;
@@ -40,12 +40,12 @@ public class InquiryDTO {
     private String savedFileName;
 
     // Entity -> DTO 변환 메서드
-    public static InquiryDTO toDTO(InquiryEntity inquiryEntity, ProductDTO productDTO, BuyerDTO buyerDTO, SellerDTO sellerDTO) {
+    public static InquiryDTO toDTO(InquiryEntity inquiryEntity, Integer productNo, String buyerMemberNo, String sellerMemberNo) {
         return InquiryDTO.builder()
                 .inquiryNo(inquiryEntity.getInquiryNo())
-                .product(productDTO)  // ProductDTO로 매핑
-                .buyer(buyerDTO)      // BuyerDTO로 매핑
-                .seller(sellerDTO)    // SellerDTO로 매핑
+                .productNo(productNo)  // ProductDTO로 매핑
+                .buyerMemberNo(buyerMemberNo)      // BuyerDTO로 매핑
+                .sellerMemberNo(sellerMemberNo)    // SellerDTO로 매핑
                 .subject(inquiryEntity.getSubject())
                 .contents(inquiryEntity.getContents())
                 .offerSendDate(inquiryEntity.getOfferSendDate())

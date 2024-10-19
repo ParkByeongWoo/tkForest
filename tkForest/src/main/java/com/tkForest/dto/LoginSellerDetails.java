@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Getter;
 import lombok.ToString;
 
 // 로그인 전용 - Security로 login하는 DTO
@@ -48,6 +49,11 @@ public class LoginSellerDetails implements UserDetails {
 	public String getUsername() { 	// Security에서 아이디 확인을 위해 아이디 달라는 것
 									// 이름은 Username이지만 여기선 ID를 의미하는 것!
 		return this.sellerId;
+	}
+	
+
+	public String getSellerMemberNo() {	// Security에서 비밀번호 확인을 위해 비밀번호 달라는 것
+		return this.sellerMemberNo;
 	}
 	
 //	// 사용자 정의 메소드(뷰단에서 사용할 사용자의 실명 이름)

@@ -17,14 +17,14 @@ import lombok.ToString;
 @Builder
 public class SellerCertificateDTO {
 	private Integer sellerCertificateNo;
-	private SellerDTO seller;
-	private CertificateDTO certificate;
+	private String sellerMemberNo;
+	private Integer certificateTypeCode;
 	
-	public static SellerCertificateDTO toDTO(SellerCertificateEntity sellerCertificateEntity, SellerDTO sellerDTO, CertificateDTO certificateDTO) {
+	public static SellerCertificateDTO toDTO(SellerCertificateEntity sellerCertificateEntity, String sellerMemberNo, Integer certificateTypeCode) {
 		return SellerCertificateDTO.builder()
 				.sellerCertificateNo(sellerCertificateEntity.getSellerCertificateNo())
-				.seller(sellerDTO)
-				.certificate(certificateDTO)
+				.sellerMemberNo(sellerMemberNo)
+				.certificateTypeCode(certificateTypeCode)
 				.build();
 	}
 }

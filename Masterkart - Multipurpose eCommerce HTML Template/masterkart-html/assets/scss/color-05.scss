@@ -1,0 +1,123 @@
+/*---------------------------------------------------------------------------------
+    Color - 5 css
+-----------------------------------------------------------------------------------*/
+@charset "charset";
+
+// Typography ( Import Typography )
+@import "base/_typography";
+
+// Utilities ( Import Utilities )
+@import "utilities/_variables";
+@import "utilities/_mixins";
+
+$main-primary-color : $main-primary-color-5;
+
+// Components ( Import Components )
+@import "components/_common";
+@import "components/_breadcrumb";
+@import "components/_cart-sidebar";
+@import "components/_wishlist-sidebar";
+@import "components/_quickview";
+@import "components/_category-sidebar";
+@import "components/_features-sidebar";
+
+// Layouts ( Import Layouts )
+@import "layouts/_new-product";
+@import "layouts/_header-1";
+@import "layouts/_footer-1";
+@import "layouts/_blog";
+@import "layouts/_banners";
+@import "layouts/_category-slider";
+@import "layouts/_discover";
+
+// Pages ( Import Pages )
+@import "pages/_about-us";
+@import "pages/_contact-us";
+@import "pages/_cart-page";
+@import "pages/_checkout-page";
+@import "pages/_compare";
+@import "pages/_faq";
+@import "pages/_login";
+@import "pages/_register";
+@import "pages/_track-order";
+@import "pages/_term-and-policy";
+@import "pages/_shop-page";
+@import "pages/_single-product-page";
+
+// Home page - 1 (change color in home page)
+.ms-hero {
+    .ms-main-content {
+        .ms-banner-content {
+            .ms-slider-grid-item {
+                .ms-detail {
+                    p {
+                        color: $main-primary-color;
+                    }
+                }
+            }
+        }
+        .ms-slider-content {
+            .ms-main-slider {
+                .ms-slider {
+                    .ms-slide-content {
+                        .ms-slide-title {
+                            color: $main-primary-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.ms-animated-banner {
+    .ms-bnr-detail {
+        h2 {
+            color: $main-primary-color;
+        }
+    }
+}
+.ms-new-product-block {
+    .ms-pro-content {
+        span.new-price {
+            color: $main-primary-color;
+        }
+    }
+}
+.ms-new-product-block {
+    .ms-pro-content {
+        .ms-pro-stitle {
+            a{
+                &:hover {
+                    color: $main-primary-color;
+                }
+            }
+        }
+    }
+}
+.ms-top-vendor {
+    .ms-top-vendor-block {
+        .ms-vendor-products {
+            a{
+                &:hover {
+                    border: 1px solid $main-primary-color;
+                }
+            }
+        }
+        .ms-vendor-detail {
+            .ms-vendor-info {
+                a{
+                    &:hover {
+                        color: $main-primary-color;
+                    }
+                }
+            }
+        }
+    }
+}
+.ms-insta-inner {
+    a{
+        &:after {
+            background: $main-primary-color;
+        }
+    }
+}
