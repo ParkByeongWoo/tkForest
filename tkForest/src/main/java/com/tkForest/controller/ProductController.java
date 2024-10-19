@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/product")
 @RequiredArgsConstructor
+@Transactional
 public class ProductController {
 
 	// 컨트롤러   
@@ -115,9 +115,15 @@ public class ProductController {
            @RequestParam(name="searchItem", defaultValue="") String searchItem,
            @RequestParam(name="searchWord", defaultValue="") String searchWord,
            Model model) {
+  
+	   
 	   // 검색기능 + 페이징
        Page<ProductDTO> list = productService.selectAll(pageable, searchItem, searchWord);
-
+       // 실례좀 하겠습니다..
+	    log.info("조회된 상품 목록 수: {}", list.getTotalElements());
+	    list.forEach(product -> log.info("상품 정보: {}", product));
+	    
+       // 여기까지
        int totalPages = list.getTotalPages();
        int page = pageable.getPageNumber();
 

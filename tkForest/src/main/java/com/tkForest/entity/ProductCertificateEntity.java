@@ -1,7 +1,6 @@
 package com.tkForest.entity;
 
 import com.tkForest.dto.ProductCertificateDTO;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,11 +19,10 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Setter
 @Getter
-@ToString
 @Builder
-
 @Entity
 @Table(name="PRODUCTCERTIFICATE")
 public class ProductCertificateEntity {
@@ -41,7 +39,9 @@ public class ProductCertificateEntity {
 	@JoinColumn(name="CERTIFICATETYPECODE", referencedColumnName = "CERTIFICATETYPECODE", nullable = false)
 	private CertificateEntity certificateEntity;
 	
-	public static ProductCertificateEntity toEntity(ProductCertificateDTO productCertificateDTO, ProductEntity productEntity, CertificateEntity certificateEntity) {
+	public static ProductCertificateEntity toEntity(ProductCertificateDTO productCertificateDTO
+			                                        , ProductEntity productEntity
+			                                        , CertificateEntity certificateEntity) {
 		return ProductCertificateEntity.builder()
 				.productCertificateNo(productCertificateDTO.getProductCertificateNo())
 				.productEntity(productEntity)
