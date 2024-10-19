@@ -65,7 +65,8 @@ public class InquiryController {
 
 //        // 인증되지 않은 사용자는 접근 불가
 //        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
+//            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
+    		  return "inquiry/inquiryList";
         }
 
 //
@@ -209,6 +210,7 @@ public class InquiryController {
         return "inquiry/inquiryWrite";
     }
 
+
 //
 //    /**
 //     * DB에 글을 등록 처리하는 요청
@@ -309,5 +311,5 @@ public class InquiryController {
 ////
 ////        return null;
 ////    }
-//}
-//
+}
+
