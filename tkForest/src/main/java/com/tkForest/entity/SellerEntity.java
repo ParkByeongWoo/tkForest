@@ -94,5 +94,6 @@ public class SellerEntity {
                 .sellerKeyword(sellerDTO.getSellerKeyword())
                 .sellerStatus(sellerDTO.getSellerStatus())
                 .build();
+
     }
 }

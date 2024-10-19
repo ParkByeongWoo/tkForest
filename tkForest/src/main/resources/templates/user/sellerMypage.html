@@ -109,6 +109,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="sidebar">
 	  <div class="nevigation">
@@ -123,7 +124,7 @@
             <div class="nav-section">
                 <h3>Inquiries</h3>
                 <ul>
-                    <li><a href="#">Received Inquiries</a></li>
+                    <li><a href="/inquiry/inquiryList">Received Inquiries</a></li> 
                     <li><a href="#">Sent Inquiries</a></li>
                     <li><a href="#">Spam</a></li>
                     <li><a href="#">Deleted Inquiries</a></li>
@@ -146,7 +147,6 @@
             </div>
           </div>
         </div>
-
 
         <div class="content">
             <div class="breadcrumb">
@@ -200,7 +200,7 @@
                 </div>
             </div>
             <button class="edit-button">
-            <a th:href="@{/seller/sellerProfileUpdate}" class="btn btn-primary">Edit Profile</a>
+            <a th:href="@{/user/sellerProfileUpdate}" class="btn btn-primary">Edit Profile</a>
             </button>
         </div>
     </div>

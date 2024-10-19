@@ -20,3 +20,4 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
 	List<ProductEntity> findAllBySellerEntityOrderByProductNoDesc(Optional<SellerEntity> sellerEntity);
 }
+

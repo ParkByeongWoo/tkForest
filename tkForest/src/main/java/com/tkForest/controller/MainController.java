@@ -28,5 +28,14 @@ public class MainController {
    public String aboutUs() {
        return "aboutUs";  
    }
+   
+   /**
+    * 보따리 추천
+    * @return
+    */
+   @GetMapping("/recList")
+   public String recList() {
+       return "rec/recList";  
+   }
 
 }
