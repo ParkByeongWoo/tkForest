@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
@@ -22,8 +20,3 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
 	List<ProductEntity> findAllBySellerEntityOrderByProductNoDesc(Optional<SellerEntity> sellerEntity);
 }
-
-
-
-
-

@@ -22,7 +22,6 @@ import com.tkForest.dto.ProductDTO;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/product")
 @RequiredArgsConstructor
-@Transactional
 public class ProductController {
 
 	// 컨트롤러   
@@ -115,15 +113,9 @@ public class ProductController {
            @RequestParam(name="searchItem", defaultValue="") String searchItem,
            @RequestParam(name="searchWord", defaultValue="") String searchWord,
            Model model) {
-  
-	   
 	   // 검색기능 + 페이징
        Page<ProductDTO> list = productService.selectAll(pageable, searchItem, searchWord);
-       // 실례좀 하겠습니다..
-	    log.info("조회된 상품 목록 수: {}", list.getTotalElements());
-	    list.forEach(product -> log.info("상품 정보: {}", product));
-	    
-       // 여기까지
+
        int totalPages = list.getTotalPages();
        int page = pageable.getPageNumber();
 
@@ -207,4 +199,3 @@ public class ProductController {
 	}
 
 }
-
