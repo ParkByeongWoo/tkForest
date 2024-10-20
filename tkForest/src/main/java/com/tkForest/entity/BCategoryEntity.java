@@ -30,7 +30,7 @@ import lombok.ToString;
 public class BCategoryEntity {
     
     @Id
-    @Column(name="B_CAEGORYNO")
+    @Column(name="B_CATEGORYNO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bCategoryNo;
 

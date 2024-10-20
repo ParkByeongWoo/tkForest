@@ -986,7 +986,7 @@
                 <div class="ms-register-wrapper">
                     <div class="ms-register-container">
                         <div class="ms-register-form">
-                            <form th:action="@{/product/productCreate}" method="post">
+                            <form th:action="@{/product/productCreate}" method="post" enctype="multipart/form-data">
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>상품명*</label>
                                     <input type="text" id="productName" name="proudctName" placeholder="상품명입니다." required>

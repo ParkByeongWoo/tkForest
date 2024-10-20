@@ -7,7 +7,7 @@ import com.tkForest.entity.InquiryEntity;
 
 public interface InquiryRepository extends JpaRepository<InquiryEntity, Integer> {
     // BuyerEntity 내부의 buyerMemberNo 필드를 기반으로 검색하는 쿼리 메서드
-    Page<InquiryEntity> findByBuyerEntity_BuyerMemberNoContains(String buyerMemberNo, Pageable pageable);
+    Page<InquiryEntity> findByBuyerEntity_BuyerMemberNoContains(String buyerMemberNo, Pageable pageable); 
 }
 
 

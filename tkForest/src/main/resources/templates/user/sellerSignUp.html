@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -31,12 +32,15 @@
     <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
     
+    <!-- 추가한 css -->
+    <link rel="stylesheet" href="/css/signup.css">
+    
 </head>
 
 <body>
 
     <!-- <h2>sellerSignUp</h2> -->
-    
+
     <!-- 헤더 불러오기 -->
     <!-- <div th:replace="~{fragment/header :: header}"></div> -->
 
@@ -152,8 +156,7 @@
                         <!-- Header Logo Start -->
                         <div class="align-self-center ms-header-logo">
                             <div class="header-logo">
-                                <a href="index.html"><img src="/assets/img/logo/logo.png"
-                                        alt="Site Logo"></a>
+                                <a href="index.html"><img src="/assets/img/logo/logo.png" alt="Site Logo"></a>
                             </div>
                         </div>
                         <!-- Header Logo End -->
@@ -174,9 +177,8 @@
                                     </div>
                                     <input class="form-control ms-search-bar" placeholder="Search Products..."
                                         type="text">
-                                    <button class="search_submit" type="submit"><img
-                                            src="/assets/img/icons/search.svg" class="svg_img search_svg"
-                                            alt=""></button>
+                                    <button class="search_submit" type="submit"><img src="/assets/img/icons/search.svg"
+                                            class="svg_img search_svg" alt=""></button>
                                 </form>
                             </div>
                         </div>
@@ -191,8 +193,7 @@
                                         class="ms-header-btn ms-header-user dropdown-toggle ms-user-toggle"
                                         title="Account">
                                         <div class="header-icon">
-                                            <img src="/assets/img/icons/user.svg" class="svg_img header_svg"
-                                                alt="">
+                                            <img src="/assets/img/icons/user.svg" class="svg_img header_svg" alt="">
                                         </div>
                                         <div class="ms-btn-desc">
                                             <span class="ms-btn-title">Account</span>
@@ -209,8 +210,7 @@
                                 <!-- Header wishlist Start -->
                                 <a href="javascript:void(0)" class="ms-header-btn ms-wish-toggle" title="Wishlist">
                                     <div class="header-icon">
-                                        <img src="/assets/img/icons/wishlist.svg" class="svg_img header_svg"
-                                            alt="">
+                                        <img src="/assets/img/icons/wishlist.svg" class="svg_img header_svg" alt="">
                                     </div>
                                     <div class="ms-btn-desc">
                                         <span class="ms-btn-title">Wishlist</span>
@@ -221,8 +221,7 @@
                                 <!-- Header Cart Start -->
                                 <a href="javascript:void(0)" class="ms-header-btn ms-cart-toggle" title="Cart">
                                     <div class="header-icon">
-                                        <img src="/assets/img/icons/cart_5.svg" class="svg_img header_svg"
-                                            alt="">
+                                        <img src="/assets/img/icons/cart_5.svg" class="svg_img header_svg" alt="">
                                         <span class="main-label-note-new"></span>
                                     </div>
                                     <div class="ms-btn-desc">
@@ -248,8 +247,8 @@
                     <div class="col ms-category-icon-block">
                         <div class="ms-category-menu">
                             <div class="ms-category-toggle">
-                                <img src="/assets/img/icons/category-icon.svg"
-                                    class="svg_img header_svg svg_cat" alt="icon">
+                                <img src="/assets/img/icons/category-icon.svg" class="svg_img header_svg svg_cat"
+                                    alt="icon">
                             </div>
                         </div>
                     </div>
@@ -395,8 +394,7 @@
                     <div class="col ms-location-block">
                         <div class="ms-location-menu">
                             <div class="ms-location-toggle">
-                                <img src="/assets/img/icons/location.svg" class="svg_img header_svg svg_loc"
-                                    alt="icon">
+                                <img src="/assets/img/icons/location.svg" class="svg_img header_svg svg_loc" alt="icon">
                                 <span class="ms-location-title d-1199 ms-location" id="ms_location"></span>
                                 <i class="msicon msi-angle-down d-1199" aria-hidden="true"></i>
                             </div>
@@ -448,9 +446,8 @@
                     <div class="ms-mobile-search">
                         <form>
                             <input type="text" name="search" placeholder="Search..">
-                            <button class="search_submit" type="submit"><img
-                                    src="/assets/img/icons/search.svg" class="svg_img search_svg"
-                                    alt=""></button>
+                            <button class="search_submit" type="submit"><img src="/assets/img/icons/search.svg"
+                                    class="svg_img search_svg" alt=""></button>
                         </form>
                     </div>
                     <ul>
@@ -598,9 +595,8 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img
-                                            src="/assets/img/icons/dress-8.svg" class="svg_img"
-                                            alt="drink">Cothes</div>
+                                    <div class="ms-sidebar-block-item"><img src="/assets/img/icons/dress-8.svg"
+                                            class="svg_img" alt="drink">Cothes</div>
                                     <ul style="display: block;">
                                         <li>
                                             <div class="ms-sidebar-sub-item"><a
@@ -633,9 +629,8 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img
-                                            src="/assets/img/icons/shoes-8.svg" class="svg_img"
-                                            alt="drink">Footwear</div>
+                                    <div class="ms-sidebar-block-item"><img src="/assets/img/icons/shoes-8.svg"
+                                            class="svg_img" alt="drink">Footwear</div>
                                     <ul>
                                         <li>
                                             <div class="ms-sidebar-sub-item"><a
@@ -668,9 +663,8 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img
-                                            src="/assets/img/icons/jewelry-8.svg" class="svg_img"
-                                            alt="drink">jewelry</div>
+                                    <div class="ms-sidebar-block-item"><img src="/assets/img/icons/jewelry-8.svg"
+                                            class="svg_img" alt="drink">jewelry</div>
                                     <ul>
                                         <li>
                                             <div class="ms-sidebar-sub-item"><a
@@ -697,7 +691,7 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img                                           src="/assets/img/icons/perfume-8.svg" class="svg_img"
+                                    <div class="ms-sidebar-block-item"><img src="/assets/img/icons/perfume-8.svg" class="svg_img"
                                             alt="drink">perfume</div>
                                     <ul>
                                         <li>
@@ -730,9 +724,8 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img
-                                            src="/assets/img/icons/cosmetics-8.svg" class="svg_img"
-                                            alt="drink">cosmetics</div>
+                                    <div class="ms-sidebar-block-item"><img src="/assets/img/icons/cosmetics-8.svg"
+                                            class="svg_img" alt="drink">cosmetics</div>
                                     <ul>
                                         <li>
                                             <div class="ms-sidebar-sub-item"><a
@@ -764,9 +757,8 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img
-                                            src="/assets/img/icons/glasses-8.svg" class="svg_img"
-                                            alt="drink">glasses</div>
+                                    <div class="ms-sidebar-block-item"><img src="/assets/img/icons/glasses-8.svg"
+                                            class="svg_img" alt="drink">glasses</div>
                                     <ul>
                                         <li>
                                             <div class="ms-sidebar-sub-item"><a
@@ -787,9 +779,8 @@
                         <div class="ms-sb-block-content">
                             <ul>
                                 <li class="ms-list">
-                                    <div class="ms-sidebar-block-item"><img
-                                            src="/assets/img/icons/bag-8.svg" class="svg_img"
-                                            alt="drink">bags</div>
+                                    <div class="ms-sidebar-block-item"><img src="/assets/img/icons/bag-8.svg"
+                                            class="svg_img" alt="drink">bags</div>
                                     <ul>
                                         <li>
                                             <div class="ms-sidebar-sub-item"><a
@@ -832,8 +823,8 @@
             <div class="ms-cart-top">
                 <div class="ms-cart-title">
                     <span class="cart_title">My Cart</span>
-                    <a href="javascript:void(0)" class="ms-cart-close"><img
-                            src="/assets/img/icons/close.svg" class="svg_img pro_svg" alt="close"></a>
+                    <a href="javascript:void(0)" class="ms-cart-close"><img src="/assets/img/icons/close.svg"
+                            class="svg_img pro_svg" alt="close"></a>
                 </div>
                 <ul class="ms-cart-pro-items">
                     <li>
@@ -909,8 +900,8 @@
             <div class="ms-wish-top">
                 <div class="ms-wish-title">
                     <span class="wish_title">My Wishlist</span>
-                    <a href="javascript:void(0)" class="ms-wish-close"><img
-                            src="/assets/img/icons/close.svg" class="svg_img pro_svg" alt="close"></a>
+                    <a href="javascript:void(0)" class="ms-wish-close"><img src="/assets/img/icons/close.svg"
+                            class="svg_img pro_svg" alt="close"></a>
                 </div>
                 <ul class="ms-wish-pro-items">
                     <li>
@@ -1010,9 +1001,14 @@
                     <div class="ms-register-container">
                         <div class="ms-register-form">
                             <form th:action="@{/user/sellerSignUp}" method="post" id="sellerSignUpForm">
-                                <span class="ms-register-wrap">
+                                <span class="ms-register-wrap ms-register-half">
                                     <label>사업자등록번호*</label>
-                                    <input type="text" name="bizregNo" placeholder="사업자등록번호" required>
+                                    <input type="text" id="bizregNo" name="bizregNo" placeholder="사업자등록번호" required>
+                                </span>
+                                <span class="ms-register-wrap ms-register-half">
+                                    <label>사업자등록번호 확인*</label>
+                                    <button id="confirmBizregNo">중복확인</button>
+                                    <input type="text" id="bizregNoCheck" placeholder="중복확인 버튼을 클릭해주세요" required readonly>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>회사명*</label>
@@ -1033,10 +1029,42 @@
                                 <span class="ms-register-wrap">
                                     <label>회사 소개</label>
                                     <input type="text" name="companyDescription" placeholder="회사 소개">
-                                    
+
                                     <!-- textarea로 바꿀 수 있으면 바꾸기!!! css 설정 확인해야함 -->
                                     <!-- <textarea name="companyDescription" placeholder="회사 소개"></textarea>  -->
                                 </span>
+								<span class="ms-register-wrap">
+								<label>회사 인증서</label>
+								<div class="sellerCertificateTypeCodes">
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="1"> GMP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="2"> ISO</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="3"> CE</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="4"> FDA</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="5"> HACCP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="6"> HALAL</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="7"> Kosher</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="8"> CPNP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="9"> HALAL</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="10"> CGMP</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="11"> ECOCERT</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="12"> FSSC22000</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="13"> Vegan</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="14"> Organic</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="15"> Kosher</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="16"> JAS</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="17"> Gluten-free</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="18"> NON-GMO</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="19"> Dermatest</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="20"> NMPA</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="21"> GREENGUARD</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="22"> CCC</label><br>
+        <label class="trade"><input type="checkbox" name="sellerCertificateTypeCodes" value="23"> 무역 거래</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="24"> 샘플 거래</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="25"> 수출의 탑</label><br>
+        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="26"> DUNS</label><br>
+        </div>
+</span>
+
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>관리자명*</label>
                                     <input type="text" name="picName" placeholder="관리자명" required>
@@ -1051,41 +1079,94 @@
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>아이디*</label>
-
-                                    <input type="text" name="sellerId" id="sellerId" placeholder="아이디" required>
-
+                                    <input type="text" name="sellerId" id="sellerId" data-role="userId" placeholder="아이디" required>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
-                                	<label>아이디 확인*</label>
-                                    <input type="button" id="confirmsSellerId" placeholder="아이디 확인">
+                                    <label>아이디 확인*</label>
+                                    <button id="confirmSellerId">중복확인</button>
+                                    <!-- <input type="button" id="confirmSellerId" placeholder="아이디 확인">  -->
+                                    <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
+                                    <input type="text" id="idCheck" placeholder="중복확인 버튼을 클릭해주세요" required readonly>
                                 </span>
                                 <span class="ms-register-wrap">
-                                	<div id="sellerIdCheck" style="font-size:0.8em;"></div>
+                                    <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
                                 </span>
-                                <span class="ms-register-wrap">
+                                <span class="ms-register-wrap ms-register-half">
                                     <label>비밀번호*</label>
-                                    <input type="password" name="password" placeholder="비밀번호" required>
+                                    <input type="password" name="password" id="password" placeholder="비밀번호" required>
                                 </span>
-                                
-                                <!-- 
-                                <span class="ms-register-wrap">
+
+                                <span class="ms-register-wrap ms-register-half">
                                     <label>비밀번호 확인*</label>
-                                    <input type="password" name="passwordCheck" placeholder="비밀번호확인" required>
+                                    <span id="confirmPwd"></span>
+                                    <input type="password" name="passwordCheck" id="passwordCheck" placeholder="비밀번호확인"
+                                        required>
                                 </span>
-                                 -->
-                                
+
                                 <span class="ms-register-wrap">
                                     <label>관심 카테고리*</label>
                                     <!-- 카테고리 선택하고 required 로 수정예정 -->
-                                    <input type="button" name="sellerCategory" placeholder="카테고리">
+                                    <button id="openModalBtn" style="margin-bottom: 10px;">선택</button>
+                                    <input type="text" name="" id="selectedCategory" placeholder="선택버튼을 클릭해주세요" required readonly>
+                                </span>    
+                                
+                                <span class="ms-register-wrap">    
+                                    <!-- 선택된 카테고리 표시 -->
+                                    <!-- <div class="selectedCategory">
+                                    	<p>선택된 카테고리 : <span id="selectedCategory"></span></p>
+                                    </div>
+                                     -->
+                                    <!-- 선택된 카테고리 전송위한 hidden -->
+    								<!-- <input type="hidden" id="selectedCategoryInput" name="categoryName"></input> -->
+    								
+    								<div id="hiddenCategoryInputs"> 
+    								<!-- 동적으로 input들을 추가할 곳 -->
+    								</div>
                                 </span>
-                                
-                                
+                                    
+                                    <!-- 모달 창 -->
+    								<div id="categoryModal" class="modal">
+        								<div class="modal-content">
+            								<span class="close-btn">&times;</span>
+            								<h2>카테고리 검색</h2>
+
+            								<!-- 카테고리 선택 영역 -->
+            								<div class="category-wrapper">
+                								<label>대분류</label>
+                								<select id="CATEGORY1">
+                    								<option value="">선택1</option>
+                								</select>
+
+								                <label>중분류</label>
+								                <select id="CATEGORY2">
+								                    <option value="">선택2</option>
+								                </select>
+								
+								                <label>소분류</label>
+								                <select id="CATEGORY3">
+								                    <option value="">선택3</option>
+								                </select>
+								
+								                <!-- 카테고리 추가 버튼 -->
+								                <button id="addCategoryBtn">추가</button>
+								            </div>
+								            
+								            <!-- 선택된 카테고리 리스트를 표시하는 영역 (버튼 뒤, 가로로 길게 표시) -->
+        <div id="selectedCategoryListContainer">
+            <p>▼선택된 카테고리▼</p>
+            <div id="selectedCategoryList"></div>
+        </div>
+								        </div>
+								    </div>
+                                    
+                                    
+                                </span>
+
                                 <span class="ms-register-wrap">
                                     <label>관심 키워드*</label>
                                     <input type="text" name="sellerKeyword" placeholder="키워드" required>
                                 </span>
-                               	<!-- 
+                                <!-- 
                                 <span class="ms-register-wrap ms-recaptcha">
                                     <span class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
                                         data-callback="verifyRecaptchaCallback"
@@ -1094,10 +1175,10 @@
                                         data-error="Please complete the Captcha">
                                     <span class="help-block with-errors"></span>
                                 </span>
-                                 -->
+                                -->
                                 <span class="ms-register-wrap ms-register-btn">
                                     <span>이미 회원이신가요?<a th:href="@{/user/login}">로그인</a></span>
-                                    <button class="ms-btn-2" type="submit">회원가입</button>
+                                    <button class="ms-btn-2" type="submit" id="submitBtn">회원가입</button>
                                 </span>
                             </form>
                         </div>
@@ -1116,16 +1197,15 @@
                     <div class="row m-minus-991">
                         <div class="col-sm-12 col-lg-3 ms-footer-cat">
                             <div class="ms-footer-widget ms-footer-company">
-                                <img src="/assets/img/logo/footer-logo.png" class="ms-footer-logo"
-                                    alt="footer logo">
+                                <img src="/assets/img/logo/footer-logo.png" class="ms-footer-logo" alt="footer logo">
                                 <p class="ms-footer-detail">Masterkart is the biggest market of grocery products. Get
                                     your daily
                                     needs from our store.</p>
                                 <div class="ms-app-store">
-                                    <a href="#" class="app-img"><img src="/assets/img/app/android.png"
-                                            class="adroid" alt="apple"></a>
-                                    <a href="#" class="app-img"><img src="/assets/img/app/apple.png"
-                                            class="apple" alt="apple"></a>
+                                    <a href="#" class="app-img"><img src="/assets/img/app/android.png" class="adroid"
+                                            alt="apple"></a>
+                                    <a href="#" class="app-img"><img src="/assets/img/app/apple.png" class="apple"
+                                            alt="apple"></a>
                                 </div>
                             </div>
                         </div>
@@ -1187,18 +1267,17 @@
                                     <div class="ms-footer-links ms-footer-dropdown">
                                         <ul class="align-items-center">
                                             <li class="ms-footer-link ms-foo-location"><span><img
-                                                        src="/assets/img/icons/foo-location.svg"
-                                                        class="svg_img foo_svg" alt=""></span>
+                                                        src="/assets/img/icons/foo-location.svg" class="svg_img foo_svg"
+                                                        alt=""></span>
                                                 <p>2548 Broaddus Maple Court, Madisonville KY 4783, USA.</p>
                                             </li>
                                             <li class="ms-footer-link ms-foo-call"><span><img
-                                                        src="/assets/img/icons/foo-wp.svg"
-                                                        class="svg_img foo_svg" alt=""></span><a
-                                                    href="tel:+009876543210">+00 9876543210</a>
+                                                        src="/assets/img/icons/foo-wp.svg" class="svg_img foo_svg"
+                                                        alt=""></span><a href="tel:+009876543210">+00 9876543210</a>
                                             </li>
                                             <li class="ms-footer-link ms-foo-mail"><span><img
-                                                        src="/assets/img/icons/foo-mail.svg"
-                                                        class="svg_img foo_svg" alt=""></span><a
+                                                        src="/assets/img/icons/foo-mail.svg" class="svg_img foo_svg"
+                                                        alt=""></span><a
                                                     href="mailto:example@email.com">example@email.com</a></li>
                                         </ul>
                                     </div>
@@ -1358,13 +1437,11 @@
 
     <!-- Main Js -->
     <script src="/assets/js/main.js"></script>
-    
+
     <!-- 검증 설정 -->
-	<script th:src="@{/script/jquery-3.7.1.min.js}"></script>
-	<script th:src="@{/script/signup.js}"></script>
-    
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/signup.js}"></script>
+
 </body>
 
 </html>
-
-                                    

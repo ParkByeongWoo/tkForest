@@ -21,6 +21,8 @@ import lombok.ToString;
 @Builder
 public class ProductDTO {
 
+	
+	
     // ProductDTO의 필드들 (ProductEntity와 동일한 필드)
     private Integer productNo;
     private String sellerMemberNo; 

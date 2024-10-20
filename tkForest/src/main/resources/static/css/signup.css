@@ -1,0 +1,190 @@
+/* 모달 창 배경 설정 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* 반투명 검정 배경 */
+}
+
+/* 모달 내용 설정 */
+.modal-content {
+    background-color: white;
+    margin: 15% auto; /* 페이지 중앙 정렬 */
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%; /* 모달 너비 조정 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 닫기 버튼 설정 */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #999;
+}
+
+/* 제목 스타일 */
+.modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #444;
+}
+
+/* 카테고리 선택 영역 스타일 */
+.category-wrapper {
+    display: flex;
+    justify-content: space-between; /* 가로로 정렬 */
+    gap: 15px; /* 선택 박스와 버튼 간의 간격 */
+    align-items: center; /* 세로 정렬 */
+    flex-wrap: nowrap; /* 줄바꿈 방지 */
+}
+
+/* 레이블 스타일 */
+.category-wrapper label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 0;
+    line-height: 1.5;
+    white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+/* 선택 박스 스타일 */
+.category-wrapper select {
+    flex: 1; /* 선택 박스가 가로 공간을 최대한 차지하도록 설정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    min-width: 200px; /* 최소 너비 설정 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트는 '...'로 표시 */
+}
+
+/* 카테고리 추가 버튼 스타일 */
+#addCategoryBtn {
+    padding: 10px 20px; /* 버튼 패딩을 적절히 설정 */
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    align-self: center; /* 세로 중앙 정렬 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    flex-shrink: 0; /* 버튼 크기가 축소되지 않도록 설정 */
+    width: 100px; /* 버튼 고정 너비 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+#addCategoryBtn:hover {
+    background-color: #000080;
+}
+
+/* 대분류중분류소분류 세로가운데 */
+#categoryModal label {
+    margin-bottom: 0px;
+}
+
+/* 선택된 카테고리 리스트 스타일 */
+#selectedCategoryListContainer {
+    margin-top: 20px; /* 선택창들 밑에 여백 추가 */
+}
+
+#selectedCategoryList {
+    display: inline-block;
+    white-space: normal; /* 쉼표로 구분될 때 라인을 바꾸지 않도록 설정 */
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/**** 중복확인 버튼 ****/
+button#confirmBizregNo,
+button#confirmSellerId,
+button#openModalBtn {
+	border: 0.5px solid #eee;
+    font-size: 0.8rem;
+    margin-left: 5px;
+    margin-bottom: 9px;
+}
+      
+      
+button#confirmBizregNo:hover,
+button#confirmSellerId:hover,
+button#openModalBtn:hover {
+    color: #0000ee; /* hover 시 색 변경 */
+}
+        
+        
+
+
+
+/**** 인증서 선택 ****/
+
+/* 체크박스와 텍스트를 한 줄로 정렬 */
+.sellerCertificateTypeCodes {
+    display: flex;
+    flex-wrap: wrap; /* 공간이 부족하면 자동으로 줄바꿈 */
+    gap: 10px; /* 각 체크박스 그룹 간의 간격 */
+    margin-top: 10px; /* 부모 요소와의 여백 */
+    justify-content: flex-start; /* 체크박스들이 왼쪽에 정렬되도록 설정 */
+}
+
+.sellerCertificateTypeCodes label {
+    display: inline-flex; /* 체크박스와 텍스트를 한 줄에 배치 */
+    align-items: center; /* 체크박스와 텍스트를 수직으로 중앙 정렬 */
+    white-space: nowrap; /* 텍스트가 여러 줄로 넘어가는 것을 방지 */
+    padding: 3px 8px; /* 패딩을 줄여 높이를 낮춤 */
+    background-color: #fafafa; /* 배경색 추가 */
+    border-radius: 5px; /* 모서리를 둥글게 */
+    transition: background-color 0.1s ease; /* hover 시 배경색 변경 애니메이션 */
+    margin: 1px;
+    line-height: 1.2; /* 체크박스와 텍스트의 줄 높이 조절 */
+}
+
+/* 체크박스 크기 조정 및 마진 제거 */
+.sellerCertificateTypeCodes input[type="checkbox"] {
+    width: 16px; /* 체크박스 너비 */
+    height: 16px; /* 체크박스 높이 */
+    margin-right: 8px; /* 체크박스와 텍스트 사이의 간격 */
+    margin: 0; /* 체크박스의 기본 마진 제거 */
+    padding: 0; /* 패딩 제거 */
+    vertical-align: middle; /* 체크박스를 텍스트 중앙에 맞춤 */
+}
+
+/* 레이블 hover 효과 */
+.sellerCertificateTypeCodes label:hover {
+    background-color: #f0f0f0; /* 마우스가 레이블 위에 있을 때 배경색 변경 */
+}
+
+/* 특정 체크박스에 적용하는 스타일 우선순위 높이기 */
+.ms-register-wrapper .ms-register-container .ms-register-form input[name="sellerCertificateTypeCodes"] {
+    margin-bottom: 0px;
+    margin-right: 5px;
+}
+
+div.sellerCertificateTypeCodes {
+	margin-bottom: 26px;
+}
+
+/* 무역 거래를 밑줄로 내리기 위한 스타일 */
+.sellerCertificateTypeCodes label.trade {
+    flex-basis: auto;  /* 무역 거래가 한 줄에 자연스럽게 포함되도록 */
+}

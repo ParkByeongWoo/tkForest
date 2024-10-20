@@ -1013,66 +1013,63 @@
                             <form th:action="@{/user/buyerSignUp}" method="post" id="buyerSignUpForm">
                                 <span class="ms-register-wrap">
                                     <label>Country*</label>
-                                    <span class="ms-register-wrap ms-register-half">
+                                    <span class="ms-rg-select-inner">
+                                    	<!-- 
+                                    	<span class="ms-register-wrap ms-register-half">
                                     	<input type="text" name="nationCode" placeholder="Country" required>
-                                        <!-- 
-                                        <select name="ms_select_city" id="ms-select-city" class="ms-register-select">
-                                            <option selected disabled>Country</option>
-                                            <option value="1">Country 1</option>
-                                            <option value="2">Country 2</option>
-                                            <option value="3">Country 3</option>
-                                            <option value="4">Country 4</option>
-                                            <option value="5">Country 5</option>
-                                        </select>
                                          -->
+                                        <select name="nationCode" id="country" class="ms-register-select" required>
+            								<option value="" disabled selected>Choose Country</option>
+            								<!-- 국가 목록이 추가되는 부분 -->
+        								</select>
                                     </span>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
-                                    <label>회사명*</label>
-                                    <input type="text" name="companyName" placeholder="회사명" required>
+                                    <label>Company*</label>
+                                    <input type="text" name="companyName" placeholder="Company Name" required>
+                                </span>
+                                <span class="ms-register-wrap ms-register-half">
+                                    <label>Company Tel</label>
+                                    <input type="text" name="bizPhoneNumber" placeholder="Company Tel">
                                 </span>
                                 <span class="ms-register-wrap">
-                                    <label>회사 전화번호</label>
-                                    <input type="text" name="bizPhoneNumber" placeholder="회사 전화번호">
-                                </span>
-                                <span class="ms-register-wrap">
-                                    <label>회사 소개</label>
-                                    <input type="text" name="companyDescription" placeholder="회사 소개">
+                                    <label>Company Description</label>
+                                    <input type="text" name="companyDescription" placeholder="Company Description">
                                     
                                     <!-- textarea로 바꿀 수 있으면 바꾸기!!! css 설정 확인해야함 -->
-                                    <!-- <textarea name="companyDescription" placeholder="회사 소개"></textarea>  -->
+                                    <!-- <textarea name="companyDescription" placeholder="Company Description"></textarea>  -->
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
-                                    <label>관리자명*</label>
-                                    <input type="text" name="picName" placeholder="관리자명" required>
+                                    <label>Name*</label>
+                                    <input type="text" name="picName" placeholder="Name" required>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
-                                    <label>관리자 전화번호</label>
-                                    <input type="text" name="phoneNumber" placeholder="관리자 전화번호">
+                                    <label>Phone Number</label>
+                                    <input type="text" name="phoneNumber" placeholder="Phone Number">
                                 </span>
                                 <span class="ms-register-wrap">
-                                    <label>이메일*</label>
-                                    <input type="email" name="email" placeholder="이메일" required>
+                                    <label>Email*</label>
+                                    <input type="email" name="email" placeholder="Email" required>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
-                                    <label>아이디*</label>
-                                    <input type="text" name="buyerId" id="buyerId" placeholder="아이디" required>
+                                    <label>ID*</label>
+                                    <input type="text" name="buyerId" id="buyerId" data-role="userId" placeholder="ID" required>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
-                                	<label>아이디 확인*</label>
-                                    <input type="button" id="confirmId" placeholder="아이디 확인">
+                                	<label>ID Check*</label>
+                                    <input type="button" id="confirmBuyerId" placeholder="ID Check">
                                 </span>
                                 <span class="ms-register-wrap">
-                                	<div id="buyerIdCheck" style="font-size:0.8em;"></div>
+                                	<div id="idCheck" style="font-size:0.8em;"></div>
                                 </span>
                                 <span class="ms-register-wrap">
-                                    <label>비밀번호*</label>
-                                    <input type="password" name="password" placeholder="비밀번호" required>
+                                    <label>Password*</label>
+                                    <input type="password" name="password" placeholder="Password" required>
                                 </span>
                                 
                                 <span class="ms-register-wrap">
-                                    <label>비밀번호 확인*</label>
-                                    <input type="password" name="passwordCheck" placeholder="비밀번호확인" required>
+                                    <label>Password Check*</label>
+                                    <input type="password" name="passwordCheck"  id="passwordCheck" placeholder="Password Check" required>
                                 </span>
                                 
                                 <!-- 
@@ -1085,8 +1082,8 @@
                                  -->
                                 
                                 <span class="ms-register-wrap">
-                                    <label>관심 키워드*</label>
-                                    <input type="text" name="concernKeyword" placeholder="키워드" required>
+                                    <label>Interested Keywords*</label>
+                                    <input type="text" name="concernKeyword" placeholder="Enter a Keyword" required>
                                 </span>
 								<!--                                 
                                 <span class="ms-register-wrap ms-recaptcha">
@@ -1100,7 +1097,7 @@
                                 -->
                                 <span class="ms-register-wrap ms-register-btn">
                                     <span>Already have an account?<a th:href="@{/user/login}">login</a></span>
-                                    <button class="ms-btn-2" type="submit">Register</button>
+                                    <button class="ms-btn-2" type="submit"  id="submitBtn">Register</button>
                                 </span>
                             </form>
                         </div>

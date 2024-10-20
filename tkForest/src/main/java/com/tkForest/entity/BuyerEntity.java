@@ -53,8 +53,7 @@ public class BuyerEntity {
     @Column(name = "PHONENUMBER")
     private String phoneNumber;
 
-    @Column(name = "BUYERID", nullable = false, unique = true)
-    
+    @Column(name = "ID", nullable = false, unique = true)
     private String buyerId;
 
     @Column(name = "PWD", nullable = false)
