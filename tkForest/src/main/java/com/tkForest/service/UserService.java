@@ -5,16 +5,19 @@ import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tkForest.dto.BCategoryDTO;
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.SCategoryDTO;
 import com.tkForest.dto.SellerCertificateDTO;
 import com.tkForest.dto.SellerDTO;
+import com.tkForest.entity.BCategoryEntity;
 import com.tkForest.entity.BuyerEntity;
 import com.tkForest.entity.CategoryEntity;
 import com.tkForest.entity.CertificateEntity;
 import com.tkForest.entity.SCategoryEntity;
 import com.tkForest.entity.SellerCertificateEntity;
 import com.tkForest.entity.SellerEntity;
+import com.tkForest.repository.BCategoryRepository;
 import com.tkForest.repository.BuyerRepository;
 import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.CertificateRepository;
@@ -36,9 +39,12 @@ public class UserService {
     final BCryptPasswordEncoder bCryptPasswordEncoder;
     
     final SCategoryRepository sCategoryRepository;
+    final BCategoryRepository bCategoryRepository;
     final CategoryRepository categoryRepository;
+    
     final CertificateRepository certificateRepository;
     final SellerCertificateRepository sellerCertificateRepository;
+    
 
     /**
      * 전달 받은 sellerDTO를 sellerEntity로 변경한 후 DB에 저장.
@@ -136,7 +142,7 @@ public class UserService {
 	        	
         	} else {
                 System.out.println("입력된 카테고리명이 없습니다.");
-                return true;
+                return false;
     	} 
 	        }
     	return false;
@@ -191,29 +197,28 @@ public class UserService {
      * @param buyerDTO
      * @return boolean
      */
+	@Transactional
     public boolean buyerSignUp(BuyerDTO buyerDTO) {
-        
-//       // 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
-//      boolean isExistId = sellerRepository.findById(buyerDTO.getId()).isPresent() 
-//                          || buyerRepository.findById(buyerDTO.getId()).isPresent();  // 셀러 또는 바이어 테이블에 이미 존재하면 true
-//      
-//      if (isExistId) {
-//          // 이미 존재하는 ID라면 회원가입 불가 처리
-//          return false;
-//      }
+    	
+    	// 가입하려는 ID가 이미 있으면 같은 ID로 가입 불가
+		
+		if (isUserIdExists(buyerDTO.getBuyerId())) {
+	        return false; // 이미 존재하는 ID라면 회원가입 불가 처리
+	    }
+		log.info("isExistId 확인함");
 
-      // 비밀번호 암호화
-      // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
-      buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
-      
-       buyerDTO.setBuyerMemberNo("B1");
-       buyerDTO.setBuyerMemberNo(generateUniqueBuyerMemberNo());
-     
-      // 존재하지 않는 ID일 경우 회원가입 처리
-      BuyerEntity buyerEntity = BuyerEntity.toEntity(buyerDTO);
-      buyerRepository.save(buyerEntity);   // 가입 성공
-      return true;
- 
+         // 비밀번호 암호화
+         // 사용자가 입력한 비밀번호를 get => 암호화 encode => 다시 set 
+		buyerDTO.setPassword(bCryptPasswordEncoder.encode(buyerDTO.getPassword()));
+         log.info("암호화된 비밀번호 set 함");
+    	
+         // BuyerMemberNo는 중복되면 안되므로 기존 BuyerMemberNo의 최대값 +1로 set
+         buyerDTO.setBuyerMemberNo(generateUniqueBuyerMemberNo());
+    	
+        // 존재하지 않는 ID일 경우 회원가입 처리
+        BuyerEntity buyerEntity = BuyerEntity.toEntity(buyerDTO);
+        buyerRepository.save(buyerEntity);   // 가입 성공
+        return true;
     }
     
     /**
@@ -225,13 +230,55 @@ public class UserService {
         int newMemberNoSuffix;
 
         if (lastMemberNo != null) {
-            newMemberNoSuffix = Integer.parseInt(lastMemberNo.substring(1)) + 1; // S 다음 숫자 증가
+            newMemberNoSuffix = Integer.parseInt(lastMemberNo.substring(1)) + 1; // B 다음 숫자 증가
         } else {
             newMemberNoSuffix = 1; // 초기값 설정
         }
 
         return "B" + newMemberNoSuffix; // 새로운 BuyerMemberNo 생성
    }
+    
+    /**
+     * 가입중인 Buyer의 카테고리 추가하기
+     * @param BuyerDTO, BCategoryDTO
+     */
+    public boolean BuyerCategoryInsert(BuyerDTO buyerDTO, BCategoryDTO bCategoryDTO) {
+    	
+    	// buyerId로 셀러 엔티티 찾아오기
+    	Optional<BuyerEntity> buyerEntity = buyerRepository.findByBuyerMemberNo(buyerDTO.getBuyerMemberNo());
+    	
+    	// 바이어가 있는 경우 실행
+    	if (buyerEntity.isPresent()) {
+    		BuyerEntity entity1 = buyerEntity.get();
+    		
+	    	// 카테고리 리스트가 null일 경우 해당 로직을 실행하지 않음
+	        if (buyerDTO.getCategoryNames() != null) {
+    	
+	        	// CategoryDTO에서 선택된 카테고리 코드 목록을 가져와서 반복 처리
+	        	for (String cateName : buyerDTO.getCategoryNames()) { 
+	    	
+	        		// cateName으로 카테고리 엔티티 찾아오기
+	        		Optional<CategoryEntity> categoryEntity = categoryRepository.findByCategoryName(cateName);
+		    	
+		        	if (categoryEntity.isPresent()) {
+		        		
+		        		CategoryEntity entity2 = categoryEntity.get();
+		        		
+		        		BCategoryEntity bCategoryEntity = BCategoryEntity.toEntity(bCategoryDTO, entity1, entity2);
+		      	      	bCategoryRepository.save(bCategoryEntity);
+		        	
+		      	      	log.info("bCategoryEntity 저장 성공");
+		        	}
+	        } // for문 끝
+	        	return true;
+	        	
+        	} else {
+                System.out.println("입력된 카테고리명이 없습니다.");
+                return false;
+    	} 
+	        }
+    	return false;
+    }
     
     /**
 	 * (셀/바 공통) 이미 존재하는 ID인지 확인

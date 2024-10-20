@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tkForest.dto.BCategoryDTO;
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.SCategoryDTO;
@@ -101,25 +102,34 @@ public class UserController {
    }
 
    /**
-    * 회원가입(바이어) 처리
-    * 전달받은 buyerDTO를 BuyerEntity로 변경한 후에 DB에 저장
-    * @param buyerDTO
+    * 회원가입(셀러) 처리
+    * 전달받은 buyerDTO + bCategoryDTO를 각 Entity로 변경한 후에 DB에 저장
+    * @param buyerDTO, bCategoryDTO
 	* @return boolean
     */
    @PostMapping("/buyerSignUp")
-   public String buyerSignUp(@ModelAttribute BuyerDTO buyerDTO) {
+   public String buyerSignUp(
+		   @ModelAttribute BuyerDTO buyerDTO
+		   , @ModelAttribute BCategoryDTO bCategoryDTO
+		   ) {
    	
 	log.info("BuyerDTO: {}", buyerDTO.toString());
+	log.info("SCategoryDTO: {}", bCategoryDTO.toString());
    	
 	// 기본값으로 설정
 	buyerDTO.setBuyerStatus(true);
+	log.info("바이어 Status를 true로 설정함");
 	
-   	// UserService를 통해 바이어 회원가입 처리 로직 호출
+   	// UserService를 통해 셀러 회원가입 처리 로직 호출
    	boolean result = userService.buyerSignUp(buyerDTO);
-   	log.info("바이어 회원가입 성공여부: {}", result);
+   	log.info("바이어 회원가입(기본) 성공여부: {}", result);
    	log.info("바이어 회원가입 정보: {}", buyerDTO);
-
-   	return "redirect:/";  // 회원가입 완료 후 /로 리다이렉트
+   	
+   	// 카테고리 추가
+   	boolean resultCategory = userService.BuyerCategoryInsert(buyerDTO, bCategoryDTO);
+   	log.info("셀러 카테고리 추가: {}", resultCategory);
+   	
+   	return "redirect:/";  // 회원가입 완료 후 메인 페이지로 리다이렉트
 //   	return "redirect:/user/login";  // 회원가입 완료 후 로그인 페이지로 리다이렉트
    }
    

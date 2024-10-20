@@ -8,14 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.tkForest.entity.BCategoryEntity;
 import com.tkForest.entity.SCategoryEntity;
 
-public interface SCategoryRepository extends JpaRepository<SCategoryEntity, Integer> {
+public interface BCategoryRepository extends JpaRepository<BCategoryEntity, Integer> {
 
-	// SellerNo에 해당하는 CATEGORYNO를 조회하는 쿼리
-		// List<Integer> findBySellerMemberNo(Integer sellerMemberNo);
+	// BuyerMemberNo에 해당하는 CATEGORYNO를 조회하는 쿼리
+		// List<Integer> findByBuyerMemberNo(Integer buyerMemberNo);
 		
-	    List<SCategoryEntity> findBySellerEntity_SellerMemberNo(String sellerMemberNo);
+	    List<BCategoryEntity> findByBuyerEntity_BuyerMemberNo(String buyerMemberNo);
 
 		// (Product에서 복사해온 것)
 		// List<PCategoryEntity> findAllByCategoryEntityOrderByPCategoryNoDesc(Optional<CategoryEntity> categoryEntity);
-	
 }

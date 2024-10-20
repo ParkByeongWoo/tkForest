@@ -7,16 +7,13 @@
  */
 let idCheck = false;	// 일단 기본은 false(가입 불가능)
 let pwdCheck = false;
-let bizregNoCheck = false;
 let categoryData = {};
 
 $(function(){
 	
-	$('#confirmBizregNo').on('click', confirmBizregNo);
-	$('#confirmSellerId').on('click', confirmSellerId);
 	$('#confirmBuyerId').on('click', confirmBuyerId);
-	// $('#password').on('keyup', confirmPassword);
-	// $('#passwordCheck').on('keyup', confirmPassword);
+	$('#password').on('keyup', confirmBuyerPassword);
+	$('#passwordCheck').on('keyup', confirmBuyerPassword);
 		
 	// 국가 목록 가져오기
 	fetchCountries();
@@ -29,99 +26,10 @@ $(function(){
 	});
 	
 	// 가입 버튼 클릭 시 확인
-	$('#submitBtn').on('click', sellerSignUp);
+	$('#submitBtn').on('click', buyerSignUp);
 	
 });
 
-
-// (셀러) 사용가능한 아이디인지 여부를 판단(ajax로 작업);
-function confirmSellerId(){
-	event.preventDefault();
-	
-	let userId = $('[data-role="userId"]').val();
-
-	/*
-	if (userId.trim().length < 3 || userId.trim().length > 5) {
-		$('#confirmId').css('color', 'red');
-		$('#confirmId').html('id는 3~5자 사이로 입력하세요❗');
-		return;
-	}
-	*/
-	
-	// 아이디 공백인지 체크
-	if (userId.trim().length == 0) {
-		$('#idCheck').css('color', 'red');
-		$('#idCheck').val('id를 입력해주세요.');
-		return;
-	}
-	
-	// 중복 아이디인지 체크
-	$.ajax({
-		url: "/user/confirmId"
-		, method: "POST"
-		, data: {"userId":userId}
-		, success: function(resp) {	// resp = true이면 사용가능한 아이디
-			if (resp) {
-				$('#idCheck').css('color', 'blue');
-				$('#idCheck').val('사용가능한 아이디입니다.');
-				// $('#idCheck').html('사용가능한 아이디입니다.');
-				// $('#idCheck').html('');
-				idCheck = true;
-			} else {
-				$('#idCheck').css('color', 'red');
-				$('#idCheck').val('이미 사용중인 아이디입니다.');
-				// $('#idCheck').html('이미 사용중인 아이디입니다.');
-				idCheck = false;
-			}
-		}
-	});
-	
-	// $('#confirmId').html('');
-	
-}
-
-// (셀러) 사업자등록번호 중복 여부를 판단(ajax로 작업);
-function confirmBizregNo(){
-	event.preventDefault();
-	
-	let bizregNo = $('#bizregNo').val();
-
-	// 입력값이 비어 있으면 경고 메시지
-	if (bizregNo.trim().length == 0) {
-		$('#bizregNoCheck').css('color', 'red');
-		$('#bizregNoCheck').val('사업자등록번호를 입력해주세요.');
-		return;
-	}
-	
-	// 입력값이 있으면 중복확인 요청 메시지
-	// $('#bizregNoCheck').val('중복확인 버튼을 클릭해주세요.');
-
-	
-	// 중복 사업자등록번호지 체크
-	$.ajax({
-		url: "/user/confirmBizregNo"
-		, method: "POST"
-		, data: {"bizregNo":bizregNo}
-		, success: function(resp) {	// resp = true이면 사용가능한 아이디
-			if (resp) {
-				$('#bizregNoCheck').css('color', 'blue');
-				$('#bizregNoCheck').val('가입 가능한 사업자등록번호입니다.');
-				// $('#idCheck').html('사용가능한 아이디입니다.');
-				// $('#idCheck').html('');
-				bizregNoCheck = true;
-			} else {
-				$('#bizregNoCheck').css('color', 'red');
-				$('#bizregNoCheck').val('이미 가입된 사업자등록번호입니다.');
-				// $('#idCheck').html('이미 사용중인 아이디입니다.');
-				bizregNoCheck = false;
-				
-				}
-		}
-	});
-	
-	// $('#confirmId').html('');
-	
-}
 
 // (바이어) 사용가능한 아이디인지 여부를 판단(ajax로 작업);
 function confirmBuyerId(){
@@ -152,14 +60,14 @@ function confirmBuyerId(){
 		, success: function(resp) {	// resp = true이면 사용가능한 아이디
 			if (resp) {
 				$('#idCheck').css('color', 'blue');
+				$('#idCheck').val('This is an available ID.');
 				// $('#idCheck').val('This is an available ID.');
-				$('#idCheck').html('This is an available ID.');
 				// $('#idCheck').html('');
 				idCheck = true;
 			} else {
 				$('#idCheck').css('color', 'red');
+				$('#idCheck').val('This ID is already in use.');
 				// $('#idCheck').val('This ID is already in use.');
-				$('#idCheck').html('This ID is already in use.');
 				idCheck = false;
 			}
 		}
@@ -169,98 +77,56 @@ function confirmBuyerId(){
 	
 }
 
-/*
-// 비밀번호 = 비밀번호확인 체크
-function confirmPassword() {
+
+// (바이어) 비밀번호 = 비밀번호확인 체크
+function confirmBuyerPassword() {
 	
 let userPwd = $('#password').val();
 let userPwdCheck = $('#passwordCheck').val();
 
 if (userPwd.trim() != userPwdCheck.trim()) {
-	$('#confirmPwd').css('color', 'red');
-	$('#confirmPwd').text('비밀번호가 같지 않습니다.');
+	$('#confirmBuyerPwd').css('color', 'red');
+	$('#confirmBuyerPwd').text('Passwords do not match.');
 	pwdCheck = false;
 	return;
 }
-$('#confirmPwd').html('');
+$('#confirmBuyerPwd').html('');
 pwdCheck = true;
 }
-*/
 
 
 
-// (셀러) 가입버튼 클릭시 체크
-function sellerSignUp() {
+
+// (바이어) 가입버튼 클릭시 체크
+function buyerSignUp() {
 	
 	event.preventDefault();
 	
-	
+	/*
 	// 비밀번호 = 비밀번호확인 체크
 	let userPwd = $('#password').val();
 	let userPwdCheck = $('#passwordCheck').val();
 
 	if (userPwd.trim() != userPwdCheck.trim()) {
-		$('#confirmPwd').css('color', 'red');
-		$('#confirmPwd').text('비밀번호가 같지 않습니다.');
+		$('#confirmBuyerPwd').css('color', 'red');
+		$('#confirmBuyerPwd').text('Passwords do not match.');
 		pwdCheck = false;
 		return;
 	}
-	$('#confirmPwd').html('');
-	pwdCheck = true;
-	
-	
-	// 가입
-	
-	if (!bizregNoCheck) {
-		$('#bizregNo').focus();
-		$('#bizregNo').select();
-		alert('사업자등록번호를 정확히 입력해 주세요');
-		return;
-	}
-	
-	if (!idCheck) {
-		$('[data-role="userId"]').focus();
-		$('[data-role="userId"]').select();
-		alert('아이디를 정확히 입력해 주세요');
-		return;
-	} 
-		
-	if (!pwdCheck) {
-		alert('비밀번호를 정확히 입력해 주세요');
-		return;
-	}
-	
-	$('#sellerSignUpForm').submit();
-	
-}
-
-
-// 바이어 가입시 체크
-function buyerSignUp() {
-	
-	/*
-	// 비밀번호 = 비밀번호확인 체크
-	let userPwd = $('#userPwd').val();
-	let userPwdCheck = $('#passwordCheck').val();
-
-	if (userPwd.trim() != userPwdCheck.trim()) {
-		$('#confirmPwd').css('color', 'red');
-		$('#confirmPwd').html('비밀번호가 같지 않습니다.');
-		pwdCheck = false;
-		return;
-	}
-	$('#confirmPwd').html('');
+	$('#confirmBuyerPwd').html('');
 	pwdCheck = true;
 	*/
 	
 	// 가입
 	if (!idCheck) {
-		alert('아이디를 정확히 입력해 주세요');
+		$('[data-role="userId"]').focus();
+		$('[data-role="userId"]').select();
+		alert('Please check the id.');
 		return;
 	} 
 		
 	if (!pwdCheck) {
-		alert('비밀번호를 정확히 입력해 주세요');
+		alert('Please check the password.');
 		return;
 	}
 	
@@ -364,8 +230,8 @@ function loadCategory1(CATEGORY1) {
 
 // CATEGORY2 업데이트 함수
 function updateCategory2(CATEGORY1, CATEGORY2, CATEGORY3) {
-    CATEGORY2.empty().append('<option value="">선택2</option>'); // 초기화
-    CATEGORY3.empty().append('<option value="">선택3</option>'); // 초기화
+    CATEGORY2.empty().append('<option value="">Choose-2</option>'); // 초기화
+    CATEGORY3.empty().append('<option value="">Choose-3</option>'); // 초기화
     let selectedMain = CATEGORY1.val();
     if (selectedMain) {
         let subCategories = categoryData[selectedMain];
@@ -380,7 +246,7 @@ function updateCategory2(CATEGORY1, CATEGORY2, CATEGORY3) {
 
 // CATEGORY3 업데이트 함수
 function updateCategory3(CATEGORY1, CATEGORY2, CATEGORY3) {
-    CATEGORY3.empty().append('<option value="">선택3</option>'); // 초기화
+    CATEGORY3.empty().append('<option value="">Choose-3</option>'); // 초기화
     let selectedMain = CATEGORY1.val();
     let selectedSub = CATEGORY2.val();
     if (selectedSub) {

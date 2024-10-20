@@ -1008,7 +1008,7 @@
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>사업자등록번호 확인*</label>
                                     <button id="confirmBizregNo">중복확인</button>
-                                    <input type="text" id="bizregNoCheck" placeholder="중복확인 버튼을 클릭해주세요" required readonly>
+                                    <input type="text" id="bizregNoCheck" placeholder='"중복확인" 버튼을 클릭해주세요' required readonly>
                                 </span>
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>회사명*</label>
@@ -1086,7 +1086,7 @@
                                     <button id="confirmSellerId">중복확인</button>
                                     <!-- <input type="button" id="confirmSellerId" placeholder="아이디 확인">  -->
                                     <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
-                                    <input type="text" id="idCheck" placeholder="중복확인 버튼을 클릭해주세요" required readonly>
+                                    <input type="text" id="idCheck" placeholder='"중복확인" 버튼을 클릭해주세요' required readonly>
                                 </span>
                                 <span class="ms-register-wrap">
                                     <!-- <div id="idCheck" style="font-size:0.8em;"></div>  -->
@@ -1098,16 +1098,15 @@
 
                                 <span class="ms-register-wrap ms-register-half">
                                     <label>비밀번호 확인*</label>
-                                    <span id="confirmPwd"></span>
-                                    <input type="password" name="passwordCheck" id="passwordCheck" placeholder="비밀번호확인"
-                                        required>
+                                    <span id="confirmSellerPwd"></span>
+                                    <input type="password" name="passwordCheck" id="passwordCheck" placeholder="비밀번호확인" required>
                                 </span>
 
                                 <span class="ms-register-wrap">
                                     <label>관심 카테고리*</label>
                                     <!-- 카테고리 선택하고 required 로 수정예정 -->
-                                    <button id="openModalBtn" style="margin-bottom: 10px;">선택</button>
-                                    <input type="text" name="" id="selectedCategory" placeholder="선택버튼을 클릭해주세요" required readonly>
+                                    <button id="openModalBtn" type="button" style="margin-bottom: 10px;">선택</button>
+                                    <input type="text" name="" id="selectedCategory" placeholder='"선택" 버튼을 클릭해주세요' required readonly>
                                 </span>    
                                 
                                 <span class="ms-register-wrap">    
@@ -1134,17 +1133,17 @@
             								<div class="category-wrapper">
                 								<label>대분류</label>
                 								<select id="CATEGORY1">
-                    								<option value="">선택1</option>
+                    								<option value="">선택 1</option>
                 								</select>
 
 								                <label>중분류</label>
 								                <select id="CATEGORY2">
-								                    <option value="">선택2</option>
+								                    <option value="">선택 2</option>
 								                </select>
 								
 								                <label>소분류</label>
 								                <select id="CATEGORY3">
-								                    <option value="">선택3</option>
+								                    <option value="">선택 3</option>
 								                </select>
 								
 								                <!-- 카테고리 추가 버튼 -->
@@ -1440,7 +1439,7 @@
 
     <!-- 검증 설정 -->
     <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{/script/signup.js}"></script>
+    <script th:src="@{/script/seller-sign-up.js}"></script>
 
 </body>
 

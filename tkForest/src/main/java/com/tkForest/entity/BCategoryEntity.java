@@ -30,8 +30,8 @@ import lombok.ToString;
 public class BCategoryEntity {
     
     @Id
-    @Column(name="B_CATEGORYNO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="B_CATEGORYNO")
     private Integer bCategoryNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,6 +42,7 @@ public class BCategoryEntity {
     @JoinColumn(name = "CATEGORYNO", referencedColumnName = "CATEGORYNO", nullable = false)
     private CategoryEntity categoryEntity;
 
+    // DTO -> Entity 변환 메소드
     public static BCategoryEntity toEntity(BCategoryDTO bCategoryDTO, BuyerEntity buyerEntity, CategoryEntity categoryEntity) {
         return BCategoryEntity.builder()
                 .bCategoryNo(bCategoryDTO.getBCategoryNo())

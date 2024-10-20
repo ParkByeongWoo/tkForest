@@ -118,8 +118,10 @@
 /**** 중복확인 버튼 ****/
 button#confirmBizregNo,
 button#confirmSellerId,
+button#confirmBuyerId,
 button#openModalBtn {
 	border: 0.5px solid #eee;
+	color: #aaa;
     font-size: 0.8rem;
     margin-left: 5px;
     margin-bottom: 9px;
@@ -129,10 +131,16 @@ button#openModalBtn {
 button#confirmBizregNo:hover,
 button#confirmSellerId:hover,
 button#openModalBtn:hover {
-    color: #0000ee; /* hover 시 색 변경 */
+    /* color: rgb(0, 0, 160); /* hover 시 색 변경 */
+    color: #555; /* hover 시 색 변경 */
 }
         
-        
+span#confirmSellerPwd, span#confirmBuyerPwd {
+	/* border: 0.5px solid #eee; */
+    font-size: 0.8rem;
+    margin-left: 5px;
+    margin-bottom: 9px;
+}
 
 
 
