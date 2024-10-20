@@ -44,6 +44,7 @@ public class SecurityConfig {
                           , "/user/logout"         // 로그아웃
                           , "/user/confirmId"
                           , "/aboutUs"            // 어바웃 어스 경로
+                          , "/api/globalMap"		  // 지도 API
                           , "/user/buyerMypage"
                           , "/user/sellerMypage"
                           , "/user/sellerStore" // 셀러스토어 

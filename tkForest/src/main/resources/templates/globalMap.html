@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>지도</title>
+</head>
+
+<body>
+    <h1>Trend API 조회</h1>
+    <form id="trendForm">
+        <label for="numOfRows">Number of Rows:</label>
+        <input type="text" id="numOfRows" name="numOfRows" value="3"><br><br>
+        
+        <label for="pageNo">Page Number:</label>
+        <input type="text" id="pageNo" name="pageNo" value="1"><br><br>
+        
+        <label for="search1">Search 1:</label>
+        <input type="text" id="search1" name="search1"><br><br>
+        
+        <label for="search2">Search 2:</label>
+        <input type="text" id="search2" name="search2"><br><br>
+        
+        <label for="search4">Search 4:</label>
+        <input type="text" id="search4" name="search4"><br><br>
+        
+        <label for="search5">Search 5:</label>
+        <input type="text" id="search5" name="search5" value="I001203"><br><br>
+        
+        <button type="button" onclick="callTrendApi()">조회</button>
+    </form>
+
+    <h2>응답 결과:</h2>
+    <pre id="response"></pre>
+
+    <script>
+        function callTrendApi() {
+            // 폼 데이터 수집
+            const formData = new FormData(document.getElementById('trendForm'));
+            const params = new URLSearchParams(formData).toString();
+
+            // AJAX 요청을 통해 서버에 API 호출
+            fetch(`/api/trend?${params}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); // JSON 형식으로 응답 처리
+                })
+                .then(data => {
+                    // 응답 결과 출력 (JSON 데이터를 보기 쉽게 포맷팅)
+                    document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('response').textContent = 'Error: ' + error;
+                });
+        }
+    </script>
+</body>
+</html>
