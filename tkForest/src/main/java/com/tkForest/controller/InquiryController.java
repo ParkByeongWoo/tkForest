@@ -197,10 +197,7 @@ public class InquiryController {
 //            Model model
     		) {
 //
-//        // 인증되지 않은 사용자는 접근 불가
-//        if (!(loginUser instanceof LoginBuyerDetails)) {
-//            return "redirect:/user/login";  // 바이어가 아니면 로그인 페이지로 리다이렉트
-//        }
+//    final InquiryService inquiryService;
 //
 //        // 인증된 바이어의 이름 추가
 //        if (loginUser instanceof LoginBuyerDetails) {
@@ -209,6 +206,7 @@ public class InquiryController {
 
         return "inquiry/inquiryWrite";
     }
+    
 
 
 //
