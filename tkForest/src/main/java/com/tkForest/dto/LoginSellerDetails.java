@@ -51,7 +51,6 @@ public class LoginSellerDetails implements UserDetails {
 		return this.sellerId;
 	}
 	
-
 	public String getSellerMemberNo() {	// Security에서 비밀번호 확인을 위해 비밀번호 달라는 것
 		return this.sellerMemberNo;
 	}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BCategoryDTO;
 import com.tkForest.dto.BuyerDTO;
+import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.SCategoryDTO;
 import com.tkForest.dto.SellerCertificateDTO;
@@ -199,15 +200,15 @@ public class UserController {
 //   public String sellerMypage() {
 //       return "user/sellerMypage"; //
 //   }
-   
-   /**
-    * 바이어 마이페이지 가기 
-    * @return
-    */
-   @GetMapping("/buyerMypage")
-   public String buyerMypage() {
-       return "user/buyerMypage"; //
-   }
+//   
+//   /**
+//    * 바이어 마이페이지 가기 
+//    * @return
+//    */
+//   @GetMapping("/buyerMypage")
+//   public String buyerMypage() {
+//       return "user/buyerMypage"; //
+//   }
    
    /**
     * 수정 처리 요청
@@ -239,8 +240,6 @@ public class UserController {
    /**
     * 셀러 마이페이지 들어가기 + 
     * 셀러 마이페이지에 로그인한 회원의 정보를 가져오기
-    * @param sellerDTO
-    * @param buyerDTO
     * @return
     */
    @GetMapping("/sellerMypage")
@@ -252,6 +251,28 @@ public class UserController {
 	   SellerDTO sellerDTO = userService.getSellerById(sellerId); //서비스에서 가져와야함
 	   // 모델에 sellerDTO를 추가합니다.
 	   model.addAttribute("userDTO", sellerDTO); // sellerDTO는 sellerMypage.html 때문에 userDTO라고 칭하게 됨
+	   
+	   // 템플릿 이름을 반환합니다.
+	   // return "user/sellerMypage"; // 템플릿 이름
+	   return "user/mypagesellerprofile"; // 템플릿 이름
+   }
+   
+   /**
+    * 바이어 마이페이지 들어가기 + 
+    * 바이어 마이페이지에 로그인한 회원의 정보를 가져오기
+    * @param sellerDTO
+    * @param buyerDTO
+    * @return
+    */
+   @GetMapping("/buyerMypage")
+   public String buyerMyPage(
+		   Model model, @AuthenticationPrincipal LoginBuyerDetails userDetails) {
+	   // 로그인한 판매자의 ID를 가져옵니다.
+	   String buyerId = userDetails.getUsername();
+	   // 바이어 아이디를 이용해 바이어의 정보를 DB에서 가져옴
+	   BuyerDTO buyerDTO = userService.getBuyerById(buyerId); //서비스에서 가져와야함
+	   // 모델에 buyerDTO를 추가합니다.
+	   model.addAttribute("userDTO", buyerDTO); // buyerDTO는 buyerMypage.html 때문에 userDTO라고 칭하게 됨
 	   
 	   // 템플릿 이름을 반환합니다.
 	   return "user/sellerMypage"; // 템플릿 이름

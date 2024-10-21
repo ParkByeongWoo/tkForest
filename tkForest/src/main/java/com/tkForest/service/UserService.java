@@ -385,7 +385,12 @@ public class UserService {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * 셀러 id로 셀러 정보 조회
+	 * @param sellerId
+	 * @return
+	 */
 	public SellerDTO getSellerById(String sellerId) {
 	    // 셀러 엔티티를 데이터베이스에서 조회
 	    Optional<SellerEntity> optionalSellerEntity = sellerRepository.findBySellerId(sellerId);
@@ -398,6 +403,28 @@ public class UserService {
 	        return SellerDTO.toDTO(sellerEntity);
 	    } else {
 	        // 셀러가 존재하지 않는 경우 null 반환 또는 예외 처리
+	        return null; // 또는 예외를 던질 수 있습니다
+	    }
+	
+	}
+	
+	/**
+	 * 바이어 id로 셀러 정보 조회
+	 * @param buyerId
+	 * @return
+	 */
+	public BuyerDTO getBuyerById(String buyerId) {
+	    // 바이어 엔티티를 데이터베이스에서 조회
+	    Optional<BuyerEntity> optionalBuyerEntity = buyerRepository.findByBuyerId(buyerId);
+
+	    // 바이어 엔티티가 존재하는 경우
+	    if (optionalBuyerEntity.isPresent()) {
+	        BuyerEntity buyerEntity = optionalBuyerEntity.get();
+	        System.out.println("----- 데이터 존재?? " + buyerEntity );
+	        // 바이어 엔티티를 BuyerDTO로 변환하여 반환
+	        return BuyerDTO.toDTO(buyerEntity);
+	    } else {
+	        // 바이어가 존재하지 않는 경우 null 반환 또는 예외 처리
 	        return null; // 또는 예외를 던질 수 있습니다
 	    }
 	

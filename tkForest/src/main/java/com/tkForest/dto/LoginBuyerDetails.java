@@ -27,7 +27,7 @@ public class LoginBuyerDetails implements UserDetails {
 		this.password = buyerDTO.getPassword();
 	}
 	
-	// 사용자의 Role의 정보 반환 (ROLE_SELLER)
+	// 사용자의 Role의 정보 반환 (ROLE_BUYER)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
@@ -50,6 +50,9 @@ public class LoginBuyerDetails implements UserDetails {
 		return this.buyerId;
 	}
 	
+	public String getBuyerMemberNo() {	// Security에서 비밀번호 확인을 위해 비밀번호 달라는 것
+		return this.buyerMemberNo;
+	}
 //	// 사용자 정의 메소드(뷰단에서 사용할 사용자의 실명 이름)
 //	public String getUserName() {
 //		return this.userName;
