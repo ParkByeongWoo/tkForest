@@ -220,18 +220,12 @@
         .third-toggle-icon.open {
             content: '-';
         }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </style>
-
-
 </head>
 
 <body>
 
-   <!-- 헤더! 바디 바로 아래에 넣으면 OK -->
-   <!-- Header start  -->
+	     <!-- Page Navigation -->
    <header class="ms-header">
       <!-- Header Top Start -->
       <div class="header-top">
@@ -326,38 +320,42 @@
                      <!-- Header Search End -->
 
                      <!-- Header Button Start -->
-                     <div class="ms-header-bottons">
-                        <div class="ms-acc-drop">
-                           <a href="javascript:void(0)"
-                              class="ms-header-btn ms-header-user dropdown-toggle ms-user-toggle" title="Account">
-                              <div class="header-icon">
-                                 <img src="/assets/img/icons/user.svg" class="svg_img header_svg" alt="">
-                              </div>
-                              <div class="ms-btn-desc">
-                                 <span class="ms-btn-title">Account</span>
-                                 <span sec:authorize="isAuthenticated()" class="ms-btn-stitle">Log Out/My Page</span>
-                                 <span sec:authorize="isAnonymous()" class="ms-btn-stitle">Login/Sign Up</span>
-                              </div>
-                           </a>
-                           <ul class="ms-dropdown-menu">
-                              <!-- 비회원용 옵션 -->
-                              <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/signUp}">Sign
-                                    Up</a></li>
-                              <li sec:authorize="isAnonymous()"><a class="dropdown-item"
-                                    th:href="@{/user/login}">Login</a></li>
-                              <!-- 회원용 옵션 -->
-                              <li sec:authorize="isAuthenticated()"><a class="dropdown-item"
-                                    th:href="@{/user/logout}">Log out</a></li>
-                              <!-- 셀러용 옵션 -->
-                              <li sec:authorize="hasRole('ROLE_SELLER')"><a th:href="@{/user/sellerMypage}">My
-                                    Page(S)</a></li>
-                              <!-- 바이어용 옵션 -->
-                              <li sec:authorize="hasRole('ROLE_BUYER')"><a th:href="@{/user/buyerMypage}">My Page(B)</a>
-                              </li>
+<div class="ms-header-bottons">
+   <div class="ms-acc-drop">
+      <a href="javascript:void(0)" class="ms-header-btn ms-header-user dropdown-toggle ms-user-toggle" title="Account">
+         <div class="header-icon">
+            <img src="/assets/img/icons/user.svg" class="svg_img header_svg" alt="">
+         </div>
+         <div class="ms-btn-desc">
+            <span class="ms-btn-title">Account</span>
+            <span sec:authorize="isAuthenticated()" class="ms-btn-stitle">Log Out/My Page</span>
+            <span sec:authorize="isAnonymous()" class="ms-btn-stitle">Login/Sign Up</span>
+         </div>
+      </a>
+      <ul class="ms-dropdown-menu">
+         <!-- 비회원용 옵션 -->
+         <li sec:authorize="isAnonymous()">
+            <a class="dropdown-item" th:href="@{/user/signUp}">Sign Up</a>
+         </li>
+         <li sec:authorize="isAnonymous()">
+            <a class="dropdown-item" th:href="@{/user/login}">Login</a>
+         </li>
+         <!-- 회원용 옵션 -->
+         <li sec:authorize="isAuthenticated()">
+            <a class="dropdown-item" th:href="@{/user/logout}">Log out</a>
+         </li>
+         <!-- 셀러용 옵션 -->
+         <li sec:authorize="hasRole('ROLE_SELLER')">
+            <a th:href="@{/user/sellerMypage}">My Page(S)</a>
+         </li>
+         <!-- 바이어용 옵션 -->
+         <li sec:authorize="hasRole('ROLE_BUYER')">
+            <a th:href="@{/user/buyerMypage}">My Page(B)</a>
+         </li>
+      </ul>
+   </div>
+</div>
 
-                           </ul>
-                        </div>
-                     </div>
                      <!-- Header Button End -->
                   </div>
                   <!-- Header Search and Account Button End -->
@@ -495,6 +493,8 @@
       </div>
 
       <!-- Header menu End -->
+      </header>
+      
       <!-- 헤더 끝 -->
 
       <!-- 페이지 본문 -->
@@ -591,6 +591,21 @@
                         <button class="like-button">❤️</button>
                         <button class="contact-button">✉️</button>
                      </div>
+                     <nav class="pagination">
+        <!-- 앞 그룹 -->
+        <!-- 두 번째 그룹 이상에서 보고 있을 때는 링크 생김 -->
+		<th:block th:if="${navi.startPageGroup > 1}">
+			<a class="page-no navi" 
+			   th:href="|javascript:pageFormSubmit(${navi.startPageGroup-1})|" >&laquo;</a>
+		</th:block>
+		
+		<!-- 첫 번째 그룹을 보고 있을 때는 링크 안생김 -->
+		<th:block th:unless="${navi.startPageGroup > 1}">
+			<span class="page-no navi" >&laquo;</span>
+		</th:block>
+   <!-- 헤더! 바디 바로 아래에 넣으면 OK -->
+   <!-- Header start  -->
+   </nav>
                   </div>
                </th:block>
             </div>
