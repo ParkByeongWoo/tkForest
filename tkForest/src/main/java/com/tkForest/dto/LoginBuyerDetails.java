@@ -49,6 +49,11 @@ public class LoginBuyerDetails implements UserDetails {
 									// 이름은 Username이지만 여기선 ID를 의미하는 것!
 		return this.buyerId;
 	}
+
+	public String getBuyerMemberNo() {
+		return this.buyerMemberNo;
+		
+	}
 	
 //	// 사용자 정의 메소드(뷰단에서 사용할 사용자의 실명 이름)
 //	public String getUserName() {

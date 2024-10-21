@@ -34,7 +34,7 @@ import lombok.ToString;
 @Builder
 
 @Entity
-@Table(name = "inquiry")
+@Table(name = "INQUIRY")
 @EntityListeners(AuditingEntityListener.class)
 public class InquiryEntity {
     @Id
