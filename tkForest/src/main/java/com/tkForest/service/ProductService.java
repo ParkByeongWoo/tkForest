@@ -87,21 +87,23 @@ public class ProductService {
    
    /**
     * 등록된 상품DB에 카테고리 추가하기
-    * @param pCategoryDTO
+    * @param pCategoryDTOList
     */
-   public void categoryInsert(PCategoryDTO pCategoryDTO) {
-      Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
-      Optional<CategoryEntity> categoryEntity = categoryRepository.findById(pCategoryDTO.getCategoryNo());
-      if(productEntity.isPresent() && categoryEntity.isPresent()) {
-	    	  
-	      ProductEntity entity1 = productEntity.get();
-	      CategoryEntity entity2 = categoryEntity.get();
-	      
-	      PCategoryEntity pCategoryEntity = PCategoryEntity.toEntity(pCategoryDTO, entity1, entity2);
-	
-	      System.out.println(pCategoryEntity);
-	      
-	      pCategoryRepository.save(pCategoryEntity);
+   public void categoryInsert(List<PCategoryDTO> pCategoryDTOList) {
+      for (PCategoryDTO pCategoryDTO : pCategoryDTOList) {
+		  Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
+	      Optional<CategoryEntity> categoryEntity = categoryRepository.findById(pCategoryDTO.getCategoryNo());
+	      if(productEntity.isPresent() && categoryEntity.isPresent()) {
+		    	  
+		      ProductEntity entity1 = productEntity.get();
+		      CategoryEntity entity2 = categoryEntity.get();
+		      
+		      PCategoryEntity pCategoryEntity = PCategoryEntity.toEntity(pCategoryDTO, entity1, entity2);
+		
+		      System.out.println(pCategoryEntity);
+		      
+		      pCategoryRepository.save(pCategoryEntity);
+	      }
       }
       return ;
    }
@@ -110,18 +112,20 @@ public class ProductService {
     * 등록된 상품DB에 인증서 추가하기
     * @param productCertificateDTO
     */
-   public void certificateInsert(ProductCertificateDTO productCertificateDTO) {
-	   Optional<ProductEntity> productEntity = productRepository.findById(productCertificateDTO.getProductNo());
-	   Optional<CertificateEntity> certificateEntity = certificateRepository.findById(productCertificateDTO.getCertificateTypeCode());
-	   if (productEntity.isPresent() && certificateEntity.isPresent()){   
-		   ProductEntity entity1 = productEntity.get();
-		   CertificateEntity entity2 = certificateEntity.get();
-		   
-		   ProductCertificateEntity productCertificateEntity = ProductCertificateEntity.toEntity(productCertificateDTO, entity1, entity2);
-		      
-		   System.out.println(productCertificateEntity);
-
-		   productCertificateRepository.save(productCertificateEntity);
+   public void certificateInsert(List<ProductCertificateDTO> productCertificateDTOList) {
+	   for(ProductCertificateDTO productCertificateDTO : productCertificateDTOList) {
+		   Optional<ProductEntity> productEntity = productRepository.findById(productCertificateDTO.getProductNo());
+		   Optional<CertificateEntity> certificateEntity = certificateRepository.findById(productCertificateDTO.getCertificateTypeCode());
+		   if (productEntity.isPresent() && certificateEntity.isPresent()){   
+			   ProductEntity entity1 = productEntity.get();
+			   CertificateEntity entity2 = certificateEntity.get();
+			   
+			   ProductCertificateEntity productCertificateEntity = ProductCertificateEntity.toEntity(productCertificateDTO, entity1, entity2);
+			      
+			   System.out.println(productCertificateEntity);
+	
+			   productCertificateRepository.save(productCertificateEntity);
+		   }
 	   }
 	   return ;
    }

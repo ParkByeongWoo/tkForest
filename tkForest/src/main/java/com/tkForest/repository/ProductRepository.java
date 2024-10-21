@@ -19,5 +19,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 	Page<ProductEntity> findByProductDescriptionContains(String searchWord, PageRequest of);
 
 	List<ProductEntity> findAllBySellerEntityOrderByProductNoDesc(Optional<SellerEntity> sellerEntity);
-}
 
+}
