@@ -1,6 +1,7 @@
 package com.tkForest.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.tkForest.entity.BuyerEntity;
 
@@ -31,6 +32,8 @@ public class BuyerDTO {
     private String concernKeyword;
     private Boolean buyerStatus;
     private String nationCode;  // NationDTO 대신 nationCode로 변경
+    
+    private List<String> categoryNames;
 
     // Entity => DTO 변환 메소드
     public static BuyerDTO toDTO(BuyerEntity buyerEntity) {
