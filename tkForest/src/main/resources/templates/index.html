@@ -219,15 +219,17 @@
                      <!-- Header Search Start -->
                      <div class="align-self-center ms-header-search mx-auto"> <!-- mx-auto 추가 -->
                         <div class="header-search">
-                           <form class="ms-search-group-form" action="#" method="GET">
+                           <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET" id="searchForm">
+                            <input type="hidden" name="page" id="requestPage" th:value="${page}">
                               <div class="ms-search-select-inner">
-                                 <select class="ms-search-cat selectpicker" id="categorySelect" name="category">
-                                    <option value="ALL">ALL</option>
-                                    <option value="Products">Products</option>
-                                    <option value="Sellers">Sellers</option>
+                                 <select class="ms-search-cat selectpicker" id="searchType" name="searchType">
+                                    <option value="ALL" th:selected="${searchType == 'ALL'}">ALL</option>
+                                    <option value="Products" th:selected="${searchType == 'Products'}">Products</option>
+                                    <option value="Brand" th:selected="${searchType == 'Brand'}">Brand</option>
                                  </select>
                               </div>
-                              <input class="form-control ms-search-bar" id="searchInput"
+                              <!-- query없으면 빈값 -->
+                              <input class="form-control ms-search-bar" id="query" th:value="${query}"
                                  placeholder="Search Products..." type="text" name="query">
                               <button class="search_submit" type="submit">
                                  <img src="/assets/img/icons/search.svg" class="svg_img search_svg" alt="">

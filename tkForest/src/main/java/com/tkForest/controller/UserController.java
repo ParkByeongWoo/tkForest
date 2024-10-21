@@ -14,6 +14,7 @@ import com.tkForest.dto.BCategoryDTO;
 import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.SCategoryDTO;
+import com.tkForest.dto.SellerCertificateDTO;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.service.UserService;
 

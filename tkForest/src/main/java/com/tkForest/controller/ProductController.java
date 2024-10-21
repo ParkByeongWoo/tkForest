@@ -54,15 +54,6 @@ public class ProductController {
    
    @PostMapping("/productCreate")
    public String productCreate(
-<<<<<<< HEAD
-         @ModelAttribute ProductDTO productDTO
-         , @ModelAttribute List<PCategoryDTO> pCategoryDTOList
-         , @ModelAttribute List<ProductCertificateDTO> productCertificateDTOList) {
-    log.info("클라이언트에서 전송된 데이터 : {}", productDTO.toString());
-    log.info("클라이언트에서 전송된 데이터 : {}", pCategoryDTOList);
-    log.info("클라이언트에서 전송된 데이터 : {}", productCertificateDTOList);
-    productService.productCreate(productDTO);
-=======
 		   @ModelAttribute ProductDTO productDTO
 		   , @ModelAttribute List<PCategoryDTO> pCategoryDTOList
 		   , @ModelAttribute List<ProductCertificateDTO> productCertificateDTOList) {
@@ -70,7 +61,6 @@ public class ProductController {
 	 log.info("클라이언트에서 전송된 데이터 : {}", pCategoryDTOList);
 	 log.info("클라이언트에서 전송된 데이터 : {}", productCertificateDTOList);
 	 productService.productCreate(productDTO);
->>>>>>> 34ece6ddad2a7ac40a3405d74b9db05e4edf9ef2
      productService.categoryInsert(pCategoryDTOList);
      productService.certificateInsert(productCertificateDTOList);
      return "/"; //마이페이지-상품관리페이지로 넘어갈 것
@@ -110,7 +100,8 @@ public class ProductController {
    }
    
    /**
-    * 
+    * index에서 넘어올 경우
+    * + 검색해서 넘어올 경우 searchType(전체or상품or셀러)/query(검색어)
     * @param pageable
     * @param searchItem
     * @param searchWord
@@ -119,12 +110,12 @@ public class ProductController {
     */
    @GetMapping("/productList")
    public String productList(
-         @PageableDefault(page=1) Pageable pageable,
-           @RequestParam(name="searchItem", defaultValue="") String searchItem,
-           @RequestParam(name="searchWord", defaultValue="") String searchWord,
+           @PageableDefault(page=1) Pageable pageable,
+           @RequestParam(name="searchType", defaultValue="ALL") String searchType,
+           @RequestParam(name="query", defaultValue="") String query,
            Model model) {
       // 검색기능 + 페이징
-       Page<ProductDTO> list = productService.selectAll(pageable, searchItem, searchWord);
+       Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
 
        int totalPages = list.getTotalPages();
        int page = pageable.getPageNumber();
@@ -132,10 +123,13 @@ public class ProductController {
        PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
 
        model.addAttribute("list", list);
-       model.addAttribute("searchItem", searchItem);
-       model.addAttribute("searchWord", searchWord);
+       model.addAttribute("searchType", searchType);
+       model.addAttribute("query", query);
        model.addAttribute("navi", navi);
+       
        return "product/productList";  
+       
+       
        
    }
    
@@ -207,5 +201,11 @@ public class ProductController {
       rttr.addAttribute("boardNum", productNo);
       return "redirect:/product/productDetail";
    }
+   
+   /**
+    * 상품리스트에서 검색상품을 찾을 수 있도록 요청
+    */
+   
+   
 
 }
