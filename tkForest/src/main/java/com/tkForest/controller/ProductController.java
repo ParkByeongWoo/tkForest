@@ -57,14 +57,14 @@ public class ProductController {
    @PostMapping("/productCreate")
    public String productCreate(
 		   @ModelAttribute ProductDTO productDTO
-		   , @ModelAttribute PCategoryDTO pCategoryDTO
-		   , @ModelAttribute ProductCertificateDTO productCertificateDTO) {
+		   , @ModelAttribute List<PCategoryDTO> pCategoryDTOList
+		   , @ModelAttribute List<ProductCertificateDTO> productCertificateDTOList) {
 	 log.info("클라이언트에서 전송된 데이터 : {}", productDTO.toString());
-	 log.info("클라이언트에서 전송된 데이터 : {}", pCategoryDTO.toString());
-	 log.info("클라이언트에서 전송된 데이터 : {}", productCertificateDTO.toString());
+	 log.info("클라이언트에서 전송된 데이터 : {}", pCategoryDTOList);
+	 log.info("클라이언트에서 전송된 데이터 : {}", productCertificateDTOList);
 	 productService.productCreate(productDTO);
-     productService.categoryInsert(pCategoryDTO);
-     productService.certificateInsert(productCertificateDTO);
+     productService.categoryInsert(pCategoryDTOList);
+     productService.certificateInsert(productCertificateDTOList);
      return "/"; //마이페이지-상품관리페이지로 넘어갈 것
    }
    

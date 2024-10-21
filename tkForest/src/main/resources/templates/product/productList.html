@@ -27,8 +27,8 @@
 	                <!-- 반복 구간-->
 	                <tr th:each="product, status : ${list}">
 	                    <td class="no" th:text="${(list.number+1) * list.size - (list.size - status.count)}">1</td>
-	                    <td class="productName" th:text="${product.productNo}"></td>
-	                    <td class="seller" th:text="${product.sellerMemberNo}"></td>
+	                    <td class="productName" th:text="${product.productName}"></td>
+	                    <td class="seller" th:text="${product.brand}"></td>
 	                    <td class="registrationDate" th:text="${product.registrationDate}"></td>
 	                    <td class="brand" th:text="${product.brand}"></td>
 	                </tr>
