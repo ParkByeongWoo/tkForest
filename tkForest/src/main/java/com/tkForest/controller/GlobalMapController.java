@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +45,7 @@ public class GlobalMapController {
     public ResponseEntity<String> callForecastApi(
             @RequestParam(value="numOfRows", defaultValue="3") String numOfRows,
             @RequestParam(value="pageNo", defaultValue="1") String pageNo,
+            @RequestParam(value="region", required=false) String region,  // 추가된 부분
             @RequestParam(value="search1", required=false) String search1,
             @RequestParam(value="search2", required=false) String search2,
             @RequestParam(value="search3", required=false) String search3,
@@ -56,7 +63,7 @@ public class GlobalMapController {
                 .append("&type=").append(Type)
                 .append("&numOfRows=").append(numOfRows)
                 .append("&pageNo=").append(pageNo);
-        
+
         if (isValidParameter(search1)) urlStr.append("&search1=").append(search1);
         if (isValidParameter(search2)) urlStr.append("&search2=").append(search2);
         if (isValidParameter(search3)) urlStr.append("&search3=").append(search3);
@@ -95,9 +102,32 @@ public class GlobalMapController {
             return new ResponseEntity<>("No data available", HttpStatus.NO_CONTENT);
         }
 
+        // 서버 측에서 region 필터링 추가
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(result);
+            JsonNode itemsNode = rootNode.at("/response/body/itemList/item");
+
+            if (itemsNode.isArray() && region != null && !region.isEmpty()) {
+                ArrayNode filteredItems = mapper.createArrayNode();
+                for (JsonNode item : itemsNode) {
+                    if (item.has("regn") && item.get("regn").asText().toLowerCase().contains(region.toLowerCase())) {
+                        filteredItems.add(item);
+                    }
+                }
+                ((ObjectNode) rootNode.at("/response/body/itemList")).set("item", filteredItems);
+                result = mapper.writeValueAsString(rootNode);
+            }
+
+        } catch (JsonProcessingException e) {
+            logger.error("Error occurred while processing JSON response: ", e);
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         logger.info("API Response: " + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 
     // HTML 페이지 반환을 위한 매핑 추가
     @GetMapping("/globalMap")
