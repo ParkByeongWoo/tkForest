@@ -1,266 +1,262 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!-- 1번째 줄부터 274번째에 있는 '헤더 끝!을 HTML에 넣으면 OK -->
-   <title>헤더 적용 페이지</title>
-
-   <!-- site Favicon -->
-   <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
-
-   <!-- css Icon Font -->
-   <link rel="stylesheet" href="/assets/css/vendor/msicons.min.css">
-
-   <!-- css All Plugins Files -->
-   <link rel="stylesheet" href="/assets/css/plugins/animate.css">
-   <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/bootstrap.css">
-   <link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/owl.carousel.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/owl.theme.default.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/slick.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/nouislider.css">
-
-   <!-- Main Style -->
-   <link rel="stylesheet" id="main_style" href="/assets/css/demo-1.css">
-   <link rel="stylesheet" href="/assets/css/responsive.css">
-   
-</head>
-
-<body>
-
-<!-- 헤더! 바디 바로 아래에 넣으면 OK -->
-   <!-- Header start  -->
-   <header class="ms-header">
-      <!-- Header Top Start -->
-      <div class="header-top">
-         <div class="container">
-            <div class="row align-items-center">
-               <!-- Header Top social Start -->
-               <div class="col text-left header-top-left d-none d-lg-block">
-                  <div class="header-top-social">
-                  </div>
+<header class="ms-header">
+   <!-- Header Top Start -->
+   <div class="header-top">
+      <div class="container">
+         <div class="row align-items-center">
+            <!-- Header Top social Start -->
+            <div class="col text-left header-top-left d-none d-lg-block">
+               <div class="header-top-social">
                </div>
-               <!-- Header Top social End -->
-               <!-- Header Top Message Start -->
-               <div class="col text-center header-top-center">
-                  <div class="header-top-message">
-                    Leading Platform to Discover and Source Korean Products
+            </div>
+            <!-- Header Top social End -->
+            <!-- Header Top Message Start -->
+            <div class="col text-center header-top-center">
+               <div class="header-top-message">
+                  Leading Platform to Discover and Source Korean Products
                   <div sec:authorize="isAuthenticated()">
-					<a th:href="@{/user/logout}"> Welcome, [[${loginName}]]([[ ${#authentication.name} ]])</a>
-				</div>
+                     <a th:href="@{/user/logout}"> Welcome, [[${loginName}]]([[ ${#authentication.name} ]])</a>
                   </div>
                </div>
-               <!-- Header Top Message End -->
-               <!-- Header Top Language Currency -->
-               <div class="col header-top-right d-none d-lg-block">
-                  <div class="header-top-right-inner d-flex justify-content-end">
-                     <a class="ms-help" th:href="@{/aboutUs}">About Us</a>
-                  </div>
+            </div>
+            <!-- Header Top Message End -->
+            <!-- Header Top Language Currency -->
+            <div class="col header-top-right d-none d-lg-block">
+               <div class="header-top-right-inner d-flex justify-content-end">
+                  <a class="ms-help" th:href="@{/aboutUs}">About Us</a>
                </div>
-               <!-- Header Top Language Currency -->
-               <!-- Header Top responsive Action -->
-               <div class="col header-top-res d-lg-none">
-                  <div class="ms-header-bottons">
-                     <!-- Category Toggle -->
-                     <div class="col ms-category-icon-block">
-                        <div class="ms-category-menu">
-                           <div class="ms-category-toggle">
-                              <img src="/assets/img/icons/category-icon.svg" class="svg_img header_svg svg_cat"
-                                 alt="icon">
-                           </div>
+            </div>
+            <!-- Header Top Language Currency -->
+            <!-- Header Top responsive Action -->
+            <div class="col header-top-res d-lg-none">
+               <div class="ms-header-bottons">
+                  <!-- Category Toggle -->
+                  <div class="col ms-category-icon-block">
+                     <div class="ms-category-menu">
+                        <div class="ms-category-toggle">
+                           <img src="/assets/img/icons/category-icon.svg" class="svg_img header_svg svg_cat" alt="icon">
                         </div>
                      </div>
-                     <div class="right-icons">
-                        <!-- Header User Start -->
-                        <a href="login.html" class="ms-header-btn ms-header-user">
-                           <div class="header-icon"><img src="/assets/img/icons/user.svg" class="svg_img header_svg"
-                                 alt="">
-                           </div>
-                        </a>
-                        <!-- Header User End -->
-                     </div>
+                  </div>
+                  <div class="right-icons">
+                     <!-- Header User Start -->
+                     <a href="login.html" class="ms-header-btn ms-header-user">
+                        <div class="header-icon"><img src="/assets/img/icons/user.svg" class="svg_img header_svg"
+                              alt="">
+                        </div>
+                     </a>
+                     <!-- Header User End -->
                   </div>
                </div>
-               <!-- Header Top responsive Action -->
+            </div>
+            <!-- Header Top responsive Action -->
+         </div>
+      </div>
+   </div>
+   <!-- Header Top  End -->
+
+   <!-- Header Bottom Start -->
+   <div class="ms-header-bottom d-none d-lg-block">
+      <div class="container position-relative">
+         <div class="row">
+            <div class="ms-flex d-flex align-items-center justify-content-between"> <!-- Flexbox 추가 -->
+               <!-- Header Logo Start -->
+               <div class="align-self-center ms-header-logo">
+                  <div class="header-logo">
+                     <a th:href="@{/}"><img th:src="@{/img/tkforestlogo.png}" alt="Site Logo"></a>
+                  </div>
+               </div>
+               <!-- Header Logo End -->
+
+               <!-- Header Search and Account Button Start -->
+               <div class="d-flex align-items-center justify-content-center flex-grow-1"> <!-- Flexbox 수정 -->
+                  <!-- Header Search Start -->
+                  <div class="align-self-center ms-header-search mx-auto"> <!-- mx-auto 추가 -->
+                     <div class="header-search">
+                        <form class="ms-search-group-form" action="#" method="GET">
+                           <div class="ms-search-select-inner">
+                              <select class="ms-search-cat selectpicker" id="categorySelect" name="category">
+                                 <option value="ALL">ALL</option>
+                                 <option value="Products">Products</option>
+                                 <option value="Sellers">Sellers</option>
+                              </select>
+                           </div>
+                           <input class="form-control ms-search-bar" id="searchInput" placeholder="Search Products..."
+                              type="text" name="query">
+                           <button class="search_submit" type="submit">
+                              <img src="/assets/img/icons/search.svg" class="svg_img search_svg" alt="">
+                           </button>
+                        </form>
+                     </div>
+                  </div>
+                  <!-- Header Search End -->
+
+                  <!-- Header Button Start -->
+                  <div class="ms-header-bottons">
+                     <div class="ms-acc-drop">
+                        <a href="javascript:void(0)" class="ms-header-btn ms-header-user dropdown-toggle ms-user-toggle"
+                           title="Account">
+                           <div class="header-icon">
+                              <img src="/assets/img/icons/user.svg" class="svg_img header_svg" alt="">
+                           </div>
+                           <div class="ms-btn-desc">
+                              <span class="ms-btn-title">Account</span>
+                              <span sec:authorize="isAuthenticated()" class="ms-btn-stitle">Log Out/My Page</span>
+                              <span sec:authorize="isAnonymous()" class="ms-btn-stitle">Login/Sign Up</span>
+                           </div>
+                        </a>
+                        <ul class="ms-dropdown-menu">
+                           <!-- 비회원용 옵션 -->
+                           <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/signUp}">Sign
+                                 Up</a></li>
+                           <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/login}">Login</a>
+                           </li>
+                           <!-- 회원용 옵션 -->
+                           <li sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">Log
+                                 out</a></li>
+                           <!-- 셀러용 옵션 -->
+                           <li sec:authorize="hasRole('ROLE_SELLER')"><a th:href="@{/user/sellerMypage}">My
+                                 Page(S)</a></li>
+                           <!-- 바이어용 옵션 -->
+                           <li sec:authorize="hasRole('ROLE_BUYER')"><a th:href="@{/user/buyerMypage}">My Page(B)</a>
+                           </li>
+
+                        </ul>
+                     </div>
+                  </div>
+                  <!-- Header Button End -->
+               </div>
+               <!-- Header Search and Account Button End -->
             </div>
          </div>
       </div>
-      <!-- Header Top  End -->
 
-      <!-- Header Bottom Start -->
-      <div class="ms-header-bottom d-none d-lg-block">
-         <div class="container position-relative">
-            <div class="row">
-               <div class="ms-flex d-flex align-items-center justify-content-between"> <!-- Flexbox 추가 -->
-                  <!-- Header Logo Start -->
-                  <div class="align-self-center ms-header-logo">
-                     <div class="header-logo">
-                        <a th:href="@{/}"><img th:src="@{/img/tkforestlogo.png}" alt="Site Logo"></a>
-                     </div>
+   </div>
+   <!-- Header Bottom End -->
+
+   <!-- Header menu -->
+   <div class="ms-header-cat d-none d-lg-block">
+      <div class="container position-relative">
+         <div class="row justify-content-between">
+
+            <!-- Category Toggle -->
+            <div class="col ms-category-icon-block">
+               <div class="ms-category-menu">
+                  <div class="ms-category-toggle">
+                     <img src="/assets/img/icons/category-icon.svg" class="svg_img header_svg svg_cat" alt="icon">
                   </div>
-                  <!-- Header Logo End -->
+               </div>
+            </div>
 
-                  <!-- Header Search and Account Button Start -->
-                  <div class="d-flex align-items-center justify-content-center flex-grow-1"> <!-- Flexbox 수정 -->
-                     <!-- Header Search Start -->
-                     <div class="align-self-center ms-header-search mx-auto"> <!-- mx-auto 추가 -->
-                        <div class="header-search">
-                           <form class="ms-search-group-form" action="#" method="GET">
-                              <div class="ms-search-select-inner">
-                                 <select class="ms-search-cat selectpicker" id="categorySelect" name="category">
-                                    <option value="ALL">ALL</option>
-                                    <option value="Products">Products</option>
-                                    <option value="Sellers">Sellers</option>
-                                 </select>
-                              </div>
-                              <input class="form-control ms-search-bar" id="searchInput"
-                                 placeholder="Search Products..." type="text" name="query">
-                              <button class="search_submit" type="submit">
-                                 <img src="/assets/img/icons/search.svg" class="svg_img search_svg" alt="">
-                              </button>
-                           </form>
-                        </div>
-                     </div>
-                     <!-- Header Search End -->
-
-                     <!-- Header Button Start -->
-                     <div class="ms-header-bottons">
-                        <div class="ms-acc-drop">
-                           <a href="javascript:void(0)"
-                              class="ms-header-btn ms-header-user dropdown-toggle ms-user-toggle" title="Account">
-                              <div class="header-icon">
-                                 <img src="/assets/img/icons/user.svg" class="svg_img header_svg" alt="">
-                              </div>
-                              <div class="ms-btn-desc">
-                                 <span class="ms-btn-title">Account</span>
-                                 <span sec:authorize="isAuthenticated()" class="ms-btn-stitle">Log Out/My Page</span>
-                                 <span sec:authorize="isAnonymous()" class="ms-btn-stitle">Login/Sign Up</span>
-                              </div>
-                           </a>
-                           <ul class="ms-dropdown-menu">
-                           <!-- 비회원용 옵션 -->
-                              <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/signUp}">Sign Up</a></li>
-                              <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/login}">Login</a></li>
-                           <!-- 회원용 옵션 -->
-                              <li sec:authorize="isAuthenticated()"><a  class="dropdown-item" th:href="@{/user/logout}">Log out</a></li>
-                           <!-- 셀러용 옵션 -->   
-                              <li sec:authorize="hasRole('ROLE_SELLER')"><a th:href="@{/user/sellerMypage}">My Page(S)</a></li>
-                           <!-- 바이어용 옵션 -->   
-                              <li sec:authorize="hasRole('ROLE_BUYER')"><a th:href="@{/user/buyerMypage}">My Page(B)</a></li>                              
-                              
+            <!-- Main Menu Start -->
+            <div id="ms-main-menu-desk" class="d-none d-lg-block sticky-nav">
+               <div class="position-relative nav-desk">
+                  <div class="row">
+                     <div class="col-md-12 align-self-center">
+                        <div class="ms-main-menu">
+                           <ul style="display: flex; justify-content: flex-start;">
+                              <li class="non-drop"><a th:href="@{/}">Home</a></li>
+                              <li class="dropdown drop-list position-static">
+                                 <a href="javascript:void(0)" class="dropdown-arrow">Categories<i
+                                       class="msicon msi-angle-right"></i></a>
+                                 <ul class="mega-menu d-block">
+                                    <li class="d-flex">
+                                       <span class="bg"></span>
+                                       <ul class="d-block">
+                                          <li class="menu_title"><a href="javascript:void(0)">Beauty</a></li>
+                                          <li><a href="shop-left-sidebar-col-3.html">Beauty Appliance</a>
+                                          <li><a href="shop-left-sidebar-col-4.html">Body & Nail</a> </li>
+                                          <li><a href="shop-right-sidebar-col-3.html">Fragrance & Deodorant</a> </li>
+                                          <li><a href="shop-right-sidebar-col-4.html">Makeup</a> </li>
+                                          <li><a href="shop-full-width.html">Other Beauty Products</a> </li>
+                                    </li>
+                                 </ul>
+                                 <ul class="d-block">
+                                    <li class="menu_title"><a href="javascript:void(0)">Personal Care</a></li>
+                                    <li><a href="shop-banner-left-sidebar-col-3.html">Bath Supplies</a></li>
+                                    <li><a href="shop-banner-left-sidebar-col-4.html">Body Care</a></li>
+                                    <li><a href="shop-banner-right-sidebar-col-3.html">Facial Care</a></li>
+                                    <li><a href="shop-banner-right-sidebar-col-4.html">Hair Care</a></li>
+                                    <li><a href="shop-banner-full-width.html">Other Personal Care</a>
+                                    </li>
+                                 </ul>
+                                 <ul class="d-block">
+                                    <li class="menu_title"><a href="javascript:void(0)">Machinery</a></li>
+                                    <li><a href="shop-full-width-col-3.html">Agriculture & Farm Machinery</a></li>
+                                    <li><a href="shop-full-width-col-4.html">Analyzers</a></li>
+                                    <li><a href="shop-full-width-col-5.html">Apparel & Accessories Machinery</a></li>
+                                    <li><a href="shop-full-width-col-6.html">Chemical & Pharmaceutical Machinery</a>
+                                    </li>
+                                    <li><a href="shop-banner-full-width-col-3.html">Other Machinery & Industry
+                                          Equipment</a>
+                                    </li>
+                                 </ul>
+                                 <ul class="d-block">
+                                    <li class="menu_title"><a href="javascript:void(0)">Machinery Parts</a></li>
+                                    <li><a href="shop-full-width-col-3.html">Abrasives & Abrasive Tools</a></li>
+                                    <li><a href="shop-full-width-col-4.html">Bearings</a></li>
+                                    <li><a href="shop-full-width-col-5.html">Fasteners</a></li>
+                                    <li><a href="shop-full-width-col-6.html">Filter Supplies</a></li>
+                                    <li><a href="shop-banner-full-width-col-3.html">Other Machinery Parts</a>
+                                    </li>
+                                 </ul>
+                                 <ul class="d-block">
+                                    <li class="menu_title"><a href="javascript:void(0)">Beverage</a></li>
+                                    <li><a href="shop-full-width-col-3.html">Alcoholic Beverages</a></li>
+                                    <li><a href="shop-full-width-col-4.html">Coffee & Tea</a></li>
+                                    <li><a href="shop-full-width-col-5.html">Dairy</a></li>
+                                    <li><a href="shop-full-width-col-6.html">Drinks</a></li>
+                                    <li><a href="shop-banner-full-width-col-3.html">Other Beverages</a>
+                                    </li>
+                                 </ul>
+                                 <ul class="d-block">
+                                    <li class="menu_title"><a href="javascript:void(0)">Foods</a></li>
+                                    <li><a href="shop-full-width-col-3.html">Admixture & Additives</a></li>
+                                    <li><a href="shop-full-width-col-4.html">Animal Feeds</a></li>
+                                    <li><a href="shop-full-width-col-5.html">Animal Products</a></li>
+                                    <li><a href="shop-full-width-col-6.html">Baby Food</a></li>
+                                    <li><a href="shop-banner-full-width-col-3.html">Baked Goods</a>
+                                    </li>
+                                 </ul>
+                                 <ul class="d-block">
+                                    <li class="menu_title"><a href="javascript:void(0)">More+</a>
+                                    </li>
+                                 </ul>
+                              </li>
+                           </ul>
+                           </li>
+                           <li class="non-drop"><a th:href="@{/recList}"><img src="/assets/img/icons/discover.svg"
+                                    class="svg_img" alt="discover">Discover(보따리)</a></li>
                            </ul>
                         </div>
                      </div>
-                     <!-- Header Button End -->
                   </div>
-                  <!-- Header Search and Account Button End -->
                </div>
             </div>
+            <!-- Main Menu End -->
+            <div class="col ms-location-block">
+               <div class="ms-location-menu">
+                  <div class="ms-location-toggle">
+                     <img src="/assets/img/icons/location.svg" class="svg_img header_svg svg_loc" alt="icon">
+                     <span class="ms-location-title d-1199 ms-location" id="ms_location"></span>
+                     <i class="msicon msi-angle-down d-1199" aria-hidden="true"></i>
+                  </div>
+                  <div class="ms-location-content">
+                     <div class="ms-location-dropdown">
+                        <div class="row ms-location-wrapper">
+                           <ul class="loc-grid">
+                              <li class="loc-list current">your location</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
          </div>
-
       </div>
-      <!-- Header Bottom End -->
+   </div>
+   </div>
+</header>
 
-      <!-- Header menu -->
-      <div class="ms-header-cat d-none d-lg-block">
-         <div class="container position-relative">
-            <div class="row justify-content-between">
-
-               <!-- Category Toggle -->
-               <div class="col ms-category-icon-block">
-                  <div class="ms-category-menu">
-                     <div class="ms-category-toggle">
-                        <img src="/assets/img/icons/category-icon.svg" class="svg_img header_svg svg_cat" alt="icon">
-                     </div>
-                  </div>
-               </div>
-
-               <!-- Main Menu Start -->
-               <div id="ms-main-menu-desk" class="d-none d-lg-block sticky-nav">
-                  <div class="position-relative nav-desk">
-                     <div class="row">
-                        <div class="col-md-12 align-self-center">
-                           <div class="ms-main-menu">
-                              <ul style="display: flex; justify-content: flex-start;">
-                                 <li class="non-drop"><a th:href="@{/}">Home</a></li>
-                                 <li class="dropdown drop-list position-static">
-                                    <a href="javascript:void(0)" class="dropdown-arrow">Categories<i
-                                          class="msicon msi-angle-right"></i></a>
-                                    <ul class="mega-menu d-block">
-                                       <li class="d-flex">
-                                          <span class="bg"></span>
-                                          <ul class="d-block">
-                                             <li class="menu_title"><a href="javascript:void(0)">Beauty</a></li>
-                                             <li><a href="shop-left-sidebar-col-3.html">Beauty Appliance</a>
-                                             </li>
-                                             <li><a href="shop-left-sidebar-col-4.html">Body & Nail</a>
-                                             </li>
-                                             <li><a href="shop-right-sidebar-col-3.html">Fragrance & Deodorant</a>
-                                             </li>
-                                             <li><a href="shop-right-sidebar-col-4.html">Makeup</a>
-                                             </li>
-                                             <li><a href="shop-full-width.html">Other Beauty Products</a>
-                                             </li>
-                                          </ul>
-                                          <ul class="d-block">
-                                             <li class="menu_title"><a href="javascript:void(0)">Personal Care</a></li>
-                                             <li><a href="shop-banner-left-sidebar-col-3.html">Bath Supplies</a></li>
-                                             <li><a href="shop-banner-left-sidebar-col-4.html">Body Care</a></li>
-                                             <li><a href="shop-banner-right-sidebar-col-3.html">Facial Care</a></li>
-                                             <li><a href="shop-banner-right-sidebar-col-4.html">Hair Care</a></li>
-                                             <li><a href="shop-banner-full-width.html">Other Personal Care</a>
-                                             </li>
-                                          </ul>
-                                          <ul class="d-block">
-                                             <li class="menu_title"><a href="javascript:void(0)">Machinery</a></li>
-                                             <li><a href="shop-full-width-col-3.html">Agriculture & Farm Machinery</a></li>
-                                             <li><a href="shop-full-width-col-4.html">Analyzers</a></li>
-                                             <li><a href="shop-full-width-col-5.html">Apparel & Accessories Machinery</a></li>
-                                             <li><a href="shop-full-width-col-6.html">Chemical & Pharmaceutical Machinery</a></li>
-                                             <li><a href="shop-banner-full-width-col-3.html">Other Machinery & Industry Equipment</a>
-                                             </li>
-                                          </ul>
-                                          <ul class="d-block">
-                                             <li class="menu_title"><a href="javascript:void(0)">More+</a>
-                                             </li>
-                                          </ul>
-                                       </li>
-                                    </ul>
-                                 </li>
-                                 <li class="non-drop"><a th:href="@{/recList}"><img src="/assets/img/icons/discover.svg"
-                                          class="svg_img" alt="discover">Discover(보따리)</a></li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- Main Menu End -->
-                        <div class="col ms-location-block">
-                        <div class="ms-location-menu">
-                            <div class="ms-location-toggle">
-                                <img src="/assets/img/icons/location.svg" class="svg_img header_svg svg_loc" alt="icon">
-                                <span class="ms-location-title d-1199 ms-location" id="ms_location"></span>
-                                <i class="msicon msi-angle-down d-1199" aria-hidden="true"></i>
-                            </div>
-                            <div class="ms-location-content">
-                                <div class="ms-location-dropdown">
-                                    <div class="row ms-location-wrapper">
-                                        <ul class="loc-grid">
-                                            <li class="loc-list current">your location</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-      <!-- Header menu End -->
+<!-- Header menu End -->
 <!-- 헤더 끝 -->

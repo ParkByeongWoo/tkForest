@@ -2,6 +2,10 @@
 
 import os
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e71033033dc7cd289ed86b1984d664095b529b1b
 import pandas as pd
 import numpy as np
 import pickle
@@ -15,13 +19,16 @@ import nest_asyncio
 app = FastAPI()
 
 # 엑셀 파일 로드
+
 df_concat = pd.read_excel("./df_cancat.xlsx")
 df_item = pd.read_excel("./상품.xlsx")
+
 # Pydantic 모델 정의
 class Item(BaseModel):
     buyerMemberNo: str
 
 @app.post(path="/items", status_code=201)
+<<<<<<< HEAD
 def myrec(item: Item) :
     with open('./1sorted_idx.pkl', 'rb') as f :
         sorted_idx = pickle.load(f)

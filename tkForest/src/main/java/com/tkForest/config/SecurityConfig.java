@@ -23,7 +23,7 @@ public class SecurityConfig {
    
    private final LoginFailureHandler failureHandler;   // 로그인 실패시 처리할 객체 - 필터같은 역할을 함
    private final LoginSuccessHandler successHandler;   // 로그인 성공시 처리할 객체
-   
+    
    @Bean
    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       
@@ -55,6 +55,7 @@ public class SecurityConfig {
                           , "/inquiry/inquiryDetail" // 인콰이어리 상세 보기 및 답변 작성
                           , "/product/productCreate" // 상품 등록 화면
                           , "/product/productList"
+                          , "/product/productDetail"
                           , "/chart/chartTest.html"
                           , "/assets/**"           // 정적 자원 경로
                      , "/images/**"

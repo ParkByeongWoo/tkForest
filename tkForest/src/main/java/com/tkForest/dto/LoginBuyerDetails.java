@@ -27,7 +27,7 @@ public class LoginBuyerDetails implements UserDetails {
 		this.password = buyerDTO.getPassword();
 	}
 	
-	// 사용자의 Role의 정보 반환 (ROLE_SELLER)
+	// 사용자의 Role의 정보 반환 (ROLE_BUYER)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();

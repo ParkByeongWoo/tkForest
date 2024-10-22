@@ -5,11 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tkForest.dto.PCategoryDTO;
@@ -165,6 +164,7 @@ public class ProductService {
     * 등록중인 상품에 카테고리 추가하기
     * @param pCategoryDTOList
 
+>>>>>>> 245c0971e27f9f1798e3459c5a6adef45c326510
    public void categoryInsert(List<PCategoryDTO> pCategoryDTOList) {
       for (PCategoryDTO pCategoryDTO : pCategoryDTOList) {
 		  Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
@@ -272,11 +272,12 @@ public class ProductService {
 	 * @return
 	 */
 	public List<Integer> categoryAll(Integer productNo) {
-		List<Integer> categoryNos = pCategoryRepository.findByProductEntityProductNo(productNo);
+		List<Integer> categoryNos = pCategoryRepository.findCategoryNosByProductNo(productNo);
+
 	    System.out.println(categoryNos);
 	    
 	    return categoryNos;
-	}
+	} 
 	
 	/**
 	 * 상품의 인증서 조회하기
@@ -285,44 +286,46 @@ public class ProductService {
 	 */
 	public List<Integer> certificateAll(Integer productNo){
 	
-		List<Integer> certificateNos = productCertificateRepository.findByProductEntityProductNo(productNo);
+		List<Integer> CertificateTypeCodes = productCertificateRepository.findCertificateTypeCodesByProductNo(productNo);
 	
-		System.out.println(certificateNos);
+		System.out.println(CertificateTypeCodes);
 	    
-	    return certificateNos;
+	    return CertificateTypeCodes;
 	}
 	
 	/**
-	 * (검색기능 포함) 상품 리스트 불러오기
+	 * (검색기능 포함) 상품 리스트 불러오기 (상품 검색, 상품 조회)
 	 * @param pageable
-	 * @param searchItem
-	 * @param searchWord
+	 * @param searchItem 아니고 searchType
+	 * @param searchWord 아니고 query
 	 * @return
 	 */
-	public Page<ProductDTO> selectAll(Pageable pageable, String searchItem, String searchWord) {
+	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query) {
 		int page = pageable.getPageNumber() - 1;
+		int pageLimit = pageable.getPageSize();
 		
-		Page<ProductEntity> entityList = productRepository.findAll(pageable);;
+		Page<ProductEntity> entityList = null;
 
-//		switch(searchItem) {
-//		case "brand"   :
-//			entityList = productRepository.findByBrandContains(
-//					searchWord, 
-//					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
-//			break;
-//		case "productName"  :
-//			entityList = productRepository.findByProductNoContains(
-//					searchWord, 
-//					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
-//			break;
-//		case "productDescription" :
-//			entityList = productRepository.findByProductDescriptionContains(
-//					searchWord, 
-//					PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productNo") ));
-//			break;
-//		}
-		
-		Page<ProductDTO> list = null;
+	    switch (searchType) {
+        case "ALL":
+            // ProductName 또는 Brand에 포함된 항목 모두 검색
+            entityList = productRepository.findByProductNameContainsOrBrandContains(query, query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            break;
+        case "Products":
+            // ProductName으로 검색
+            entityList = productRepository.findByProductNameContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            break;
+        case "Brand":
+            // Brand로 검색
+            entityList = productRepository.findByBrandContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "brand")));
+            break;
+        default:
+            // 기본 전체 검색 (ProductName 또는 Brand로 정렬)
+            entityList = productRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            break;
+    }
+	    
+	    Page<ProductDTO> list = null;
 
 		// 페이징 형태의 list로 변환
 		// 목록에서 사용할 필요한 데이터만 간추림(생성자 만듦)

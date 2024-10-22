@@ -26,5 +26,5 @@ public class ProductCertificateDTO {
 				.productNo(productNo)
 				.certificateTypeCode(certificateTypeCode)
 				.build();
-	}
+	} 
 }
