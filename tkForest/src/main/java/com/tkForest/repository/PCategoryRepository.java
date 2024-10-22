@@ -1,4 +1,3 @@
-
 package com.tkForest.repository;
 
 import java.util.List;
@@ -14,7 +13,13 @@ import com.tkForest.entity.ProductEntity;
 
 public interface PCategoryRepository extends JpaRepository<PCategoryEntity, Integer> {
 
-	// PRODUCTNO에 해당하는 CATEGORYNO를 조회하는 쿼리
-	List<Integer> findByProductEntityProductNo(Integer productNo);
-	//List<PCategoryEntity> findAllByCategoryEntityOrderByPCategoryNoDesc(Optional<CategoryEntity> categoryEntity);
-}
+   @Query("SELECT c.categoryEntity.categoryNo FROM PCategoryEntity c WHERE c.productEntity.productNo = :productNo")
+   List<Integer> findCategoryNosByProductNo(@Param("productNo") Integer productNo);
+
+   
+   // PRODUCTNO에 해당하는 CATEGORYNO를 조회하는 쿼리
+   //List<Integer> findByProductEntityProductNo(Integer productNo);
+   //List<PCategoryEntity> findAllByCategoryEntityOrderByPCategoryNoDesc(Optional<CategoryEntity> categoryEntity);
+   
+   
+}  

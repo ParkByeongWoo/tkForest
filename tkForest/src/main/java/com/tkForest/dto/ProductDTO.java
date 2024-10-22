@@ -53,6 +53,17 @@ public class ProductDTO {
     	this.productImagePath1 = productImagePath1;
     }
     
+    // 마이페이지 좋아요한 상품 목록위한 DTO
+    public ProductDTO(
+    		Integer productNo
+    		, String productName
+    		, String brand
+    		) {
+    	this.productNo = productNo;
+    	this.productName = productName;
+    	this.brand = brand;
+    }
+    
     // Entity -> DTO 변환 메서드
     public static ProductDTO toDTO(ProductEntity productEntity, String sellerMemberNo) {
         return ProductDTO.builder()
