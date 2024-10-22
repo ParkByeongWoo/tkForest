@@ -54,6 +54,7 @@ public class SecurityConfig {
                           , "/inquiry/inquiryDetail" // 인콰이어리 상세 보기 및 답변 작성
                           , "/product/productCreate" // 상품 등록 화면
                           , "/product/productList"
+                          , "/product/productDetail"
                           , "/chart/chartTest.html"
                           , "/assets/**"           // 정적 자원 경로
                      , "/images/**"

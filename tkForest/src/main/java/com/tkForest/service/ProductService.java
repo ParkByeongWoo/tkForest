@@ -143,7 +143,8 @@ public class ProductService {
 	 * @return
 	 */
 	public List<Integer> categoryAll(Integer productNo) {
-		List<Integer> categoryNos = pCategoryRepository.findByProductEntityProductNo(productNo);
+		List<Integer> categoryNos = pCategoryRepository.findCategoryNosByProductNo(productNo);
+
 	    System.out.println(categoryNos);
 	    
 	    return categoryNos;
@@ -156,15 +157,15 @@ public class ProductService {
 	 */
 	public List<Integer> certificateAll(Integer productNo){
 	
-		List<Integer> certificateNos = productCertificateRepository.findByProductEntityProductNo(productNo);
+		List<Integer> CertificateTypeCodes = productCertificateRepository.findCertificateTypeCodesByProductNo(productNo);
 	
-		System.out.println(certificateNos);
+		System.out.println(CertificateTypeCodes);
 	    
-	    return certificateNos;
+	    return CertificateTypeCodes;
 	}
 	
 	/**
-	 * (검색기능 포함) 상품 리스트 불러오기
+	 * (검색기능 포함) 상품 리스트 불러오기 (상품 검색, 상품 조회)
 	 * @param pageable
 	 * @param searchItem 아니고 searchType
 	 * @param searchWord 아니고 query

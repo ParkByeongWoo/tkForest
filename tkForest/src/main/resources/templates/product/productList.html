@@ -224,6 +224,8 @@
     
 }
 
+
+
       
       
       
@@ -562,24 +564,31 @@
                <!-- 네비게이션 바 끝 -->
             </div>
             
-<!--  상품목록 밑에  네비가 있게 하기 위함  -->
+<!--  상품목록 밑에 네비가 있게 하기 위함 -->
 <div class="content-container">
- <div class="product-grid">
+<div class="product-grid">
    <th:block th:each="product : ${list}">
+      <!-- product-card 안에 a 태그를 넣어서 레이아웃이 깨지지 않도록 수정 -->
       <div class="product-card">
-         <div class="product-image">
-            <!-- 이미지가 없을 경우 텍스트로 대체 -->
-            <img th:src="@{/images/products/ + ${product.image}}" alt="Product Image"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-            <div class="image-placeholder" style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
-               <span>800 X 700</span> <!-- 이미지가 없을 때 나타날 대체 텍스트 -->
+         <a th:href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}" class="product-card-link">
+            <div class="product-image">
+               <!-- 이미지가 없을 경우 텍스트로 대체 -->
+               <img th:src="@{/images/products/ + ${product.image}}" alt="Product Image"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+               <div class="image-placeholder" style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
+                  <span>800 X 700</span> <!-- 이미지가 없을 때 나타날 대체 텍스트 -->
+               </div>
             </div>
-         </div>
+         </a>
          <div class="product-details">
             <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">Product Name</h3>
-            <p  th:text="${product.sellerMemberNo}">Seller Name</p>
+            <p th:text="${product.sellerMemberNo}">Seller Name</p>
             <p th:text="${product.registrationDate}">Registration Date</p>
-            <p th:text="${product.brand}">Brand</p>
+            <p>
+               <a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
+                  <span th:text="${product.brand}">Brand</span>
+               </a>
+            </p>
          </div>
          <div class="product-actions">
             <button class="like-button">❤️</button>
@@ -588,6 +597,8 @@
       </div>
    </th:block>
 </div>
+
+
 
 <!-- Page Navigation -->
     <nav class="pagination" style="justify-content: center;">
@@ -707,9 +718,9 @@
                            KITA's global B2B marketplace, tradeKorea!
                            A leading B2B Marketplace to Discover and Source Korean Products</p>
                         <div class="ms-app-store">
-                           <a href="#" class="app-img"><img src="assets/img/app/android.png" class="adroid"
+                           <a href="#" class="app-img"><img th:src="@{/assets/img/app/android.png}" class="adroid"
                                  alt="apple"></a>
-                           <a href="#" class="app-img"><img src="assets/img/app/apple.png" class="apple"
+                           <a href="#" class="app-img"><img th:src="@{/assets/img/app/android.png}" class="apple"
                                  alt="apple"></a>
                         </div>
                      </div>

@@ -26,6 +26,7 @@ import lombok.ToString;
 @Entity
 @Table(name="PRODUCTCERTIFICATE")
 public class ProductCertificateEntity {
+	// 이건 일련번호 !!
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="PRODUCTCERTIFICATENO")
@@ -35,6 +36,8 @@ public class ProductCertificateEntity {
 	@JoinColumn(name="PRODUCTNO", referencedColumnName = "PRODUCTNO", nullable = false)
 	private ProductEntity productEntity;
 	
+	
+	// 이것이 진짜 번호임
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="CERTIFICATETYPECODE", referencedColumnName = "CERTIFICATETYPECODE", nullable = false)
 	private CertificateEntity certificateEntity;

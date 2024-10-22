@@ -74,8 +74,8 @@ public class ProductController {
    @GetMapping("/productDetail")
    public String productSelectOne(
          @RequestParam(name="productNo") Integer productNo
-         , @RequestParam(name="searchItem", defaultValue="") String searchItem
-         , @RequestParam(name="searchWord", defaultValue="") String searchWord
+         , @RequestParam(name="searchType", defaultValue="") String searchType
+         , @RequestParam(name="query", defaultValue="") String query
          , Model model) {
       
       ProductDTO product = productService.selectOne(productNo);
@@ -93,10 +93,10 @@ public class ProductController {
       model.addAttribute("categoryNos", categoryNos);
       model.addAttribute("productCertificate", productCertificate);
       // 검색 기능이 추가되면 계속 달고 다녀야 함
-      model.addAttribute("searchItem", searchItem);
-      model.addAttribute("searchWord", searchWord);
+      model.addAttribute("searchType", searchType);
+      model.addAttribute("query", query);
       
-      return "product/productDetail";
+      return "product/productDetail";  // 상세페이지로 이동
    }
    
    /**
