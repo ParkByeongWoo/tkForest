@@ -26,6 +26,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tkForest.dto.InquiryDTO;
 import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.LoginSellerDetails;
+import com.tkForest.entity.BuyerEntity;
+import com.tkForest.entity.InquiryEntity;
+import com.tkForest.repository.InquiryRepository;
 import com.tkForest.service.InquiryService;
 import com.tkForest.util.PageNavigator;
 
@@ -38,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/inquiry")
 @RequiredArgsConstructor
+@Slf4j
 public class InquiryController {
 
     final InquiryService inquiryService;
@@ -92,279 +96,94 @@ public class InquiryController {
         // 데이터가 없으면 에러 페이지로 리다이렉트하거나 목록으로 이동
         return "redirect:/inquiry/inquiryList";
     }
+
+
+
     
     /*
      * 작성
      */
 	 // 인콰이어리 작성 폼을 GET 요청으로 반환
-	    @GetMapping("/inquiryWrite")
-	    public String showInquiryWriteForm(Model model) {
-	        model.addAttribute("inquiryDTO", new InquiryDTO());
-	        return "inquiry/inquiryWrite"; // 폼을 반환할 HTML 파일
-	    }
+//	    @GetMapping("/inquiryWrite")
+//	    public String showInquiryWriteForm(Model model) {
+//	        model.addAttribute("inquiryDTO", new InquiryDTO());
+//	        return "inquiry/inquiryWrite"; // 폼을 반환할 HTML 파일
+//	    }
 
 	
 	    // 인콰이어리 작성 처리 (POST 요청)
 	    @PostMapping("/inquiryWrite")
 	    public String inquiryWrite(@ModelAttribute InquiryDTO inquiryDTO, Model model) {
+	    	log.info("Received Inquiry: {}", inquiryDTO);
+	        log.info("SellerMemberNo: {}", inquiryDTO.getSellerMemberNo());
+	        log.info("ProductNo: {}", inquiryDTO.getProductNo());
+	        log.info("BuyerMemberNo: {}", inquiryDTO.getBuyerMemberNo());
 	        // 서비스 호출하여 데이터 저장
 	        inquiryService.insertInquiry(inquiryDTO);
 	
 	        // 저장 후 리스트 페이지로 리다이렉트
 	        return "redirect:/inquiry/inquiryList";
 	    }
+	    
+	    @GetMapping("/inquiryWrite")
+	    public String showInquiryWriteForm(
+	        @AuthenticationPrincipal UserDetails loginUser,  
+	        Model model
+	    ) {
+	        // 로그인한 사용자가 바이어일 경우
+	        if (loginUser instanceof LoginBuyerDetails) {
+	            // 로그인한 바이어의 buyerMemberNo와 이름 가져오기
+	            String buyerMemberNo = ((LoginBuyerDetails) loginUser).getBuyerMemberNo();
+	            String userName = ((LoginBuyerDetails) loginUser).getUsername();  // 바이어의 이름 가져오기
+	            
+	            // DTO에 buyerMemberNo 설정 및 모델에 추가
+	            InquiryDTO inquiryDTO = new InquiryDTO();
+	            inquiryDTO.setBuyerMemberNo(buyerMemberNo);  // 로그인된 바이어의 buyerMemberNo 설정
+	            model.addAttribute("inquiryDTO", inquiryDTO);
+	            model.addAttribute("buyerMemberNo", buyerMemberNo);  // buyerMemberNo를 따로 전달
+	            model.addAttribute("picName", userName);  // 바이어의 이름을 모델에 추가
+	        } 
+	        // 로그인한 사용자가 셀러일 경우
+	        else if (loginUser instanceof LoginSellerDetails) {
+	            // 로그인한 셀러의 sellerMemberNo와 이름 가져오기
+	            String sellerMemberNo = ((LoginSellerDetails) loginUser).getSellerMemberNo();
+	            String userName = ((LoginSellerDetails) loginUser).getUsername();  // 셀러의 이름 가져오기
+	            
+	            // DTO에 sellerMemberNo 설정 및 모델에 추가
+	            InquiryDTO inquiryDTO = new InquiryDTO();
+	            inquiryDTO.setSellerMemberNo(sellerMemberNo);  // 로그인된 셀러의 sellerMemberNo 설정
+	            model.addAttribute("inquiryDTO", inquiryDTO);
+	            model.addAttribute("sellerMemberNo", sellerMemberNo);  // sellerMemberNo를 따로 전달
+	            model.addAttribute("picName", userName);  // 셀러의 이름을 모델에 추가
+	        } 
+	        // 비로그인 사용자 처리
+	        else {
+	            return "redirect:/user/login";
+	        }
+
+	        return "inquiry/inquiryWrite";  // 폼을 반환할 HTML 파일
+	    }
+
+	    /*
+	     * 상품 상세 화면에서 인콰이어리 작성(상품)
+	     */
+	    @GetMapping("/inquiryWrite-product")
+	    public String showInquiryWriteForm(
+	            @RequestParam("sellerMemberNo") String sellerMemberNo,
+	            @RequestParam("productNo") Integer productNo,
+	            Model model
+	        ) {
+	        // InquiryDTO에 셀러 번호와 상품 번호를 설정
+	        InquiryDTO inquiryDTO = new InquiryDTO();
+	        inquiryDTO.setSellerMemberNo(sellerMemberNo);
+	        inquiryDTO.setProductNo(productNo);
+
+	        // 모델에 inquiryDTO를 추가
+	        model.addAttribute("inquiry", inquiryDTO);
+	        model.addAttribute("sellerMemberNo", sellerMemberNo);
+	        model.addAttribute("productNo", productNo);
+
+	        return "inquiryWrite-product";  // 해당 페이지로 이동
+	    }
+
 }
-
-//@Slf4j
-//@Controller
-//@RequestMapping("/inquiry")
-//@RequiredArgsConstructor
-//public class InquiryController {
-//
-//    final InquiryService inquiryService;
-//    
-//    @GetMapping("/inquiryList")
-//    public String inquiryList(
-//            @AuthenticationPrincipal UserDetails loginUser,
-//            @PageableDefault(page = 0, size = 10) Pageable pageable,
-//            @RequestParam(name = "searchItem", defaultValue = "subject") String searchItem,
-//            @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
-//            Model model
-//    ) {
-//        // 인증되지 않은 사용자는 접근 불가
-//        if (loginUser == null) {
-//            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
-//        }
-//
-//        Page<InquiryDTO> list;
-//        if (loginUser instanceof LoginSellerDetails) {
-//            // 로그인된 사용자가 셀러일 때
-//            String sellerMemberNo = ((LoginSellerDetails) loginUser).getSellerMemberNo();
-//            list = inquiryService.findInquiriesBySeller(sellerMemberNo, pageable);
-//        } else if (loginUser instanceof LoginBuyerDetails) {
-//            // 로그인된 사용자가 바이어일 때
-//            String buyerMemberNo = ((LoginBuyerDetails) loginUser).getBuyerMemberNo();
-//            list = inquiryService.findInquiriesByBuyer(buyerMemberNo, pageable);
-//        } else {
-//            return "redirect:/user/login";  // 인증되지 않은 경우 로그인 페이지로 리다이렉트
-//        }
-//
-//        // 모델에 값 추가
-//        model.addAttribute("list", list);
-//        model.addAttribute("searchItem", searchItem);
-//        model.addAttribute("searchWord", searchWord);
-//
-//        return "inquiry/inquiryList";
-//    }
-//}
-
-
-//    /**
-//     * 게시글 목록 조회를 위해 DB에 요청처리
-//     * @param model
-//     * @return
-//     */
-//    @GetMapping("/inquiryList")
-//    public String inquiryList(
-////            우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리
-////            @AuthenticationPrincipal UserDetails loginUser,
-////            @PageableDefault(page=1) Pageable pageable,
-////            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
-////            @RequestParam(name="searchWord", defaultValue="") String searchWord,
-////            Model model
-//            ) {
-//
-////        // 인증되지 않은 사용자는 접근 불가
-////        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-////            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
-//    		  return "inquiry/inquiryList";
-//        }
-//
-//
-//    /**
-//     * 글 자세히 보기
-//     * @param inquiryNo
-//     * @param model
-//     * @return
-//     */
-//    @GetMapping("/inquiryDetail")
-//    public String inquiryDetail(
-////            @AuthenticationPrincipal UserDetails loginUser,
-////            @RequestParam(name="inquiryNo") Integer inquiryNo,
-////            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
-////            @RequestParam(name="searchWord", defaultValue="") String searchWord,
-////            Model model
-//    		) {
-////
-//////        // 인증되지 않은 사용자는 접근 불가
-//////        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-//////            return "redirect:/user/login";  // 로그인 페이지로 리다이렉트
-//////        }
-//////
-//////        // 검색기능 + 페이징
-//////        Page<InquiryDTO> list = inquiryService.selectAll(pageable, searchItem, searchWord);
-//////
-//////        int totalPages = list.getTotalPages();
-//////        int page = pageable.getPageNumber();
-//////
-//////        PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
-//////
-//////        model.addAttribute("list", list);
-//////        model.addAttribute("searchItem", searchItem);
-//////        model.addAttribute("searchWord", searchWord);
-//////        model.addAttribute("navi", navi);
-//////
-//////        if (loginUser instanceof LoginSellerDetails) {
-//////            LoginSellerDetails sellerDetails = (LoginSellerDetails) loginUser;
-//////            model.addAttribute("loginName", sellerDetails.getUsername());
-//////        } else if (loginUser instanceof LoginBuyerDetails) {
-//////            LoginBuyerDetails buyerDetails = (LoginBuyerDetails) loginUser;
-//////            model.addAttribute("loginName", buyerDetails.getUsername());
-//////        }
-////
-//
-////        InquiryDTO inquiry = inquiryService.selectOne(inquiryNo);
-////
-////        if (inquiry == null) {
-////            return "redirect:/inquiry/inquiryList";
-////        }
-////
-////        model.addAttribute("inquiry", inquiry);
-////        model.addAttribute("searchItem", searchItem);
-////        model.addAttribute("searchWord", searchWord);
-////
-////        // 로그인 사용자 이름 추가
-////        if (loginUser != null) {
-////            model.addAttribute("loginName", loginUser.getUsername());
-////        }
-////
-//        return "inquiry/inquiryDetail";
-//    }
-//
-//
-//
-//    /**
-//     * 인콰 작성 화면 요청 (바이어만 접근 가능)
-//     * @return
-//     */
-//    @GetMapping("/inquiryWrite")
-//    public String inquiryWrite(
-////  		  우선적으로 로그인 인증 정보를 안담고 연결만 하기 위해 주석처리    		
-////            @AuthenticationPrincipal UserDetails loginUser,
-////            Model model
-//    		) {
-////
-////    final InquiryService inquiryService;
-////
-////        // 인증된 바이어의 이름 추가
-////        if (loginUser instanceof LoginBuyerDetails) {
-////            model.addAttribute("loginName", ((LoginBuyerDetails) loginUser).getUsername());
-////        }
-//
-//        return "inquiry/inquiryWrite";
-//    }
-//    
-//
-//
-////
-////    /**
-////     * DB에 글을 등록 처리하는 요청
-////     * 첨부 파일도 포함
-////     * @return
-////     */
-////    @PostMapping("/inquiryWrite")
-//////    public String inquiryWrite(@AuthenticationPrincipal UserDetails loginUser,
-//////                                   @ModelAttribute InquiryDTO inquiryDTO) {
-//////
-//////        // 인증되지 않은 사용자는 접근 불가
-//////        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-//////            return "redirect:/user/login";
-//////        }
-//////
-//////        log.info("클라이언트에서 전송된 데이터 : {}", inquiryDTO.toString());
-//////
-//////        inquiryService.insertInquiry(inquiryDTO);
-//////
-//////        return "redirect:/inquiry/inquiryList";
-//////    }
-////
-//////    /**
-//////     * 글 자세히 보기
-//////     * @param inquiryNo
-//////     * @param model
-//////     * @return
-//////     */
-//////    @GetMapping("/inquiryDetail")
-//////    public String inquiryDetail(
-//////            @AuthenticationPrincipal UserDetails loginUser,
-//////            @RequestParam(name="inquiryNo") Integer inquiryNo,
-//////            @RequestParam(name="searchItem", defaultValue="subject") String searchItem,
-//////            @RequestParam(name="searchWord", defaultValue="") String searchWord,
-//////            Model model) {
-//////
-//////        // 인증되지 않은 사용자는 접근 불가
-//////        if (!(loginUser instanceof LoginSellerDetails) && !(loginUser instanceof LoginBuyerDetails)) {
-//////            return "redirect:/user/login";
-//////        }
-//////
-//////        InquiryDTO inquiry = inquiryService.selectOne(inquiryNo);
-//////
-//////        if (inquiry == null) {
-//////            return "redirect:/inquiry/inquiryList";
-//////        }
-//////
-//////        model.addAttribute("inquiry", inquiry);
-//////        model.addAttribute("searchItem", searchItem);
-//////        model.addAttribute("searchWord", searchWord);
-//////
-//////        // 로그인 사용자 이름 추가
-//////        if (loginUser != null) {
-//////            model.addAttribute("loginName", loginUser.getUsername());
-//////        }
-//////
-//////        return "inquiry/inquiryDetail";
-//////    }
-//////
-//
-//////
-//////    /**
-//////     * 파일 다운로드
-//////     * @param inquiryNo
-//////     * @param response
-//////     * @return
-//////     */
-//////    @GetMapping("/download")
-//////    public String download(
-//////            @RequestParam(name="inquiryNo") Integer inquiryNo,
-//////            HttpServletResponse response) {
-//////
-//////        InquiryDTO inquiryDTO = inquiryService.selectOne(inquiryNo);
-//////
-//////        String originalFileName = inquiryDTO.getOriginalFileName();
-//////        String savedFileName = inquiryDTO.getSavedFileName();
-//////
-//////        log.info("원본 파일명 : {}", originalFileName);
-//////        log.info("저장 파일명 : {}", savedFileName);
-//////        log.info("저장 디렉토리 : {}", uploadPath);
-//////
-//////        try {
-//////            String tempName = URLEncoder.encode(originalFileName, StandardCharsets.UTF_8.toString());
-//////            response.setHeader("Content-Disposition", "attachment;filename=" + tempName);
-//////        } catch (UnsupportedEncodingException e) {
-//////            e.printStackTrace();
-//////        }
-//////
-//////        String fullPath = uploadPath + "/" + savedFileName;
-//////
-//////        try (FileInputStream filein = new FileInputStream(fullPath);
-//////             ServletOutputStream fileout = response.getOutputStream()) {
-//////
-//////            FileCopyUtils.copy(filein, fileout);
-//////        } catch (Exception e) {
-//////            e.printStackTrace();
-//////        }
-//////
-//////        return null;
-//////    }
-//}
-

@@ -20,6 +20,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
 	List<ProductEntity> findAllBySellerEntityOrderByProductNoDesc(Optional<SellerEntity> sellerEntity);
 	
+	// sellerMemberNo로 상품 조회
+    List<ProductEntity> findBySellerEntitySellerMemberNo(String sellerMemberNo);
+	
 	// ProductNo로 
 	Optional<ProductEntity> findByProductNo(Integer productNo);
 

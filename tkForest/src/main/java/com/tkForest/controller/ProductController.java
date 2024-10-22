@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
+import com.tkForest.entity.ProductEntity;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
@@ -220,5 +221,12 @@ public class ProductController {
 		rttr.addAttribute("boardNum", productNo);
 		return "redirect:/product/productDetail";
 	}
-
+	/*
+	 * 상품 상세 화면(임시)
+	 */
+	 @GetMapping("/productDetail-Temp")
+	    public String productDetailTemp() {
+	        return "product/productDetail-Temp";  // "productDetail-Temp.html" 템플릿 파일을 반환
+	    }
+    
 }

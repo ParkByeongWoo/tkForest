@@ -2,6 +2,7 @@ package com.tkForest.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -444,4 +445,20 @@ public class ProductService {
 			temp.setProductImagePath2(null);
 		}
 	}
+	
+	/**
+     * sellerMemberNo로 셀러가 등록한 상품 목록 조회
+     * @param sellerMemberNo
+     * @return List<ProductDTO>
+     */
+	public List<ProductDTO> findProductsBySellerMemberNo(String sellerMemberNo) {
+	    // sellerMemberNo로 셀러의 상품 목록을 조회하는 로직
+	    List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
+	    
+	    // ProductEntity를 ProductDTO로 변환하여 반환
+	    return productEntities.stream()
+	            .map(product -> ProductDTO.toDTO(product, product.getSellerEntity().getSellerMemberNo()))
+	            .collect(Collectors.toList());
+	}
+
 }

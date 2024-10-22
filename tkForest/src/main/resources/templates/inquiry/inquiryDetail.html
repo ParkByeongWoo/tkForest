@@ -34,6 +34,8 @@
     <!-- Main Style -->
     <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+    
+    <script src="/script/expiredate.js"></script>
 
 </head>
 
@@ -1105,20 +1107,20 @@
                     <input type="text" id="subject" name="subject" class="form-control" placeholder="subject"
                            th:value="${inquiry.subject}" readonly>
                 </div>
-
-                <!-- 발신자 (From) -->
-                <div class="form-group">
-                    <label for="buyerMemberNo">발신자 (From)</label>
-                    <input type="text" id="buyerMemberNo" name="buyerMemberNo" class="form-control"
-                           th:value="${inquiry.buyerMemberNo}" readonly>
-                </div>
-
-                <!-- 수신자 (To) -->
-                <div class="form-group">
-                    <label for="sellerMemberNo">수신자 (To)</label>
-                    <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
-                           th:value="${inquiry.sellerMemberNo}" readonly>
-                </div>
+	
+				<!-- 발신자 (From) -->
+				<div class="form-group">
+				    <label for="userName">발신자 (From)</label>
+					<input type="text" id="buyerMemberNo" name="buyerMemberNo" class="form-control"
+				               th:value="${inquiry.buyerMemberNo}" readonly> 
+				</div>
+				
+				<!-- 수신자 (To) -->
+				<div class="form-group">
+				    <label for="sellerMemberNo">수신자 (To)</label>
+					 <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
+				               th:value="${inquiry.sellerMemberNo}" readonly>
+				</div>
 
                 <!-- 상품 고유번호 -->
                 <div class="form-group">
@@ -1185,6 +1187,7 @@
             </div>
 
             <!-- 댓글 입력 및 출력 부분 -->
+            <!-- 
             <div class="reply-write">
                 <input type="text" id="replyContents">
                 <input type="button" id="replyBtn" value="답변 입력">
@@ -1192,6 +1195,7 @@
 
             <div id="reply-list"></div>
         </div>
+         -->
         </section>
 
 
