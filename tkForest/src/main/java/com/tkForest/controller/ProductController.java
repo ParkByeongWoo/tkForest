@@ -96,10 +96,10 @@ public class ProductController {
     */
    @GetMapping("/productDetail")
    public String productSelectOne(
-		   @RequestParam(name="productNo") Integer productNo
-		   , @RequestParam(name="searchItem", defaultValue="") String searchItem
-		   , @RequestParam(name="searchWord", defaultValue="") String searchWord
-		   , Model model) {
+         @RequestParam(name="productNo") Integer productNo
+         , @RequestParam(name="searchType", defaultValue="") String searchType
+         , @RequestParam(name="query", defaultValue="") String query
+         , Model model) {
       
       ProductDTO product = productService.selectOne(productNo);
       List<Integer> categoryNos = productService.categoryAll(productNo);
@@ -109,35 +109,38 @@ public class ProductController {
       productService.incrementHitcount(productNo);
       
       if(product == null) {
-			return "redirect:/product/productList"; 
+         return "redirect:/product/productList"; 
       }
       
       model.addAttribute("product", product);
       model.addAttribute("categoryNos", categoryNos);
       model.addAttribute("productCertificate", productCertificate);
-		// 검색 기능이 추가되면 계속 달고 다녀야 함
-      model.addAttribute("searchItem", searchItem);
-      model.addAttribute("searchWord", searchWord);
+      // 검색 기능이 추가되면 계속 달고 다녀야 함
+      model.addAttribute("searchType", searchType);
+      model.addAttribute("query", query);
       
-      return "product/productDetail";
+      return "product/productDetail";  // 상세페이지로 이동
    }
+
    
    /**
-    * 
-    * @param pageable
-    * @param searchItem
-    * @param searchWord
+    * index에서 넘어올 경우
+    * + 검색해서 넘어올 경우 searchType(전체or상품or셀러)/query(검색어)
+    * @param 
+    * @param searchType
+    * @param query
     * @param model
     * @return
     */
    @GetMapping("/productList")
    public String productList(
-		   @PageableDefault(page=1) Pageable pageable,
-           @RequestParam(name="searchItem", defaultValue="") String searchItem,
-           @RequestParam(name="searchWord", defaultValue="") String searchWord,
+           @PageableDefault(page=1) Pageable pageable,
+           @RequestParam(name="searchType", defaultValue="ALL") String searchType,
+           @RequestParam(name="query", defaultValue="") String query,
            Model model) {
-	   // 검색기능 + 페이징
-       Page<ProductDTO> list = productService.selectAll(pageable, searchItem, searchWord);
+	   
+      // 검색기능 + 페이징
+       Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
 
        int totalPages = list.getTotalPages();
        int page = pageable.getPageNumber();
@@ -145,12 +148,19 @@ public class ProductController {
        PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
 
        model.addAttribute("list", list);
-       model.addAttribute("searchItem", searchItem);
-       model.addAttribute("searchWord", searchWord);
+       model.addAttribute("searchType", searchType);
+       model.addAttribute("query", query);
        model.addAttribute("navi", navi);
+       
        return "product/productList";  
        
    }
+   
+   
+   
+   
+   
+   
    
    /**
     * 
@@ -160,25 +170,25 @@ public class ProductController {
     */
    @GetMapping("/productUpdate")
    public String productUpdate(
-		   @RequestParam(name="productNo") Integer productNo
-		   , Model model
-		   )	{
-	   
-	   ProductDTO product = productService.selectOne(productNo);
-	   model.addAttribute("product", product);
-	   
-	   return "product/productUpdate";
+         @RequestParam(name="productNo") Integer productNo
+         , Model model
+         )   {
+      
+      ProductDTO product = productService.selectOne(productNo);
+      model.addAttribute("product", product);
+      
+      return "product/productUpdate";
    }
    
    @PostMapping("/productUpdate")
    public String productUpdate(
-		   @ModelAttribute ProductDTO product
-		   , RedirectAttributes rttr) {
-	   log.info("수정할 글: {}", product.toString());
-	   
-	   productService.updateProduct(product);
-	   
-	   return "redirect:/product/productDetail";
+         @ModelAttribute ProductDTO product
+         , RedirectAttributes rttr) {
+      log.info("수정할 글: {}", product.toString());
+      
+      productService.updateProduct(product);
+      
+      return "redirect:/product/productDetail";
    }
    
    
@@ -206,19 +216,25 @@ public class ProductController {
    }
    
    /**
-	 * 게시판 수정화면에서 파일만 삭제하도록 요청
-	 */
-	@GetMapping("/deleteFile")
-	public String deleteFile(
-			@RequestParam(name="productNo") int productNo
-			, RedirectAttributes rttr
-			) {
+    * 게시판 수정화면에서 파일만 삭제하도록 요청
+    */
+   @GetMapping("/deleteFile")
+   public String deleteFile(
+         @RequestParam(name="productNo") int productNo
+         , RedirectAttributes rttr
+         ) {
 
-		// boardService에 파일삭제 요청 (Update와 동일)
-		productService.deleteFile(productNo);
+      // boardService에 파일삭제 요청 (Update와 동일)
+      productService.deleteFile(productNo);
 
-		rttr.addAttribute("boardNum", productNo);
-		return "redirect:/product/productDetail";
-	}
+      rttr.addAttribute("boardNum", productNo);
+      return "redirect:/product/productDetail";
+   }
+   
+   /**
+    * 상품리스트에서 검색상품을 찾을 수 있도록 요청
+    */
+   
+   
 
 }
