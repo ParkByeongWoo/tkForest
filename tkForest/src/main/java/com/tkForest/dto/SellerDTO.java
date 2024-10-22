@@ -1,6 +1,7 @@
 package com.tkForest.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.tkForest.entity.SellerEntity;
 
@@ -33,6 +34,10 @@ public class SellerDTO {
     private String email;
     private String sellerKeyword;
     private Boolean sellerStatus;
+    
+    // private String categoryName;
+    private List<String> categoryNames;
+    private List<Integer> sellerCertificateTypeCodes;
 
     // Entity => DTO 변환하는 메소드
     public static SellerDTO toDTO(SellerEntity sellerEntity) {

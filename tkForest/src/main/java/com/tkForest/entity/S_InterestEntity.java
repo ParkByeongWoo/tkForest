@@ -61,6 +61,7 @@ public class S_InterestEntity {
     private String interestUseYn;
 
     // DTO -> Entity 변환 메서드
+
     public static S_InterestEntity toEntity(S_InterestDTO s_InterestDTO, SellerEntity fromSellerEntity, SellerEntity toSellerEntity, ProductEntity interestedProductEntity) {
         return S_InterestEntity.builder()
                 .interestNo(s_InterestDTO.getInterestNo())

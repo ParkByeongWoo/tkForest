@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
+import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
@@ -47,25 +47,46 @@ public class ProductController {
     * @return
     */
    @GetMapping("/productCreate")
-   public String productCreate(Model model) {
+   public String productCreate()		   
+		  {
 	   
 	 log.info("상품 생성 페이지로 넘어감");
-      
+     
+	 // 로그인한 셀러의 ID
+	 // model.addAttribute("loginId", loginSeller.getUsername());
+	 
       return "product/productCreate";
    }
    
+   /**
+    * 상품 등록 처리
+    * @param productDTO
+    * @param pCategoryDTOList
+    * @param productCertificateDTOList
+    * @return
+    */
    @PostMapping("/productCreate")
    public String productCreate(
 		   @ModelAttribute ProductDTO productDTO
-		   , @ModelAttribute List<PCategoryDTO> pCategoryDTOList
-		   , @ModelAttribute List<ProductCertificateDTO> productCertificateDTOList) {
+		   , @ModelAttribute PCategoryDTO pCategoryDTO
+		   , @ModelAttribute ProductCertificateDTO productCertificateDTO
+		   , @AuthenticationPrincipal LoginSellerDetails loginSeller
+		   ) {
 	 log.info("클라이언트에서 전송된 데이터 : {}", productDTO.toString());
-	 log.info("클라이언트에서 전송된 데이터 : {}", pCategoryDTOList);
-	 log.info("클라이언트에서 전송된 데이터 : {}", productCertificateDTOList);
-	 productService.productCreate(productDTO);
-     productService.categoryInsert(pCategoryDTOList);
-     productService.certificateInsert(productCertificateDTOList);
-     return "/"; //마이페이지-상품관리페이지로 넘어갈 것
+	 
+	 // 상품 등록(상품DTO, 로그인한 셀러의 Id)
+	 boolean result = productService.productCreate(productDTO, loginSeller.getSellerMemberNo());
+     log.info("상품(기본) 등록 성공 여부: {}", result);
+	 
+	 // 카테고리 추가
+	 boolean resultCategory = productService.ProductCategoryInsert(productDTO, pCategoryDTO);
+     log.info("상품 카테고리 추가: {}", resultCategory);
+     
+     // 인증서 추가
+     boolean resultCert = productService.ProductCertificateInsert(productDTO, productCertificateDTO);
+     log.info("상품 인증서 추가: {}", resultCert);
+     
+     return "redirect:/"; //마이페이지-상품관리페이지로 넘어갈 것
    }
    
    /**

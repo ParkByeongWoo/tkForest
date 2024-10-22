@@ -9,22 +9,21 @@ search.addEventListener('click', goto);
 
 // 이벤트 핸들러
 function goto() {
-	let searchItem = document.getElementById("searchItem").value;
-	let searchWord = document.getElementById("searchWord").value;
-	let searchForm = document.getElementById("searchForm");
-	
-	searchForm.action='/inquiry/inquiryList'
-	searchForm.submit();
+    let searchItem = document.getElementById("searchItem").value;
+    let searchWord = document.getElementById("searchWord").value;
+    let searchForm = document.getElementById("searchForm");
+    
+    searchForm.action='/inquiry/inquiryList'
+    searchForm.submit();
 }
 
 /** 
  * 페이징 시 current 페이지 요청 함수
 */
 function pageFormSubmit(page) {
-	document.getElementById("requestPage").value = page;
-	document.getElementById("searchForm").submit();
+    document.getElementById("requestPage").value = page;
+    document.getElementById("searchForm").submit();
 }
-
 
 
 

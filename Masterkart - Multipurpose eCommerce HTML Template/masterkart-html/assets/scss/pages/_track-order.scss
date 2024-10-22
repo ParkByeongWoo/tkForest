@@ -1,0 +1,150 @@
+/*-------------------------------------------------
+  Track Order Page CSS
+---------------------------------------------------*/
+.ms-track {
+	.ms-track-box {
+		padding: 30px;
+		border-radius: $main-border-radius;
+		background-color: $light-grey-bg;
+	}
+	.ms-track-card {
+		height: 100%;
+		padding: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		border: 1px solid $border-color-2;
+		border-radius: $main-border-radius;
+		color: $text-color;
+		text-align: center;
+		font-size: 15px;
+		.ms-track-title {
+			margin-bottom: 5px;
+			color: $title-color;
+			text-transform: capitalize;
+			font-size: 16px;
+			font-weight: 500;
+		}
+	}
+	.ms-steps {
+		margin-top: 24px;
+		border: 1px solid $border-color-2;
+		border-radius: $main-border-radius;
+	}	
+	.ms-steps-header {
+		padding: .375rem;
+		border-top: 1px solid $border-color-2;
+	}	
+	.ms-steps-header {
+		.progress {
+			height: .25rem;
+			.progress-bar {
+				background-color: $main-primary-color;
+			}
+		}
+	}	
+	.ms-steps-body {
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+	}	
+	.ms-step {
+		padding: 30px 15px;
+		display: table-cell;
+		position: relative;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+		border-right: 1px solid $border-color-2;
+		color: $text-color;
+		font-weight: 400;
+		text-align: center;
+		text-decoration: none;
+		text-transform: capitalize;
+		&:last-child {
+			border-right: 0;
+		}
+		&:hover {
+			color: rgba(0, 0, 0, 0.9);
+			text-decoration: none;
+			.ms-step-indicator {
+				-webkit-transition: all 0.25s ease-in-out;
+				transition: all 0.25s ease-in-out;
+				border-color: transparent;
+				background-color: $border-color-2;
+			}
+			.ms-step-icon {
+				color: rgba(0, 0, 0, 0.9);
+			}
+		}
+	}	
+	.ms-step-indicator {
+		display: block;
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		width: 1.5rem;
+		height: 1.5rem;
+		border: 1px solid $border-color-2;
+		border-radius: 50%;
+		background-color: $white;
+		font-size: .875rem;
+		line-height: 1.375rem;
+	}	
+	.has-indicator {
+		padding-right: 1.5rem;
+		padding-left: 2.375rem;
+		.ms-step-indicator {
+			top: 50%;
+			margin-top: -.75rem;
+		}
+	}	
+	.ms-step-icon {
+		display: block;
+		width: 1.5rem;
+		height: 1.5rem;
+		margin: 0 auto;
+		margin-bottom: .75rem;
+		-webkit-transition: all 0.25s ease-in-out;
+		transition: all 0.25s ease-in-out;
+		color: $text-color;
+	}
+	.ms-step-active {
+		color: $title-color;
+		pointer-events: none;
+		cursor: default;
+		&:hover {
+			color: $title-color;
+			pointer-events: none;
+			cursor: default;
+			.ms-step-icon {
+				color: $main-primary-color;
+			}
+		}
+		.ms-step-icon {
+			color: $main-primary-color;
+		}
+	}	
+	.ms-step-completed{
+		.ms-step-indicator {
+			border-color: transparent;
+			background-color: $main-primary-color;
+			color: $white;
+			line-height: 1.25rem;
+			i {
+				line-height: 23px;
+			}
+		}
+		&:hover {
+			.ms-step-indicator {
+				border-color: transparent;
+				background-color: $main-primary-color;
+				color: $white;
+				line-height: 1.25rem;
+				i {
+					line-height: 23px;
+				}
+			}
+		}
+	}
+}

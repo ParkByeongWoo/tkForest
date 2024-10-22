@@ -1,0 +1,54 @@
+/*-------------------------------------------------
+   Faq Page CSS
+---------------------------------------------------*/
+.ms-accordion.style-1 {
+	.ms-accordion-item {
+		border-color: $border-color-grey;
+		border-radius: $main-border-radius;
+		overflow: hidden;
+		&:not(:last-child) {
+			margin-bottom: 10px;
+		}
+		.ms-accordion-header {
+			margin: 0;
+			padding: 15px 35px 15px 15px;
+			background-color: $light-grey-bg;
+			font-size: 18px;
+			line-height: 28px;
+			font-weight: 600;
+			position: relative;
+			&:after {
+				content: "\f107";
+				width: 15px;
+				height: 15px;
+				display: flex;
+				align-items: center;
+				font-family: "MsIcons";
+				cursor: pointer;
+				font-size: 24px;
+				color: $title-color;
+				font-weight: 400;
+				position: absolute;
+				top: 20px;
+				right: 15px;
+			}
+		}
+	}
+	.ms-accordion-body {
+		padding: 15px;
+		font-size: 14px;
+		color: $text-color;
+		border-bottom: 1px solid $border-color-grey;
+		display: none;
+		line-height: 24px;
+		background: #fafafd;
+		code{
+			font-weight: 600;
+			font-size: 14px;
+			color: $main-primary-color;
+		}
+	}
+	.ms-accordion-body.show {
+		display: block;
+	}
+}

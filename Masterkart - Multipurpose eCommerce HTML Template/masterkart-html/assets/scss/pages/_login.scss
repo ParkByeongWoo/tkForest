@@ -1,0 +1,104 @@
+/*-------------------------------------------------
+  Login Page CSS
+---------------------------------------------------*/
+.ms-login-content {
+	max-width: 1000px;
+	margin: auto;
+	display: flex;
+	flex-direction: row;
+	.ms-login-box {
+		width: 50%;
+		padding: 0 15px;
+	}
+}
+.ms-login-wrapper {
+	max-width: 530px;
+	margin: 0 auto 0;
+	.ms-login-wrap{
+		display: flex;
+		flex-direction: column;
+	}
+	.ms-login-container {
+		padding: 30px;
+		border: 1px solid $border-color-grey;
+		border-radius: $main-border-radius;
+		text-align: left;
+		background-color: $white;
+		.ms-login-form {
+			form {
+				display: flex;
+				flex-direction: column;
+			}
+			label {
+				margin-bottom: 10px;
+				color: $title-color;
+				font-size: 15px;
+				font-weight: 500;
+				letter-spacing: 0;
+				line-height: 1;
+			}
+			input {
+				width: 300;
+				margin-bottom: 27px;
+				padding: 0 15px;
+				background-color: transparent;
+				border: 1px solid $border-color-grey;
+				border-radius: $main-border-radius;
+				color: $text-color;
+				font-size: 14px;
+				outline: none;
+			}
+			.ms-login-wrap {
+				+ {
+					.ms-login-wrap {
+						input {
+							margin-bottom: 15px;
+						}
+					}
+				}
+			}
+			.ms-login-fp {
+				label {
+					margin-bottom: 0;
+					a {
+						margin-top: 10px;
+						color: $text-color;
+						font-size: 14px;
+						font-weight: 400;
+						letter-spacing: 0px;
+						display: flex;
+						justify-content: flex-end;
+					}
+				}
+			}
+			.ms-login-btn {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.ms-login-btn {
+				margin-top: 30px;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				span {
+					color: $text-color;
+					font-size: 14px;
+					a {
+						color: $title-color;
+						&:hover {              
+						color: $main-primary-color;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.ms-login-img {
+	img {
+		width: 100%;
+		border-radius: $main-border-radius;
+	}
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Profile Update</title>
+</head>
+
+
+
+<body>
+
+    
+    <!-- 헤더 불러오기 -->
+    <div th:replace="~{fragment/header :: header}"></div>
+    
+    
+    <h2>buyerProfileUpdate창입니다</h2>
+    
+    
+    <button onclick="buyerAccountDel()">회원 탈퇴</button>
+    
+    
+
+ 
+	 <!-- 
+	<script>
+	function buyerAccountDel() {
+	    const userId = ;
+	    fetch(`/user/deleteAccount/${userId}`, {
+	        method: 'DELETE',
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            alert('회원 탈퇴가 완료되었습니다.');
+	            // 추가로 필요한 로직 (예: 로그아웃 및 홈으로 이동)
+	            window.location.href = '/'; // 홈으로 이동
+	        } else {
+	            alert('탈퇴 중 오류가 발생했습니다.');
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('탈퇴 요청 처리 중 오류가 발생했습니다.');
+	    });
+	}
+	</script>
+	-->
+	
+</body> 
+</html>

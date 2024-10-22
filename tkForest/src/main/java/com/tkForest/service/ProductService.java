@@ -1,23 +1,20 @@
 package com.tkForest.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
-import com.tkForest.dto.SellerDTO;
 import com.tkForest.entity.CategoryEntity;
 import com.tkForest.entity.CertificateEntity;
 import com.tkForest.entity.PCategoryEntity;
@@ -43,6 +40,7 @@ public class ProductService {
    
 	final ProductRepository productRepository;
 	final SellerRepository sellerRepository;
+	
 	final PCategoryRepository pCategoryRepository;
 	final CategoryRepository categoryRepository;
 	final CertificateRepository certificateRepository;
@@ -60,30 +58,113 @@ public class ProductService {
     * DB에 상품 저장
     * @param productDTO : 저장해야 하는 상품
     */
-   public void productCreate(ProductDTO productDTO) {
-      log.info("저장 경로: {}", uploadPath);
-      Optional<SellerEntity> sellerEntity = sellerRepository.findById(productDTO.getSellerMemberNo());
-      // 첨부 파일 처리
-      String productImagePath1 = null;
-      String productImagePath2 = null;
-
-      // 파일 첨부여부 확인
-      if(!productDTO.getUploadFile().isEmpty()) {
-         productImagePath1 = FileService.saveFile(productDTO.getUploadFile(), uploadPath);
-         productImagePath2 = productDTO.getUploadFile().getOriginalFilename();
-
-         productDTO.setProductImagePath2(productImagePath2);
-         productDTO.setProductImagePath1(productImagePath1);
-      }
-
-      SellerEntity entity = sellerEntity.get();
-   
+   @Transactional
+   public boolean productCreate(ProductDTO productDTO, String sellerMemberNo) {
       
-      // 1) Entity로 변환
-      ProductEntity productEntity = ProductEntity.toEntity(productDTO, entity);
-      // 2) save()로 데이터 저장
-      productRepository.save(productEntity);
+	  log.info("저장 경로: {}", uploadPath);
+      
+	  // 셀러 존재여부 확인
+      Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerMemberNo(sellerMemberNo);
+      log.info("셀러엔티티 불러옴: {}", sellerEntity.get());
+      
+      // 셀러가 있으면
+      if (sellerEntity.isPresent()) {
+    	  log.info("셀러의 Id: {}", sellerEntity.get().getSellerId());
+          
+          // 첨부 파일 처리
+          String productImagePath1 = null;
+          String productImagePath2 = null;
+
+          // 파일 첨부여부 확인
+          if(!productDTO.getUploadFile().isEmpty()) {
+             productImagePath1 = FileService.saveFile(productDTO.getUploadFile(), uploadPath);
+             productImagePath2 = productDTO.getUploadFile().getOriginalFilename();
+
+             productDTO.setProductImagePath2(productImagePath2);
+             productDTO.setProductImagePath1(productImagePath1);
+          }
+
+          SellerEntity entity = sellerEntity.get();
+          log.info("셀러 엔티티: {}", entity);
+          
+          // 기본값 설정 - sellerMemberNo 설정, viewCnt를 디폴트 0으로 설정
+          productDTO.setSellerMemberNo(sellerMemberNo);
+          productDTO.setViewCnt(0);
+          log.info("셀러번호, viewCnt 기본값 설정 완료");
+          
+          // 1) Entity로 변환
+          ProductEntity productEntity = ProductEntity.toEntity(productDTO, entity);
+          log.info("변환한 productEntity: {}", productEntity);
+          log.info("entity 변환함");
+          
+          // 2) save()로 데이터 저장
+          ProductEntity savedEntity = productRepository.save(productEntity);
+          
+          // 카테고리, 키워드 추가 위해 productDTO에 productNo set하기
+          productDTO.setProductNo(savedEntity.getProductNo());
+          
+          // 저장된 엔티티 확인
+          if (savedEntity != null && savedEntity.getProductNo() != null) {
+              log.info("상품(기본데이터) 저장 완료, 저장된 상품 정보: {}", savedEntity.toString());
+              return true;
+          } else {
+              log.warn("상품 저장 실패 또는 저장된 상품 번호를 확인할 수 없습니다.");
+              return false;
+          }
+      }
+      return false;
    }
+   
+   /**
+    * 등록중인 상품에 카테고리 추가하기
+    * 정인 ver
+    * @param pCategoryDTO
+    */
+   public boolean ProductCategoryInsert(ProductDTO productDTO, PCategoryDTO pCategoryDTO) {
+	
+	// productNo로 상품 엔티티 찾아오기
+   	Optional<ProductEntity> productEntity = productRepository.findByProductNo(productDTO.getProductNo());
+	
+   	
+   	// 상품이 있는 경우 실행
+	if (productEntity.isPresent()) {
+		log.info("등록된 상품이 있음: {}", productEntity.get());
+		ProductEntity entity1 = productEntity.get();
+	   
+	   // 카테고리 리스트가 null일 경우 해당 로직을 실행하지 않음
+       if (productDTO.getCategoryNames() != null) {
+	
+       	// CategoryDTO에서 선택된 카테고리 코드 목록을 가져와서 반복 처리
+       	for (String cateName : productDTO.getCategoryNames()) { 
+   	
+       		// cateName으로 카테고리 엔티티 찾아오기
+       		Optional<CategoryEntity> categoryEntity = categoryRepository.findByCategoryName(cateName);
+	    	
+	        	if (categoryEntity.isPresent()) {
+	        		
+	        		CategoryEntity entity2 = categoryEntity.get();
+	        		
+	        		PCategoryEntity pCategoryEntity = PCategoryEntity.toEntity(pCategoryDTO, entity1, entity2);
+	      	      	pCategoryRepository.save(pCategoryEntity);
+	        	
+	      	      	log.info("pCategoryEntity 저장");
+	        	}
+       } // for문 끝
+       	return true;
+       	
+   	} else {
+           System.out.println("입력된 카테고리명이 없습니다.");
+           return false;
+      }
+	}
+   	return false;
+   }
+   
+   /**
+    * 병우 ver
+    * 등록중인 상품에 카테고리 추가하기
+    * @param pCategoryDTOList
+
    public void categoryInsert(List<PCategoryDTO> pCategoryDTOList) {
       for (PCategoryDTO pCategoryDTO : pCategoryDTOList) {
 		  Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
@@ -102,6 +183,54 @@ public class ProductService {
       }
       return ;
    }
+   */
+   
+   /**
+    * 등록중인 상품에 인증서 추가하기
+    * @param ProductDTO, ProductCertificateDTO
+    */
+   public boolean ProductCertificateInsert(ProductDTO productDTO, ProductCertificateDTO productCertificateDTO) {
+   	
+	// productNo로 상품 엔티티 찾아오기
+	Optional<ProductEntity> productEntity = productRepository.findByProductNo(productDTO.getProductNo());
+   	
+	// 상품이 있는 경우 실행
+		if (productEntity.isPresent()) {
+			ProductEntity entity1 = productEntity.get();
+		   
+		   // 인증서 리스트가 null일 경우 해당 로직을 실행하지 않음
+	       if (productDTO.getProductCertificateTypeCodes() != null) {
+		
+	    	// productCertificateDTO에서 선택된 인증서 코드 목록을 가져와서 반복 처리
+	        	for (Integer certCode : productDTO.getProductCertificateTypeCodes()) { 
+	   	
+	        	// certificateCode로 인증서 엔티티 찾아오기
+	        	Optional<CertificateEntity> certificateEntity = certificateRepository.findById(certCode);
+		    	
+	        	if (certificateEntity.isPresent()) {
+	        		
+	        		CertificateEntity entity2 = certificateEntity.get();
+		        		
+	        		ProductCertificateEntity productCertificateEntity = ProductCertificateEntity.toEntity(productCertificateDTO, entity1, entity2);
+	      	      	productCertificateRepository.save(productCertificateEntity);
+	        	
+	      	      	log.info("productCertificateEntity 저장");
+	        	}
+	       } // for문 끝
+	        	return true;
+	        	
+	        } else {
+	                System.out.println("인증서 타입 코드가 없습니다.");
+	                return true;
+	        }
+  	}
+      return false;
+  }
+   
+   /**
+    * 등록된 상품DB에 인증서 추가하기
+    * 병우 ver
+    * @param productCertificateDTO
    
    public void certificateInsert(List<ProductCertificateDTO> productCertificateDTOList) {
 	   for(ProductCertificateDTO productCertificateDTO : productCertificateDTOList) {
@@ -120,7 +249,13 @@ public class ProductService {
 	   }
 	   return ;
    }
+    */
    
+   /**
+    * 상품 1개 조회해오기
+    * @param productNo
+    * @return
+    */
 	public ProductDTO selectOne(int productNo) {
 		Optional<ProductEntity> entity = productRepository.findById(productNo);
 		
@@ -131,6 +266,11 @@ public class ProductService {
 		return null;
 	}
 	
+	/**
+	 * 상품의 모든 카테고리 조회하기
+	 * @param productNo
+	 * @return
+	 */
 	public List<Integer> categoryAll(Integer productNo) {
 		List<Integer> categoryNos = pCategoryRepository.findByProductEntityProductNo(productNo);
 	    System.out.println(categoryNos);
@@ -138,6 +278,11 @@ public class ProductService {
 	    return categoryNos;
 	}
 	
+	/**
+	 * 상품의 인증서 조회하기
+	 * @param productNo
+	 * @return
+	 */
 	public List<Integer> certificateAll(Integer productNo){
 	
 		List<Integer> certificateNos = productCertificateRepository.findByProductEntityProductNo(productNo);
@@ -146,7 +291,14 @@ public class ProductService {
 	    
 	    return certificateNos;
 	}
-
+	
+	/**
+	 * (검색기능 포함) 상품 리스트 불러오기
+	 * @param pageable
+	 * @param searchItem
+	 * @param searchWord
+	 * @return
+	 */
 	public Page<ProductDTO> selectAll(Pageable pageable, String searchItem, String searchWord) {
 		int page = pageable.getPageNumber() - 1;
 		
@@ -187,6 +339,10 @@ public class ProductService {
 		return list;
 	}
 	
+	/**
+	 * 상품 1개 정보 수정하기
+	 * @param product
+	 */
 	@Transactional
 	public void updateProduct(ProductDTO product) {
 		MultipartFile uploadFile = product.getUploadFile();
@@ -229,7 +385,7 @@ public class ProductService {
 	}
 	
 	/**
-	 * 
+	 * 상품 1개 삭제하기
 	 * @param productNo
 	 */
 	@Transactional

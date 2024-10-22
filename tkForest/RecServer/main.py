@@ -27,9 +27,10 @@ def myrec(item: Item) :
         sorted_idx = pickle.load(f)
         
         dicted = dict(item)
-        num = dicted['buyerMemberNo']
+        num = int(dicted['buyerMemberNo'])
         print(num)
-        
+        print(df_concat)
+        print(df_concat[df_concat['TARGETNO']==389195])
         # 상위 50개 제품 추출
         top_50_productno = df_concat.iloc[sorted_idx[df_concat[df_concat['TARGETNO'] == num].index[0]-38965, :50]]['TARGETNO'].unique()
 
@@ -72,15 +73,16 @@ def myrec(item: Item) :
 
             unique_items = unique_items.drop(sample.index)
 
-        # 각 추천 항목을 문자열로 변환
-        final_recommendations_str = [sample.to_string(index=False) for sample in final_recommendations]
+        recProducts = []
+        for i in final_recommendations:
+            recProducts.append(int(i['PRODUCTNO']))
+        print(recProducts)
 
-        print(final_recommendations_str)
+    return JSONResponse(content={"recommendations": recProducts})
 
-    return JSONResponse(final_recommendations_str)
 
 # Uvicorn 서버 실행
 # nest_asyncio.apply()
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", host="127.0.0.1", port=8088, log_level="info")
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
