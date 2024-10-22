@@ -102,9 +102,9 @@ public class ProductController {
    /**
     * index에서 넘어올 경우
     * + 검색해서 넘어올 경우 searchType(전체or상품or셀러)/query(검색어)
-    * @param pageable
-    * @param searchItem
-    * @param searchWord
+    * @param 
+    * @param searchType
+    * @param query
     * @param model
     * @return
     */
@@ -114,6 +114,7 @@ public class ProductController {
            @RequestParam(name="searchType", defaultValue="ALL") String searchType,
            @RequestParam(name="query", defaultValue="") String query,
            Model model) {
+	   
       // 검색기능 + 페이징
        Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
 

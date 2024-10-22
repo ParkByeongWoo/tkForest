@@ -23,4 +23,4 @@ public interface PCategoryRepository extends JpaRepository<PCategoryEntity, Inte
 	//List<PCategoryEntity> findAllByCategoryEntityOrderByPCategoryNoDesc(Optional<CategoryEntity> categoryEntity);
 	
 	
-}
+}  

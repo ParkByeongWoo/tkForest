@@ -18,3 +18,4 @@ public interface ProductCertificateRepository extends JpaRepository<ProductCerti
 	//List<Integer> findByProductEntityProductNo(Integer productNo);
 //	List<ProductCertificateEntity> findAllByCertificateEntityOrderByProductCertificateNoDesc(Optional<CertificateEntity> certificateEntity);
 }
+ 

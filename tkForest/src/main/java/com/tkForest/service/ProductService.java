@@ -148,7 +148,7 @@ public class ProductService {
 	    System.out.println(categoryNos);
 	    
 	    return categoryNos;
-	}
+	} 
 	
 	/**
 	 * 상품의 인증서 조회하기

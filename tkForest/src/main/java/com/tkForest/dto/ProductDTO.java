@@ -16,10 +16,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
+@Setter 
 @ToString
 @Builder
-public class ProductDTO {
+public class ProductDTO { 
 
     // ProductDTO의 필드들 (ProductEntity와 동일한 필드)
     private Integer productNo;

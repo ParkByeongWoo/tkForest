@@ -30,7 +30,7 @@ public class ProductCertificateEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="PRODUCTCERTIFICATENO")
-	private Integer productCertificateNo;
+	private Integer productCertificateNo;  
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="PRODUCTNO", referencedColumnName = "PRODUCTNO", nullable = false)
