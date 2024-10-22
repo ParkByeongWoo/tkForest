@@ -253,8 +253,8 @@ public class UserController {
 	   model.addAttribute("userDTO", sellerDTO); // sellerDTO는 sellerMypage.html 때문에 userDTO라고 칭하게 됨
 	   
 	   // 템플릿 이름을 반환합니다.
-	   // return "user/sellerMypage"; // 템플릿 이름
-	   return "user/mypagesellerprofile"; // 템플릿 이름
+	   return "user/sellerMypage"; // 템플릿 이름
+	   // return "user/mypagesellerprofile"; // 템플릿 이름
    }
    
    /**
