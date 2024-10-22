@@ -96,3 +96,4 @@ function output(resp) {
     // 생성된 HTML을 #product-list에 삽입
     $('#product-list').html(tags);
 }
+
