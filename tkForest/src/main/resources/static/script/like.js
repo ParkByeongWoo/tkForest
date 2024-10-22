@@ -5,17 +5,19 @@
 
 $(function() {
 	$('#like-button').on('click', productLike);
-}		
+});		
 
 function productLike() {
     // 버튼에 있는 data-productno 속성에서 productNo 값을 가져옴
-    let productNo = $(#productno).val();
+    let productNo = $(this).data('productNo');
+	let buyerMemberNo = $('#buyerMemberNo').val();
 
     // Ajax 요청을 통해 좋아요 서비스 호출
     $.ajax({
-        url: '/like',  // 좋아요 처리하는 서비스의 URL (필요에 따라 변경)
+        url: '/product/productLike',  // 좋아요 처리하는 서비스의 URL
         method: 'POST',
         data: {
+			buyerMemberNo: buyerMemberNo,
             productNo: productNo,  // 상품 번호 전송
             likeUseYn: 'Y'  // 좋아요 상태 전송
         },

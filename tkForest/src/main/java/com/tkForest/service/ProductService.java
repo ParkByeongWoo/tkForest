@@ -1,5 +1,6 @@
 package com.tkForest.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
+import com.tkForest.entity.B_LikeEntity;
+import com.tkForest.entity.BuyerEntity;
 import com.tkForest.entity.CategoryEntity;
 import com.tkForest.entity.CertificateEntity;
 import com.tkForest.entity.PCategoryEntity;
@@ -22,6 +25,7 @@ import com.tkForest.entity.ProductCertificateEntity;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
 import com.tkForest.repository.BLikeRepository;
+import com.tkForest.repository.BuyerRepository;
 import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.CertificateRepository;
 import com.tkForest.repository.PCategoryRepository;
@@ -41,6 +45,7 @@ public class ProductService {
    
 	final ProductRepository productRepository;
 	final SellerRepository sellerRepository;
+	final BuyerRepository buyerRepository;
 	
 	final PCategoryRepository pCategoryRepository;
 	final CategoryRepository categoryRepository;
@@ -392,6 +397,51 @@ public class ProductService {
     }
 	    
 	
+	public boolean productLikeCreate(String buyerMemberNo, Integer productNo, String likeUseYn) {
+		
+//		Optional<ProductEntity> productEntityOpt = productRepository.findByProductNo(productNo);
+//		Optional<BLikeEntity> BLikeEntityOpt = BLikeRepository.(productNo);
+//		
+//		if (productEntityOpt.isPresent()) {
+//			ProductEntity productEntity = productEntityOpt.get();
+//		}
+		
+		BuyerEntity buyer = buyerRepository.findByBuyerMemberNo(buyerMemberNo)
+	                .orElseThrow(() -> new IllegalArgumentException("Buyer not found"));
+		
+		ProductEntity product = productRepository.findByProductNo(productNo)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+		
+		 B_LikeEntity blike = B_LikeEntity.builder()
+	                .likefromBuyerEntity(buyer)         // Set the buyer entity
+	                .likedProductEntity(product)        // Set the product entity
+	                .likeCreatedDate(LocalDateTime.now())  // Automatically set the current date/time
+	                .likeUseYn(likeUseYn)               // Set the like status (e.g., "Y")
+	                .build();
+		
+		bLikeRepository.save(blike);
+		log.info("B_like 추가함:{}", blike);
+		
+		return true;
+//		
+//		B_LikeEntity bLikeEntity = new B_LikeEntity();
+//		bLikeEntity.setLikefromBuyerEntity(buyerMemberNo);
+//		blikeEntity.set
+//		
+//		public LikeEntity saveLike(String fromBuyerMemberNo, String toSellerMemberNo, Long toProductNo) {
+//	        LikeEntity like = new LikeEntity();
+//	        like.setFromBuyerMemberNoLike(fromBuyerMemberNo);
+//	        like.setToSellerMemberNoLike(toSellerMemberNo);
+//	        like.setToProductNoLike(toProductNo);
+//	        like.setLikeCreateDate(LocalDateTime.now());
+//	        like.setLikeUseYn("Y");  // Assuming "Y" means active
+//
+//	        return likeRepository.save(like);
+//	    }
+		
+		
+		
+	}
 	
 	
 	

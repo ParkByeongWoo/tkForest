@@ -565,7 +565,6 @@
 <!--  상품목록 밑에 네비가 있게 하기 위함 -->
 <div class="content-container">
 
-
 <div class="product-grid">
    <th:block th:each="product : ${list}">
       <!-- product-card 안에 a 태그를 넣어서 레이아웃이 깨지지 않도록 수정 -->
@@ -591,10 +590,16 @@
             </p>
          </div>
          <div class="product-actions">
-            <button id="like-button" class="like-button" th:data-productno="${product.productNo}">❤️</button>
+            <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
             <button class="contact-button">✉️</button>
          </div>
       </div>
+      
+     <!-- Ajax 전송할 때 필요한 정보(hidden) -->
+	<input type="hidden" id="buyerMemberNo" th:value="${#authentication.name}">
+	<!-- <input type="hidden" id="buyerMemberNo" th:value="${userDTO.buyerMemberNo}">  -->
+	<!-- end. Ajax 전송 위한 hidden -->
+	
    </th:block>
 </div>
 

@@ -3,8 +3,8 @@ package com.tkForest.controller;
 
 import java.util.List;
 
+import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
-import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
@@ -137,6 +137,7 @@ public class ProductController {
            @PageableDefault(page=1) Pageable pageable,
            @RequestParam(name="searchType", defaultValue="ALL") String searchType,
            @RequestParam(name="query", defaultValue="") String query,
+           // @AuthenticationPrincipal LoginBuyerDetails userDetails,
            Model model) {
 	   
       // 검색기능 + 페이징
@@ -156,8 +157,23 @@ public class ProductController {
        
    }
    
-   
-   
+   /**
+    * Like 버튼 누르면 B_Like에 추가
+    * @param buyerMemberNo
+    * @param productNo
+    * @param likeUseYn
+    */
+   @PostMapping("/productLike")
+   public void productLike(
+		   @RequestParam(name="buyerMemberNo") String buyerMemberNo
+		   , @RequestParam(name="productNo") Integer productNo
+		   , @RequestParam(name="likeUseYn") String likeUseYn
+		   ) {
+	   log.info("서비스 도착 {}", productNo);
+	   
+	   boolean result = productService.productLikeCreate(buyerMemberNo, productNo, likeUseYn);
+	   log.info("blike 저장 성공여부:{}", result);
+   }
    
    
    
