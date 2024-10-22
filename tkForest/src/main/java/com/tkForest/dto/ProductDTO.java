@@ -1,6 +1,7 @@
 package com.tkForest.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +35,9 @@ public class ProductDTO {
     private String keyword;
     private Integer viewCnt;
 
+    private List<String> categoryNames;
+    private List<Integer> productCertificateTypeCodes;
+    
     public ProductDTO(
           Integer productNo
           , String sellerMemberNo
