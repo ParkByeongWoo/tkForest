@@ -32,6 +32,8 @@ public class SecurityConfig {
                // 로그인 안해도 모든 사람이 접근 가능한 목록
                .requestMatchers(
                      "/"
+            		 , "/home/userHome"
+            		 , "/home/memberHome"	// 회원전용 Home이지만 일단 임시로 가능
                      , "/user/signUp"
                      , "/user/login"         // 에러 발생시 경로
                      , "/user/sellerSignUp"
@@ -59,7 +61,7 @@ public class SecurityConfig {
                      , "/images/**"
                      , "/css/**"
                      , "/script/**"
-//                     , "/img/**"
+                     , "/img/**"
                      , "/**"
                      ,"/fragment/**"
                      

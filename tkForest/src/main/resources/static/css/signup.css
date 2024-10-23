@@ -1,45 +1,120 @@
-/* 모달 창 배경 설정 */
-.modal-dialog {
-    max-width: 800px; /* 모달 창 너비 */
-    width: 90%; /* 화면의 90%를 차지하게 설정 */
-}
-
+/* 모달 배경 설정 (검정 불투명) */
 .modal {
-    display: none;
+    display: none; /* 기본적으로 숨김 */
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5); /* 반투명 검정 배경 */
-    overflow: auto; /* 작은 화면에서 스크롤 가능하도록 설정 */
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
 }
 
 /* 모달 내용 설정 */
 .modal-content {
     background-color: white;
-    margin: 10% auto; /* 페이지 중앙 정렬 */
+    margin: 10% auto;
     padding: 20px;
     border-radius: 10px;
-    width: 70%; /* 기본 모달 너비 */
-    max-width: 600px; /* 최대 너비 제한 */
+    width: 80%;
+    max-width: 1800px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-/* 반응형 모달: 화면이 작아졌을 때 */
-@media screen and (max-width: 768px) {
-    .modal-content {
-        width: 90%; /* 작은 화면에서 너비를 90%로 */
-    }
+/* "카테고리 검색" 글씨 크기 조정 */
+.modal-content h2 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+/* 대분류, 중분류, 소분류 레이블 세로 가운데 정렬 */
+.category-wrapper label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 0;
+    line-height: 1.5;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* 선택창 스타일 */
+.category-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.category-wrapper select {
+    width: 250px;                /* 선택창 너비 고정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;      /* 텍스트가 넘칠 경우 ... 표시 */
+    overflow: hidden;
+}
+
+/* 선택된 카테고리 리스트 영역의 여백 설정 */
+#selectedCategoryListContainer {
+    margin-top: 20px;  /* 위쪽 간격 */
+    padding-top: 10px; /* 선택된 카테고리 부분 상단 여백 */
+    padding-bottom: 20px; /* 선택된 카테고리 부분 하단 여백 추가 */
+    border-top: 1px solid #ccc;  /* 상단 경계선 */
+     position: relative; /* 버튼을 배치하기 위한 상대 위치 */
+}
+
+
+/* 추가 버튼 */
+#addCategoryBtn {
+    padding: 10px 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    width: 80px;
+    text-align: center;
+}
+
+#addCategoryBtn:hover {
+    background-color: #000080;
+}
+
+/* Clear 버튼 스타일 */
+#clearCategoryBtn {
+    padding: 5px 10px;
+    background-color: #eee;
+    color: #f44336;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    position: absolute;
+    right: 45px; /* 선택된 카테고리 리스트 오른쪽에 배치 */
+    top: 20px;  /* 선택된 카테고리 텍스트와 세로로 맞추기 */
+}
+
+#clearCategoryBtn:hover {
+    background-color: #d32f2f;
+    color: white;
 }
 
 /* 닫기 버튼 설정 */
 .close-btn {
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 10px;                /* 상단에서 10px 내려옴 */
+    right: 20px;              /* 오른쪽에서 20px 떨어지게 설정 */
     font-size: 28px;
     font-weight: bold;
     color: #333;
@@ -50,98 +125,20 @@
     color: #999;
 }
 
-/* 제목 스타일 */
-.modal h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #444;
-}
 
-/* 카테고리 선택 영역 스타일 */
-.category-wrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
-@media screen and (max-width: 768px) {
-    .category-wrapper {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
-/* 레이블 스타일 */
-.category-wrapper label {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 0;
-    line-height: 1.5;
-}
-
-/* 선택 박스 스타일 */
-.category-wrapper select {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    min-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* 카테고리 추가 버튼 스타일 */
-#addCategoryBtn {
-    padding: 10px 20px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.1s ease;
-    align-self: center;
-    white-space: nowrap;
-    flex-shrink: 0;
-    width: 100px;
-    text-align: center;
-}
-
-#addCategoryBtn:hover {
-    background-color: #000080;
-}
-
-/* 선택된 카테고리 리스트 스타일 */
-#selectedCategoryListContainer {
-    margin-top: 20px;
-}
-
-#selectedCategoryList {
-    display: inline-block;
-    white-space: normal;
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 1.5;
-}
 
 /**** 중복확인 버튼 ****/
 button#confirmBizregNo,
 button#confirmSellerId,
 button#confirmBuyerId,
 button#openModalBtn {
-	border: 0.5px solid #eee;
-	color: #aaa;
+    border: 0.5px solid #eee;
+    color: #aaa;
     font-size: 0.8rem;
     margin-left: 5px;
     margin-bottom: 9px;
 }
-      
+
 button#confirmBizregNo:hover,
 button#confirmSellerId:hover,
 button#openModalBtn:hover {
@@ -206,3 +203,4 @@ div.sellerCertificateTypeCodes {
 .sellerCertificateTypeCodes label.trade {
     flex-basis: auto;
 }
+

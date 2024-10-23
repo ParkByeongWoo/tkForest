@@ -213,6 +213,14 @@ function initializeModal() {
 		event.preventDefault();
         modal.show();
     });
+	
+	// 초기화 버튼 클릭 시 선택된 카테고리 비우기
+	    $('#clearCategoryBtn').on('click', function() {
+			event.preventDefault();
+	        $('#selectedCategoryList').text('');  // 선택된 카테고리 텍스트 초기화
+	        $('#selectedCategory').val('');       // 숨겨진 input 값 초기화
+	        $('#hiddenCategoryInputs').empty();   // hidden input 요소 초기화
+	    });
 
     // 모달 닫기 버튼 클릭 시
     closeModalBtn.on('click', function() {
