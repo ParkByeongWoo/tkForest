@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
+import com.tkForest.entity.ProductEntity;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
@@ -133,13 +135,15 @@ public class ProductController {
     */
    @GetMapping("/productList")
    public String productList(
-           @PageableDefault(page=1) Pageable pageable,
+           @PageableDefault(page=1, size=9) Pageable pageable,
            @RequestParam(name="searchType", defaultValue="ALL") String searchType,
            @RequestParam(name="query", defaultValue="") String query,
+           @RequestParam(name = "sortBy", required = false, defaultValue = "registrationDate") String sortBy, // 수정된 부분, 이름명시
+           
            Model model) {
 	   
       // 검색기능 + 페이징
-       Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
+       Page<ProductDTO> list = productService.selectAll(pageable, searchType, query, sortBy);
 
        int totalPages = list.getTotalPages();
        int page = pageable.getPageNumber();
@@ -156,6 +160,21 @@ public class ProductController {
        
        
    }
+   
+   
+   // 검색 및 정렬된 상품 목록 제공
+   @GetMapping("/productListOrderBy")
+   @ResponseBody
+   public Page<ProductEntity> productListOrderBy(
+           @RequestParam(name = "searchType", defaultValue = "ALL") String searchType,
+           @RequestParam(name = "query", defaultValue = "") String query,
+           @RequestParam(name = "orderBy", defaultValue = "latest") String orderBy,
+           @RequestParam(name = "page", defaultValue = "1") int page) {
+
+       return productService.getProducts(searchType, query, page, orderBy);
+   }
+
+   
    
    /**
     * 

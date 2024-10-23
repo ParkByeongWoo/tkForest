@@ -39,6 +39,7 @@ public class SecurityConfig {
 							, "/predict"
 							, "/images/**"
 							, "/css/**"
+							, "/product/productListOrderBy"
 							, "/script/**").permitAll() // permitAll() 인증절차 없이도 접근가능한 요청 정보
 					.requestMatchers("/admin/**").hasRole("ADMIN")
 					.requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")

@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="/assets/css/responsive.css">
 
     <!-- 가입용 -->
+    <link rel="stylesheet" href="/css/signup.css">
     <style>
         .ms-login-container {
             cursor: pointer;
@@ -366,53 +367,46 @@
         </div>
         <!-- Breadcrumb end -->
 
-        <!-- Login section -->
-        <section class="ms-login padding-tb-30">
-            <div class="container">
-                <div class="section-title-2">
-                    <h2 class="ms-title">Sign-Up<span></span></h2>
-                    <h3>Welcome to tradeKorea.com</h3>
-                    <h4>Choose your account type:</h4>
-                </div>
-                <div class="ms-login-content p-t-15">
-                    <div class="ms-login-box">
-                        <div class="ms-login-wrapper">
-                            <div class="ms-login-container">
-                                <div class="ms-login-form">
-                                    <form th:action="@{/user/sellerSignUp}" method="get" id="sellerSignUpForm">
-                                        <div class="clickable-container" onclick="submitSellerForm()">
-                                            <span class="ms-login-wrap">
-                                                <label>국내 셀러 회원</label>
-                                                <p>*사업자등록번호 필수</p>
-                                            </span>
-                                            <button type="submit" style="display:none;">Submit</button> <!-- 숨겨진 버튼 -->
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+<section class="ms-login padding-tb-30">
+    <div class="container">
+        <div class="section-title-2">
+            <h2 class="ms-title">Sign-Up</h2>
+            <h3>Welcome to tradeKorea.com</h3>
+            <h4>Choose your account type:</h4>
+        </div>
+        <div class="ms-login-content p-t-15">
+            <!-- Seller Box -->
+            <div class="ms-login-box" onclick="submitSellerForm()">
+                <div class="ms-login-wrapper">
+                    <form th:action="@{/user/sellerSignUp}" method="get" id="sellerSignUpForm">
+                        <div class="clickable-container">
+                            <span class="ms-login-wrap">
+                                <label>국내 셀러 회원</label>
+                                <p>사업자등록번호 필수</p>
+                            </span>
+                            <button id="registerBtn" type="submit">REGISTER</button>
                         </div>
-                    </div>
-                    <div class="ms-login-box">
-                        <div class="ms-login-wrapper">
-                            <div class="ms-login-container">
-                                <div class="ms-login-form">
-                                    <form th:action="@{/user/buyerSignUp}" method="get" id="buyerSignUpForm">
-                                        <div class="clickable-container" onclick="submitBuyerForm()">
-                                            <span class="ms-login-wrap">
-                                                <label>Global Buyer</label>
-                                                <p>I purchase products from Korea</p>
-                                            </span>
-                                            <button type="submit" style="display:none;">Submit</button> <!-- 숨겨진 버튼 -->
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </section>
-        <!-- Login section End -->
+
+            <!-- Buyer Box -->
+            <div class="ms-login-box" onclick="submitBuyerForm()">
+                <div class="ms-login-wrapper">
+                    <form th:action="@{/user/buyerSignUp}" method="get" id="buyerSignUpForm">
+                        <div class="clickable-container">
+                            <span class="ms-login-wrap">
+                                <label>Global Buyer</label>
+                                <p>I purchase products from Korea</p>
+                            </span>
+                            <button id="registerBtn" type="submit">REGISTER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
          <!-- 푸터 시작-->
 
@@ -429,9 +423,9 @@
                                  KITA's global B2B marketplace, tradeKorea!
                                  A leading B2B Marketplace to Discover and Source Korean Products</p>
                               <div class="ms-app-store">
-                                 <a href="#" class="app-img"><img src="assets/img/app/android.png" class="adroid"
+                                 <a href="#" class="app-img"><img src="/assets/img/app/android.png" class="adroid"
                                        alt="apple"></a>
-                                 <a href="#" class="app-img"><img src="assets/img/app/apple.png" class="apple"
+                                 <a href="#" class="app-img"><img src="/assets/img/app/apple.png" class="apple"
                                        alt="apple"></a>
                               </div>
                            </div>

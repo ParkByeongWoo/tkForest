@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
    <meta charset="UTF-8">
@@ -134,7 +135,10 @@
          .stats {
             flex: none;
          }
-      }
+         
+         }
+           
+      
    </style>
 
 
@@ -209,7 +213,7 @@
                   <!-- Header Logo Start -->
                   <div class="align-self-center ms-header-logo">
                      <div class="header-logo">
-                        <a th:href="@{/}"><img th:src="@{/img/tkforestlogo.png}" alt="Site Logo"></a>
+                        <a th:href="@{/}"><img th:src="@{/img/tkForestlogoB2BLong.png}" alt="Site Logo"></a>
                      </div>
                   </div>
                   <!-- Header Logo End -->
@@ -407,6 +411,7 @@
       </div>
 
       <!-- Header menu End -->
+      </header>
       <!-- 헤더 끝 -->
 
       <!-- 페이지 본문 -->
@@ -487,7 +492,7 @@
                      <div class="row m-minus-991">
                         <div class="col-sm-12 col-lg-3 ms-footer-cat">
                            <div class="ms-footer-widget ms-footer-company">
-                              <img th:src="@{/img/tkforestlogo.png}" class="ms-footer-logo" alt="footer logo">
+                              <img th:src="@{/img/tkForestlogoB2BLong.png}" class="ms-footer-logo" alt="footer logo">
                               <p class="ms-footer-detail">
                                  KITA's global B2B marketplace, tradeKorea!
                                  A leading B2B Marketplace to Discover and Source Korean Products</p>

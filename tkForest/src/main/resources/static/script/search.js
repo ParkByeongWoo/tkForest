@@ -3,11 +3,19 @@
  */
 
 // 이벤트 소스
-let searchInput = document.getElementById("searchInput");
+let searchInput = document.getElementById("searchInput");  //검색어 입력
+let latestButton = document.getElementById("latest"); // 최신순 정렬
+let mostViewedButton = document.getElementById("mostViewed"); // 조회수 정렬
+
 
 searchInput.addEventListener('click', goto);
+latest.addEventListener('click', latestButton);
+mostViewed.addEventListener('click', mostViewedButton);
 
 // 이벤트 핸들러
+/** 
+ * 검색창에서 유형+검색어 입력
+*/
 function goto() {
 	let searchType = document.getElementById("searchType").value;
 	let brand = document.getElementById("brand").value;
@@ -24,10 +32,5 @@ function pageFormSubmit(page) {
 	document.getElementById("requestPage").value = page;
 	document.getElementById("searchForm").submit();
 }
-
-
-
-
-
 
 

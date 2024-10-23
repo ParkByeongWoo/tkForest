@@ -223,11 +223,6 @@
     height: 100%; /* 전체 높이 설정 */
     
 }
-
-
-
-      
-      
       
       
    </style>
@@ -313,6 +308,7 @@
                         <div class="header-search">
                            <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET" id="searchForm">
                             <input type="hidden" name="page" id="requestPage" th:value="${page}">
+                            <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
                               <div class="ms-search-select-inner">
                                  <select class="ms-search-cat selectpicker" id="searchType" name="searchType">
                                     <option value="ALL" th:selected="${searchType == 'ALL'}">ALL</option>
@@ -565,8 +561,19 @@
             </div> 
             
 <!--  상품목록 밑에 네비가 있게 하기 위함 -->
-<div class="content-container">
+<!-- 
 
+
+
+ -->
+
+<div class="content-container">
+	<!-- 상품 정렬 버튼 추가 -->
+	
+   <div style="text-align: right; margin: 10px;">
+   <input type="button" id="latest" value="latest" onclick="sortProducts('registrationDate')">
+   <input type="button" id="mostViewed" value="mostViewed"  onclick="sortProducts('viewCnt')">
+   </div>
 
 <div class="product-grid">
    <th:block th:each="product : ${list}">
@@ -669,40 +676,8 @@
 </div>
          </div>
       </div>
-   
-
-
-   <!-- 네비게이션 링크 -->
-   <nav>
-      <ul>
-      <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-      <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-      <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-         <li><a th:href="@{/user/signUp}">회원가입선택-바이어셀러고르는창</a></li>
-         <li><a th:href="@{/user/sellerSignUp}"> ㄴ 회원가입(셀러) 화면</a></li>
-         <li><a th:href="@{/user/buyerSignUp}"> ㄴ 회원가입(바이어) 화면</a></li>
-         <li><a th:href="@{/user/login}">로그인(공통) 화면 -- 후에 로그아웃으로 바뀌는기능 있어야 함</a></li>
-         <li><a th:href="@{/user/logout}">로그아웃</a></li>
-         <li><a th:href="@{/aboutUs}">어바웃어스</a></li>
-
-         <li><a th:href="@{/user/buyerMypage}">마이페이지(바이어)</a></li>
-         <li><a th:href="@{/user/sellerMypage}">마이페이지(셀러)</a></li>
-         <li><a th:href="@{/user/buyerProfileUpdate}">사용자 정보 수정</a></li>
-
-         <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-
-         <li><a th:href="@{/aboutUs}">통계(우선어바웃어스)</a></li>
-         <li><a th:href="@{/recList}">보따리추천 페이지</a></li>
-         <li><a th:href="@{/inquiry/inquiryList}">인콰이어리 페이지</a></li>
-         <li><a th:href="@{/product/productCreate}">상품 등록 화면later </a></li>
-         <li><a th:href="@{/user/sellerStore}">기본 셀러 스토어 </a></li>
-         <!--<li><a th:href="@{/user/sellerStore/{sellerMemberNo}(sellerMemberNo=${seller.sellerMemberNo})}">특정 셀러 스토어</a></li>-->
-         <li><a th:href="@{/chart/chartTest}">차트 테스트</a></li>
-         <li><a th:href="@{/product/productList}">상품 리스트</a></li>
-
-
-      </ul>
-   </nav>
+      
+      <!-- 페이징 끝-->
 
 
    <!-- 푸터 시작-->
@@ -857,23 +832,37 @@
    <script defer th:src="@{/script/search.js}"></script>
    
    <!-- 네비게이션 바 용 js -->
-                  <script>
-                  $(document).ready(function () {
-                     // Toggle for 1st depth categories
-                     $(".category-item").on("click", function () {
-                        $(this).find(".toggle-icon").toggleClass("open");
-                        $(this).find(".subcategory-list").slideToggle();
-                     });
+        <script>
+        $(document).ready(function () {
+           // Toggle for 1st depth categories
+           $(".category-item").on("click", function () {
+              $(this).find(".toggle-icon").toggleClass("open");
+              $(this).find(".subcategory-list").slideToggle();
+           });
 
-                     // Toggle for 2nd depth subcategories
-                     $(".subcategory-item").on("click", function (e) {
-                        e.stopPropagation(); // Prevent parent toggle from triggering
-                        $(this).find(".toggle-icon").toggleClass("open");
-                        $(this).find(".third-category-list").slideToggle();
-                     });
-                  });
-               </script>
-   
+           // Toggle for 2nd depth subcategories
+           $(".subcategory-item").on("click", function (e) {
+              e.stopPropagation(); // Prevent parent toggle from triggering
+              $(this).find(".toggle-icon").toggleClass("open");
+              $(this).find(".third-category-list").slideToggle();
+           });
+        });
+     </script>
+     <!-- 페이징 -->
+     <script>
+   function pageFormSubmit(pageNumber) {
+      document.getElementById('requestPage').value = pageNumber;
+      document.getElementById('searchForm').submit();
+   }
+</script>
+<!-- 스위칭버튼(최신순과 조회수 -->
+<script>
+   function sortProducts(sortBy) {
+      document.getElementById('sortBy').value = sortBy; // sortBy 값 설정
+      document.getElementById('searchForm').submit();   // 폼 제출
+   }
+</script>
+	   
 </body>
 
 

@@ -1,13 +1,14 @@
 package com.tkForest.service;
 
 import java.util.List;
+
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,10 @@ import com.tkForest.util.FileService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @RequiredArgsConstructor
 @Service
@@ -292,7 +297,7 @@ public class ProductService {
 	    
 	    return CertificateTypeCodes;
 	}
-	
+
 	/**
 	 * (검색기능 포함) 상품 리스트 불러오기 (상품 검색, 상품 조회)
 	 * @param pageable
@@ -300,47 +305,97 @@ public class ProductService {
 	 * @param searchWord 아니고 query
 	 * @return
 	 */
-	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query) {
-		int page = pageable.getPageNumber() - 1;
-		int pageLimit = pageable.getPageSize();
-		
-		Page<ProductEntity> entityList = null;
+	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query, String sortBy) {
+	    int page = pageable.getPageNumber() - 1;
+	    int pageLimit = pageable.getPageSize();
+	    
+	    //
+	    // 기본 정렬 기준 (없으면 registrationDate)
+	    if (sortBy == null || sortBy.isEmpty()) {
+	        sortBy = "registrationDate";
+	        }
+	   // 동적으로 정렬 기준을 설정
+	    Sort sort = Sort.by(Sort.Direction.DESC, sortBy);
+       //
+	    
+	    
+	    Page<ProductEntity> entityList = null;
 
 	    switch (searchType) {
+	    
+	    	//상품과 브랜드 둘 다 검색
         case "ALL":
-            // ProductName 또는 Brand에 포함된 항목 모두 검색
-            entityList = productRepository.findByProductNameContainsOrBrandContains(query, query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            entityList = productRepository.findByProductNameContainsOrBrandContains(
+                query, query, PageRequest.of(page, pageLimit, sort));
             break;
+            //상품으로 검색
         case "Products":
-            // ProductName으로 검색
-            entityList = productRepository.findByProductNameContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            entityList = productRepository.findByProductNameContains(
+                query, PageRequest.of(page, pageLimit, sort));
             break;
+            //브랜드로 검색
         case "Brand":
-            // Brand로 검색
-            entityList = productRepository.findByBrandContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "brand")));
+            entityList = productRepository.findByBrandContains(
+                query, PageRequest.of(page, pageLimit, sort));
             break;
+            //디폴트는 둘 다 검색
         default:
-            // 기본 전체 검색 (ProductName 또는 Brand로 정렬)
-            entityList = productRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            entityList = productRepository.findByProductNameContainsOrBrandContains(
+                query, query, PageRequest.of(page, pageLimit, sort));
             break;
     }
-	    
-	    Page<ProductDTO> list = null;
 
-		// 페이징 형태의 list로 변환
-		// 목록에서 사용할 필요한 데이터만 간추림(생성자 만듦)
-		list = entityList.map(
-				(product) -> new ProductDTO(
-						product.getProductNo(),
-						product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
-						product.getRegistrationDate(),
-						product.getProductName(),
-						product.getBrand(),
-						product.getProductImagePath1())
-				);
+	    Page<ProductDTO> list = entityList.map(
+	        (product) -> new ProductDTO(
+	            product.getProductNo(),
+	            product.getSellerEntity().getSellerMemberNo(), 
+	            product.getRegistrationDate(),
+	            product.getProductName(),
+	            product.getBrand(),
+	            product.getProductImagePath1())
+	    );
 
-		return list;
+	    return list;
 	}
+
+	
+	
+	
+	
+	/**
+	 * 검색에서 정렬에 치중한 기능!
+	 * 해당 기능은 유형(상품/브랜드), 검색어, 정렬(최신순 또는 조회수 높은 순) 세가지를 포함
+	 * @param pageable
+	 * @param ordered - latest일 경우  
+	 * @param searchItem 아니고 searchType
+	 * @param searchWord 아니고 query
+	 * @return
+	 */
+    // 검색 및 정렬된 상품 목록 조회
+    public Page<ProductEntity> getProducts(String searchType, String query, int page, String orderBy) {
+        Pageable pageable = createPageRequest(page, orderBy);
+
+        // 검색 조건에 따라 동적으로 쿼리 수행
+        if ("ALL".equalsIgnoreCase(searchType)) {
+            return productRepository.findByProductNameContainsOrBrandContains(query, query, pageable);
+        } else if ("Products".equalsIgnoreCase(searchType)) {
+            return productRepository.findByProductNameContainsOrBrandContains(query, "", pageable);
+        } else if ("Brand".equalsIgnoreCase(searchType)) {
+            return productRepository.findByProductNameContainsOrBrandContains("", query, pageable);
+        }
+        return Page.empty();  // 검색 결과가 없는 경우 빈 페이지 반환
+    }
+
+    // 정렬 기준에 따른 PageRequest 생성
+    private Pageable createPageRequest(int page, String orderBy) {
+        Sort sort = "latest".equalsIgnoreCase(orderBy)
+                ? Sort.by(Sort.Direction.DESC, "registrationDate")
+                : Sort.by(Sort.Direction.DESC, "viewCnt");
+        return PageRequest.of(page - 1, 10, sort);  // 페이지는 0부터 시작하므로 -1
+    }
+
+	
+
 	
 	/**
 	 * 상품 1개 정보 수정하기
@@ -447,4 +502,15 @@ public class ProductService {
 			temp.setProductImagePath2(null);
 		}
 	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
