@@ -586,10 +586,14 @@
                         <p>Year Established: 2022</p>
                         <p>Business Type: Manufacturer</p>
                         <div class="product-actions">
-                            <button class="like-button">❤️</button>
+                            <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
                             <button class="contact-button">✉️</button>
                         </div>
                     </div>
+                    
+                    <!-- Ajax 전송할 때 필요한 정보(hidden) -->
+					<input type="hidden" id="buyerMemberNo" th:value="${buyerMemberNo}">
+					<!-- end. Ajax 전송 위한 hidden -->
                 </div>
             </div>
 
@@ -762,6 +766,7 @@
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/demo-1.js"></script>
     <script defer th:src="@{/script/search.js}"></script>
+    <script defer th:src="@{/script/like.js}"></script>
 
     <!-- 네비게이션 바 용 js -->
     <script>

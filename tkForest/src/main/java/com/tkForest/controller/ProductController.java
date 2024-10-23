@@ -102,6 +102,7 @@ public class ProductController {
          @RequestParam(name="productNo") Integer productNo
          , @RequestParam(name="searchType", defaultValue="") String searchType
          , @RequestParam(name="query", defaultValue="") String query
+         , @AuthenticationPrincipal LoginBuyerDetails userDetails
          , Model model) {
       
       ProductDTO product = productService.selectOne(productNo);
@@ -121,6 +122,10 @@ public class ProductController {
       // 검색 기능이 추가되면 계속 달고 다녀야 함
       model.addAttribute("searchType", searchType);
       model.addAttribute("query", query);
+      
+      // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
+      String buyerMemberNo = userDetails.getBuyerMemberNo();
+      model.addAttribute("buyerMemberNo", buyerMemberNo);
       
       return "product/productDetail";  // 상세페이지로 이동
    }

@@ -21,8 +21,8 @@ function productLike() {
     let productNo = $(this).data('productno');
 	let buyerMemberNo = $('#buyerMemberNo').val();
 
-	alert(productNo);
-	alert(buyerMemberNo);
+	// alert(productNo);
+	// alert(buyerMemberNo);
 	
     // Ajax 요청을 통해 좋아요 서비스 호출
     $.ajax({
