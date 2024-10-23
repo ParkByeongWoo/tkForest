@@ -1,3 +1,7 @@
+/*
+*	about us 차트 Chart.js
+*/
+
 // All keyword data
 const words = ['care', 'skin', 'mask', 'beauty', 'face', 'cream', 'jewelry', 'fashion', 'facial', 'accessories'];
 const frequencies = [11236, 5605, 4950, 4158, 3808, 3774, 3321, 3206, 2963, 2578];
@@ -20,6 +24,7 @@ const otherKeywordFrequencies = [107, 91, 88, 86, 67, 46, 39, 34, 30, 29];
 
 // Pie chart (All Top 10 Words)
 const ctxPie = document.getElementById('All-pie-chart').getContext('2d');
+// Updating Pie chart with larger font size
 const pieChart = new Chart(ctxPie, {
     type: 'pie',
     data: {
@@ -59,16 +64,24 @@ const pieChart = new Chart(ctxPie, {
         plugins: {
             legend: {
                 position: 'top',
+                labels: {
+                    font: {
+                        size: 16  // Increase legend font size
+                    }
+                }
             },
             title: {
                 display: true,
-                text: 'All Top 10 Keyword & Category  (Total : 41,994)' // 총 키워드 수 직접 입력
+                text: 'All Top 10 Keyword & Category (Total : 41,994)',
+                font: {
+                    size: 20  // Increase title font size
+                }
             }
         }
     }
 });
 
-// Horizontal Bar Chart creation function
+// Updating horizontal bar charts with larger font sizes
 function createHorizontalBarChart(ctx, labels, data, label, bgColor, borderColor, chartTitle, totalKeywords) {
     return new Chart(ctx, {
         type: 'bar',
@@ -83,49 +96,58 @@ function createHorizontalBarChart(ctx, labels, data, label, bgColor, borderColor
             }]
         },
         options: {
-            indexAxis: 'y',  // Horizontal bar chart
+            indexAxis: 'y',
             responsive: true,
-            maintainAspectRatio: false,  // 부모 요소 크기에 맞춰 비율 유지
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     beginAtZero: true,
-                    display: false,  // x축 숨김
+                    display: false,
                     grid: {
-                        display: false  // x축의 그리드 라인도 숨김
+                        display: false
                     }
                 },
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        autoSkip: false,  // y축 레이블 자동 생략 비활성화
-                        maxRotation: 90,  // y축 레이블 회전 (필요시 조정)
-                        minRotation: 0    // 최소 회전 각도 설정
+                        font: {
+                            size: 14  // Increase y-axis font size
+                        },
+                        autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 0
                     }
                 }
             },
             plugins: {
                 legend: {
                     position: 'top',
+                    labels: {
+                        font: {
+                            size: 16  // Increase legend font size
+                        }
+                    }
                 },
                 title: {
                     display: true,
-                    text: `${chartTitle} (Total : ${totalKeywords})` // 총 키워드 수 직접 입력
-                },
-                tooltip: {
-                    enabled: true  // 툴팁 활성화
+                    text: `${chartTitle} (Total : ${totalKeywords})`,
+                    font: {
+                        size: 18  // Increase title font size
+                    }
                 }
             },
             layout: {
                 padding: {
                     left: 10,
                     right: 10,
-                    top: 40,  // 텍스트 공간 확보
+                    top: 40,
                     bottom: 20
                 }
             }
         }
     });
 }
+
 
 // Creating horizontal bar charts for Beauty, Fashion, Food, Other
 const ctxKeywordsBar = document.getElementById('Beauty-keywords-bar-chart').getContext('2d');

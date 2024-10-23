@@ -1108,18 +1108,29 @@
                            th:value="${inquiry.subject}" readonly>
                 </div>
 	
-				<!-- 발신자 (From) -->
-				<div class="form-group">
-				    <label for="userName">발신자 (From)</label>
-					<input type="text" id="buyerMemberNo" name="buyerMemberNo" class="form-control"
-				               th:value="${inquiry.buyerMemberNo}" readonly> 
-				</div>
+	            <!-- 발신자 (From) -->
+	            <div class="form-group">
+	               <label for="userName">발신자 (From)</label>
+	               <!-- 화면에는 바이어의 이름이 보이도록 -->
+	               <input type="text" id="userName" name="userName" class="form-control" th:value="${#authentication.name}"
+	                  readonly>
+	
+	               <!-- 숨겨진 필드로 buyerMemberNo를 서버로 전달 -->
+	               <input type="hidden" id="buyerMemberNo" name="buyerMemberNo" th:value="${buyerMemberNo}">
+	            </div>
 				
 				<!-- 수신자 (To) -->
 				<div class="form-group">
 				    <label for="sellerMemberNo">수신자 (To)</label>
 					 <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
 				               th:value="${inquiry.sellerMemberNo}" readonly>
+				</div>
+				
+				<!-- 상품 이름 -->
+				<div class="form-group">
+				    <label for="productName">상품 이름</label>
+				    <input type="text" id="productName" name="productName" class="form-control" 
+				           th:value="${productName}" readonly>
 				</div>
 
                 <!-- 상품 고유번호 -->

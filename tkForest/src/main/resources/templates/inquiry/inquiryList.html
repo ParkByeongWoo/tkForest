@@ -229,7 +229,7 @@
                                     <img th:src="@{/images/attachment.png}" alt="Attached File" width="15px">
                                 </span>
                             </td>
-                            <td th:text="${inquiry.buyerMemberNo}"></td>
+                            <td th:text="${buyerNames[inquiry.buyerMemberNo]}"></td>
                             <td th:text="${#temporals.format(inquiry.offerSendDate, 'yyyy-MM-dd HH:mm')}"></td>
                             <td>
                                 <a th:href="@{/inquiry/inquiryDetail(inquiryNo=${inquiry.inquiryNo})}"  class="answer-button">Reply</a>

@@ -3,10 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Trend</title>
-
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Trend News</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="keywords"
+        content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
+    <meta name="description" content="Multipurpose eCommerce HTML Template">
+    <meta name="author" content="ashishmaraviya">
+    
     <!-- site Favicon -->
     <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
 
@@ -24,11 +29,11 @@
     <link rel="stylesheet" href="/assets/css/plugins/nouislider.css">
 
     <!-- Main Style -->
-    <link rel="stylesheet" id="main_style" href="/assets/css/demo-1.css">
+    <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
     <style>
         .trend-container {
-            max-width: 1200px;
+            max-width: 1400px;
             /* 가로 너비를 넓혀 더 많은 공간을 차지하도록 설정 */
             padding: 20px;
             background-color: #ffffff;
@@ -86,38 +91,43 @@
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ffffff;
-        }
-
-        th {
-            background-color: #ffffff;
-        }
-
-        tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-
-        .link-icon {
-            width: 24px;
-            height: 24px;
-            vertical-align: middle;
-        }
-        
-        .highlight-label {
-        font-weight: bold;
-        font-size: 18px;
-        color: #333; /* 강조된 텍스트 색상 */
-    }
-    </style>
+		    width: 100%;
+		    border-collapse: collapse;
+		    margin-top: 20px;
+		        }
+		
+		th, td {
+		    padding: 12px;
+		    text-align: center; /* 텍스트 중앙 정렬 */
+		    border: 1px solid #ffffff;
+		}
+		
+		th {
+		    background-color: #f2f2f2; /* 헤더 배경색을 약간 회색으로 변경 */
+		    font-weight: bold; /* 헤더 텍스트 굵게 */
+		}
+		
+		tr:nth-child(even) {
+		    background-color: #f9f9f9; /* 짝수 행 배경색 */
+		}
+		
+		tr:nth-child(odd) {
+		    background-color: #ffffff; /* 홀수 행 배경색 */
+		}
+		
+		.link-icon {
+		    width: 24px;
+		    height: 24px;
+		    vertical-align: middle;
+		}
+		        
+		        
+		        .highlight-label {
+		        font-weight: bold;
+		        font-size: 18px;
+		        color: #333; /* 강조된 텍스트 색상 */
+		    }
+    	</style>
 
 
 </head>
@@ -412,7 +422,7 @@
         </div>
     </div>
     <!-- Breadcrumb end -->
-    </header>
+	</header>
 
     <div class="trend-container mx-auto">
         <h1 class="text-center mb-4">Trend News</h1>
@@ -596,13 +606,14 @@
             }
 
             let output = '<table>';
-            output += '<tr><th>Region</th><th>News Title</th><th>Summary</th><th>Link</th></tr>';
+            output += '<tr><th>Region</th><th>Title</th><th>Summary</th><th>Date</th><th>Link</th></tr>';
 
             filteredItems.forEach(item => {
                 output += '<tr>';
                 output += `<td>${item.regn || 'N/A'}</td>`;
                 output += `<td>${item.newsTitl || 'N/A'}</td>`;
                 output += `<td>${item.cntntSumar || 'N/A'}</td>`;
+                output += `<td>${item.othbcDt || 'N/A'}</td>`;
                 output += `<td><a href="${item.kotraNewsUrl}" target="_blank"><img src="/img/news_icon.png" alt="View Article" class="link-icon"></a></td>`;
                 output += '</tr>';
             });

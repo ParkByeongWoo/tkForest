@@ -49,11 +49,6 @@ public class LoginBuyerDetails implements UserDetails {
 									// 이름은 Username이지만 여기선 ID를 의미하는 것!
 		return this.buyerId;
 	}
-
-	public String getBuyerMemberNo() {
-		return this.buyerMemberNo;
-		
-	}
 	
 	public String getBuyerMemberNo() {	// Security에서 비밀번호 확인을 위해 비밀번호 달라는 것
 		return this.buyerMemberNo;

@@ -117,7 +117,17 @@ public class InquiryService {
         inquiryRepository.save(inquiryEntity);
     }
 
-    
+
+    public String getBuyerNameByMemberNo(String buyerMemberNo) {
+        // Optional에서 값을 안전하게 꺼내기
+        Optional<BuyerEntity> buyerEntityOpt = buyerRepository.findByBuyerMemberNo(buyerMemberNo);
+        BuyerEntity buyerEntity = buyerEntityOpt.orElseThrow(() -> 
+            new RuntimeException("Buyer not found with buyerMemberNo: " + buyerMemberNo)
+        );
+
+        // 바이어의 이름(picName)을 반환
+        return buyerEntity.getPicName();
+    }
    
 
 }

@@ -516,5 +516,18 @@ public class ProductService {
 	            .map(product -> ProductDTO.toDTO(product, product.getSellerEntity().getSellerMemberNo()))
 	            .collect(Collectors.toList());
 	}
+	
+
+    // 상품 번호로 상품명 조회
+    public String findProductNameById(Integer productNo) {
+        Optional<ProductEntity> productEntity = productRepository.findById(productNo);
+        
+        if (productEntity.isPresent()) {
+            return productEntity.get().getProductName();  // 상품 이름 반환
+        } else {
+            throw new RuntimeException("Product not found with productNo: " + productNo);
+        }
+    }
+    
 
 }

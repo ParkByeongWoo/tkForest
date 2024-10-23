@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.tkForest.dto.ProductDTO;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
 
@@ -35,6 +36,10 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
    // productNo 목록을 기준으로 해당하는 ProductEntity 리스트를 가져오는 메소드
    List<ProductEntity> findByProductNoIn(List<Integer> productNos);
+   
+   // 상품 번호로 상품 조회
+   Optional<ProductEntity> findById(Integer productNo);
+   
 }
 
 
