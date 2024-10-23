@@ -16,10 +16,12 @@ public interface PCategoryRepository extends JpaRepository<PCategoryEntity, Inte
    @Query("SELECT c.categoryEntity.categoryNo FROM PCategoryEntity c WHERE c.productEntity.productNo = :productNo")
    List<Integer> findCategoryNosByProductNo(@Param("productNo") Integer productNo);
 
-   
    // PRODUCTNO에 해당하는 CATEGORYNO를 조회하는 쿼리
    //List<Integer> findByProductEntityProductNo(Integer productNo);
    //List<PCategoryEntity> findAllByCategoryEntityOrderByPCategoryNoDesc(Optional<CategoryEntity> categoryEntity);
    
+   // CATEGORYNO에 해당하는 PRODUCTNO를 조회하는 쿼리
+   @Query("SELECT c.productEntity.productNo FROM PCategoryEntity c WHERE c.categoryEntity.categoryNo = :categoryNo")
+   List<Integer> findProductNosByCategoryNo(@Param("categoryNo") Integer categoryNo);
    
 }  

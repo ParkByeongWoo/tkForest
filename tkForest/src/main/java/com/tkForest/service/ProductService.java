@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tkForest.dto.PCategoryDTO;
@@ -352,6 +353,48 @@ public class ProductService {
 	
 	
 	/**
+	 * 특정 카테고리에 속한 상품들 가져오기
+	 * @param query 
+	 * @param searchType 
+	 * @param pageable 
+	 * @param categoryId
+	 * @return
+	 */
+	public Page<ProductDTO> getProductsByCategory(Pageable pageable, String searchType, String query, Integer categoryId) {
+		
+		int page = pageable.getPageNumber() - 1;
+		int pageLimit = pageable.getPageSize();
+		
+		Page<ProductEntity> entityList = null;
+		
+		// 특정 카테고리에 해당하는 상품No 조회함
+		List<Integer> productNosByCategory = pCategoryRepository.findCategoryNosByProductNo(categoryId);
+		log.info("카테고리 필터링된 상품의 productNos 리스트 조회함: {}", productNosByCategory);
+		
+		 // 해당 productNo에 해당하는 ProductEntity 리스트 조회
+        Page<ProductEntity> cateProductEntityList = productRepository.findPageByProductNoIn(productNosByCategory, PageRequest.of(page, pageLimit));
+        log.info("좋아요 한 상품엔티티 리스트: {}", cateProductEntityList);
+
+        Page<ProductDTO> list = null;
+
+		// 페이징 형태의 list로 변환
+		// 목록에서 사용할 필요한 데이터만 간추림(생성자 만듦)
+		list = cateProductEntityList.map(
+				(product) -> new ProductDTO(
+						product.getProductNo(),
+						product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
+						product.getRegistrationDate(),
+						product.getProductName(),
+						product.getBrand(),
+						product.getProductImagePath1())
+				);
+
+		return list;
+	
+	}
+		
+	
+	/**
 	 * (B_마이페이지) 좋아요 한 상품 리스트 불러오기
 	 * @return
 	 */
@@ -366,7 +409,6 @@ public class ProductService {
 		// List<Integer> likedProductNos = bLikeRepository.findProductNosByBuyerMemberNoAndLikeUseYn();
         // log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
 		// 되는 코드 끝
-
 		
 		List<Integer> likedProductNos = bLikeRepository.findLikedProductsByBuyerMemberNo(buyerMemberNo, "Y");
         log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
@@ -446,7 +488,9 @@ public class ProductService {
 //	        return likeRepository.save(like);
 //	    }
 		
-		
+	
+
+	
 		
 	
 	
@@ -556,4 +600,8 @@ public class ProductService {
 			temp.setProductImagePath2(null);
 		}
 	}
+	
+
+	
+	
 }

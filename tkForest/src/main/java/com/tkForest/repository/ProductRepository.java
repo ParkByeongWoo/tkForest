@@ -23,6 +23,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     Page<ProductEntity> findByBrandContains(String brand, PageRequest of);
 
    Page<ProductEntity> findByProductNameContainsOrBrandContains(String productName, String brand, PageRequest of);
+   
 
    List<ProductEntity> findAllBySellerEntityOrderByProductNoDesc(Optional<SellerEntity> sellerEntity);
    
@@ -31,6 +32,11 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
    // productNo 목록을 기준으로 해당하는 ProductEntity 리스트를 가져오는 메소드
    List<ProductEntity> findByProductNoIn(List<Integer> productNos);
+   Page<ProductEntity> findPageByProductNoIn(List<Integer> productNos, PageRequest pageRequest);
+
+   
+   
+   
 }
 
 

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -169,6 +170,57 @@ public class ProductController {
        return "product/productList";  
        
    }
+   
+   
+	/**
+	 * 카테고리 필터링 된 상품 목록 조회
+	 * @param pageable
+	 * @param searchType
+	 * @param query
+	 * @param userDetails
+	 * @param categoryId
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/{categoryId}")
+	public String productListByCategory(
+			@PageableDefault(page=1) Pageable pageable,
+	        @RequestParam(name="searchType", defaultValue="ALL") String searchType,
+	        @RequestParam(name="query", defaultValue="") String query,
+	        @AuthenticationPrincipal LoginBuyerDetails userDetails,
+			@PathVariable("categoryId") Integer categoryId, 
+			Model model
+			) {
+       
+		log.info("컨트롤러 도착함");
+		
+		// 검색기능 + 페이징 + 카테고리
+	    // Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
+		Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryId);
+		log.info("Page<ProductDTO> list: {}", list);
+		
+			int totalPages = list.getTotalPages();
+			int page = pageable.getPageNumber();
+
+	       PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
+
+	       model.addAttribute("list", list);
+	       model.addAttribute("searchType", searchType);
+	       model.addAttribute("query", query);
+	       model.addAttribute("navi", navi);
+	       
+	       // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
+	       String buyerMemberNo = userDetails.getBuyerMemberNo();
+	       model.addAttribute("buyerMemberNo", buyerMemberNo);
+	       
+	       return "product/productList";  
+   
+	}
+   
+   
+   
+   
+   
    
    /**
     * Like 버튼 누르면 B_Like에 추가
