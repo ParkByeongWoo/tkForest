@@ -24,4 +24,11 @@ public interface PCategoryRepository extends JpaRepository<PCategoryEntity, Inte
    @Query("SELECT c.productEntity.productNo FROM PCategoryEntity c WHERE c.categoryEntity.categoryNo = :categoryNo")
    List<Integer> findProductNosByCategoryNo(@Param("categoryNo") Integer categoryNo);
    
+   // CATEGORYNO로 시작하는 PRODUCTNO를 조회하는 쿼리 (MySQL에서 Integer 사용)
+   @Query("SELECT c.productEntity.productNo FROM PCategoryEntity c WHERE CAST(c.categoryEntity.categoryNo AS string) LIKE CONCAT(:categoryNo, '%')")
+   List<Integer> findProductNosByCategoryNoStartsWith(@Param("categoryNo") Integer categoryNo);
+
+
+
+   
 }  

@@ -94,7 +94,7 @@ public class ProductController {
    }
    
    /**
-    * 
+    * 상품 상세정보 보기
     * @param productNo
     * @return
     */
@@ -124,9 +124,12 @@ public class ProductController {
       model.addAttribute("searchType", searchType);
       model.addAttribute("query", query);
       
+      // 바이어로 로그인한 경우에만 buyerMemberNo 추가
       // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
-      String buyerMemberNo = userDetails.getBuyerMemberNo();
-      model.addAttribute("buyerMemberNo", buyerMemberNo);
+      if (userDetails != null) {
+          String buyerMemberNo = userDetails.getBuyerMemberNo();
+          model.addAttribute("buyerMemberNo", buyerMemberNo);
+      }  
       
       return "product/productDetail";  // 상세페이지로 이동
    }
@@ -163,9 +166,12 @@ public class ProductController {
        model.addAttribute("query", query);
        model.addAttribute("navi", navi);
        
+       // 바이어로 로그인한 경우에만 buyerMemberNo 추가
        // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
-       String buyerMemberNo = userDetails.getBuyerMemberNo();
-       model.addAttribute("buyerMemberNo", buyerMemberNo);
+       if (userDetails != null) {
+           String buyerMemberNo = userDetails.getBuyerMemberNo();
+           model.addAttribute("buyerMemberNo", buyerMemberNo);
+       }  
        
        return "product/productList";  
        
@@ -173,7 +179,7 @@ public class ProductController {
    
    
 	/**
-	 * 카테고리 필터링 된 상품 목록 조회
+	 * (비회원용) 카테고리 필터링 된 상품 목록 조회
 	 * @param pageable
 	 * @param searchType
 	 * @param query
@@ -182,7 +188,7 @@ public class ProductController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/{categoryId}")
+	@GetMapping("/user/{categoryId}")
 	public String productListByCategory(
 			@PageableDefault(page=1) Pageable pageable,
 	        @RequestParam(name="searchType", defaultValue="ALL") String searchType,
@@ -191,7 +197,7 @@ public class ProductController {
 			@PathVariable("categoryId") Integer categoryId, 
 			Model model
 			) {
-       
+      
 		log.info("컨트롤러 도착함");
 		
 		// 검색기능 + 페이징 + 카테고리
@@ -209,14 +215,18 @@ public class ProductController {
 	       model.addAttribute("query", query);
 	       model.addAttribute("navi", navi);
 	       
-	       // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
-	       String buyerMemberNo = userDetails.getBuyerMemberNo();
-	       model.addAttribute("buyerMemberNo", buyerMemberNo);
-	       
+	        // 바이어로 로그인한 경우에만 buyerMemberNo 추가
+	        // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
+	        if (userDetails != null) {
+	            String buyerMemberNo = userDetails.getBuyerMemberNo();
+	            model.addAttribute("buyerMemberNo", buyerMemberNo);
+	        }  
+	        
 	       return "product/productList";  
-   
+  
 	}
    
+	
    
    
    

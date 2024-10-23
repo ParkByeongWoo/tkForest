@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tkForest.dto.PCategoryDTO;
@@ -361,6 +361,7 @@ public class ProductService {
 	 * @return
 	 */
 	public Page<ProductDTO> getProductsByCategory(Pageable pageable, String searchType, String query, Integer categoryId) {
+		log.info("categoryId: {}", categoryId);
 		
 		int page = pageable.getPageNumber() - 1;
 		int pageLimit = pageable.getPageSize();
@@ -368,12 +369,29 @@ public class ProductService {
 		Page<ProductEntity> entityList = null;
 		
 		// 특정 카테고리에 해당하는 상품No 조회함
-		List<Integer> productNosByCategory = pCategoryRepository.findCategoryNosByProductNo(categoryId);
-		log.info("카테고리 필터링된 상품의 productNos 리스트 조회함: {}", productNosByCategory);
+		// List<Integer> productNosByCategory = pCategoryRepository.findProductNosByCategoryNo(categoryId);
+		
+//		// 특정 카테고리에 해당하는 상품No 조회함 - categoryId로 시작하는 카테고리(즉, 대분류)
+//		List<Integer> productNosByCategory = pCategoryRepository.findProductNosByCategoryNoStartsWith(categoryId);
+//		// log.info("카테고리 필터링된 상품의 productNos 리스트 조회함: {}", productNosByCategory);
+//		
+//		// 위에서 불러온 List<Integer> productNosByCategory에는 productNo가 중복되어 들어가있기 때문에 중복제거 작업
+//		List<Integer> uniqueProductNos = productNosByCategory.stream()
+//	            .distinct()  // 중복 제거
+//	            .collect(Collectors.toList());
+//		log.info("중복 제거된 카테고리 필터링된 상품의 productNos 리스트 조회함: {}", uniqueProductNos);
+		
+		
+		// 특정 카테고리에 해당하는 상품No 조회 후 중복 제거 작업 - categoryId로 시작하는 카테고리(즉, 대분류)
+		List<Integer> uniqueProductNos = pCategoryRepository.findProductNosByCategoryNoStartsWith(categoryId).stream()
+		    .distinct()
+		    .toList();  // Java 16 이상에서 사용 가능
+
+		log.info("중복 제거된 카테고리 필터링된 상품의 productNos 리스트 조회함: {}", uniqueProductNos);
 		
 		 // 해당 productNo에 해당하는 ProductEntity 리스트 조회
-        Page<ProductEntity> cateProductEntityList = productRepository.findPageByProductNoIn(productNosByCategory, PageRequest.of(page, pageLimit));
-        log.info("좋아요 한 상품엔티티 리스트: {}", cateProductEntityList);
+        Page<ProductEntity> cateProductEntityList = productRepository.findPageByProductNoIn(uniqueProductNos, PageRequest.of(page, pageLimit));
+        log.info("좋아요 한 상품엔티티 리스트: {}", cateProductEntityList.get());
 
         Page<ProductDTO> list = null;
 
