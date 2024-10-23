@@ -3,10 +3,12 @@ package com.tkForest.controller;
 
 import java.util.List;
 
-import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
@@ -137,7 +140,7 @@ public class ProductController {
            @PageableDefault(page=1) Pageable pageable,
            @RequestParam(name="searchType", defaultValue="ALL") String searchType,
            @RequestParam(name="query", defaultValue="") String query,
-           // @AuthenticationPrincipal LoginBuyerDetails userDetails,
+           @AuthenticationPrincipal LoginBuyerDetails userDetails,
            Model model) {
 	   
       // 검색기능 + 페이징
@@ -148,10 +151,15 @@ public class ProductController {
 
        PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
 
+       
        model.addAttribute("list", list);
        model.addAttribute("searchType", searchType);
        model.addAttribute("query", query);
        model.addAttribute("navi", navi);
+       
+       // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
+       String buyerMemberNo = userDetails.getBuyerMemberNo();
+       model.addAttribute("buyerMemberNo", buyerMemberNo);
        
        return "product/productList";  
        
@@ -164,7 +172,7 @@ public class ProductController {
     * @param likeUseYn
     */
    @PostMapping("/productLike")
-   public void productLike(
+   public ResponseEntity<String> productLike(
 		   @RequestParam(name="buyerMemberNo") String buyerMemberNo
 		   , @RequestParam(name="productNo") Integer productNo
 		   , @RequestParam(name="likeUseYn") String likeUseYn
@@ -173,9 +181,14 @@ public class ProductController {
 	   
 	   boolean result = productService.productLikeCreate(buyerMemberNo, productNo, likeUseYn);
 	   log.info("blike 저장 성공여부:{}", result);
+	   
+	    if (result) {
+	        return ResponseEntity.ok("좋아요 처리 완료"); // 200 OK 반환
+	    } else {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("처리 실패"); // 500 에러 반환
+	    }
+	   
    }
-   
-   
    
    
    /**

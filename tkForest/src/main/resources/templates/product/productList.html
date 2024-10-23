@@ -596,8 +596,8 @@
       </div>
       
      <!-- Ajax 전송할 때 필요한 정보(hidden) -->
-	<input type="hidden" id="buyerMemberNo" th:value="${#authentication.name}">
-	<!-- <input type="hidden" id="buyerMemberNo" th:value="${userDTO.buyerMemberNo}">  -->
+	<!-- <input type="hidden" id="buyerMemberNo" th:value="${#authentication.name}">  -->
+	<input type="hidden" id="buyerMemberNo" th:value="${buyerMemberNo}">
 	<!-- end. Ajax 전송 위한 hidden -->
 	
    </th:block>
@@ -858,6 +858,7 @@
    <script src="/assets/js/main.js"></script>
    <script src="/assets/js/demo-1.js"></script>
    <script defer th:src="@{/script/search.js}"></script>
+   <script defer th:src="@{/script/like.js}"></script>
    
    <!-- 네비게이션 바 용 js -->
                   <script>

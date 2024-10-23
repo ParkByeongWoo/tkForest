@@ -4,14 +4,26 @@
 
 
 $(function() {
-	$('#like-button').on('click', productLike);
+	// $('#like-button').on('click', productLike);
+	
+	console.log("jQuery is loaded");  // jQuery가 로드된 후 이 메시지가 뜨는지 확인
+	
+	// 부모 요소에 이벤트 위임 방식 사용
+	$(document).on('click', '.like-button', productLike);
+	
+	
 });		
 
 function productLike() {
+	alert("좋아요 버튼 클릭함");
+	
     // 버튼에 있는 data-productno 속성에서 productNo 값을 가져옴
-    let productNo = $(this).data('productNo');
+    let productNo = $(this).data('productno');
 	let buyerMemberNo = $('#buyerMemberNo').val();
 
+	alert(productNo);
+	alert(buyerMemberNo);
+	
     // Ajax 요청을 통해 좋아요 서비스 호출
     $.ajax({
         url: '/product/productLike',  // 좋아요 처리하는 서비스의 URL

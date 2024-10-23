@@ -396,7 +396,13 @@ public class ProductService {
 		
     }
 	    
-	
+	/**
+	 * 상품 좋아요(B_Like 추가)
+	 * @param buyerMemberNo
+	 * @param productNo
+	 * @param likeUseYn
+	 * @return
+	 */
 	public boolean productLikeCreate(String buyerMemberNo, Integer productNo, String likeUseYn) {
 		
 //		Optional<ProductEntity> productEntityOpt = productRepository.findByProductNo(productNo);
@@ -423,6 +429,7 @@ public class ProductService {
 		log.info("B_like 추가함:{}", blike);
 		
 		return true;
+	}
 //		
 //		B_LikeEntity bLikeEntity = new B_LikeEntity();
 //		bLikeEntity.setLikefromBuyerEntity(buyerMemberNo);
@@ -441,7 +448,6 @@ public class ProductService {
 		
 		
 		
-	}
 	
 	
 	
