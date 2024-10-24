@@ -622,5 +622,10 @@ public class ProductService {
 			temp.setProductImagePath2(null);
 		}
 	}
+
+	public String findProductNameByProductNo(Integer productNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
