@@ -195,7 +195,7 @@ public class ProductController {
    
    
 	/**
-	 * (비회원용) 카테고리 필터링 된 상품 목록 조회
+	 * 카테고리 필터링 된 상품 목록 조회
 	 * @param pageable
 	 * @param searchType
 	 * @param query
