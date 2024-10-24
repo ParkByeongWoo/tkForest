@@ -221,12 +221,6 @@
     height: 100%; /* 전체 높이 설정 */
     
 }
-
-
-
-      
-      
-      
       
    </style>
 </head>
@@ -311,6 +305,7 @@
                         <div class="header-search">
                            <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET" id="searchForm">
                             <input type="hidden" name="page" id="requestPage" th:value="${page}">
+                            <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
                               <div class="ms-search-select-inner">
                                  <select class="ms-search-cat selectpicker" id="searchType" name="searchType">
                                     <option value="ALL" th:selected="${searchType == 'ALL'}">ALL</option>
@@ -564,7 +559,13 @@
             
 <!--  상품목록 밑에 네비가 있게 하기 위함 -->
 <div class="content-container">
-
+	<!-- 상품 정렬 버튼 추가 -->
+	
+   <div style="text-align: right; margin: 10px;">
+   <input type="button" id="latest" value="latest" onclick="sortProducts('registrationDate')">
+   <input type="button" id="mostViewed" value="mostViewed"  onclick="sortProducts('viewCnt')">
+   </div>
+   
 <div class="product-grid">
    <th:block th:each="product : ${list}">
       <!-- product-card 안에 a 태그를 넣어서 레이아웃이 깨지지 않도록 수정 -->
@@ -590,8 +591,14 @@
             </p>
          </div>
          <div class="product-actions">
-            <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
+         <!--  좋아요 보내는 버튼  -->
+         <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
             <button class="contact-button">✉️</button>
+      
+		<!-- 인콰이어리 보내는 버튼 -->
+		<button class="contact-button" 
+		        th:data-seller-member-no="${product.sellerMemberNo}" 
+		        th:data-product-no="${product.productNo}">✉️</button>
          </div>
       </div>
       
@@ -602,7 +609,6 @@
 	
    </th:block>
 </div>
-
 
 
 <!-- Page Navigation -->
@@ -672,41 +678,8 @@
 </div>
          </div>
       </div>
-   
-
-
-   <!-- 네비게이션 링크 -->
-   <nav>
-      <ul>
-      <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-      <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-      <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-         <li><a th:href="@{/user/signUp}">회원가입선택-바이어셀러고르는창</a></li>
-         <li><a th:href="@{/user/sellerSignUp}"> ㄴ 회원가입(셀러) 화면</a></li>
-         <li><a th:href="@{/user/buyerSignUp}"> ㄴ 회원가입(바이어) 화면</a></li>
-         <li><a th:href="@{/user/login}">로그인(공통) 화면 -- 후에 로그아웃으로 바뀌는기능 있어야 함</a></li>
-         <li><a th:href="@{/user/logout}">로그아웃</a></li>
-         <li><a th:href="@{/aboutUs}">어바웃어스</a></li>
-
-         <li><a th:href="@{/user/buyerMypage}">마이페이지(바이어)</a></li>
-         <li><a th:href="@{/user/sellerMypage}">마이페이지(셀러)</a></li>
-         <li><a th:href="@{/user/buyerProfileUpdate}">사용자 정보 수정</a></li>
-
-         <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
-
-         <li><a th:href="@{/aboutUs}">통계(우선어바웃어스)</a></li>
-         <li><a th:href="@{/recList}">보따리추천 페이지</a></li>
-         <li><a th:href="@{/inquiry/inquiryList}">인콰이어리 페이지</a></li>
-         <li><a th:href="@{/product/productCreate}">상품 등록 화면later </a></li>
-         <li><a th:href="@{/user/sellerStore}">기본 셀러 스토어 </a></li>
-         <!--<li><a th:href="@{/user/sellerStore/{sellerMemberNo}(sellerMemberNo=${seller.sellerMemberNo})}">특정 셀러 스토어</a></li>-->
-         <li><a th:href="@{/chart/chartTest}">차트 테스트</a></li>
-         <li><a th:href="@{/product/productList}">상품 리스트</a></li>
-
-
-      </ul>
-   </nav>
-
+      
+      <!-- 페이징 끝-->
 
    <!-- 푸터 시작-->
 
@@ -860,24 +833,57 @@
    <script defer th:src="@{/script/search.js}"></script>
    <script defer th:src="@{/script/like.js}"></script>
    
-   <!-- 네비게이션 바 용 js -->
-                  <script>
-                  $(document).ready(function () {
-                     // Toggle for 1st depth categories
-                     $(".category-item").on("click", function () {
-                        $(this).find(".toggle-icon").toggleClass("open");
-                        $(this).find(".subcategory-list").slideToggle();
-                     });
-
-                     // Toggle for 2nd depth subcategories
-                     $(".subcategory-item").on("click", function (e) {
-                        e.stopPropagation(); // Prevent parent toggle from triggering
-                        $(this).find(".toggle-icon").toggleClass("open");
-                        $(this).find(".third-category-list").slideToggle();
-                     });
-                  });
-               </script>
+   <!-- 인콰이어리 관련 hyun0new -->
+   <script>
+		document.addEventListener('DOMContentLoaded', function() {
+		    // 모든 contact-button 요소를 선택
+		    const contactButtons = document.querySelectorAll('.contact-button');
+		    
+		    // 각 버튼에 대해 이벤트 리스너 등록
+		    contactButtons.forEach(button => {
+		        button.addEventListener('click', function() {
+		            const sellerMemberNo = button.getAttribute('data-seller-member-no');
+		            const productNo = button.getAttribute('data-product-no');
+		
+		            // URL 인코딩을 사용하여 안전한 URL을 만듦
+		            const encodedSellerMemberNo = encodeURIComponent(sellerMemberNo);
+		            const encodedProductNo = encodeURIComponent(productNo);
+		
+		            // 인콰이어리 작성 페이지로 이동
+		            const url = `/inquiry/inquiryWriteProduct?sellerMemberNo=${encodedSellerMemberNo}&productNo=${encodedProductNo}`;
+		            window.location.href = url;
+		        });
+		    });
+		});
+		
+   </script>   
    
+   
+   <!-- 네비게이션 바 용 js -->
+        <script>
+        $(document).ready(function () {
+           // Toggle for 1st depth categories
+           $(".category-item").on("click", function () {
+              $(this).find(".toggle-icon").toggleClass("open");
+              $(this).find(".subcategory-list").slideToggle();
+           });
+
+           // Toggle for 2nd depth subcategories
+           $(".subcategory-item").on("click", function (e) {
+              e.stopPropagation(); // Prevent parent toggle from triggering
+              $(this).find(".toggle-icon").toggleClass("open");
+              $(this).find(".third-category-list").slideToggle();
+           });
+        });
+     </script>
+     <!-- 페이징 -->
+     <script>
+   function pageFormSubmit(pageNumber) {
+      document.getElementById('requestPage').value = pageNumber;
+      document.getElementById('searchForm').submit();
+   }
+</script>
+
 </body>
 
 

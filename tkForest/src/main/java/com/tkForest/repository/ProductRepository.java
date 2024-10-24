@@ -26,6 +26,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
    
 
    List<ProductEntity> findAllBySellerEntityOrderByProductNoDesc(Optional<SellerEntity> sellerEntity);
+
+   // sellerMemberNo로 상품 조회
+   List<ProductEntity> findBySellerEntitySellerMemberNo(String sellerMemberNo);
    
    // ProductNo로 
    Optional<ProductEntity> findByProductNo(Integer productNo);
@@ -34,7 +37,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
    List<ProductEntity> findByProductNoIn(List<Integer> productNos);
    Page<ProductEntity> findPageByProductNoIn(List<Integer> productNos, PageRequest pageRequest);
 
-   
+   // 상품 번호로 상품 조회
+   Optional<ProductEntity> findById(Integer productNo);
    
    
 }

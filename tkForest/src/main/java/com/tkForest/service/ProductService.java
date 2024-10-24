@@ -619,7 +619,32 @@ public class ProductService {
 		}
 	}
 	
+	/**
+     * sellerMemberNo로 셀러가 등록한 상품 목록 조회
+     * @param sellerMemberNo
+     * @return List<ProductDTO>
+     */
+	public List<ProductDTO> findProductsBySellerMemberNo(String sellerMemberNo) {
+	    // sellerMemberNo로 셀러의 상품 목록을 조회하는 로직
+	    List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
+	    
+	    // ProductEntity를 ProductDTO로 변환하여 반환
+	    return productEntities.stream()
+	            .map(product -> ProductDTO.toDTO(product, product.getSellerEntity().getSellerMemberNo()))
+	            .collect(Collectors.toList());
+	}
+	
 
+    // 상품 번호로 상품명 조회
+    public String findProductNameById(Integer productNo) {
+        Optional<ProductEntity> productEntity = productRepository.findById(productNo);
+        
+        if (productEntity.isPresent()) {
+            return productEntity.get().getProductName();  // 상품 이름 반환
+        } else {
+            throw new RuntimeException("Product not found with productNo: " + productNo);
+        }
+    }
 	
 	
 }
