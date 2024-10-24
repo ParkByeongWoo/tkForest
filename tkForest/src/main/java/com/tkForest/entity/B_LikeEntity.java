@@ -72,6 +72,7 @@ public class B_LikeEntity {
                 .likeUseYn(b_LikeDTO.getLikeUseYn())
                 .build();
     }
+    
 
 }
 

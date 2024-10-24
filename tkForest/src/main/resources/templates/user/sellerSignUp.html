@@ -410,6 +410,7 @@
                                         <label>회사 소개</label>
                                         <input type="text" name="companyDescription" placeholder="회사 소개">
 
+<<<<<<< HEAD
                                         <!-- textarea로 바꿀 수 있으면 바꾸기!!! css 설정 확인해야함 -->
                                         <!-- <textarea name="companyDescription" placeholder="회사 소개"></textarea>  -->
                                     </span>
@@ -424,6 +425,162 @@
                                                 HACCP</label><br>
                                             <label><input type="checkbox" name="sellerCertificateTypeCodes" value="16">
                                                 JAS</label><br>
+=======
+    <!-- Wishlist sidebar Start -->
+    <div class="ms-side-wish-overlay"></div>
+    <div id="ms-side-wish" class="ms-side-wish">
+        <div class="ms-wish-inner">
+            <div class="ms-wish-top">
+                <div class="ms-wish-title">
+                    <span class="wish_title">My Wishlist</span>
+                    <a href="javascript:void(0)" class="ms-wish-close"><img src="/assets/img/icons/close.svg"
+                            class="svg_img pro_svg" alt="close"></a>
+                </div>
+                <ul class="ms-wish-pro-items">
+                    <li>
+                        <a href="product-left-sidebar.html" class="ms-pro-img"><img
+                                src="/assets/img/product-images/18_1.jpg" alt="product"></a>
+                        <div class="ms-pro-content">
+                            <a href="product-left-sidebar.html" class="wish-pro-title">Lemon</a>
+                            <span class="wish-price"><span>$25.00</span> x 1 kg</span>
+                            <div class="ms-availability">
+                                <p class="stock avail">In Stock</p>
+                                <a href="" class="ms-btn-2">Add to cart</a>
+                            </div>
+                            <a href="javascript:void(0)" class="remove">×</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="product-left-sidebar.html" class="ms-pro-img"><img
+                                src="/assets/img/product-images/20_1.jpg" alt="product"></a>
+                        <div class="ms-pro-content">
+                            <a href="product-left-sidebar.html" class="wish-pro-title">Asparagus</a>
+                            <span class="wish-price"><span>$5.00</span> x 250g</span>
+                            <div class="ms-availability">
+                                <p class="stock not-avail">Out Stock</p>
+                                <div class="ms-wish-contact-btns">
+                                    <a href="" class="ms-btn-2 btn-disabled">Add to cart</a>
+                                    <a href="" class="ms-btn-1">Contact</a>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" class="remove">×</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="product-left-sidebar.html" class="ms-pro-img"><img
+                                src="/assets/img/product-images/31_1.jpg" alt="product"></a>
+                        <div class="ms-pro-content">
+                            <a href="product-left-sidebar.html" class="wish-pro-title">Mango</a>
+                            <span class="wish-price"><span>$59.00</span> x 1 pack</span>
+                            <div class="ms-availability">
+                                <p class="stock avail">In Stock</p>
+                                <a href="" class="ms-btn-2">Add to cart</a>
+                            </div>
+                            <a href="javascript:void(0)" class="remove">×</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="product-left-sidebar.html" class="ms-pro-img"><img
+                                src="/assets/img/product-images/23_1.jpg" alt="product"></a>
+                        <div class="ms-pro-content">
+                            <a href="product-left-sidebar.html" class="wish-pro-title">Blue berry</a>
+                            <span class="wish-price"><span>$59.00</span> x 1 kg</span>
+                            <div class="ms-availability">
+                                <p class="stock avail">In Stock</p>
+                                <a href="" class="ms-btn-2">Add to cart</a>
+                            </div>
+                            <a href="javascript:void(0)" class="remove">×</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Wishlist sidebar End -->
+
+    <!-- Breadcrumb start -->
+    <div class="ms-breadcrumb m-b-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row ms_breadcrumb_inner">
+                        <div class="col-md-6 col-sm-12">
+                            <h2 class="ms-breadcrumb-title">Seller Sign-Up</h2>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <!-- ms-breadcrumb-list start -->
+                            <ul class="ms-breadcrumb-list">
+                                <li class="ms-breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="ms-breadcrumb-item active">Seller Sign-Up</li>
+                            </ul>
+                            <!-- ms-breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb end -->
+
+    <!-- Register section -->
+    <section class="ms-register padding-tb-30">
+        <div class="container">
+            <div class="section-title-2">
+                <h2 class="ms-title">셀러 회원가입<span></span></h2>
+                <p>TKForest가 최적의 바이어를 찾아드립니다.</p>
+            </div>
+            <div class="row p-t-15">
+                <div class="ms-register-wrapper">
+                    <div class="ms-register-container">
+                        <div class="ms-register-form">
+                            <form th:action="@{/user/sellerSignUp}" method="post" id="sellerSignUpForm">
+                                <span class="ms-register-wrap ms-register-half">
+                                    <label>사업자등록번호*</label>
+                                    <input type="text" id="bizregNo" name="bizregNo" placeholder="사업자등록번호" required>
+                                </span>
+                                <span class="ms-register-wrap ms-register-half">
+                                    <label>사업자등록번호 확인*</label>
+                                    <button id="confirmBizregNo">중복확인</button>
+                                    <input type="text" id="bizregNoCheck" placeholder='"중복확인" 버튼을 클릭해주세요' required
+                                        readonly>
+                                </span>
+                                <span class="ms-register-wrap ms-register-half">
+                                    <label>회사명*</label>
+                                    <input type="text" name="companyName" placeholder="회사명" required>
+                                </span>
+                                <span class="ms-register-wrap ms-register-half">
+                                    <label>대표자명</label>
+                                    <input type="text" name="ownerName" placeholder="대표자명">
+                                </span>
+                                <span class="ms-register-wrap">
+                                    <label>회사 전화번호</label>
+                                    <input type="text" name="bizPhoneNumber" placeholder="회사 전화번호">
+                                </span>
+                                <span class="ms-register-wrap">
+                                    <label>회사 영문 주소</label>
+                                    <input type="text" name="address" placeholder="회사 주소">
+                                </span>
+                                <span class="ms-register-wrap">
+                                    <label>회사 소개</label>
+                                    <input type="text" name="companyDescription" placeholder="회사 소개">
+
+                                    <!-- textarea로 바꿀 수 있으면 바꾸기!!! css 설정 확인해야함 -->
+                                    <!-- <textarea name="companyDescription" placeholder="회사 소개"></textarea>  -->
+                                </span>
+                                <span class="ms-register-wrap">
+                                    <label>회사 인증서</label>
+                                    <div class="sellerCertificateTypeCodes">
+                                        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="1">
+                                            GMP</label><br>
+                                        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="2">
+                                            ISO</label><br>
+                                        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="5">
+                                            HACCP</label><br>
+                                        <!-- 
+                                        <label><input type="checkbox" name="sellerCertificateTypeCodes" value="16">
+                                            JAS</label><br>
+                                              -->
+>>>>>>> 4cfaba4f108c05176c2ecb61bd7858ca191225db
                                             <label><input type="checkbox" name="sellerCertificateTypeCodes" value="26">
                                                 DUNS</label><br>
                                             <label class="trade"><input type="checkbox"
@@ -501,6 +658,7 @@
                                         </div>
                                     </span>
 
+<<<<<<< HEAD
                                     <!-- 모달 창 -->
                                     <div id="categoryModal" class="modal">
                                         <div class="modal-content">
@@ -533,6 +691,13 @@
                                                 <p>▼선택된 카테고리▼</p>
                                                 <div id="selectedCategoryList"></div>
                                             </div>
+=======
+                                        <!-- 선택된 카테고리 리스트를 표시하는 영역 (버튼 뒤, 가로로 길게 표시) -->
+                                        <div id="selectedCategoryListContainer">
+                                            <p>▼선택된 카테고리▼</p>
+                                            <div id="selectedCategoryList"></div>
+                                            <button id="clearCategoryBtn">초기화</button> <!-- Clear 버튼 추가 -->
+>>>>>>> 4cfaba4f108c05176c2ecb61bd7858ca191225db
                                         </div>
                                     </div>
 

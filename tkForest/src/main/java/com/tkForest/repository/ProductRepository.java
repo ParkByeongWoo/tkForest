@@ -22,8 +22,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     // 브랜드로 검색
     Page<ProductEntity> findByBrandContains(String brand, PageRequest of);
     
-    
-
+  
 	List<ProductEntity> findAllBySellerEntityOrderByProductNoDesc(Optional<SellerEntity> sellerEntity);
 	
 	// sellerMemberNo로 상품 조회
@@ -31,7 +30,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 	
 	// ProductNo로 
 	Optional<ProductEntity> findByProductNo(Integer productNo);
-
 	
     // 검색 (상품명 또는 브랜드) - 동적 정렬 포함
     // Page<ProductEntity> findByProductNameContainsOrBrandContains(String productName, String brand, Pageable pageable);
@@ -39,10 +37,14 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
    // productNo 목록을 기준으로 해당하는 ProductEntity 리스트를 가져오는 메소드
    List<ProductEntity> findByProductNoIn(List<Integer> productNos);
+
    
    // 상품 번호로 상품 조회
    Optional<ProductEntity> findById(Integer productNo);
 
    
+   Page<ProductEntity> findPageByProductNoIn(List<Integer> productNos, PageRequest pageRequest);
+
+  
 }
 

@@ -4,13 +4,13 @@
 
 // 이벤트 소스
 let searchInput = document.getElementById("searchInput");  //검색어 입력
-let latestButton = document.getElementById("latest"); // 최신순 정렬
-let mostViewedButton = document.getElementById("mostViewed"); // 조회수 정렬
+//let latestButton = document.getElementById("latest"); // 최신순 정렬
+//let mostViewedButton = document.getElementById("mostViewed"); // 조회수 정렬
 
 
 searchInput.addEventListener('click', goto);
-latest.addEventListener('click', latestButton);
-mostViewed.addEventListener('click', mostViewedButton);
+//latest.addEventListener('click', latestButton);
+//mostViewed.addEventListener('click', mostViewedButton);
 
 // 이벤트 핸들러
 /** 
@@ -33,4 +33,11 @@ function pageFormSubmit(page) {
 	document.getElementById("searchForm").submit();
 }
 
+/** 
+ * 위칭버튼(최신순과 조회수
+*/
+function sortProducts(sortBy) {
+   document.getElementById('sortBy').value = sortBy; // sortBy 값 설정
+   document.getElementById('searchForm').submit();   // 폼 제출
+}
 

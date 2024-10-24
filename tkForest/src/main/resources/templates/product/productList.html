@@ -559,6 +559,7 @@
             
 <!--  상품목록 밑에 네비가 있게 하기 위함 -->
 <div class="content-container">
+<<<<<<< HEAD
 	<!-- 상품 정렬 버튼 추가 -->
 	
    <div style="text-align: right; margin: 10px;">
@@ -566,6 +567,9 @@
    <input type="button" id="mostViewed" value="mostViewed"  onclick="sortProducts('viewCnt')">
    </div>
    
+=======
+
+>>>>>>> 4cfaba4f108c05176c2ecb61bd7858ca191225db
 <div class="product-grid">
    <th:block th:each="product : ${list}">
       <!-- product-card 안에 a 태그를 넣어서 레이아웃이 깨지지 않도록 수정 -->
@@ -591,6 +595,7 @@
             </p>
          </div>
          <div class="product-actions">
+<<<<<<< HEAD
          <!--  좋아요 보내는 버튼  -->
             <button id="like-button" class="like-button" th:data-productno="${product.productNo}">❤️</button>
       
@@ -622,8 +627,18 @@
 		});
 		
 		</script>   
+=======
+            <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
+            <button class="contact-button">✉️</button>
+>>>>>>> 4cfaba4f108c05176c2ecb61bd7858ca191225db
          </div>
       </div>
+      
+     <!-- Ajax 전송할 때 필요한 정보(hidden) -->
+	<!-- <input type="hidden" id="buyerMemberNo" th:value="${#authentication.name}">  -->
+	<input type="hidden" id="buyerMemberNo" th:value="${buyerMemberNo}">
+	<!-- end. Ajax 전송 위한 hidden -->
+	
    </th:block>
 </div>
 
@@ -849,6 +864,7 @@
    <script src="/assets/js/main.js"></script>
    <script src="/assets/js/demo-1.js"></script>
    <script defer th:src="@{/script/search.js}"></script>
+   <script defer th:src="@{/script/like.js}"></script>
    
    <!-- 네비게이션 바 용 js -->
         <script>

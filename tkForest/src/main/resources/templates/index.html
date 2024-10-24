@@ -442,6 +442,7 @@
          <div class="container">
             <!-- 헤더 부분은 그대로 유지됩니다 -->
 
+<<<<<<< HEAD
             <div class="main-content">
                <div class="hero">
                   <div class="hero-text">
@@ -464,6 +465,26 @@
                   </div>
                </div>
             </div>
+=======
+    <!-- 페이지 본문 -->
+    <div>
+        <h1>Welcome to the Index Page!</h1>
+    </div>
+      <!-- 네비게이션 링크 -->
+      <nav>
+         <ul>
+
+            <li><a th:href="@{/home/userHome}">비회원 홈(userHome)</a></li>
+            <li><a th:href="@{/home/memberHome}">회원 홈(memberHome)</a></li>
+
+
+            <li><a th:href="@{/user/signUp}">회원가입선택-바이어셀러고르는창</a></li>
+            <li><a th:href="@{/user/sellerSignUp}"> ㄴ 회원가입(셀러) 화면</a></li>
+            <li><a th:href="@{/user/buyerSignUp}"> ㄴ 회원가입(바이어) 화면</a></li>
+            <li><a th:href="@{/user/login}">로그인(공통) 화면 -- 후에 로그아웃으로 바뀌는기능 있어야 함</a></li>
+            <li><a th:href="@{/user/logout}">로그아웃</a></li>
+            <li><a th:href="@{/aboutUs}">어바웃어스</a></li>
+>>>>>>> 4cfaba4f108c05176c2ecb61bd7858ca191225db
 
             <div class="cta">
                <p>JOIN FOR FREE TO DISCOVER THE BEST KOREAN PRODUCTS FOR YOUR BUSINESS!</p>
@@ -492,9 +513,15 @@
             <li><a th:href="@{/user/sellerStore}">셀러 스토어</a></li>
             <!--<li><a th:href="@{/user/sellerStore/{sellerMemberNo}(sellerMemberNo=${seller.sellerMemberNo})}">특정 셀러 스토어</a></li>-->
             <li><a th:href="@{/product/productList}">상품 리스트</a></li>
+<<<<<<< HEAD
             <li><a th:href="@{/product/productDetail-Temp}">상품 상세 화면()</a></li> 
             <li><a th:href="@{/api/globalMap}">트렌드 뉴스</a></li>
             
+=======
+            
+           
+
+>>>>>>> 4cfaba4f108c05176c2ecb61bd7858ca191225db
          </ul>
       </nav>
 
