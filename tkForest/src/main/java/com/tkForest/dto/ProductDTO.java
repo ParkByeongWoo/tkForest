@@ -17,10 +17,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
+@Setter 
 @ToString
 @Builder
-public class ProductDTO {
+public class ProductDTO { 
 
     // ProductDTO의 필드들 (ProductEntity와 동일한 필드)
     private Integer productNo;
@@ -28,7 +28,7 @@ public class ProductDTO {
     private LocalDateTime registrationDate;  // 자동으로 생성되지만 필요함
     private String productName;
     private String brand;
-	private MultipartFile uploadFile;
+   private MultipartFile uploadFile;
     private String productImagePath1;
     private String productImagePath2;
     private String productDescription;
@@ -39,18 +39,18 @@ public class ProductDTO {
     private List<Integer> productCertificateTypeCodes;
     
     public ProductDTO(
-    		Integer productNo
-    		, String sellerMemberNo
-    		, LocalDateTime registrationDate
-    		, String productName
-    		, String brand
-    		, String productImagePath1) {
-    	this.productNo = productNo;
-    	this.sellerMemberNo = sellerMemberNo;
-    	this.registrationDate = registrationDate;
-    	this.productName = productName;
-    	this.brand = brand;
-    	this.productImagePath1 = productImagePath1;
+          Integer productNo
+          , String sellerMemberNo
+          , LocalDateTime registrationDate
+          , String productName
+          , String brand
+          , String productImagePath1) {
+       this.productNo = productNo;
+       this.sellerMemberNo = sellerMemberNo;
+       this.registrationDate = registrationDate;
+       this.productName = productName;
+       this.brand = brand;
+       this.productImagePath1 = productImagePath1;
     }
     
     // 마이페이지 좋아요한 상품 목록위한 DTO

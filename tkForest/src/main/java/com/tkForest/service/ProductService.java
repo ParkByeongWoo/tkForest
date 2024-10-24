@@ -52,7 +52,6 @@ public class ProductService {
 	final CategoryRepository categoryRepository;
 	final CertificateRepository certificateRepository;
 	final ProductCertificateRepository productCertificateRepository;
-	
 	final BLikeRepository bLikeRepository;
    
    // 페이징할 때 한 페이지 출력할 글 개수
@@ -174,6 +173,7 @@ public class ProductService {
     * 등록중인 상품에 카테고리 추가하기
     * @param pCategoryDTOList
 
+>>>>>>> 245c0971e27f9f1798e3459c5a6adef45c326510
    public void categoryInsert(List<PCategoryDTO> pCategoryDTOList) {
       for (PCategoryDTO pCategoryDTO : pCategoryDTOList) {
 		  Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
@@ -301,7 +301,7 @@ public class ProductService {
 	    
 	    return CertificateTypeCodes;
 	}
-	
+
 	/**
 	 * (검색기능 포함) 상품 리스트 불러오기 (상품 검색, 상품 조회)
 	 * @param pageable
@@ -309,48 +309,58 @@ public class ProductService {
 	 * @param searchWord 아니고 query
 	 * @return
 	 */
-	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query) {
-		int page = pageable.getPageNumber() - 1;
-		int pageLimit = pageable.getPageSize();
-		
-		Page<ProductEntity> entityList = null;
+	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query, String sortBy) {
+	    int page = pageable.getPageNumber() - 1;
+	    int pageLimit = pageable.getPageSize();
+	    
+	    //
+	    // 기본 정렬 기준 (없으면 registrationDate)
+	    if (sortBy == null || sortBy.isEmpty()) {
+	        sortBy = "registrationDate";
+	        }
+	   // 동적으로 정렬 기준을 설정
+	    Sort sort = Sort.by(Sort.Direction.DESC, sortBy);
+       //
+	    
+	    
+	    Page<ProductEntity> entityList = null;
 
 	    switch (searchType) {
+	    
+	    	//상품과 브랜드 둘 다 검색
         case "ALL":
-            // ProductName 또는 Brand에 포함된 항목 모두 검색
-            entityList = productRepository.findByProductNameContainsOrBrandContains(query, query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            entityList = productRepository.findByProductNameContainsOrBrandContains(
+                query, query, PageRequest.of(page, pageLimit, sort));
             break;
+            //상품으로 검색
         case "Products":
-            // ProductName으로 검색
-            entityList = productRepository.findByProductNameContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            entityList = productRepository.findByProductNameContains(
+                query, PageRequest.of(page, pageLimit, sort));
             break;
+            //브랜드로 검색
         case "Brand":
-            // Brand로 검색
-            entityList = productRepository.findByBrandContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "brand")));
+            entityList = productRepository.findByBrandContains(
+                query, PageRequest.of(page, pageLimit, sort));
             break;
+            //디폴트는 둘 다 검색
         default:
-            // 기본 전체 검색 (ProductName 또는 Brand로 정렬)
-            entityList = productRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
+            entityList = productRepository.findByProductNameContainsOrBrandContains(
+                query, query, PageRequest.of(page, pageLimit, sort));
             break;
     }
-	    
-	    Page<ProductDTO> list = null;
 
-		// 페이징 형태의 list로 변환
-		// 목록에서 사용할 필요한 데이터만 간추림(생성자 만듦)
-		list = entityList.map(
-				(product) -> new ProductDTO(
-						product.getProductNo(),
-						product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
-						product.getRegistrationDate(),
-						product.getProductName(),
-						product.getBrand(),
-						product.getProductImagePath1())
-				);
+	    Page<ProductDTO> list = entityList.map(
+	        (product) -> new ProductDTO(
+	            product.getProductNo(),
+	            product.getSellerEntity().getSellerMemberNo(), 
+	            product.getRegistrationDate(),
+	            product.getProductName(),
+	            product.getBrand(),
+	            product.getProductImagePath1())
+	    );
 
-		return list;
+	    return list;
 	}
-	
 	
 	/**
 	 * 특정 카테고리에 속한 상품들 가져오기
@@ -506,13 +516,7 @@ public class ProductService {
 //	        return likeRepository.save(like);
 //	    }
 		
-	
 
-	
-		
-	
-	
-	
 	/**
 	 * 상품 1개 정보 수정하기
 	 * @param product
@@ -618,8 +622,5 @@ public class ProductService {
 			temp.setProductImagePath2(null);
 		}
 	}
-	
-
-	
-	
 }
+

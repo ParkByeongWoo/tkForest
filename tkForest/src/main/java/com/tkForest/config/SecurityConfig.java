@@ -22,7 +22,7 @@ public class SecurityConfig {
    
    private final LoginFailureHandler failureHandler;   // 로그인 실패시 처리할 객체 - 필터같은 역할을 함
    private final LoginSuccessHandler successHandler;   // 로그인 성공시 처리할 객체
-   
+    
    @Bean
    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       
@@ -46,6 +46,7 @@ public class SecurityConfig {
                           , "/user/logout"         // 로그아웃
                           , "/user/confirmId"
                           , "/aboutUs"            // 어바웃 어스 경로
+                          , "/api/globalMap"		  // 지도 API
                           , "/user/buyerMypage"
                           , "/user/sellerMypage"
                           , "/user/sellerStore" // 셀러스토어 
@@ -55,8 +56,11 @@ public class SecurityConfig {
                           , "/inquiry/inquiryList" // 인콰이어리 페이지
                           , "/inquiry/inquiryWrite" // 인콰이어리 작성
                           , "/inquiry/inquiryDetail" // 인콰이어리 상세 보기 및 답변 작성
+                          , "/inquiry/inquiryWriteProduct"
+                          , "/inquiry/inquiryWriteSeller"
                           , "/product/productCreate" // 상품 등록 화면
                           , "/product/productList"
+                          , "/product/productDetail"
                           , "/chart/chartTest.html"
                           , "/assets/**"           // 정적 자원 경로
                      , "/images/**"
@@ -66,7 +70,8 @@ public class SecurityConfig {
                      , "/**"
                      ,"/fragment/**"
                      
-                     ).permitAll()   // permitAll() 인증절차 없이도 접근가능한 요청 정보      
+                     ).permitAll()   // permitAll() 인증절차 없이도 접근가능한 요청 정보   
+               .requestMatchers("/inquiry/**").permitAll()
                .requestMatchers("/admin/**").hasRole("ADMIN")
                .requestMatchers("/my/**").hasAnyRole("ADMIN", "SELLER", "BUYER")
                .anyRequest().authenticated()   // 기타 다른 경로는 인증된 사용자만 접근 가능(가장 마지막에 와야함)
