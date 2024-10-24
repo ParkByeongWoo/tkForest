@@ -17,54 +17,124 @@ function recList() {
 		, success : output
 	})
 }
-/**
- * function output(resp) {
-	if(resp.length==0) return;
-	$.each(resp, function(index, item){
-		let tag =`
-		 <div class="product-grid">
-		   <th:block th:each="product : ${item}">
-		      <!-- product-card를 클릭하면 상세페이지로 이동 -->
-		         <div class="product-card">
-		      <a th:href="@{/product/productDetail/{productNo}(productNo=${product.productNo})}" class="product-card-link">
-		            <div class="product-image">
-		               <!-- 이미지가 없을 경우 텍스트로 대체 -->
-		               <img th:src="@{/images/products/ + ${product.image}}" alt="Product Image"
-		                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-		               <div class="image-placeholder" style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
-		                  <span>800 X 700</span> <!-- 이미지가 없을 때 나타날 대체 텍스트 -->
-		               </div>
-		            </div>
-		            <div class="product-details">
-		               <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">Product Name</h3>
-		               <p  th:text="${product.sellerMemberNo}">Seller Name</p>
-		               <p th:text="${product.registrationDate}">Registration Date</p>
-		               <p>
-		              <a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
-		                <span th:text="${product.brand}">Brand</span>
-		              </a>
-		            </p>
-		            </div>
-		            <div class="product-actions">
-		               <button class="like-button">❤️</button>
-		               <button class="contact-button">✉️</button>
-		            </div>
-		         </div>
-		      </a>
-		   </th:block>
-		</div>
-`
-	});
-	$('#product-list').html(tag);
-}
-*/
+
 function output(resp) {
     if (resp.length === 0) return; // 응답이 없으면 종료
-
+/**
+ * 
     let tags = ''; // HTML 태그를 저장할 변수 초기화
+	let chk=0
     $.each(resp, function(index, product) {
         // 각 product에 대해 HTML 태그 생성
+		chk+=1
+		if (chk>5){
+			tag+=``
+		} 
         tags += `
+		<article class="component-8">
+		                    <div class="link-1">
+		                      <div class="_1jpg"></div>
+		                      <div class="border-1">
+		                        <div class="background-1"></div>
+		                      </div>
+		                    </div>
+		                    <div class="background-2">
+		                      <div class="heading-5margin heading">
+		                        <div class="component-7">
+		                          <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+		                            <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">${product.productName}</h3>
+		                          </div>
+		                        </div>
+		                      </div>
+		                      <div class="margin-1 margin-6">
+		                        <div class="container-49">
+		                          <div class="margin-2 margin-6">
+		                            <div class="container-7">
+		                              <div class="container-8">
+									  <a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
+									                              <span th:text="${product.brand}">${product.brand}</span>
+									                          </a>
+		                              </div>
+		                            </div>
+		                          </div>
+		                          <div class="container-10">
+		                            <div class="margin-3 margin-6">
+		                              <div class="price valign-text-middle price-2 x127001poppinsbold-14">
+									                      <p th:text="${product.registrationDate}">${product.registrationDate}</p>
+														  </div>
+		                            </div>
+
+		                          </div>
+		                        </div>
+		                      </div>
+		                    </div>
+		                  </article>
+        `;
+    });
+ */
+	let chk = 0;
+	let tags = '';
+	tags += `<div class="product-container">`; // 컨테이너 시작
+
+	$.each(resp, function(index, product) {
+	    chk += 1;
+	    if (chk > 10) return false; // 최대 10개까지만 표시
+
+	    // 각 product에 대해 HTML 태그 생성
+	    tags += `
+	    <article class="component-8">
+	        <div class="link-1">
+	            <div class="_1jpg"></div>
+	            <div class="border-1">
+	                <div class="background-1"></div>
+	            </div>
+	        </div>
+	        <div class="background-2">
+	            <div class="heading-5margin heading">
+	                <div class="component-7">
+	                    <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+	                        <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">
+	                            ${product.productName}
+	                        </h3>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="margin-1 margin-6">
+	                <div class="container-49">
+	                    <div class="margin-2 margin-6">
+	                        <div class="container-7">
+	                            <div class="container-8">
+	                                <a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
+	                                    <span th:text="${product.brand}">${product.brand}</span>
+	                                </a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="container-10">
+	                        <div class="margin-3 margin-6">
+	                            <div class="price valign-text-middle price-2 x127001poppinsbold-14">
+	                                <p th:text="${product.registrationDate}">${product.registrationDate}</p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </article>
+	    `;
+	});
+
+	tags += `</div>`; // 컨테이너 끝	
+	
+
+    // 생성된 HTML을 #product-list에 삽입
+    $('#product-list').html(tags);
+}
+
+
+/**
+ * 
+ * `
         <div class="product-card">
             <a th:href="@{/product/productDetail/{productNo}(productNo=${product.productNo})}" class="product-card-link">
                 <div class="product-image">
@@ -90,10 +160,5 @@ function output(resp) {
                 </div>
             </a>
         </div>
-        `;
-    });
-
-    // 생성된 HTML을 #product-list에 삽입
-    $('#product-list').html(tags);
-}
-
+        `
+ */

@@ -21,8 +21,18 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.tkForest.dto.BCategoryDTO;
+import com.tkForest.dto.B_LikeDTO;
+import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductDTO;
+import com.tkForest.entity.BCategoryEntity;
+import com.tkForest.entity.B_LikeEntity;
+import com.tkForest.entity.InquiryEntity;
 import com.tkForest.entity.ProductEntity;
+import com.tkForest.repository.BCategoryRepository;
+import com.tkForest.repository.B_LikeRepository;
+import com.tkForest.repository.InquiryRepository;
+import com.tkForest.repository.PCategoryRepository;
 import com.tkForest.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,38 +45,19 @@ public class RecService {
 	
 	@Value("${rec.server}")
 	String url;
-	
+	private final B_LikeRepository bLikeRepository;
+	private final InquiryRepository inquiryRepository;
 	private final RestTemplate restTemplate;
 	private final ProductRepository productRepository;
-//	
-//	public Map<String, Object> recList(String buyerMemberNo) {
-//
-//		Map<String, Object> result = new HashMap<>();
-//
-//		try { 
-//			HttpHeaders headers = new HttpHeaders();
-//
-//			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-//			buyerMemberNo = buyerMemberNo.substring(1);
-//			ResponseEntity<Map> response = restTemplate.postForEntity(url, buyerMemberNo, Map.class);
-//
-//			// 응답결과
-//			result = response.getBody();
-//						
-//			System.out.println("result의 정체: ");
-//
-//		} catch (HttpClientErrorException | HttpServerErrorException e) {
-//			log.info("text : {}", e.getStatusText());
-//			log.info("code : {}", e.getStatusCode());
-//		}
-//
-//		return result; // 정상결과 반환
-//	}
+	private final BCategoryRepository bCategoryRepository; 
 
-	public RecService(RestTemplate restTemplate, ProductRepository productRepository) {
-        this.restTemplate = restTemplate;
+
+	public RecService(B_LikeRepository bLikeRepository, InquiryRepository inquiryRepository, RestTemplate restTemplate, ProductRepository productRepository, BCategoryRepository bCategoryRepository) {
+        this.bLikeRepository = bLikeRepository;
+        this.inquiryRepository = inquiryRepository;
+		this.restTemplate = restTemplate;
         this.productRepository = productRepository;
+        this.bCategoryRepository = bCategoryRepository;
     }
 
 	public List<ProductDTO> recList(String buyerMemberNo) {
@@ -76,10 +67,23 @@ public class RecService {
 	        if (buyerMemberNo == null || buyerMemberNo.length() < 2) {
 	            throw new IllegalArgumentException("Invalid buyerMemberNo");
 	        }
-	        // buyerMemberNo의 첫 글자 제거
-	        buyerMemberNo = buyerMemberNo.substring(1);
-	        log.info(buyerMemberNo);
+	        List<B_LikeEntity> bLikeEntity = bLikeRepository.findByLikefromBuyerEntity_BuyerMemberNoContains(buyerMemberNo);
+	        List<InquiryEntity> inquiryEntity = inquiryRepository.findByBuyerEntity_BuyerMemberNoContains(buyerMemberNo);
+	        System.out.println(bLikeEntity.size());
+	        System.out.println(inquiryEntity.size());
 
+	        int check;
+	        if (bLikeEntity.size()!=0 || inquiryEntity.size()!=0) {
+		        // buyerMemberNo의 첫 글자 제거
+		        buyerMemberNo = buyerMemberNo.substring(1);
+		        log.info(buyerMemberNo);
+		        log.info("알고2");
+		        check = 2;
+		    } else if (!(bLikeEntity.size()==0 || inquiryEntity.size()==0)) {
+		        check = 1;
+		        log.info(buyerMemberNo);
+		        log.info("알고1");
+		    }
 	        // HTTP 헤더 설정 (JSON 타입으로 전송)
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(MediaType.APPLICATION_JSON);
@@ -117,6 +121,16 @@ public class RecService {
 	        productDTOList.add(dto);
 	    }
 	    return productDTOList; // 정상 결과 반환
+	}
+	
+	public List<BCategoryDTO> recCategory(String buyerMemberNo){
+		List<BCategoryEntity> bCategoryEntityList = bCategoryRepository.findByBuyerEntity_BuyerMemberNo(buyerMemberNo);
+		List<BCategoryDTO> bCategoryDTOList = new ArrayList<>();
+		for (BCategoryEntity entity : bCategoryEntityList) {
+			bCategoryDTOList.add(BCategoryDTO.toDTO(entity, buyerMemberNo, entity.getBCategoryNo()));
+		}
+		
+		return bCategoryDTOList;
 	}
 }
 

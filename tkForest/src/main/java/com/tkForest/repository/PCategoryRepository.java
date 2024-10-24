@@ -16,7 +16,6 @@ public interface PCategoryRepository extends JpaRepository<PCategoryEntity, Inte
 
 	@Query("SELECT c.categoryEntity.categoryNo FROM PCategoryEntity c WHERE c.productEntity.productNo = :productNo")
 	List<Integer> findCategoryNosByProductNo(@Param("productNo") Integer productNo);
-
 	
 	// PRODUCTNO에 해당하는 CATEGORYNO를 조회하는 쿼리
 	//List<Integer> findByProductEntityProductNo(Integer productNo);

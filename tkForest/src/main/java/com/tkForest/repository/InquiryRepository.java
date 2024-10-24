@@ -1,5 +1,8 @@
 package com.tkForest.repository;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +11,7 @@ import com.tkForest.entity.InquiryEntity;
 public interface InquiryRepository extends JpaRepository<InquiryEntity, Integer> {
     // BuyerEntity 내부의 buyerMemberNo 필드를 기반으로 검색하는 쿼리 메서드
     Page<InquiryEntity> findByBuyerEntity_BuyerMemberNoContains(String buyerMemberNo, Pageable pageable); 
+    List<InquiryEntity> findByBuyerEntity_BuyerMemberNoContains(String buyerMemberNo);
 }
 
 
