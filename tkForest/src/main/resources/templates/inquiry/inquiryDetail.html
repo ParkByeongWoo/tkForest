@@ -34,6 +34,8 @@
     <!-- Main Style -->
     <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+    
+    <script src="/script/expiredate.js"></script>
 
 </head>
 
@@ -1035,9 +1037,9 @@
     </div>
     <!-- Breadcrumb end -->
 
-    <!-- Ajax 전송할 때 필요한 정보 -->
-    <!--  <input type="hidden" id="inquiryNo" th:value="${inquiry.inquiryNo}"> -->
-    <!--  <input type="hidden" id="loginId" th:value="${#authentication.name}"> -->
+	<!-- Ajax 전송할 때 필요한 정보 -->
+    <input type="hidden" id="inquiryNo" th:value="${inquiry.inquiryNo}">
+    <input type="hidden" id="loginId" th:value="${#authentication.name}">
 
 
     <!-- Contact us section -->
@@ -1102,95 +1104,86 @@
                 <!-- 제목 입력 -->
                 <div class="form-group">
                     <label for="subject">제목</label>
-                    <input type="text" id="subject" name="subject" class="form-control" placeholder="subject" readonly>
+                    <input type="text" id="subject" name="subject" class="form-control" placeholder="subject"
+                           th:value="${inquiry.subject}" readonly>
                 </div>
-
-                <!-- 발신자 (From) -->
-                <div class="form-group">
-                    <label for="buyerMemberNo">발신자 (From)</label>
-                    <input type="text" id="buyerMemberNo" name="buyerMemberNo" class="form-control"
-                        th:value="${#authentication.name}" th:readonly="${!#authentication.name.startsWith('B')}"
-                        placeholder="Buyer">
-                </div>
-
-                <!-- 수신자 (To) -->
-                <div class="form-group">
-                    <label for="sellerMemberNo">수신자 (To)</label>
-                    <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
-                        th:value="${#authentication.name}" th:readonly="${!#authentication.name.startsWith('S')}"
-                        placeholder="Seller">
-                </div>
-
+	
+	            <!-- 발신자 (From) -->
+	            <div class="form-group">
+	               <label for="userName">발신자 (From)</label>
+	               <!-- 화면에는 바이어의 이름이 보이도록 -->
+	               <input type="text" id="userName" name="userName" class="form-control" th:value="${#authentication.name}"
+	                  readonly>
+	
+	               <!-- 숨겨진 필드로 buyerMemberNo를 서버로 전달 -->
+	               <input type="hidden" id="buyerMemberNo" name="buyerMemberNo" th:value="${buyerMemberNo}">
+	            </div>
+				
+				<!-- 수신자 (To) -->
+				<div class="form-group">
+				    <label for="sellerMemberNo">수신자 (To)</label>
+					 <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
+				               th:value="${inquiry.sellerMemberNo}" readonly>
+				</div>
+				
+				<!-- 상품 이름 -->
+				<div class="form-group">
+				    <label for="productName">상품 이름</label>
+				    <input type="text" id="productName" name="productName" class="form-control" 
+				           th:value="${productName}" readonly>
+				</div>
 
                 <!-- 상품 고유번호 -->
                 <div class="form-group">
                     <label for="productNo">상품 고유번호</label>
-                    <input type="text" id="productNo" name="productNo" class="form-control" th:value="${productNo}"
-                        readonly>
+                    <input type="text" id="productNo" name="productNo" class="form-control" th:value="${inquiry.productNo}"
+                           readonly>
                 </div>
 
                 <!-- 발송일 -->
                 <div class="form-group">
                     <label for="offerSendDate">발송일</label>
-                    <input type="datetime-local" id="offerSendDate" name="offerSendDate" class="form-control" readonly>
+                    <input type="datetime-local" id="offerSendDate" name="offerSendDate" class="form-control"
+                           th:value="${inquiry.offerSendDate}" readonly>
                 </div>
 
-                <!-- 만료일 (readonly) -->
+                <!-- 만료일 -->	
                 <div class="form-group">
                     <label for="offerExpireDate">만료일</label>
                     <input type="datetime-local" id="offerExpireDate" name="offerExpireDate" class="form-control"
-                        readonly>
-                </div>
-
-                <!-- 만료 기간 선택 -->
-                <div class="form-group">
-                    <label for="expirationOption">만료기간 선택</label>
-                    <select id="expirationOption" name="expirationOption" class="form-control" readonly>
-                        <option value="" disabled selected>Selected</option>
-                        <option value="1">1 Month</option>
-                        <option value="6">6 Months</option>
-                        <option value="12">12 Months</option>
-                        <option value="24">24 Months</option>
-                    </select>
-
+                           th:value="${inquiry.offerExpireDate}" readonly>
                 </div>
 
                 <!-- 주문 수량 -->
                 <div class="form-group">
                     <label for="orderQuantity">주문 수량</label>
-                    <input type="number" id="orderQuantity" name="orderQuantity" class="form-control" min="1" readonly>
+                    <input type="number" id="orderQuantity" name="orderQuantity" class="form-control"
+                           th:value="${inquiry.orderQuantity}" readonly>
                 </div>
 
                 <!-- 주문 수량 단위 -->
                 <div class="form-group">
                     <label for="orderUnit">주문 수량 단위</label>
-                    <select id="orderUnit" name="orderUnit" class="form-control" readonly>
+                    <select id="orderUnit" name="orderUnit" class="form-control" th:value="${inquiry.orderUnitEtc}" readonly>
                         <option value="" disabled selected>Order unit</option>
-                        <option value="pieces">Pieces (PCS)</option>
-                        <option value="box">Box</option>
-                        <option value="carton">Carton</option>
-                        <option value="pallet">Pallet</option>
-                        <option value="bundle">Bundle</option>
-                        <option value="ton">Ton</option>
-                        <option value="kilogram">Kilogram (KG)</option>
-                        <option value="liter">Liter (L)</option>
-                        <option value="set">Set</option>
-                        <option value="dozen">Dozen</option>
+                        <option value="pieces" th:selected="${inquiry.orderUnitEtc == 'pieces'}">Pieces (PCS)</option>
+                        <option value="box" th:selected="${inquiry.orderUnitEtc == 'box'}">Box</option>
+                        <option value="carton" th:selected="${inquiry.orderUnitEtc == 'carton'}">Carton</option>
+                        <option value="pallet" th:selected="${inquiry.orderUnitEtc == 'pallet'}">Pallet</option>
+                        <option value="bundle" th:selected="${inquiry.orderUnitEtc == 'bundle'}">Bundle</option>
+                        <option value="ton" th:selected="${inquiry.orderUnitEtc == 'ton'}">Ton</option>
+                        <option value="kilogram" th:selected="${inquiry.orderUnitEtc == 'kilogram'}">Kilogram (KG)</option>
+                        <option value="liter" th:selected="${inquiry.orderUnitEtc == 'liter'}">Liter (L)</option>
+                        <option value="set" th:selected="${inquiry.orderUnitEtc == 'set'}">Set</option>
+                        <option value="dozen" th:selected="${inquiry.orderUnitEtc == 'dozen'}">Dozen</option>
                     </select>
-                </div>
-
-                <!-- 주문 단위 기타 입력 -->
-                <div class="form-group">
-                    <label for="orderUnitEtc">주문단위 기타</label>
-                    <input type="text" id="orderUnitEtc" name="orderUnitEtc" class="form-control"
-                        placeholder="Please specify the order unit in text.">
                 </div>
 
                 <!-- 내용 -->
                 <div class="form-group">
                     <label for="contents">내용</label>
-                    <textarea id="contents" name="contents" class="form-control" rows="3" placeholder="Contents"
-                        readonly></textarea>
+                    <textarea id="contents" name="contents" class="form-control" rows="3" readonly
+                              th:text="${inquiry.contents}"></textarea>
                 </div>
 
                 <!-- 파일 첨부 -->
@@ -1200,21 +1193,22 @@
                 </div>
             </form>
 
-            <!-- <button type="button" class="ms-btn-2" onclick="location.href='@{/inquiryList}'">List</button> -->
             <div class="black-button-container">
                 <a href="/inquiry/inquiryList" class="custom-btn">List</a>
             </div>
 
-            <!-- 댓글 목록 처리 부분 -->
-
-            <!-- 댓글 입력란: 입력 reply-write상자와 버튼 (inqury_no, reply_contents / date, writer)  -->
+            <!-- 댓글 입력 및 출력 부분 -->
+            <!-- 
             <div class="reply-write">
                 <input type="text" id="replyContents">
                 <input type="button" id="replyBtn" value="답변 입력">
             </div>
 
-            <!--  댓글 출력란 -->
             <div id="reply-list"></div>
+        </div>
+         -->
+        </section>
+
 
 
             </form>

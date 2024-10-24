@@ -21,6 +21,9 @@ import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
+
+import com.tkForest.entity.ProductEntity;
+import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
@@ -121,6 +124,7 @@ public class ProductController {
       
       return "product/productDetail";  // 상세페이지로 이동
    }
+
    
    /**
     * index에서 넘어올 경우
@@ -156,6 +160,12 @@ public class ProductController {
        
        
    }
+   
+   
+   
+   
+   
+   
    
    /**
     * 
@@ -230,6 +240,14 @@ public class ProductController {
     * 상품리스트에서 검색상품을 찾을 수 있도록 요청
     */
    
-   
+
+	 /* 상품 상세 화면(임시)
+	 */
+	 @GetMapping("/productDetail-Temp")
+	    public String productDetailTemp() {
+	        return "product/productDetail-Temp";  // "productDetail-Temp.html" 템플릿 파일을 반환
+	    }
 
 }
+   
+

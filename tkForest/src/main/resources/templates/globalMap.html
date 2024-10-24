@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>About Us</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Trend News</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="keywords"
         content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
@@ -20,11 +20,11 @@
 
     <!-- css All Plugins Files -->
     <link rel="stylesheet" href="/assets/css/plugins/animate.css">
+    <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/owl.carousel.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/slick.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/nouislider.css">
 
@@ -32,202 +32,104 @@
     <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
     <style>
-
-	/* 사이트 통계 문구 */
-    .stats-container {
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 120px; /* 요소 간 간격 */
-    margin: 50px 0; /* 위아래 50px의 여백 추가 */
-    }
-    
-    .stat-item {
-        text-align: center; /* 텍스트와 숫자를 가운데 정렬 */
-    }
-
-    .stat-item p {
-        margin: 0;
-        font-size: 16px;
-        color: #555;
-    }
-    
-    .stat-item h2 {
-        margin: 0;
-        font-size: 36px;
-        color: #000;
-        font-weight: bold;
-    }
-    
-        /* 전체 차트를 감싸는 div */
-        .chart-container {
-            position: relative;
-            min-height: 600px;
-            /* 차트가 들어갈 최소 높이 설정 */
-            margin-bottom: 50px;
-            /* 푸터와 겹치지 않도록 */
-        }
-
-        footer {
-            clear: both;
-            /* 떠있는 요소와 겹치지 않도록 */
-            position: relative;
-            z-index: 1;
-            /* 푸터가 차트 위에 오지 않도록 */
-        }
-
-        /* All-pie-chart 스타일 */
-        #All-pie-chart {
-            margin: 0 auto;
-            width: 500px;
-            height: 500px;
-            margin-bottom: 80px;
-            /* 아래쪽 여백 */
-        }
-
-        /* 나머지 차트 스타일 */
-        .bar-charts-1 {
-            display: flex;
-            /* 가로로 배열 */
-            justify-content: center;
-            /* 중앙 정렬 */
-            gap: 60px;
-            /* 차트 간 간격 */
-            margin: 0 auto;
-            width: 400px;
-            height: 400px;
-        }
-
-        .bar-charts-2 {
-            display: flex;
-            /* 가로로 배열 */
-            justify-content: center;
-            /* 중앙 정렬 */
-            gap: 60px;
-            /* 차트 간 간격 */
-            margin: 0 auto;
-            width: 400px;
-            height: 400px;
-        }
-
-        /* 수정된 스타일 */
-        .about-container {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .sidebar {
-            width: 200px;
+        .trend-container {
+            max-width: 1400px;
+            /* 가로 너비를 넓혀 더 많은 공간을 차지하도록 설정 */
             padding: 20px;
-            background-color: #f8f8f8;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
         }
 
-        .content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .header-image {
-            position: relative;
-            height: 300px;
-            background-image: url('/assets/img/about-us/about-us.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .form-check {
+            margin-right: 15px;
         }
 
-        .header-text {
-            position: relative;
+        .w-45 {
+            width: 45%;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        /* 반응형 레이아웃을 위한 추가 스타일 */
+        @media (max-width: 768px) {
+            .trend-container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .w-45 {
+                width: 100%;
+            }
+        }
+
+        .ms-btn-2 {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: black;
             color: white;
-            font-size: 3em;
-            font-weight: bold;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .site-introduction {
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 0 0 8px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .site-introduction h2 {
-            color: #2c3e50;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .site-introduction p {
-            color: #34495e;
-            line-height: 1.6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 16px;
-            max-width: 1200px;
-            /* 최대 너비 설정 */
-            margin: 0 auto;
-            /* 중앙 정렬을 위한 마진 설정 */
         }
-        
-        .services-container {
-    text-align: center;
-    margin: 50px 0;
-}
 
-.services-heading {
-    font-size: 28px;
-    color: #2c3e50;
-    margin-bottom: 50px;
-    font-weight: bold;
-    padding: 10px;
-}
+        .ms-btn-2:hover {
+            background-color: grey
+        }
 
-.services-subheading {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 50px;
-}
+        table {
+		    width: 100%;
+		    border-collapse: collapse;
+		    margin-top: 20px;
+		        }
+		
+		th, td {
+		    padding: 12px;
+		    text-align: center; /* 텍스트 중앙 정렬 */
+		    border: 1px solid #ffffff;
+		}
+		
+		th {
+		    background-color: #f2f2f2; /* 헤더 배경색을 약간 회색으로 변경 */
+		    font-weight: bold; /* 헤더 텍스트 굵게 */
+		}
+		
+		tr:nth-child(even) {
+		    background-color: #f9f9f9; /* 짝수 행 배경색 */
+		}
+		
+		tr:nth-child(odd) {
+		    background-color: #ffffff; /* 홀수 행 배경색 */
+		}
+		
+		.link-icon {
+		    width: 24px;
+		    height: 24px;
+		    vertical-align: middle;
+		}
+		        
+		        
+		        .highlight-label {
+		        font-weight: bold;
+		        font-size: 18px;
+		        color: #333; /* 강조된 텍스트 색상 */
+		    }
+    	</style>
 
-.services-items {
-    display: flex;
-    justify-content: center;
-    gap: 100px;
-}
 
-.service-item {
-    text-align: center;
-    max-width: 250px;
-    padding-top: 40px;
-    padding-left: 20px; 
-    padding-right: 20px;
-    border: 0.5px solid gray;
-}
-
-.service-item img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 20px;
-}
-
-.service-item h3 {
-    font-size: 18px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-    font-weight: bold
-}
-
-.service-item p {
-    font-size: 14px;
-    color: #555;
-}
-        
-    </style>
 </head>
 
 <body>
@@ -504,13 +406,13 @@
                 <div class="col-12">
                     <div class="row ms_breadcrumb_inner">
                         <div class="col-md-6 col-sm-12">
-                            <h2 class="ms-breadcrumb-title">About TKforest</h2>
+                            <h2 class="ms-breadcrumb-title">Trend News</h2>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <!-- ms-breadcrumb-list start -->
                             <ul class="ms-breadcrumb-list">
                                 <li class="ms-breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="ms-breadcrumb-item active">About TKforest</li>
+                                <li class="ms-breadcrumb-item active">Trend News</li>
                             </ul>
                             <!-- ms-breadcrumb-list end -->
                         </div>
@@ -521,230 +423,207 @@
     </div>
     <!-- Breadcrumb end -->
 	</header>
-	
-    <!-- 수정된 About TK Forest 섹션 -->
-    <div class="about-container">
-    <!-- 
-        <aside class="sidebar">
-            <h2>About Us</h2>
-            <ul>
-                <li><a href="#" style="color: green;">About TK Forest</a></li>
-                <li><a href="#">About KITA</a></li>
-                <li><a href="#">Site Map</a></li>
-            </ul>
-        </aside>
-         -->
-        <main class="content">
-            <header class="header-image">
-                <h1 class="header-text">About TK Forest</h1>
-            </header>
-            <section class="site-introduction">
-                <p>TK Forest symbolizes an interconnected ecosystem in which companies from various industries grow and thrive together.</p>
-                <p>Just as a forest thrives with a balance of diverse species and resources, TK Forest aims to create a market where businesses of all sizes can collaborate, exchange, and prosper together.</p>
-            </section>
-        </main>
+
+    <div class="trend-container mx-auto">
+        <h1 class="text-center mb-4">Trend News</h1>
+        <form id="trendForm" class="text-left">
+            <!-- Region Selector -->
+            <div class="form-group mb-4">
+                <label for="region" class="highlight-label">Region</label><br><br>
+                <select id="region" name="region" class="form-control">
+                    <option value="">Select</option>
+                    <option value="아시아">아시아</option>
+                    <option value="동남아시아">동남아시아</option>
+                    <option value="중앙아시아">중앙아시아</option>
+                    <option value="중동">중동</option>
+                    <option value="유럽">유럽</option>
+                    <option value="서유럽">서유럽</option>
+                    <option value="북유럽">북유럽</option>
+                    <option value="동유럽">동유럽</option>
+                    <option value="아프리카">아프리카</option>
+                    <option value="북아프리카">북아프리카</option>
+                    <option value="중앙아프리카">중앙아프리카</option>
+                    <option value="남아프리카">남아프리카</option>
+                    <option value="카리브해">카리브해</option>
+                    <option value="중남미">아메리카</option>
+                    <option value="북남미">북아메리카</option>
+                    <option value="중남미">중아메리카</option>
+                    <option value="오세아니아">오세아니아</option>
+                </select>
+            </div><br><br>
+
+            <!-- Industrial Classification -->
+            <div class="form-group mb-4">
+                <label class="highlight-label">Industrial classification</label><br><br>
+                <div class="d-flex flex-wrap justify-content-center">
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001193">
+                        <label class="form-check-label">농림수산식품</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001195">
+                        <label class="form-check-label">광물/에너지</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001212">
+                        <label class="form-check-label">화학</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001197">
+                        <label class="form-check-label">섬유/패션</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001198">
+                        <label class="form-check-label">생활소비재</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001201">
+                        <label class="form-check-label">철강/금속</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001199">
+                        <label class="form-check-label">기계류</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001200">
+                        <label class="form-check-label">자동차/수송기기</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001202">
+                        <label class="form-check-label">전자/전기</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001206">
+                        <label class="form-check-label">의료바이오</label><br><br>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001203">
+                        <label class="form-check-label">환경</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001204">
+                        <label class="form-check-label">건설/인프라/플랜트</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001208">
+                        <label class="form-check-label">유통/물류</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001205">
+                        <label class="form-check-label">IT</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001207">
+                        <label class="form-check-label">문화콘텐츠</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001209">
+                        <label class="form-check-label">금융</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001210">
+                        <label class="form-check-label">관광/교육/서비스</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001211">
+                        <label class="form-check-label">기타</label>
+                    </div>
+                    <div class="form-check mr-4">
+                        <input type="checkbox" class="form-check-input" name="search5" value="I001307">
+                        <label class="form-check-label">산업일반</label>
+                    </div>
+                </div>
+            </div><br><br>
+
+
+            <!-- Number of Rows and Page Number -->
+            <div class="d-flex justify-content-between mb-4">
+                <div class="form-group w-45">
+                    <label for="numOfRows" class="highlight-label">Number of Rows</label><br><br>
+                    <input type="text" id="numOfRows" name="numOfRows" class="form-control" value="3">
+                </div>
+                <div class="form-group w-45">
+                    <label for="pageNo" class="highlight-label">Page Number</label><br><br>
+                    <input type="text" id="pageNo" name="pageNo" class="form-control" value="1">
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="d-flex justify-content-center">
+                <button type="button" class="ms-btn-2" onclick="callTrendApi()">Search</button>
+            </div>
+        </form>
+
+        <!-- Result Section -->
+        <h2 class="mt-5">Result</h2>
+        <div id="response"></div>
+        <table class="table table-striped">
+            <tbody>
+                <!-- 여기에 API 호출 후 데이터가 삽입됩니다. -->
+            </tbody>
+        </table>
     </div>
 
-	<div class="stats-container">
-    <div class="stat-item">
-        <p>Global buyers</p>
-        <h2>47,904+</h2>
-    </div>
-    <div class="stat-item">
-        <p>Korean suppliers</p>
-        <h2>5,740+</h2>
-    </div>
-    <div class="stat-item">
-        <p>Products</p>
-        <h2>38,965+</h2>
-    </div>
-</div>
-<div class="services-container">
-    <h2 class="services-heading">Our Services</h2>
-    <p class="services-subheading">To enhance the matching of buyers and sellers, we offer the following services.</p>
-    <div class="services-items">
-        <div class="service-item">
-            <img src="/img/recommend.png" alt="Recommend">
-            <h3>Recommendation Service</h3>
-            <p>We provide a precision-tailored recommendation service to buyers.</p>
-        </div>
-        <div class="service-item">
-            <img src="/img/news.png" alt="Trend">
-            <h3>Trend News</h3>
-            <p>We provide the latest regional news to sellers, keeping them informed about current trends with precision and insight.</p>
-        </div>
-    </div>
-</div>
-<div class="services-container">
-	<h2 class="services-heading">Statistics</h2>
-</div>
 
-    <div class="chart-container">
-        <canvas id="All-pie-chart"></canvas>
-        <div class="bar-charts-1">
-            <canvas id="Beauty-keywords-bar-chart"></canvas>
-            <canvas id="fashion-keywords-bar-chart"></canvas>
-        </div>
-        <div class="bar-charts-2">
-            <canvas id="food-keywords-bar-chart"></canvas>
-            <canvas id="other-keywords-bar-chart"></canvas>
-        </div>
-         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- <script src="/assets/js/plugins/jquery-3.6.0.min.js"></script> -->
 
-        <script>
-            window.onload = function () {
-                // DOM이 로드된 후 aboutUsChart.js 스크립트를 동적으로 로드
-                const script = document.createElement('script');
-                script.src = '/chart/aboutUsChart.js';
-                script.onload = function () {
-                    console.log('aboutUsChart.js loaded successfully.');
-                    // 이곳에서 차트 관련 코드가 실행됨
-                    // aboutUsChart.js 파일에서 차트를 그리도록 설정됨
-                };
-                document.querySelector('.chart-container').appendChild(script);
-            };
-        </script>
-        <!--  
-        <script>
-            $(document).ready(function () {
-                if ($.fn.infiniteslide) {
-                    $('.infiniteslide-class').infiniteslide({
-                        speed: 100,
-                        direction: 'left',
-                        pauseonhover: true
-                    });
-                } else {
-                    console.error("infiniteslide 플러그인을 찾을 수 없습니다.");
-                }
+    <script>
+        function callTrendApi() {
+            // 폼 데이터 수집
+            const formData = new FormData(document.getElementById('trendForm'));
+            const params = new URLSearchParams(formData).toString();
+
+            // AJAX 요청을 통해 서버에 API 호출
+            fetch(`/api/trend?${params}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); // JSON 형식으로 응답 처리
+                })
+                .then(data => {
+                    filterAndDisplayResponse(data);
+                })
+                .catch(error => {
+                    document.getElementById('response').textContent = 'Error: ' + error;
+                });
+        }
+
+        function filterAndDisplayResponse(data) {
+            if (!data || !data.response || !data.response.body || !data.response.body.itemList || !data.response.body.itemList.item) {
+                document.getElementById('response').textContent = 'No data available';
+                return;
+            }
+
+            const regionFilter = document.getElementById('region').value.trim().toLowerCase();
+            const items = data.response.body.itemList.item;
+            const filteredItems = items.filter(item => {
+                return !regionFilter || (item.regn && item.regn.toLowerCase().includes(regionFilter));
             });
-        </script>
-        -->
-    </div>
-    
-    <!-- Team Section -->
-    <section class="ms-team-section padding-tb-30">
-        <div class="container">
-            <div class="section-title-2">
-                <h2 class="services-heading">Our Team</h2>
-                <p>Meet out team members.</p>
-            </div>
-            <div class="ms-team owl-carousel p-t-15">
-                <div class="ms-team-box">
-                    <div class="ms-team-imag">
-                        <img src="/img/Lucha_new.png" alt="user">
-                        <div class="ms-team-socials">
-                            <ul class="align-items-center">
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-twitter" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-facebook" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-linkedin" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ms-team-info">
-                        <h5>박병우</h5>
-                        <p>팀장</p>
-                    </div>
-                </div>
-                <div class="ms-team-box">
-                    <div class="ms-team-imag">
-                        <img src="/img/Gaston_new.png" alt="user">
-                        <div class="ms-team-socials">
-                            <ul class="align-items-center">
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-twitter" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-facebook" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-linkedin" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ms-team-info">
-                        <h5>서영준</h5>
-                        <p>팀원</p>
-                    </div>
-                </div>
-                <div class="ms-team-box">
-                    <div class="ms-team-imag">
-                        <img src="/img/Molly_new.png" alt="user">
-                        <div class="ms-team-socials">
-                            <ul class="align-items-center">
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-twitter" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-facebook" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-linkedin" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ms-team-info">
-                        <h5>유정인</h5>
-                        <p>팀원</p>
-                    </div>
-                </div>
-                <div class="ms-team-box">
-                    <div class="ms-team-imag">
-                        <img src="/img/Ketchup_new.png" alt="user">
-                        <div class="ms-team-socials">
-                            <ul class="align-items-center">
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-twitter" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-facebook" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-linkedin" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ms-team-info">
-                        <h5>조유정</h5>
-                        <p>팀원</p>
-                    </div>
-                </div>
-                <div class="ms-team-box">
-                    <div class="ms-team-imag">
-                        <img src="/img/Bianca_new.png" alt="user">
-                        <div class="ms-team-socials">
-                            <ul class="align-items-center">
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-twitter" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-facebook" aria-hidden="true"></i></a>
-                                </li>
-                                <li class="ms-social-link">
-                                    <a href="#"><i class="msicon msi-linkedin" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ms-team-info">
-                        <h5>조현영</h5>
-                        <p>팀원</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Facts Section End -->
-    
+
+            if (filteredItems.length === 0) {
+                document.getElementById('response').textContent = 'No data available for the selected region';
+                return;
+            }
+
+            let output = '<table>';
+            output += '<tr><th>Region</th><th>Title</th><th>Summary</th><th>Date</th><th>Link</th></tr>';
+
+            filteredItems.forEach(item => {
+                output += '<tr>';
+                output += `<td>${item.regn || 'N/A'}</td>`;
+                output += `<td>${item.newsTitl || 'N/A'}</td>`;
+                output += `<td>${item.cntntSumar || 'N/A'}</td>`;
+                output += `<td>${item.othbcDt || 'N/A'}</td>`;
+                output += `<td><a href="${item.kotraNewsUrl}" target="_blank"><img src="/img/news_icon.png" alt="View Article" class="link-icon"></a></td>`;
+                output += '</tr>';
+            });
+
+            output += '</table>';
+            document.getElementById('response').innerHTML = output;
+        }
+    </script>
+
+
     <!-- Footer Start -->
     <footer class="ms-footer m-t-30">
         <div class="footer-container">
@@ -774,8 +653,7 @@
                                         <li class="ms-footer-link"><a href="track-order.html">About KITA</a></li>
                                         <li class="ms-footer-link"><a href="privacy-policy.html">Site Map</a></li>
                                         <li class="ms-footer-link"><a href="privacy-policy.html">FAQ</a></li>
-                                        <li class="ms-footer-link"><a href="privacy-policy.html">Delivery Guide</a>
-                                        </li>
+                                        <li class="ms-footer-link"><a href="privacy-policy.html">Delivery Guide</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -791,7 +669,8 @@
                                         <li class="ms-footer-link"><a
                                                 href="shop-banner-left-sidebar-col-3.html">Machinery&Parts</a></li>
                                         <li class="ms-footer-link"><a
-                                                href="shop-full-width-col-5.html">Food&Beverage</a></li>
+                                                href="shop-full-width-col-5.html">Food&Beverage</a>
+                                        </li>
                                         <li class="ms-footer-link"><a href="shop-list-left-sidebar.html">Industrial
                                                 Supplies</a></li>
                                         <li class="ms-footer-link"><a
@@ -808,10 +687,9 @@
                                     <ul class="align-items-center">
                                         <li class="ms-footer-link"><a href="register.html">B2B Matchmaking</a></li>
                                         <li class="ms-footer-link"><a href="#">Buyer Invitation Program</a></li>
-                                        <li class="ms-footer-link"><a href="cart.html">Request For Quotation</a>
+                                        <li class="ms-footer-link"><a href="cart.html">Request For Quotation</a></li>
+                                        <li class="ms-footer-link"><a href="privacy-policy.html">AI-based Auto Match</a>
                                         </li>
-                                        <li class="ms-footer-link"><a href="privacy-policy.html">AI-based Auto
-                                                Match</a></li>
                                         <li class="ms-footer-link"><a href="#">tK meet</a></li>
                                     </ul>
                                 </div>
@@ -901,9 +779,6 @@
     <!-- Main Js -->
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/demo-1.js"></script>
-
-
-
 </body>
 
 </html>

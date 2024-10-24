@@ -1,7 +1,9 @@
 package com.tkForest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import com.tkForest.entity.PCategoryEntity;
 import com.tkForest.entity.ProductCertificateEntity;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
+import com.tkForest.repository.BLikeRepository;
 import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.CertificateRepository;
 import com.tkForest.repository.PCategoryRepository;
@@ -44,6 +47,8 @@ public class ProductService {
 	final CategoryRepository categoryRepository;
 	final CertificateRepository certificateRepository;
 	final ProductCertificateRepository productCertificateRepository;
+	
+	final BLikeRepository bLikeRepository;
    
    // 페이징할 때 한 페이지 출력할 글 개수
    @Value("${user.inquiry.pageLimit}")
@@ -342,6 +347,56 @@ public class ProductService {
 		return list;
 	}
 	
+	
+	/**
+	 * (B_마이페이지) 좋아요 한 상품 리스트 불러오기
+	 * @return
+	 */
+	public List<ProductDTO> selectAllLike(String buyerMemberNo) {
+		
+		// 좋아요한 productNo 리스트 조회
+        // List<Integer> likedProductNos = bLikeRepository.findByLikefromBuyerEntity_BuyerMemberNoAndLikeUseYn(buyerMemberNo, "Y");
+        
+		log.info(buyerMemberNo);
+		
+		// 되는 코드들
+		// List<Integer> likedProductNos = bLikeRepository.findProductNosByBuyerMemberNoAndLikeUseYn();
+        // log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
+		// 되는 코드 끝
+
+		
+		List<Integer> likedProductNos = bLikeRepository.findLikedProductsByBuyerMemberNo(buyerMemberNo, "Y");
+        log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
+		
+		
+        // 해당 productNo에 해당하는 ProductEntity 리스트 조회
+        List<ProductEntity> likedProductEntityList = productRepository.findByProductNoIn(likedProductNos); 
+        log.info("좋아요 한 상품엔티티 리스트: {}", likedProductEntityList);
+
+        
+        // ProductDTO 리스트 생성
+        List<ProductDTO> list = new ArrayList<>();
+        
+
+        // for 루프를 사용하여 ProductEntity -> ProductDTO 변환
+        for (ProductEntity product : likedProductEntityList) {
+            ProductDTO dto = new ProductDTO(
+                    product.getProductNo(),  // productNo 추가
+                    product.getProductName(),
+                    product.getBrand()
+            );
+            list.add(dto);
+            log.info("productDTO list: {}", list);
+        }
+        
+        return list;
+		
+    }
+	    
+	
+	
+	
+	
 	/**
 	 * 상품 1개 정보 수정하기
 	 * @param product
@@ -447,4 +502,33 @@ public class ProductService {
 			temp.setProductImagePath2(null);
 		}
 	}
+	
+	/**
+     * sellerMemberNo로 셀러가 등록한 상품 목록 조회
+     * @param sellerMemberNo
+     * @return List<ProductDTO>
+     */
+	public List<ProductDTO> findProductsBySellerMemberNo(String sellerMemberNo) {
+	    // sellerMemberNo로 셀러의 상품 목록을 조회하는 로직
+	    List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
+	    
+	    // ProductEntity를 ProductDTO로 변환하여 반환
+	    return productEntities.stream()
+	            .map(product -> ProductDTO.toDTO(product, product.getSellerEntity().getSellerMemberNo()))
+	            .collect(Collectors.toList());
+	}
+	
+
+    // 상품 번호로 상품명 조회
+    public String findProductNameById(Integer productNo) {
+        Optional<ProductEntity> productEntity = productRepository.findById(productNo);
+        
+        if (productEntity.isPresent()) {
+            return productEntity.get().getProductName();  // 상품 이름 반환
+        } else {
+            throw new RuntimeException("Product not found with productNo: " + productNo);
+        }
+    }
+    
+
 }

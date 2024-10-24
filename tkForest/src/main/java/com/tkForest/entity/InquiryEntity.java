@@ -110,4 +110,9 @@ public class InquiryEntity {
                .build();
    }
 
+public Integer getExpirationOption() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }

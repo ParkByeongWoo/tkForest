@@ -10,7 +10,7 @@ import com.tkForest.entity.SellerEntity;
 
 public interface BuyerRepository extends JpaRepository<BuyerEntity, String> {
 	
-	// id로 셀러를 조회하는 메서드 정의
+	// id로 바이어를 조회하는 메서드 정의
     Optional<BuyerEntity> findByBuyerId(String id);
     
     Optional<BuyerEntity> findByBuyerMemberNo(String buyerMemberNo);
