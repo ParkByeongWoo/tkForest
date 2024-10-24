@@ -199,17 +199,17 @@ public class ProductController {
 	 * @param searchType
 	 * @param query
 	 * @param userDetails
-	 * @param categoryId
+	 * @param categoryNo
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/user/{categoryId}")
+	@GetMapping("/user/{categoryNo}")
 	public String productListByCategory(
 			@PageableDefault(page=1) Pageable pageable,
 	        @RequestParam(name="searchType", defaultValue="ALL") String searchType,
 	        @RequestParam(name="query", defaultValue="") String query,
 	        @AuthenticationPrincipal LoginBuyerDetails userDetails,
-			@PathVariable("categoryId") Integer categoryId, 
+			@PathVariable("categoryNo") Integer categoryNo, 
 			Model model
 			) {
       
@@ -217,7 +217,7 @@ public class ProductController {
 		
 		// 검색기능 + 페이징 + 카테고리
 	    // Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
-		Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryId);
+		Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryNo);
 		log.info("Page<ProductDTO> list: {}", list);
 		
 			int totalPages = list.getTotalPages();
@@ -253,17 +253,18 @@ public class ProductController {
 	           @RequestParam(name="query", defaultValue="") String query,
 	           @RequestParam(name = "sortBy", required = false, defaultValue = "registrationDate") String sortBy, // 수정된 부분, 이름명시
 	           @AuthenticationPrincipal LoginBuyerDetails userDetails,
-//	           @PathVariable("categoryId") Integer categoryId, 
-	           @RequestParam(name = "categoryId", required = false) Integer categoryId,  // categoryId 추가
+//	           @PathVariable("categoryNo") Integer categoryNo, 
+	           @RequestParam(name = "categoryNo", required = false) Integer categoryNo,  // categoryNo 추가
 			Model model
 			) {
       
-		log.info("컨트롤러 도착함 categoryId: {}", categoryId);
+		log.info("컨트롤러 도착함 categoryNo: {}", categoryNo);
 		
 		// 검색기능 + 페이징 + 카테고리
 	    // Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
-		Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryId);
-		log.info("Page<ProductDTO> list: {}", list);
+		// Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryNo);
+		Page<ProductDTO> list = productService.selectAll(pageable, searchType, query, sortBy, categoryNo);
+		log.info("Page<ProductDTO> list: {}", list.toString());
 		
 			int totalPages = list.getTotalPages();
 			int page = pageable.getPageNumber();
@@ -274,7 +275,7 @@ public class ProductController {
 	       model.addAttribute("searchType", searchType);
 	       model.addAttribute("query", query);
 	       model.addAttribute("navi", navi);
-	       model.addAttribute("categoryId", categoryId);
+	       model.addAttribute("categoryNo", categoryNo);
 	       
 	        // 바이어로 로그인한 경우에만 buyerMemberNo 추가
 	        // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
@@ -292,7 +293,7 @@ public class ProductController {
 	
    
    /**
-    * Like 버튼 누르면 B_Like에 추가
+    * (바이어) 상품 좋아요 : Like 버튼 누르면 B_Like에 추가
     * @param buyerMemberNo
     * @param productNo
     * @param likeUseYn

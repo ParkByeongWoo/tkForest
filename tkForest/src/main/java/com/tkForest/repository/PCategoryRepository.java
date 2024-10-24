@@ -25,7 +25,11 @@ public interface PCategoryRepository extends JpaRepository<PCategoryEntity, Inte
    List<Integer> findProductNosByCategoryNo(@Param("categoryNo") Integer categoryNo);
    
    // CATEGORYNO로 시작하는 PRODUCTNO를 조회하는 쿼리 (MySQL에서 Integer 사용)
-   @Query("SELECT c.productEntity.productNo FROM PCategoryEntity c WHERE CAST(c.categoryEntity.categoryNo AS string) LIKE CONCAT(:categoryNo, '%')")
+//   @Query("SELECT c.productEntity.productNo FROM PCategoryEntity c WHERE CAST(c.categoryEntity.categoryNo AS string) LIKE CONCAT(:categoryNo, '%')")
+//   List<Integer> findProductNosByCategoryNoStartsWith(@Param("categoryNo") Integer categoryNo);
+   
+   // 위의 코드가 Integer => String 변환하는 과정에서 생긴 오류 해결(엄격히 String으로 관리)
+   @Query("SELECT c.productEntity.productNo FROM PCategoryEntity c WHERE CAST(c.categoryEntity.categoryNo AS string) LIKE CONCAT(CAST(:categoryNo AS string), '%')")
    List<Integer> findProductNosByCategoryNoStartsWith(@Param("categoryNo") Integer categoryNo);
 
 

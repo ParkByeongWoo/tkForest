@@ -8,7 +8,7 @@ let searchInput = document.getElementById("searchInput");  //검색어 입력
 //let mostViewedButton = document.getElementById("mostViewed"); // 조회수 정렬
 
 
-searchInput.addEventListener('click', goto);
+// searchInput.addEventListener('click', goto);
 //latest.addEventListener('click', latestButton);
 //mostViewed.addEventListener('click', mostViewedButton);
 

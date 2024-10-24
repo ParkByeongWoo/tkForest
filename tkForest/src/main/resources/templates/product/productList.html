@@ -195,8 +195,6 @@
    
 }
 
-
-
 .product-card:hover {
    transform: translateY(-10px);
 }
@@ -222,7 +220,22 @@
     
 }
       
+     /** 카테고리 선택된 카테고리 강조용 css **/
+   .category-item.active,
+.subcategory-item.active,
+.third-category-item.active {
+    font-weight: bold !important;
+    color: green !important;
+}  
+      
+      
    </style>
+   
+   
+
+   
+   
+   
 </head>
 
 <body>
@@ -306,7 +319,7 @@
                            <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET" id="searchForm">
                             <input type="hidden" name="page" id="requestPage" th:value="${page}">
                             <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
-                            <input type="hidden" name="categoryId" th:value="${categoryId}" />
+                            <input type="hidden" name="categoryNo" th:value="${categoryNo}" />
                               <div class="ms-search-select-inner">
                                  <select class="ms-search-cat selectpicker" id="searchType" name="searchType">
                                     <option value="ALL" th:selected="${searchType == 'ALL'}">ALL</option>
@@ -509,52 +522,92 @@
             <div class="hero">
                <!-- 네비게이션 바 시작 -->
                <div class="category-container">
-                  <h2 class="category-title">Category</h2>
-                  <ul class="category-list">
-                     <li class="category-item">
-                        Beauty & Personal Care
-                        <span class="toggle-icon">&#9662;</span>
-                        <ul class="subcategory-list">
-                           <li class="subcategory-item">
-                              Beauty
-                              <span class="toggle-icon">&#9662;</span>
-                              <ul class="third-category-list">
-                                 <li class="third-category-item">Makeup</li>
-                                 <li class="third-category-item">Other Beauty Products</li>
-                                 <li class="third-category-item">Makeup Tools</li>
-                                 <li class="third-category-item">Body & Nail</li>
-                                 <li class="third-category-item">Beauty Appliance</li>
-                                 <li class="third-category-item">Fragrance & Deodorant</li>
-                              </ul>
-                           </li>
-                           <li class="subcategory-item">
-                              Personal Care
-                              <span class="toggle-icon">&#9662;</span>
-                              <ul class="third-category-list">
-                                 <li class="third-category-item">Facial Care</li>
-                                 <li class="third-category-item">Hair Care</li>
-                                 <li class="third-category-item">Other Personal Care</li>
-                                 <li class="third-category-item">Bath Supplies</li>
-                                 <li class="third-category-item">Body Care</li>
-                                 <li class="third-category-item">Oral Hygiene</li>
-                                 <li class="third-category-item">Sanitary Paper</li>
-                                 <li class="third-category-item">Home Care</li>
-                                 <li class="third-category-item">Shaving & Hair Removal</li>
-                              </ul>
-                           </li>
-                        </ul>
-                     </li>
-                     <li class="category-item">
-                        Construction & Safety
-                        <span class="toggle-icon">&#9662;</span>
-                     </li>
-                     <li class="category-item">
-                        Electrical Components & Telecoms
-                        <span class="toggle-icon">&#9662;</span>
-                     </li>
-                     <!-- Add other categories here -->
-                  </ul>
-               </div>
+   <h2 class="category-title">Category</h2>
+   <ul class="category-list">
+      <!-- Beauty & Personal Care 카테고리 -->
+      <li class="category-item ${categoryNo == 11 ? 'active' : ''}">
+         <a th:href="@{/product/productList(categoryNo=11)}">Beauty & Personal Care</a>
+         <span class="toggle-icon">&#9662;</span>
+         <ul class="subcategory-list">
+            <!-- Beauty 서브 카테고리 -->
+            <li class="subcategory-item ${categoryNo == 1111 ? 'active' : ''}">
+               <a th:href="@{/product/productList(categoryNo=1111)}">Beauty</a>
+               <span class="toggle-icon">&#9662;</span>
+               <ul class="third-category-list">
+                  <li class="third-category-item ${categoryNo == 111101 ? 'active' : ''}">
+                     <a th:href="@{/product/productList(categoryNo=111101)}">Makeup</a>
+                  </li>
+                  <li class="third-category-item ${categoryNo == 111102 ? 'active' : ''}">
+                     <a th:href="@{/product/productList(categoryNo=111102)}">Other Beauty Products</a>
+                  </li>
+                  <li class="third-category-item ${categoryNo == 111103 ? 'active' : ''}">
+                     <a th:href="@{/product/productList(categoryNo=111103)}">Makeup Tools</a>
+                  </li>
+                  <li class="third-category-item ${categoryNo == 111104 ? 'active' : ''}">
+                     <a th:href="@{/product/productList(categoryNo=111104)}">Body & Nail</a>
+                  </li>
+                  <li class="third-category-item ${categoryNo == 111105 ? 'active' : ''}">
+                     <a th:href="@{/product/productList(categoryNo=111105)}">Beauty Appliance</a>
+                  </li>
+                  <li class="third-category-item ${categoryNo == 111106 ? 'active' : ''}">
+                     <a th:href="@{/product/productList(categoryNo=111106)}">Fragrance & Deodorant</a>
+                  </li>
+               </ul>
+            </li>
+
+            <!-- Personal Care 서브 카테고리 -->
+            <li class="subcategory-item ${categoryNo == 1112 ? 'active' : ''}">
+               <a th:href="@{/product/productList(categoryNo=1112)}">Personal Care</a>
+               <span class="toggle-icon">&#9662;</span>
+               <ul class="third-category-list">
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111201)}">Facial Care</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111202)}">Hair Care</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111203)}">Other Personal Care</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111204)}">Bath Supplies</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111205)}">Body Care</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111206)}">Oral Hygiene</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111207)}">Sanitary Paper</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111208)}">Home Care</a>
+                  </li>
+                  <li class="third-category-item">
+                     <a th:href="@{/product/productList(categoryNo=111209)}">Shaving & Hair Removal</a>
+                  </li>
+               </ul>
+            </li>
+         </ul>
+      </li>
+
+      <!-- Construction & Safety 카테고리 -->
+      <li class="category-item ${categoryNo == 12 ? 'active' : ''}">
+         <a th:href="@{/product/productList(categoryNo=12)}">Construction & Safety</a>
+         <span class="toggle-icon">&#9662;</span>
+      </li>
+
+      <!-- Electrical Components & Telecoms 카테고리 -->
+      <li class="category-item ${categoryNo == 13 ? 'active' : ''}">
+         <a th:href="@{/product/productList(categoryNo=13)}">Electrical Components & Telecoms</a>
+         <span class="toggle-icon">&#9662;</span>
+      </li>
+      
+      <!-- 다른 카테고리 추가 가능 -->
+   </ul>
+</div>
+
                <!-- 네비게이션 바 끝 -->
             </div> 
             
