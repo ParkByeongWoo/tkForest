@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BCategoryDTO;
+import com.tkForest.dto.CategoryDTO;
 import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductDTO;
@@ -30,22 +31,21 @@ public class RecController {
 	
 	final RecService recService;
 	
-	@GetMapping("/recList")
-	public String recPage() {
-		log.info("상품 추천 페이지로 넘어감");
-		
-		return "rec/recommendationmember";
-	}
+    @GetMapping("/recList")
+    public String recPage(@AuthenticationPrincipal LoginBuyerDetails userDetails, Model model) {
+        log.info("상품 추천 페이지로 넘어감");
+
+        // GET 요청 시 카테고리 데이터를 미리 로드
+        String buyerMemberNo = userDetails.getBuyerMemberNo();
+        List<BCategoryDTO> bCategoryDTOList = recService.recCategory(buyerMemberNo);
+        List<CategoryDTO> categoryList = recService.category(bCategoryDTOList);
+        List<String> keywordList = recService.keyword(buyerMemberNo);
+             
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("keywordList", keywordList);
+        return "rec/recommendationmember";  // 카테고리 데이터가 포함된 페이지 렌더링
+    }
 	
-	@PostMapping("/recCategory")
-	public String recCategory(@AuthenticationPrincipal LoginBuyerDetails userDetails
-			, Model model) {
-	String buyerMemberNo = userDetails.getBuyerMemberNo();
-		List<BCategoryDTO> bCategoryDTO = recService.recCategory(buyerMemberNo);
-		
-		model.addAttribute("bCategory", bCategoryDTO);
-		return "rec/recommendationmember";
-	}
 		
 		
 	@PostMapping("/recList")

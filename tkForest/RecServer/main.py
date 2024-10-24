@@ -34,7 +34,7 @@ def myrec(item: Item) :
             print(df_concat)
             print(df_concat[df_concat['TARGETNO']==389195])
             # 상위 50개 제품 추출
-            top_50_productno = df_concat.iloc[sorted_idx[df_concat[df_concat['TARGETNO'] == num].index[0]-38965, :50]]['TARGETNO'].unique()
+            top_50_productno = df_concat.iloc[sorted_idx[df_concat[df_concat['TARGETNO'] == num].index[0]-38965, :60]]['TARGETNO'].unique()
 
             # df_item이 정의되어 있어야 합니다
             df_top_50 = df_item[df_item['PRODUCTNO'].isin(top_50_productno)]

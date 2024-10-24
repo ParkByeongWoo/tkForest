@@ -1,6 +1,7 @@
 package com.tkForest.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -23,14 +24,18 @@ import org.springframework.web.client.RestTemplate;
 
 import com.tkForest.dto.BCategoryDTO;
 import com.tkForest.dto.B_LikeDTO;
+import com.tkForest.dto.CategoryDTO;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductDTO;
 import com.tkForest.entity.BCategoryEntity;
 import com.tkForest.entity.B_LikeEntity;
+import com.tkForest.entity.CategoryEntity;
 import com.tkForest.entity.InquiryEntity;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.repository.BCategoryRepository;
 import com.tkForest.repository.B_LikeRepository;
+import com.tkForest.repository.BuyerRepository;
+import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.InquiryRepository;
 import com.tkForest.repository.PCategoryRepository;
 import com.tkForest.repository.ProductRepository;
@@ -50,15 +55,25 @@ public class RecService {
 	private final RestTemplate restTemplate;
 	private final ProductRepository productRepository;
 	private final BCategoryRepository bCategoryRepository; 
+	private final CategoryRepository categoryRepository;
+	private final BuyerRepository buyerRepository;
 
-
-	public RecService(B_LikeRepository bLikeRepository, InquiryRepository inquiryRepository, RestTemplate restTemplate, ProductRepository productRepository, BCategoryRepository bCategoryRepository) {
+	public RecService(
+			B_LikeRepository bLikeRepository
+			, InquiryRepository inquiryRepository
+			, RestTemplate restTemplate
+			, ProductRepository productRepository
+			, BCategoryRepository bCategoryRepository
+			, CategoryRepository categoryRepository
+			, BuyerRepository buyerRepository) {
         this.bLikeRepository = bLikeRepository;
         this.inquiryRepository = inquiryRepository;
 		this.restTemplate = restTemplate;
         this.productRepository = productRepository;
         this.bCategoryRepository = bCategoryRepository;
-    }
+        this.categoryRepository = categoryRepository;
+        this.buyerRepository = buyerRepository;
+	}
 
 	public List<ProductDTO> recList(String buyerMemberNo) {
 	    Map<String, Object> result = new HashMap<>();
@@ -127,10 +142,27 @@ public class RecService {
 		List<BCategoryEntity> bCategoryEntityList = bCategoryRepository.findByBuyerEntity_BuyerMemberNo(buyerMemberNo);
 		List<BCategoryDTO> bCategoryDTOList = new ArrayList<>();
 		for (BCategoryEntity entity : bCategoryEntityList) {
-			bCategoryDTOList.add(BCategoryDTO.toDTO(entity, buyerMemberNo, entity.getBCategoryNo()));
+			bCategoryDTOList.add(BCategoryDTO.toDTO(entity, buyerMemberNo, entity.getCategoryEntity().getCategoryNo()));
 		}
 		
 		return bCategoryDTOList;
 	}
+	public List<CategoryDTO> category(List<BCategoryDTO> bCategoryDTOList){
+		List<CategoryDTO> categoryDTOList = new ArrayList<>();
+		for (BCategoryDTO bCategoryDTO : bCategoryDTOList) {
+			Optional<CategoryEntity> categoryEntity = categoryRepository.findById(bCategoryDTO.getCategoryNo());
+			CategoryEntity temp = categoryEntity.get();
+			CategoryDTO dto = CategoryDTO.toDTO(temp);
+			categoryDTOList.add(dto);
+		}
+		return categoryDTOList;
+	}
+	
+	public List<String> keyword(String buyerMemberNo){
+		String keywords = buyerRepository.findConcernKeywordByBuyerMemberNo(buyerMemberNo);
+		List<String> keywordList = Arrays.asList(keywords.split(","));
+		return keywordList;
+	}
+	
 }
 
