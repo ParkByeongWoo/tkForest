@@ -30,6 +30,23 @@ public class MainController {
    }
    
    /**
+    * (비회원) 메인 홈
+    */
+   @GetMapping("/home/userHome")
+   public String userHome() {
+	   return "home/userHome";  
+   }
+   
+   /**
+    * (회원) 메인 홈
+    */
+   @GetMapping("/home/memberHome")
+   public String memberHome() {
+       return "home/memberHome";  
+   }
+   
+   
+   /**
     * 보따리 추천
     * @return
     */
