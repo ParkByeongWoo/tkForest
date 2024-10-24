@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>new 인콰이어리 리스트</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #f5f5f5;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-		.container {
-			display: flex;
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 20px;
-		}
-
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+		
 		.sidebar {
 			width: 250px;
 			background-color: transparent;
@@ -62,75 +61,73 @@
 		.nav-section a:hover {
 			background-color: #f5f5f5;
 		}
+		
+        .content {
+            flex: 1;
+            margin-left: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
 
-		.content {
-			flex: 1;
-			margin-left: 20px;
-			background-color: #fff;
-			padding: 20px;
-			border-radius: 5px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-		}
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 14px;
+        }
 
-		.breadcrumb {
-			margin-bottom: 20px;
-			color: #666;
-			font-size: 14px;
-		}
+        /* 테이블 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-		/* 테이블 스타일 */
-		table {
-			width: 100%;
-			border-collapse: collapse;
-		}
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
 
-		th,
-		td {
-			padding: 10px;
-			text-align: center;
-			border: 1px solid #ddd;
-		}
+        th {
+            background-color: #f2f2f2;
+        }
 
-		th {
-			background-color: #f2f2f2;
-		}
+        tr:hover {
+            background-color: #f5f5f5;
+        }
 
-		tr:hover {
-			background-color: #f5f5f5;
-		}
+        .answer-button {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
-		/* 버튼 스타일 */
-		.write a,
-		#search {
-			display: inline-block;
-			padding: 8px 16px;
-			background-color: #4CAF50;
-			color: white;
-			text-decoration: none;
-			border-radius: 4px;
-			margin-top: 15px;
-		}
+        .answer-button:hover {
+            background-color: #45a049;
+        }
 
-		.write a:hover,
-		#search:hover {
-			background-color: #45a049;
-		}
+        .write {
+            margin-top: 20px;
+        }
 
-		.edit-button {
-			background-color: #333;
-			color: white;
-			border: none;
-			padding: 10px 20px;
-			cursor: pointer;
-			border-radius: 5px;
-			float: right;
-		}
+        .write a {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
 
-		.current {
-			background-color: #4CAF50;
-			color: white;
-		}
-
+        .write a:hover {
+            background-color: #45a049;
+        }
+	
 		/* 페이징 스타일 추가 */
 		.pagination {
 			display: flex;
@@ -165,33 +162,11 @@
 			font-size: 20px;
 			color: #666;
 		}
-
-		/* 테이블 내 버튼 스타일 */
-		.answer-button {
-			display: inline-block;
-			padding: 6px 12px;
-			background-color: #4CAF50;
-			color: white;
-			text-decoration: none;
-			border-radius: 4px;
-			font-size: 14px;
-		}
-
-		.answer-button:hover {
-			background-color: #45a049;
-		}
-
-		/* 테이블 마지막 열 너비 조정 */
-		table th:last-child,
-		table td:last-child {
-			width: 120px;
-		}
-	</style>
+    </style>
 </head>
-
 <body>
-	<div class="container">
-		<div class="sidebar">
+    <div class="container">
+    <div class="sidebar">
 			<div class="nav-section">
 				<h3>Profile</h3>
 				<ul>
@@ -203,8 +178,8 @@
 			<div class="nav-section">
 				<h3>Inquiries</h3>
 				<ul>
-					<li><a href="/inquiry/inquiryDetail?inquiryNo=3">Received Inquiries</a></li>
-					<li><a href="#">Sent Inquiries</a></li>
+					<li><a href="/inquiry/inquiryList">Received Inquiries</a></li>
+					<li><a href="/inquiry/inquiryList">Sent Inquiries</a></li>
 					<li><a href="#">Spam</a></li>
 					<li><a href="#">Deleted Inquiries</a></li>
 				</ul>
@@ -229,61 +204,47 @@
 			<div class="breadcrumb">
 				<h1>My Inquiries</h1>
 			</div>
-			<div> <!-- 인콰 리스트 파트 -->
 
-				<!--  
-					--인콰이어리 전체 목록 출력--
-					<div class="content">
-						<div class="top">
-							--전체 글개수 출력--
-							<div th:if="${list != null}">
-								<p>Total Elements: <span th:text="${list.totalElements}"></span></p>
-								<p th:each="inquiry : ${list.content}">
-									<span th:text="${inquiry.subject}"></span>
-								</p>
-							</div>
-						</div>
-					</div>
-					-->
-				<!-- 인콰이어리 목록 테이블 -->
-				<div class="head">
-					<table>
-						<thead>
-							<tr>
-								<th>Inquiry No.</th>
-								<th>Subject</th>
-								<th>writer</th>
-								<th>Send Date</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<th:block th:if="${!#lists.isEmpty(list)}">
-								<tr th:each="inquiry, status : ${list}">
-									<td th:text="${(list.number + 1) * list.size - (list.size - status.count)}">1</td>
-									<td>
-										<a th:href="@{/inquiry/inquiryDetail(inquiryNo=${inquiry.inquiryNo}, searchItem=${searchItem}, searchWord=${searchWord})}"
-											th:text="${inquiry.subject}"></a>
-										<span th:if="${inquiry.originalFileName != null}">
-											<img th:src="@{/images/attachment.png}" alt="Attached File" width="15px">
-										</span>
-									</td>
-									<td th:text="${inquiry.buyerMemberNo}"></td>
-									<td th:text="${#temporals.format(inquiry.offerSendDate, 'yyyy-MM-dd HH:mm')}"></td>
-									<td>
-										<a th:href="@{/inquiry/inquiryDetail}" class="answer-button">Reply</a>
-									</td>
-								</tr>
-							</th:block>
-						</tbody>
-					</table>
-				</div> <!-- head  -->
-			</div>
-			<!--
-			<div class="write">
-				<a th:href="@{/inquiry/inquiryDetail}">인콰이어리 답변 작성</a>	
-			</div>-->
-			<div class="pagination">
+
+            <!-- 인콰이어리 목록 테이블 -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Subject</th>
+                        <th>Writer</th>
+                        <th>Send Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 목록이 있을 때만 출력 -->
+                    <th:block th:if="${!#lists.isEmpty(list)}">
+                        <tr th:each="inquiry, status : ${list}">
+                            <!-- 순서 번호는 status.count로 표시 -->
+                            <td th:text="${status.count}"></td>
+                            <td>
+                                <a th:text="${inquiry.subject}"></a>
+                                <span th:if="${inquiry.originalFileName != null}">
+                                    <img th:src="@{/images/attachment.png}" alt="Attached File" width="15px">
+                                </span>
+                            </td>
+                            <td th:text="${buyerNames[inquiry.buyerMemberNo]}"></td>
+                            <td th:text="${#temporals.format(inquiry.offerSendDate, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td>
+                                <a th:href="@{/inquiry/inquiryDetail(inquiryNo=${inquiry.inquiryNo})}"  class="answer-button">Reply</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <!-- 목록이 없을 때 출력 -->
+                    <th:block th:if="${#lists.isEmpty(list)}">
+                        <tr>
+                            <td colspan="5">No inquiries found.</td>
+                        </tr>
+                    </th:block>
+                </tbody> 
+            </table>
+            <div class="pagination">
 				<div class="pagination-item pagination-arrow">&lt;</div>
 				<div class="pagination-item active">1</div>
 				<div class="pagination-item">2</div>
@@ -292,10 +253,8 @@
 				<div class="pagination-item">5</div>
 				<div class="pagination-item pagination-arrow">&gt;</div>
 			</div>
-		</div> <!-- content -->
-
-
+        </div>
+    </div>
 
 </body>
-
 </html>

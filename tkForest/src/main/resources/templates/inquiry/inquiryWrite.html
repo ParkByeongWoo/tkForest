@@ -31,6 +31,9 @@
    <!-- Main Style -->
    <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
    <link rel="stylesheet" href="/assets/css/responsive.css">
+   
+   <script src="/script/expiredate.js"></script>
+   <!-- <script src="/script/seller-search.js"></script> -->
 
 </head>
 
@@ -310,6 +313,7 @@
 
             <!-- form 태그에 action 및 method 속성 추가 -->
             <form th:action="@{/inquiry/inquiryWrite}" method="POST" enctype="multipart/form-data">
+          
                <!-- flex 레이아웃을 위한 스타일 추가 -->
                <style>
                   .form-group {
@@ -359,115 +363,152 @@
                </style>
 
                <!-- 제목 입력 -->
-               <div class="form-group">
-                  <label for="subject">제목</label>
-                  <input type="text" id="subject" name="subject" class="form-control" placeholder="subject" required>
-               </div>
-
-               <!-- 발신자 (From) -->
-               <div class="form-group">
-                  <label for="buyerMemberNo">발신자 (From)</label>
-                  <input type="text" id="buyerMemberNo" name="buyerMemberNo" class="form-control"
-                     th:value="${#authentication.name}" th:readonly="${!#authentication.name.startsWith('B')}"
-                     placeholder="Buyer">
-               </div>
-
-               <!-- 수신자 (To) -->
-               <div class="form-group">
-                  <label for="sellerMemberNo">수신자 (To)</label>
-                  <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
-                     th:value="${#authentication.name}" th:readonly="${!#authentication.name.startsWith('S')}"
-                     placeholder="Seller">
-               </div>
-
-               <!-- 상품 고유번호 -->
-               <div class="form-group">
-                  <label for="productNo">상품 고유번호</label>
-                  <input type="text" id="productNo" name="productNo" class="form-control" th:value="${productNo}">
-               </div>
-
-               <!-- 발송일 -->
-               <div class="form-group">
-                  <label for="offerSendDate">발송일</label>
-                  <input type="datetime-local" id="offerSendDate" name="offerSendDate" class="form-control">
-               </div>
-
-               <!-- 만료일 (readonly) -->
-               <div class="form-group">
-                  <label for="offerExpireDate">만료일</label>
-                  <input type="datetime-local" id="offerExpireDate" name="offerExpireDate" class="form-control">
-               </div>
-
-               <!-- 만료 기간 선택 -->
-               <div class="form-group">
-                  <label for="expirationOption">만료기간 선택</label>
-                  <select id="expirationOption" name="expirationOption" class="form-control" required>
-                     <option value="" disabled selected>Selected</option>
-                     <option value="1">1 Month</option>
-                     <option value="6">6 Months</option>
-                     <option value="12">12 Months</option>
-                     <option value="24">24 Months</option>
-                  </select>
-
-               </div>
-
-               <!-- 주문 수량 -->
-               <div class="form-group">
-                  <label for="orderQuantity">주문 수량</label>
-                  <input type="number" id="orderQuantity" name="orderQuantity" class="form-control" min="1"
-                     placeholder=0 required>
-               </div>
-
-               <!-- 주문 수량 단위 -->
-               <div class="form-group">
-                  <label for="orderUnit">주문 수량 단위</label>
-                  <select id="orderUnit" name="orderUnit" class="form-control" required>
-                     <option value="" disabled selected>Order unit</option>
-                     <option value="pieces">Pieces (PCS)</option>
-                     <option value="box">Box</option>
-                     <option value="carton">Carton</option>
-                     <option value="pallet">Pallet</option>
-                     <option value="bundle">Bundle</option>
-                     <option value="ton">Ton</option>
-                     <option value="kilogram">Kilogram (KG)</option>
-                     <option value="liter">Liter (L)</option>
-                     <option value="set">Set</option>
-                     <option value="dozen">Dozen</option>
-                  </select>
-               </div>
-
-               <!-- 주문 단위 기타 입력 -->
-               <div class="form-group">
-                  <label for="orderUnitEtc">주문단위 기타</label>
-                  <input type="text" id="orderUnitEtc" name="orderUnitEtc" class="form-control"
-                     placeholder="Please specify the order unit in text.">
-               </div>
-
-               <!-- 내용 -->
-               <div class="form-group">
-                  <label for="contents">내용</label>
-                  <textarea id="contents" name="contents" class="form-control" rows="3" placeholder="Contents"
-                     required></textarea>
-               </div>
-
-               <!-- 파일 첨부 -->
-               <div class="form-group">
-                  <label for="file">파일 첨부</label>
-                  <input type="file" id="uploadFile" name="uploadFile" class="form-control">
-               </div>
-            </form>
+         <div class="form-group">
+            <label for="subject">제목</label>
+            <input type="text" id="subject" name="subject" class="form-control" placeholder="subject" required>
          </div>
-         <!-- 전송 버튼 -->
-         <!--  <button type="submit" class="ms-btn-2">Submit</button>
-        <a th:href="@{/inquiry/inquiryList}" class="ms-btn-2">List</a>
-        <button type="reset" class="ms-btn-2">Reset</button>-->
+         
+         
+         <!-- 발신자 (From) -->
+		<div class="form-group">
+		    <label for="userName">발신자 (From)</label>
+		    <!-- 화면에는 바이어의 이름이 보이도록 -->
+		    <input type="text" id="userName" name="userName" class="form-control"
+		           th:value="${#authentication.name}"readonly>
+		    
+		    <!-- 숨겨진 필드로 buyerMemberNo를 서버로 전달 -->
+		    <input type="hidden" id="buyerMemberNo" name="buyerMemberNo" 
+		           th:value="${buyerMemberNo}">
+		</div>
+         
+		<!-- 수신자 (To) -->
+		<div class="form-group">
+		    <label for="sellerMemberNo">수신자 (To)</label>
+		    <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control"
+		           th:value="${inquiry?.sellerMemberNo}" required>
+		</div>
 
+         
+        <!-- 셀러 검색 -->
+        <!--  
+		<div class="form-group">
+		    <label for="sellerMemberNo">셀러 번호 검색</label>
+		    <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control" placeholder="Enter Seller Member No">
+		    <button type="button" id="searchSellerBtn" class="custom-btn">Search</button>
+		</div>
+		-->
+		<!-- 상품 목록 -->
+		<!--  
+		<div class="form-group">
+		    <label for="productNo">상품 목록</label>
+		    <select id="productNo" name="productNo" class="form-control">
+		        <option value="" disabled selected>Selected</option>
+		    </select>
+		</div>-->
+        
+         <!-- 상품 고유번호 -->
+         <div class="form-group">
+            <label for="productNo">상품 고유번호</label>
+            <input type="text" id="productNo" name="productNo" class="form-control" th:value="${productNo}">
+         </div> 
+
+         <!-- 발송일 -->
+         <div class="form-group">
+            <label for="offerSendDate">발송일</label>
+            <input type="datetime-local" id="offerSendDate" name="offerSendDate" class="form-control">
+         </div>
+         
+         <script>
+		    function updateDateTime() {
+		        const now = new Date();
+		        const formattedTime = now.getFullYear() + '-' + 
+		            ('0' + (now.getMonth() + 1)).slice(-2) + '-' + 
+		            ('0' + now.getDate()).slice(-2) + 'T' + 
+		            ('0' + now.getHours()).slice(-2) + ':' + 
+		            ('0' + now.getMinutes()).slice(-2);
+		
+		        document.getElementById('offerSendDate').value = formattedTime;
+		    }
+		
+		    // 페이지 로드 시 시간 업데이트
+		    window.onload = function() {
+		        updateDateTime();
+		        // 1분마다 갱신
+		        setInterval(updateDateTime, 60000); // 60초마다 실행
+		    };
+		</script>
+
+         <!-- 만료일 -->
+         <!-- <div class="form-group">
+            <label for="offerExpireDate">만료일</label>
+            <input type="datetime-local" id="offerExpireDate" name="offerExpireDate" class="form-control">
+         </div> -->
+
+         <!-- 만료 기간 선택 -->
+         <div class="form-group">
+            <label for="expirationOption">만료기간 선택</label>
+            <select id="expirationOption" name="expirationOption" class="form-control" required>
+               <option value="" disabled selected>Selected</option>
+               <option value="1">1 Month</option>
+               <option value="6">6 Months</option>
+               <option value="12">12 Months</option>
+               <option value="24">24 Months</option>
+            </select>
+         </div>     
+
+         <!-- 주문 수량 -->
+         <div class="form-group">
+            <label for="orderQuantity">주문 수량</label>
+            <input type="number" id="orderQuantity" name="orderQuantity" class="form-control" min="1"
+                   placeholder=0 required>
+         </div>
+
+         <!-- 주문 수량 단위 -->
+         <div class="form-group">
+            <label for="orderUnit">주문 수량 단위</label>
+            <select id="orderUnit" name="orderUnit" class="form-control" required>
+               <option value="" disabled selected>Order unit</option>
+               <option value="pieces">Pieces (PCS)</option>
+               <option value="box">Box</option>
+               <option value="carton">Carton</option>
+               <option value="pallet">Pallet</option>
+               <option value="bundle">Bundle</option>
+               <option value="ton">Ton</option>
+               <option value="kilogram">Kilogram (KG)</option>
+               <option value="liter">Liter (L)</option>
+               <option value="set">Set</option>
+               <option value="dozen">Dozen</option>
+            </select>
+         </div>
+
+         <!-- 주문 단위 기타 입력 -->
+         <div class="form-group">
+            <label for="orderUnitEtc">주문단위 기타</label>
+            <input type="text" id="orderUnitEtc" name="orderUnitEtc" class="form-control"
+                   placeholder="Please specify the order unit in text.">
+         </div>
+
+         <!-- 내용 -->
+         <div class="form-group">
+            <label for="contents">내용</label>
+            <textarea id="contents" name="contents" class="form-control" rows="3" placeholder="Contents" required></textarea>
+         </div>
+
+         <!-- 파일 첨부 -->
+         <div class="form-group">
+            <label for="file">파일 첨부</label>
+            <input type="file" id="uploadFile" name="uploadFile" class="form-control">
+         </div>
+
+         <!-- 전송 버튼 -->
          <div class="black-button-container">
             <button type="submit" class="custom-btn">Submit</button>
             <a href="/inquiry/inquiryList" class="custom-btn">List</a>
             <button type="reset" class="custom-btn">Reset</button>
          </div>
-         </form>
+      </form>
+   </div>
+   </section>
 
 
          <!-- 푸터 시작-->

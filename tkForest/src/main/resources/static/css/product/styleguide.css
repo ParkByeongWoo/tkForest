@@ -1,0 +1,168 @@
+:root { 
+  --azure-radiance: #000000;
+  --black: #000000;
+  --blue: #000000;
+  --boulder: #000000;
+  --gallery: #000000;
+  --whisper: #f5f4f9;
+  --white: #000000;
+  --wwwtradekoreacomabbey: #000000;
+  --wwwtradekoreacomblack: #000000;
+  --wwwtradekoreacomcod-gray: #000000;
+  --wwwtradekoreacomdove-gray: #000000;
+  --wwwtradekoreacompowder-blue: #000000;
+  --wwwtradekoreacompuerto-rico: #000000;
+  --wwwtradekoreacomshamrock: #000000;
+  --wwwtradekoreacomsilver-chalice: #000000;
+  --wwwtradekoreacomtundora: #000000;
+  --wwwtradekoreacomwhite: #000000;
+  --wwwtradekoreacomwhite-95: #000000;
+  --x127001alabaster: #000000;
+  --x127001apricot: #000000;
+  --x127001aquamarine: #000000;
+  --x127001bittersweet: #000000;
+  --x127001black: #000000;
+  --x127001black-60: #000000;
+  --x127001boulder: #777777;
+  --x127001brink-pink: #000000;
+  --x127001can-can: #000000;
+  --x127001cornflower-blue: #000000;
+  --x127001cream-brulee: #000000;
+  --x127001deco: #000000;
+  --x127001dusty-gray: #000000;
+  --x127001fiord: #000000;
+  --x127001froly: #000000;
+  --x127001gallery: #eeeeee;
+  --x127001gigas: #000000;
+  --x127001heliotrope: #000000;
+  --x127001mauve: #000000;
+  --x127001mine-shaft: #000000;
+  --x127001mona-lisa: #000000;
+  --x127001salmon: #000000;
+  --x127001san-marino: #000000;
+  --x127001shark: #2c2f36;
+  --x127001shark-75: #000000;
+  --x127001silver: #bbbbbb;
+  --x127001spring-green: #000000;
+  --x127001tropical-blue: #000000;
+  --x127001turbo: #000000;
+  --x127001viridian: #3e9172;
+  --x127001vivid-tangerine: #000000;
+  --x127001whisper: #000000;
+  --x127001white: #ffffff;
+  --x127001white-white: #000000;
+  --x127001woodsmoke: #17181c;
+ 
+  --font-size-l: 15px;
+  --font-size-m: 14px;
+  --font-size-s: 13px;
+  --font-size-xl: 16px;
+  --font-size-xs: 12px;
+  --font-size-xxl: 18px;
+  --font-size-xxxl: 22px;
+ 
+  --font-family-poppins: "Poppins", Helvetica;
+}
+.x127001semanticinput {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.6px;
+}
+
+.x127001semanticitem {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+}
+
+.x127001semanticstrong {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+}
+
+.x127001semanticoptions {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.x127001semanticheading-4 {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.x127001poppinsmedium-14-upper {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.32px;
+}
+
+.x127001poppinslight-16 {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+.x127001poppinsmedium-14 {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.x127001poppinslight-13 {
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.poppins-semi-bold-sonic-silver-14px {
+  color: var(--x127001boulder);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.poppins-normal-sonic-silver-14px {
+  color: var(--x127001boulder);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.poppins-normal-sonic-silver-13px {
+  color: var(--x127001boulder);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.poppins-medium-black-13px {
+  color: var(--azure-radiance);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 500;
+}

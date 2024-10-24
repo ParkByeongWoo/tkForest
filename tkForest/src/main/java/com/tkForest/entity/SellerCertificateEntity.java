@@ -28,24 +28,24 @@ import lombok.ToString;
 @Entity
 @Table(name="SELLERCERTIFICATE")
 public class SellerCertificateEntity {
-	@Id
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="SELLERCERTIFICATENO")
-	private Integer sellerCertificateNo;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="SELLER_MEMBERNO", referencedColumnName = "SELLER_MEMBERNO", nullable = false)
-	private SellerEntity sellerEntity;
-	
+   @Column(name="SELLERCERTIFICATENO")
+   private Integer sellerCertificateNo;
+   
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name="SELLER_MEMBERNO", referencedColumnName = "SELLER_MEMBERNO", nullable = false)
+   private SellerEntity sellerEntity;
+   
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="CERTIFICATETYPECODE", referencedColumnName = "CERTIFICATETYPECODE", nullable = false)
-	private CertificateEntity certificateEntity;
-	
-	public static SellerCertificateEntity toEntity(SellerCertificateDTO sellerCertificateDTO, SellerEntity sellerEntity, CertificateEntity certificateEntity) {
-		return SellerCertificateEntity.builder()
-				.sellerCertificateNo(sellerCertificateDTO.getSellerCertificateNo())
-				.sellerEntity(sellerEntity)
-				.certificateEntity(certificateEntity)
-				.build();
-	}
+   @JoinColumn(name="CERTIFICATETYPECODE", referencedColumnName = "CERTIFICATETYPECODE", nullable = false)
+   private CertificateEntity certificateEntity;
+   
+   public static SellerCertificateEntity toEntity(SellerCertificateDTO sellerCertificateDTO, SellerEntity sellerEntity, CertificateEntity certificateEntity) {
+      return SellerCertificateEntity.builder()
+            .sellerCertificateNo(sellerCertificateDTO.getSellerCertificateNo())
+            .sellerEntity(sellerEntity)
+            .certificateEntity(certificateEntity)
+            .build();
+   }
 }

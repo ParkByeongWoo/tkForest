@@ -7,10 +7,13 @@
  */
 let idCheck = false;	// 일단 기본은 false(가입 불가능)
 let pwdCheck = false;
-let bizregNoCheck = false;
-let categoryData = {};
 
 $(function(){
+<<<<<<< HEAD:tkForest/src/main/resources/static/script/signup.js
+	// 아이디 확인 버튼 클릭 -> 중복 아이디 체크	
+	$('#confirmId').on('click', confirmId);
+
+=======
 	
 	$('#confirmBizregNo').on('click', confirmBizregNo);
 	$('#confirmSellerId').on('click', confirmSellerId);
@@ -28,13 +31,46 @@ $(function(){
 	// 가입 버튼 클릭 시 확인
 	$('#submitBtn').on('click', sellerSignUp);
 	
+>>>>>>> e21ae03032bac8fc0b09941a7eef4067da834594:tkForest/src/main/resources/static/script/seller-sign-up.js
 });
 
 
-// (셀러) 사용가능한 아이디인지 여부를 판단(ajax로 작업);
-function confirmSellerId(){
-	event.preventDefault();
+// 사용가능한 아이디인지 여부를 판단(ajax로 작업);
+function confirmId(){
 	
+<<<<<<< HEAD:tkForest/src/main/resources/static/script/signup.js
+	let userId = $('#sellerId').val();
+
+	/*	
+	if (userId.trim().length < 3 || userId.trim().length > 5) {
+		$('#confirmId').css('color', 'red');
+		$('#confirmId').html('id는 3~5자 사이로 입력하세요❗');
+		return;
+	}
+	*/
+	
+	// 중복 아이디인지 체크
+	$.ajax({
+		url: "/user/confirmId"
+		, method: "POST"
+		, data: {"userId":userId}
+		, success: function(resp) {	// resp = true이면 사용가능한 아이디
+			if (resp) {
+				$('#idCheck').css('color', 'blue');
+				$('#idCheck').html('사용가능한 아이디입니다.');
+				// $('#idCheck').html('');
+				idCheck = true;
+			} else {
+				$('#idCheck').css('color', 'red');
+				$('#idCheck').html('이미 사용중인 아이디입니다.');
+				idCheck = false;
+			}
+		}
+	});
+	
+	// $('#confirmId').html('');
+	
+=======
 	let userId = $('[data-role="userId"]').val();
 
 	/*
@@ -349,4 +385,5 @@ function addCategory(CATEGORY1, CATEGORY2, CATEGORY3, selectedCategory, modal) {
 	
 	// modal.hide(); // 카테고리 선택 후 모달 닫기
 
+>>>>>>> e21ae03032bac8fc0b09941a7eef4067da834594:tkForest/src/main/resources/static/script/seller-sign-up.js
 }
