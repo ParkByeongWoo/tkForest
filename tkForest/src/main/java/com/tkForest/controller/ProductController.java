@@ -123,6 +123,7 @@ public class ProductController {
       
       return "product/productDetail";  // 상세페이지로 이동
    }
+
    
    /**
     * index에서 넘어올 경우
@@ -161,7 +162,7 @@ public class ProductController {
        
    }
    
-   
+
    // 검색 및 정렬된 상품 목록 제공
    @GetMapping("/productListOrderBy")
    @ResponseBody
@@ -173,8 +174,6 @@ public class ProductController {
 
        return productService.getProducts(searchType, query, page, orderBy);
    }
-
-   
    
    /**
     * 
@@ -245,10 +244,14 @@ public class ProductController {
       return "redirect:/product/productDetail";
    }
    
-   /**
-    * 상품리스트에서 검색상품을 찾을 수 있도록 요청
-    */
-   
+
+	/*
+	 * 상품 상세 화면(임시)
+	 */
+	 @GetMapping("/productDetail-Temp")
+	    public String productDetailTemp() {
+	        return "product/productDetail-Temp";  // "productDetail-Temp.html" 템플릿 파일을 반환
+	    }
+}
    
 
-}

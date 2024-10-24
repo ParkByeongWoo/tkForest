@@ -34,7 +34,7 @@ import lombok.ToString;
 @Builder
 
 @Entity
-@Table(name = "inquiry")
+@Table(name = "INQUIRY")
 @EntityListeners(AuditingEntityListener.class)
 public class InquiryEntity {
     @Id
@@ -109,5 +109,10 @@ public class InquiryEntity {
                .savedFileName(inquiryDTO.getSavedFileName())
                .build();
    }
+
+public Integer getExpirationOption() {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -34,7 +35,13 @@
 
     <!-- 추가한 css -->
     <link rel="stylesheet" href="/css/signup.css">
-
+	
+	<style>
+	       	.row {
+   		 display: flex;
+   		 flex-wrap: nowrap; /* 위치 바가 아래로 내려갈 경우에 적용 - 자식 요소들이 한 줄에 유지되도록 설정 */
+			}
+	</style>
 </head>
 
 <body>
@@ -574,9 +581,9 @@
                                  KITA's global B2B marketplace, tradeKorea!
                                  A leading B2B Marketplace to Discover and Source Korean Products</p>
                               <div class="ms-app-store">
-                                 <a href="#" class="app-img"><img src="assets/img/app/android.png" class="adroid"
+                                 <a href="#" class="app-img"><img src="/assets/img/app/android.png" class="adroid"
                                        alt="apple"></a>
-                                 <a href="#" class="app-img"><img src="assets/img/app/apple.png" class="apple"
+                                 <a href="#" class="app-img"><img src="/assets/img/app/apple.png" class="apple"
                                        alt="apple"></a>
                               </div>
                            </div>
@@ -636,12 +643,12 @@
                                  <div class="ms-footer-links ms-footer-dropdown">
                                     <ul class="align-items-center">
                                        <li class="ms-footer-link ms-foo-location"><span><img
-                                                src="assets/img/icons/foo-location.svg" class="svg_img foo_svg"
+                                                src="/assets/img/icons/foo-location.svg" class="svg_img foo_svg"
                                                 alt=""></span>
                                           <p>511, Yeongdong-daero, Gangnam-gu, Seoul, Republic of Korea</p>
                                        </li>
                                        <li class="ms-footer-link ms-foo-mail"><span><img
-                                                src="assets/img/icons/foo-mail.svg" class="svg_img foo_svg"
+                                                src="/assets/img/icons/foo-mail.svg" class="svg_img foo_svg"
                                                 alt=""></span><a href="mailto:example@email.com">tradekorea@kita.net</a>
                                        </li>
                                     </ul>

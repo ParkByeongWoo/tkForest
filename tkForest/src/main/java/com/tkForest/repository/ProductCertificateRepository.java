@@ -9,13 +9,12 @@ import org.springframework.data.repository.query.Param;
 import com.tkForest.entity.ProductCertificateEntity;
 
 public interface ProductCertificateRepository extends JpaRepository<ProductCertificateEntity, Integer> {
-	
-	@Query("SELECT p.certificateEntity.certificateTypeCode FROM ProductCertificateEntity p WHERE p.productEntity.productNo = :productNo")
-	List<Integer> findCertificateTypeCodesByProductNo(@Param("productNo") Integer productNo);
+   
+   @Query("SELECT p.certificateEntity.certificateTypeCode FROM ProductCertificateEntity p WHERE p.productEntity.productNo = :productNo")
+   List<Integer> findCertificateTypeCodesByProductNo(@Param("productNo") Integer productNo);
+   
+   //List<Integer> findByProductEntityProductNo(Integer productNo);
+//   List<ProductCertificateEntity> findAllByCertificateEntityOrderByProductCertificateNoDesc(Optional<CertificateEntity> certificateEntity);
 
-
-	
-	//List<Integer> findByProductEntityProductNo(Integer productNo);
-//	List<ProductCertificateEntity> findAllByCertificateEntityOrderByProductCertificateNoDesc(Optional<CertificateEntity> certificateEntity);
 }
  

@@ -75,8 +75,6 @@
        
       }
 
-
-
       .button {
          display: inline-block;
          background-color: #4CAF50;
@@ -223,7 +221,6 @@
     height: 100%; /* 전체 높이 설정 */
     
 }
-      
       
    </style>
 </head>
@@ -561,12 +558,6 @@
             </div> 
             
 <!--  상품목록 밑에 네비가 있게 하기 위함 -->
-<!-- 
-
-
-
- -->
-
 <div class="content-container">
 	<!-- 상품 정렬 버튼 추가 -->
 	
@@ -574,7 +565,7 @@
    <input type="button" id="latest" value="latest" onclick="sortProducts('registrationDate')">
    <input type="button" id="mostViewed" value="mostViewed"  onclick="sortProducts('viewCnt')">
    </div>
-
+   
 <div class="product-grid">
    <th:block th:each="product : ${list}">
       <!-- product-card 안에 a 태그를 넣어서 레이아웃이 깨지지 않도록 수정 -->
@@ -600,8 +591,37 @@
             </p>
          </div>
          <div class="product-actions">
-            <button class="like-button">❤️</button>
-            <button class="contact-button">✉️</button>
+         <!--  좋아요 보내는 버튼  -->
+            <button id="like-button" class="like-button" th:data-productno="${product.productNo}">❤️</button>
+      
+		<!-- 인콰이어리 보내는 버튼 -->
+		<button class="contact-button" 
+		        th:data-seller-member-no="${product.sellerMemberNo}" 
+		        th:data-product-no="${product.productNo}">✉️</button>
+		
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+		    // 모든 contact-button 요소를 선택
+		    const contactButtons = document.querySelectorAll('.contact-button');
+		    
+		    // 각 버튼에 대해 이벤트 리스너 등록
+		    contactButtons.forEach(button => {
+		        button.addEventListener('click', function() {
+		            const sellerMemberNo = button.getAttribute('data-seller-member-no');
+		            const productNo = button.getAttribute('data-product-no');
+		
+		            // URL 인코딩을 사용하여 안전한 URL을 만듦
+		            const encodedSellerMemberNo = encodeURIComponent(sellerMemberNo);
+		            const encodedProductNo = encodeURIComponent(productNo);
+		
+		            // 인콰이어리 작성 페이지로 이동
+		            const url = `/inquiry/inquiryWriteProduct?sellerMemberNo=${encodedSellerMemberNo}&productNo=${encodedProductNo}`;
+		            window.location.href = url;
+		        });
+		    });
+		});
+		
+		</script>   
          </div>
       </div>
    </th:block>
@@ -678,7 +698,6 @@
       </div>
       
       <!-- 페이징 끝-->
-
 
    <!-- 푸터 시작-->
 
@@ -758,7 +777,7 @@
                                           src="assets/img/icons/foo-location.svg" class="svg_img foo_svg" alt=""></span>
                                     <p>511, Yeongdong-daero, Gangnam-gu, Seoul, Republic of Korea</p>
                                  </li>
-                                 <li class="ms-footer-link ms-foot-mail"><span><img src="assets/img/icons/foo-mail.svg"
+                                 <li class="ms-footer-link ms-foo-mail"><span><img src="assets/img/icons/foo-mail.svg"
                                           class="svg_img foo_svg" alt=""></span><a
                                        href="mailto:example@email.com">tradekorea@kita.net</a>
                                  </li>
@@ -862,7 +881,7 @@
       document.getElementById('searchForm').submit();   // 폼 제출
    }
 </script>
-	   
+
 </body>
 
 

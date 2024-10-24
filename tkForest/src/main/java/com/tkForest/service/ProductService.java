@@ -1,14 +1,13 @@
 package com.tkForest.service;
 
 import java.util.List;
-
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,10 +31,6 @@ import com.tkForest.util.FileService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 @RequiredArgsConstructor
 @Service
@@ -357,45 +352,6 @@ public class ProductService {
 
 	    return list;
 	}
-
-	
-	
-	
-	
-	/**
-	 * 검색에서 정렬에 치중한 기능!
-	 * 해당 기능은 유형(상품/브랜드), 검색어, 정렬(최신순 또는 조회수 높은 순) 세가지를 포함
-	 * @param pageable
-	 * @param ordered - latest일 경우  
-	 * @param searchItem 아니고 searchType
-	 * @param searchWord 아니고 query
-	 * @return
-	 */
-    // 검색 및 정렬된 상품 목록 조회
-    public Page<ProductEntity> getProducts(String searchType, String query, int page, String orderBy) {
-        Pageable pageable = createPageRequest(page, orderBy);
-
-        // 검색 조건에 따라 동적으로 쿼리 수행
-        if ("ALL".equalsIgnoreCase(searchType)) {
-            return productRepository.findByProductNameContainsOrBrandContains(query, query, pageable);
-        } else if ("Products".equalsIgnoreCase(searchType)) {
-            return productRepository.findByProductNameContainsOrBrandContains(query, "", pageable);
-        } else if ("Brand".equalsIgnoreCase(searchType)) {
-            return productRepository.findByProductNameContainsOrBrandContains("", query, pageable);
-        }
-        return Page.empty();  // 검색 결과가 없는 경우 빈 페이지 반환
-    }
-
-    // 정렬 기준에 따른 PageRequest 생성
-    private Pageable createPageRequest(int page, String orderBy) {
-        Sort sort = "latest".equalsIgnoreCase(orderBy)
-                ? Sort.by(Sort.Direction.DESC, "registrationDate")
-                : Sort.by(Sort.Direction.DESC, "viewCnt");
-        return PageRequest.of(page - 1, 10, sort);  // 페이지는 0부터 시작하므로 -1
-    }
-
-	
-
 	
 	/**
 	 * 상품 1개 정보 수정하기
@@ -514,3 +470,4 @@ public class ProductService {
 	
 	
 }
+
