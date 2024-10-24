@@ -306,6 +306,7 @@
                            <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET" id="searchForm">
                             <input type="hidden" name="page" id="requestPage" th:value="${page}">
                             <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
+                            <input type="hidden" name="categoryId" th:value="${categoryId}" />
                               <div class="ms-search-select-inner">
                                  <select class="ms-search-cat selectpicker" id="searchType" name="searchType">
                                     <option value="ALL" th:selected="${searchType == 'ALL'}">ALL</option>

@@ -303,51 +303,73 @@ public class ProductService {
 	}
 
 	/**
+	 * 카테고리필터링 + 검색 + 정렬 All
 	 * (검색기능 포함) 상품 리스트 불러오기 (상품 검색, 상품 조회)
 	 * @param pageable
 	 * @param searchItem 아니고 searchType
 	 * @param searchWord 아니고 query
 	 * @return
 	 */
-	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query, String sortBy) {
+	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query, String sortBy, Integer categoryId) {
 	    int page = pageable.getPageNumber() - 1;
 	    int pageLimit = pageable.getPageSize();
 	    
-	    //
 	    // 기본 정렬 기준 (없으면 registrationDate)
 	    if (sortBy == null || sortBy.isEmpty()) {
 	        sortBy = "registrationDate";
-	        }
+	    }
+	    
 	   // 동적으로 정렬 기준을 설정
 	    Sort sort = Sort.by(Sort.Direction.DESC, sortBy);
-       //
-	    
 	    
 	    Page<ProductEntity> entityList = null;
 
-	    switch (searchType) {
-	    
-	    	//상품과 브랜드 둘 다 검색
-        case "ALL":
-            entityList = productRepository.findByProductNameContainsOrBrandContains(
-                query, query, PageRequest.of(page, pageLimit, sort));
-            break;
-            //상품으로 검색
-        case "Products":
-            entityList = productRepository.findByProductNameContains(
-                query, PageRequest.of(page, pageLimit, sort));
-            break;
-            //브랜드로 검색
-        case "Brand":
-            entityList = productRepository.findByBrandContains(
-                query, PageRequest.of(page, pageLimit, sort));
-            break;
-            //디폴트는 둘 다 검색
-        default:
-            entityList = productRepository.findByProductNameContainsOrBrandContains(
-                query, query, PageRequest.of(page, pageLimit, sort));
-            break;
-    }
+	    if (categoryId != null) {
+	        // 카테고리가 지정된 경우, 해당 카테고리의 상품만 조회
+	        List<Integer> uniqueProductNos = pCategoryRepository.findProductNosByCategoryNoStartsWith(categoryId).stream()
+	                .distinct()
+	                .toList();  // 중복제거된 productNos 리스트
+
+	        // 상품 이름, 브랜드 검색 및 카테고리 필터링을 함께 적용
+	        switch (searchType) {
+	            case "ALL":
+	                entityList = productRepository.findByProductNameContainsOrBrandContainsAndProductNoIn(
+	                    query, query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                break;
+	            case "Products":
+	                entityList = productRepository.findByProductNameContainsAndProductNoIn(
+	                    query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                break;
+	            case "Brand":
+	                entityList = productRepository.findByBrandContainsAndProductNoIn(
+	                    query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                break;
+	            default:
+	                entityList = productRepository.findByProductNameContainsOrBrandContainsAndProductNoIn(
+	                    query, query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                break;
+	        }
+	    } else {
+	        // 카테고리가 지정되지 않은 경우, 전체 검색
+	        switch (searchType) {
+	            case "ALL":
+	                entityList = productRepository.findByProductNameContainsOrBrandContains(
+	                    query, query, PageRequest.of(page, pageLimit, sort));
+	                break;
+	            case "Products":
+	                entityList = productRepository.findByProductNameContains(
+	                    query, PageRequest.of(page, pageLimit, sort));
+	                break;
+	            case "Brand":
+	                entityList = productRepository.findByBrandContains(
+	                    query, PageRequest.of(page, pageLimit, sort));
+	                break;
+	            default:
+	                entityList = productRepository.findByProductNameContainsOrBrandContains(
+	                    query, query, PageRequest.of(page, pageLimit, sort));
+	                break;
+	        }
+	    }
 
 	    Page<ProductDTO> list = entityList.map(
 	        (product) -> new ProductDTO(
@@ -361,6 +383,8 @@ public class ProductService {
 
 	    return list;
 	}
+	
+	
 	
 	/**
 	 * 특정 카테고리에 속한 상품들 가져오기
