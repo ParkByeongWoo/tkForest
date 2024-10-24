@@ -5,7 +5,7 @@
 // 이벤트 소스
 let search = document.getElementById("search");
 
-search.addEventListener('click', goto);
+// search.addEventListener('click', goto);
 
 // 이벤트 핸들러
 function goto() {
