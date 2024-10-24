@@ -108,8 +108,8 @@ public class InquiryService {
         SellerEntity sellerEntity = sellerRepository.findBySellerMemberNo(inquiryDTO.getSellerMemberNo())
             .orElseThrow(() -> new RuntimeException("Seller not found"));
 
-        // Product 조회
-        ProductEntity productEntity = productRepository.findById(inquiryDTO.getProductNo())
+        // Product 조회 // 원래 findById 였음
+        ProductEntity productEntity = productRepository.findByProductNo(inquiryDTO.getProductNo())
             .orElseThrow(() -> new RuntimeException("Product not found"));
 
         // DTO -> Entity 변환 및 저장
@@ -128,6 +128,18 @@ public class InquiryService {
         // 바이어의 이름(picName)을 반환
         return buyerEntity.getPicName();
     }
+    
+    	// 셀러의 이름(picName) 조회
+    public String getSellerNameByMemberNo(String sellerMemberNo) {
+        Optional<SellerEntity> sellerEntityOpt = sellerRepository.findBySellerMemberNo(sellerMemberNo);
+        SellerEntity sellerEntity = sellerEntityOpt.orElseThrow(() ->
+            new RuntimeException("Seller not found with sellerMemberNo: " + sellerMemberNo)
+        );
+
+        // 셀러의 이름(picName)을 반환
+        return sellerEntity.getPicName();
+    }
+
    
 
 }

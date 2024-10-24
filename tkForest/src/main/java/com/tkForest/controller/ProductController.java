@@ -232,18 +232,6 @@ public class ProductController {
       return "redirect:/product/productDetail";
    }
    
-   /**
-    * 상품리스트에서 검색상품을 찾을 수 있도록 요청
-    */
-   
-	/*
-	 * 상품 상세 화면(임시)
-	 */
-	 @GetMapping("/productDetail-Temp")
-	    public String productDetailTemp() {
-	        return "product/productDetail-Temp";  // "productDetail-Temp.html" 템플릿 파일을 반환
-	    }
-
 }
    
 
