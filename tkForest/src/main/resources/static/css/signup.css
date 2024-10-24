@@ -1,0 +1,109 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.ms-login-content {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    flex-direction: row;
+}
+
+.ms-login-box {
+    flex: 0 0 500px;
+    width: 500px;
+    min-height: 400px;
+    background-color: #f9f9f9;
+    padding: 100px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 0 40px;
+    position: relative;
+}
+
+.ms-login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.ms-login-wrapper {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.ms-login-wrap {
+    text-align: center;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.ms-login-wrap label {
+    color: #00695C;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0.16px;
+    line-height: 36px;
+    display: block;
+    margin-bottom: 30px;
+}
+
+.ms-login-wrap p {
+    color: #808080;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.32px;
+    line-height: 24px;
+    margin: 0;
+}
+
+.clickable-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* 특정 버튼에만 적용되는 스타일 */
+#registerBtn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -100px;
+    background-color: #232323;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 15px 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#registerBtn:hover {
+    background-color: #00695C;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 992px) {
+    .ms-login-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .ms-login-box {
+        margin: 40px 0;
+        width: 100%;
+        max-width: 500px;
+    }
+}
