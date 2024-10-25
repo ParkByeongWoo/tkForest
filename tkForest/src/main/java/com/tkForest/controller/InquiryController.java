@@ -112,6 +112,11 @@ public class InquiryController {
 
             // 상품명 모델에 추가
             model.addAttribute("productName", productName);
+            
+            // 셀러 번호를 이용해 셀러의 이름(picName) 조회
+            String sellerMemberNo = inquiry.getSellerMemberNo();
+            String sellerPicName = inquiryService.getSellerNameByMemberNo(sellerMemberNo);
+            model.addAttribute("sellerPicName", sellerPicName);
 
             return "inquiry/inquiryDetail";
         }
@@ -120,8 +125,7 @@ public class InquiryController {
         return "redirect:/inquiry/inquiryList";
     }
 
-
-    
+ 
     /*
      * 작성 (기본 인콰 write 페이지)
      */
@@ -174,7 +178,6 @@ public class InquiryController {
 
 	        return "inquiry/inquiryWrite";  // 폼을 반환할 HTML 파일
 	    }
-
 	    /*
 	     * 상품 리스트 화면에서 인콰이어리 작성(상품)
 	     */
@@ -209,10 +212,14 @@ public class InquiryController {
 	            // 상품명 조회
 	            String productName = productService.findProductNameById(productNo);  // 상품명 가져오기
 
+	            // 셀러의 picName 조회
+	            String sellerPicName = inquiryService.getSellerNameByMemberNo(sellerMemberNo);  // 셀러의 picName 가져오기
+
 	            // 모델에 필요한 값 추가
 	            model.addAttribute("inquiry", inquiryDTO);  // "inquiry"로 inquiryDTO 전달
 	            model.addAttribute("buyerMemberNo", buyerMemberNo);  // buyerMemberNo 전달
 	            model.addAttribute("picName", userName);  // 바이어의 이름 전달
+	            model.addAttribute("sellerPicName", sellerPicName);  // 셀러 이름 전달
 	            model.addAttribute("sellerMemberNo", sellerMemberNo);  // 셀러 번호 전달
 	            model.addAttribute("productNo", productNo);  // 상품 번호 전달
 	            model.addAttribute("productName", productName);  // 상품명 전달
@@ -222,6 +229,7 @@ public class InquiryController {
 
 	        return "inquiry/inquiryWriteProduct";  // inquiryWriteProduct 템플릿 반환
 	    }
+
  
 	    /*
 	     * 상품 상세 화면에서 인콰이어리 작성(셀러)
@@ -257,11 +265,18 @@ public class InquiryController {
 	            inquiryDTO.setSellerMemberNo(sellerMemberNo);
 	            inquiryDTO.setProductNo(productNo);
 	            
+	            // 상품명 조회
+	            String productName = productService.findProductNameById(productNo);  // 상품명 가져오기
+
+	            // 셀러의 picName 조회
+	            String sellerPicName = inquiryService.getSellerNameByMemberNo(sellerMemberNo);  // 셀러의 picName 가져오기
+        
 	            // 모델에 추가
 	            model.addAttribute("inquiry", inquiryDTO);
 	            model.addAttribute("productList", productList);  // 셀러의 상품 목록 전달
 	            model.addAttribute("buyerMemberNo", buyerMemberNo);
 	            model.addAttribute("picName", userName);
+	            model.addAttribute("sellerPicName", sellerPicName);  // 셀러 이름 전달
 	            model.addAttribute("sellerMemberNo", sellerMemberNo);
 	            model.addAttribute("productNo", productNo);
 	        } else {

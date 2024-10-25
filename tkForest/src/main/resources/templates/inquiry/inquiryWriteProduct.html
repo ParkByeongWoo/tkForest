@@ -114,12 +114,17 @@
                <input type="hidden" id="buyerMemberNo" name="buyerMemberNo" th:value="${buyerMemberNo}">
             </div>
 
-           <!-- 수신자 (To) -->
+			<!-- 수신자 (To) -->
 			<div class="form-group">
-			    <label for="sellerMemberNo">수신자 (To)</label>
-			    <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control" 
-			           th:value="${inquiry.sellerMemberNo}" readonly>
+			    <label for="sellerPicName">수신자 (To)</label>
+			    <input type="text" id="sellerPicName" name="sellerPicName" class="form-control"
+			           th:value="${sellerPicName}" readonly>
 			</div>
+			
+			<!-- 숨겨진 필드로 sellerMemberNo를 서버로 전달 -->
+			<input type="hidden" id="sellerMemberNo" name="sellerMemberNo" th:value="${sellerMemberNo}">
+
+
 			
 			<!-- 상품 이름 -->
 			<div class="form-group">
@@ -211,6 +216,13 @@
                <label for="orderUnitEtc">주문단위 기타</label>
                <input type="text" id="orderUnitEtc" name="orderUnitEtc" class="form-control"
                   placeholder="Please specify the order unit in text.">
+            </div>
+            
+            <!-- 희망 가격 -->
+			<div class="form-group">
+               <label for="expectedPrice">희망 가격</label>
+               <input type="number" id="expectedPrice" name="expectedPrice" class="form-control"
+                  placeholder="0.0 $ ">
             </div>
 
             <!-- 내용 -->
