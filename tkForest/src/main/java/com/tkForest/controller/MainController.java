@@ -17,7 +17,8 @@ public class MainController {
      */
     @GetMapping({"/", ""})
     public String index(Model model) {
-        return "index";
+//        return "index";
+        return "home/userHome";
     }
     
    /**

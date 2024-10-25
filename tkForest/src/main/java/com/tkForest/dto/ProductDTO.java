@@ -1,5 +1,6 @@
 package com.tkForest.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ProductDTO {
     // ProductDTO의 필드들 (ProductEntity와 동일한 필드)
     private Integer productNo;
     private String sellerMemberNo; 
-    private LocalDateTime registrationDate;  // 자동으로 생성되지만 필요함
+    private LocalDate registrationDate;  // 자동으로 생성되지만 필요함
     private String productName;
     private String brand;
    private MultipartFile uploadFile;
@@ -41,7 +42,7 @@ public class ProductDTO {
     public ProductDTO(
           Integer productNo
           , String sellerMemberNo
-          , LocalDateTime registrationDate
+          , LocalDate registrationDate
           , String productName
           , String brand
           , String productImagePath1) {

@@ -12,6 +12,56 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/home/userHome/userhome.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/home/userHome/styleguide.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/home/userHome/globals.css}" />
+  
+  <style>
+.menu-box {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  max-width: 1000px; /* 메뉴 박스의 최대 너비를 설정 */
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.menu-links {
+  display: flex; /* Flexbox를 사용하여 옆으로 배치 */
+  flex-wrap: wrap; /* 화면 크기가 작아지면 줄 바꿈 */
+  justify-content: center; /* 중앙 정렬 */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-links li {
+  margin: 10px;
+}
+
+.menu-links a {
+  display: block;
+  text-decoration: none;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  min-width: 150px; /* 최소 너비 설정 */
+}
+
+.menu-links a:hover {
+  background-color: #218838;
+}
+
+  </style>
+  
 </head>
 
 <body style="margin: 0; background: #ffffff">
@@ -210,7 +260,7 @@
             <div class="margin">
               <div class="container-4">
                 <div class="x2png">
-                	<img class="" th:src="@{/img/home/memberHome/2-png@2x.png}" width="50" height="50">
+                  <img class="" th:src="@{/img/home/memberHome/2-png@2x.png}" width="50" height="50">
                 </div>
               </div>
             </div>
@@ -227,7 +277,7 @@
             <div class="margin">
               <div class="container-4">
                 <div class="x3png">
-                	<img class="" th:src="@{/img/home/memberHome/3-png@2x.png}" width="50" height="50">
+                  <img class="" th:src="@{/img/home/memberHome/3-png@2x.png}" width="50" height="50">
                 </div>
               </div>
             </div>
@@ -244,7 +294,7 @@
             <div class="margin">
               <div class="container-4">
                 <div class="x1png">
-                	<img class="" th:src="@{/img/home/memberHome/1-png@2x.png}" width="50" height="50">
+                  <img class="" th:src="@{/img/home/memberHome/1-png@2x.png}" width="50" height="50">
                 </div>
               </div>
             </div>
@@ -264,36 +314,38 @@
           JOIN FOR FREE TO DISCOVER THE BEST KOREAN PRODUCTS FOR YOUR BUSINESS!
         </p>
         <div class="component-3-4">
-        <a th:href="@{/user/signUp}">
-          <div class="text-14 valign-text-middle x127001poppinsmedium-14">SIGN UP</div>
-        </a>
+          <a th:href="@{/user/signUp}">
+            <div class="text-14 valign-text-middle x127001poppinsmedium-14">SIGN UP</div>
+          </a>
           <div class="container-54">
             <img class="component-1-11" th:src="@{/img/home/userHome/component-1-268.svg}" alt="Component 1" />
           </div>
         </div>
       </div>
+
+      
       <div class="text-15 valign-text-middle">CATEGORIES</div>
       <div class="frame-17">
         <div class="overlap-group-container overlap-group-2">
           <div class="overlap-group overlap">
-          	<a th:href="@{/product/productList(categoryNo=11)}">	<!-- Beauty & Personal Care -->
-            <img class="rectangle-9" th:src="@{/img/home/userHome/rectangle-9-1.png}" alt="Rectangle 9" />
-            <img class="frame-9" th:src="@{/img/home/userHome/frame-9-1.png}" alt="Frame 9" />
+            <a th:href="@{/product/productList(categoryNo=11)}"> <!-- Beauty & Personal Care -->
+              <img class="rectangle-9" th:src="@{/img/home/userHome/rectangle-9-1.png}" alt="Rectangle 9" />
+              <img class="frame-9" th:src="@{/img/home/userHome/frame-9-1.png}" alt="Frame 9" />
             </a>
           </div>
           <div class="e-container">
             <div class="rectangle"></div>
-            	<img class="frame" th:src="@{/img/home/userHome/frame-10-1.png}" alt="Frame 10" />
+            <img class="frame" th:src="@{/img/home/userHome/frame-10-1.png}" alt="Frame 10" />
           </div>
         </div>
         <div class="group-container">
           <div class="overlap">
             <div class="rectangle"></div>
 
-			<a th:href="@{/product/productList(categoryNo=12)}">	<!-- Food & Beverage -->
-            	<img class="frame" th:src="@{/img/home/userHome/frame-2-1.png}" alt="Frame 2" />
-          	</a>
-          	
+            <a th:href="@{/product/productList(categoryNo=12)}"> <!-- Food & Beverage -->
+              <img class="frame" th:src="@{/img/home/userHome/frame-2-1.png}" alt="Frame 2" />
+            </a>
+
           </div>
           <div class="e-container-1 e-container-6">
             <div class="rectangle"></div>
@@ -301,9 +353,10 @@
           </div>
         </div>
         <div class="group-container">
-        <a th:href="@{/product/productList(categoryNo=17)}">		<!-- health&medical -->
-          <div class="group-4"><img class="frame-4" th:src="@{/img/home/userHome/frame-4-1.png}" alt="Frame 4" /></div>
-        </a>
+          <a th:href="@{/product/productList(categoryNo=17)}"> <!-- health&medical -->
+            <div class="group-4"><img class="frame-4" th:src="@{/img/home/userHome/frame-4-1.png}" alt="Frame 4" />
+            </div>
+          </a>
           <div class="group-10"><img class="frame-12" th:src="@{/img/home/userHome/frame-12-1.png}" alt="Frame 12" />
           </div>
         </div>
@@ -345,6 +398,9 @@
           </div>
         </div>
       </div>
+      
+      
+      
       <div class="frame-26">
         <div class="frame-25">
           <div class="top-selling valign-text-middle">
@@ -1255,7 +1311,26 @@
         <div class="text-3 valign-text-middle">See More</div>
         <img class="vector-2" th:src="@{/img/home/userHome/vector-6.svg}" alt="Vector" />
       </div>
-      <div class="rectangle-17"></div>
+      
+                  <!-- 메뉴링크들 -->
+<div class="menu-box">
+  <div class="menu-title">Menu</div>
+  <ul class="menu-links">
+    <li><a th:href="@{/aboutUs}">AboutUs(통계)</a></li>
+    <li><a th:href="@{/api/globalMap}">트렌드 뉴스</a></li>
+    <li><a th:href="@{/user/signUp}">회원가입</a></li>
+    <li><a th:href="@{/user/login}">로그인</a></li>
+    <li><a th:href="@{/user/logout}">로그아웃</a></li>
+    <li><a th:href="@{/product/productList}">전체 상품보기</a></li>
+    <li><a th:href="@{/rec/recList}">추천 페이지</a></li>
+    <li><a th:href="@{/product/productCreate}">상품 등록</a></li>
+    <li><a th:href="@{/product/productSellerStore}">셀러스토어</a></li>
+    <li><a th:href="@{/user/buyerMypage}">바이어 마이페이지</a></li>
+  </ul>
+</div>
+      <!-- end-메뉴링크들 -->
+      
+      
       <div class="container-127">
         <div class="container-11">
           <div class="container-12">
