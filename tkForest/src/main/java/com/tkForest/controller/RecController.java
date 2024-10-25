@@ -34,15 +34,16 @@ public class RecController {
     @GetMapping("/recList")
     public String recPage(@AuthenticationPrincipal LoginBuyerDetails userDetails, Model model) {
         log.info("상품 추천 페이지로 넘어감");
-
-        // GET 요청 시 카테고리 데이터를 미리 로드
-        String buyerMemberNo = userDetails.getBuyerMemberNo();
-        List<BCategoryDTO> bCategoryDTOList = recService.recCategory(buyerMemberNo);
-        List<CategoryDTO> categoryList = recService.category(bCategoryDTOList);
-        List<String> keywordList = recService.keyword(buyerMemberNo);
+        if(userDetails != null)
+        	{
+        	// GET 요청 시 카테고리 데이터를 미리 로드
+        	String buyerMemberNo = userDetails.getBuyerMemberNo();
+        	List<BCategoryDTO> bCategoryDTOList = recService.recCategory(buyerMemberNo);
+        	List<CategoryDTO> categoryList = recService.category(bCategoryDTOList);
+        	List<String> keywordList = recService.keyword(buyerMemberNo);
              
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("keywordList", keywordList);
+        	model.addAttribute("categoryList", categoryList);
+        	model.addAttribute("keywordList", keywordList);}
         return "rec/recommendationmember";  // 카테고리 데이터가 포함된 페이지 렌더링
     }
 	
