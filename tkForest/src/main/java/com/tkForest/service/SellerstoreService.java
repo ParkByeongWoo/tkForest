@@ -10,14 +10,21 @@ import com.tkForest.dto.ProductDTO;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
+import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.ProductRepository;
+import com.tkForest.repository.SCategoryRepository;
 import com.tkForest.repository.SellerRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class SellerstoreService {
 
     @Autowired
     private SellerRepository sellerRepository;
+    private SCategoryRepository sCategoryRepository;
+    private CategoryRepository categoryRepository;
 
     public SellerDTO getSellerByMemberNo(String sellerMemberNo) {
         SellerEntity sellerEntity = sellerRepository.findById(sellerMemberNo)
@@ -43,5 +50,27 @@ public class SellerstoreService {
             .map(product -> ProductDTO.toDTO(product, sellerMemberNo))
             .collect(Collectors.toList());
     }
+    
+    
+    
+    // 셀러MemberNo로 카테고리명 리스트 반환
+    public List<String> getSellerCategoryNames(String sellerMemberNo) {
+    	
+    	log.info(sellerMemberNo);
+    	
+    	List<Integer> sellerCateNos = sCategoryRepository.findCategoryNosBySellerMemberNo(sellerMemberNo);
+        log.info("셀러 관심카테고리 categNos 리스트 조회함: {}", sellerCateNos);
+    	
+        if (sellerCateNos != null) {
+        	List<String> sellerCateNames = categoryRepository.findCategoryNameByCategoryNo(sellerCateNos);
+        	log.info("셀러 관심카테고리의 카테고리명 리스트 조회함: {}", sellerCateNames);
+        	return sellerCateNames;
+        }
+    	
+        return null;
+    }
+    
+    
+    
  
 }

@@ -119,6 +119,10 @@ public class SellerstoreController {
         // 셀러의 상품 리스트 가져오기
         List<ProductDTO> productDTOs = sellerstoreService.getProductsBySeller(sellerMemberNo);
         model.addAttribute("products", productDTOs);
+        
+        // 셀러의 카테고리명 리스트 가져오기
+        List<String> sellerCateNames = sellerstoreService.getSellerCategoryNames(sellerMemberNo);
+        model.addAttribute("cateNames", sellerCateNames);
 
         return "product/productSellerStore"; // 셀러 스토어 페이지로 이동
     }
