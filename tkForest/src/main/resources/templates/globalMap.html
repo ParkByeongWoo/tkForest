@@ -606,11 +606,11 @@
             }
 
             let output = '<table>';
-            output += '<tr><th>Region</th><th>Title</th><th>Summary</th><th>Date</th><th>Link</th></tr>';
+            output += '<tr><th>Country</th><th>Title</th><th>Summary</th><th>Date</th><th>Link</th></tr>';
 
             filteredItems.forEach(item => {
                 output += '<tr>';
-                output += `<td>${item.regn || 'N/A'}</td>`;
+                output += `<td>${item.natn || 'N/A'}</td>`;
                 output += `<td>${item.newsTitl || 'N/A'}</td>`;
                 output += `<td>${item.cntntSumar || 'N/A'}</td>`;
                 output += `<td>${item.othbcDt || 'N/A'}</td>`;

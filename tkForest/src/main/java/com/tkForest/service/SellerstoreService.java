@@ -1,10 +1,16 @@
 package com.tkForest.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tkForest.dto.ProductDTO;
 import com.tkForest.dto.SellerDTO;
+import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
+import com.tkForest.repository.ProductRepository;
 import com.tkForest.repository.SellerRepository;
 
 @Service
@@ -28,4 +34,14 @@ public class SellerstoreService {
 //            System.out.println(seller);
 //        }
     
+    @Autowired
+    private ProductRepository productRepository;
+
+    public List<ProductDTO> getProductsBySeller(String sellerMemberNo) {
+        List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
+        return productEntities.stream()
+            .map(product -> ProductDTO.toDTO(product, sellerMemberNo))
+            .collect(Collectors.toList());
+    }
+ 
 }

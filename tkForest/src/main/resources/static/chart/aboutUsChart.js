@@ -151,13 +151,13 @@ function createHorizontalBarChart(ctx, labels, data, label, bgColor, borderColor
 
 // Creating horizontal bar charts for Beauty, Fashion, Food, Other
 const ctxKeywordsBar = document.getElementById('Beauty-keywords-bar-chart').getContext('2d');
-createHorizontalBarChart(ctxKeywordsBar, beautyKeywords, beautyKeywordFrequencies, 'Beauty Keyword Frequency', 'rgba(54, 162, 235, 0.6)', 'rgba(54, 162, 235, 1)', 'Beauty Top 10 Keyword', 211);
+createHorizontalBarChart(ctxKeywordsBar, beautyKeywords, beautyKeywordFrequencies, 'Beauty Keyword Frequency', 'rgba(54, 162, 235, 0.6)', 'rgba(54, 162, 235, 1)', 'Beauty Top 10 Keyword', 9425);
 
 const ctxFashionKeywordsBar = document.getElementById('fashion-keywords-bar-chart').getContext('2d');
-createHorizontalBarChart(ctxFashionKeywordsBar, fashionKeywords, fashionKeywordFrequencies, 'Fashion Keyword Frequency', 'rgba(75, 192, 192, 0.6)', 'rgba(75, 192, 192, 1)', 'Fashion Top 10 Keyword', 188);
+createHorizontalBarChart(ctxFashionKeywordsBar, fashionKeywords, fashionKeywordFrequencies, 'Fashion Keyword Frequency', 'rgba(75, 192, 192, 0.6)', 'rgba(75, 192, 192, 1)', 'Fashion Top 10 Keyword', 1306);
 
 const ctxFoodKeywordsBar = document.getElementById('food-keywords-bar-chart').getContext('2d');
-createHorizontalBarChart(ctxFoodKeywordsBar, foodKeywords, foodKeywordFrequencies, 'Food Keyword Frequency', 'rgba(255, 205, 86, 0.6)', 'rgba(255, 205, 86, 1)', 'Food Top 10 Keyword', 61);
+createHorizontalBarChart(ctxFoodKeywordsBar, foodKeywords, foodKeywordFrequencies, 'Food Keyword Frequency', 'rgba(255, 205, 86, 0.6)', 'rgba(255, 205, 86, 1)', 'Food Top 10 Keyword', 973);
 
 const ctxOtherKeywordsBar = document.getElementById('other-keywords-bar-chart').getContext('2d');
-createHorizontalBarChart(ctxOtherKeywordsBar, otherKeywords, otherKeywordFrequencies, 'Other Keyword Frequency', 'rgba(153, 102, 255, 0.6)', 'rgba(153, 102, 255, 1)', 'Other Top 10 Keyword', 617);
+createHorizontalBarChart(ctxOtherKeywordsBar, otherKeywords, otherKeywordFrequencies, 'Other Keyword Frequency', 'rgba(153, 102, 255, 0.6)', 'rgba(153, 102, 255, 1)', 'Other Top 10 Keyword', 26033);

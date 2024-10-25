@@ -33,6 +33,7 @@ public class InquiryDTO {
     private LocalDateTime offerExpireDate;
     private Integer orderQuantity;
     private String orderUnitEtc;
+    private String orderUnit;
     private Double expectedPrice;
     
     private MultipartFile uploadFile;
@@ -52,6 +53,7 @@ public class InquiryDTO {
                 .offerExpireDate(inquiryEntity.getOfferExpireDate())
                 .orderQuantity(inquiryEntity.getOrderQuantity())
                 .orderUnitEtc(inquiryEntity.getOrderUnitEtc())
+                .orderUnit(inquiryEntity.getOrderUnit())
                 .expectedPrice(inquiryEntity.getExpectedPrice())
                 .originalFileName(inquiryEntity.getOriginalFileName())
                 .savedFileName(inquiryEntity.getSavedFileName())

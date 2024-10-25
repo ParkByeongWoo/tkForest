@@ -31,7 +31,7 @@ import lombok.ToString;
 @Builder
 
 @Entity
-@Table(name="reply")
+@Table(name="INQUIRY_REPLY")
 public class ReplyEntity {
 	@Id
 	@Column(name="REPLYNO")
@@ -46,7 +46,7 @@ public class ReplyEntity {
 	@JoinColumn(name="INQUIRYNO", referencedColumnName = "INQUIRYNO", nullable = false)
 	private InquiryEntity inquiryEntity;
 	
-	@Column(name="REPLY_PARENT")
+	@Column(name="REPLY_PARENT") // 부모 답변 번호 (대답변)
 	private Integer replyParent;   
 	
 	@Column(name="REPLY_CONTENTS")

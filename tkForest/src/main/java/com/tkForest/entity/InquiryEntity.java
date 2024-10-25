@@ -78,7 +78,10 @@ public class InquiryEntity {
 
     @Column(name = "EXPECTEDPRICE")
     private Double expectedPrice;
-
+    
+    @Column(name = "ORDER_UNIT")
+    private String orderUnit;
+    
     // 첨부파일이 있을 경우 추가
     @Column(name = "ORIGINAL_FILE_NAME")
     private String originalFileName;
@@ -103,6 +106,7 @@ public class InquiryEntity {
                .offerSendDate(inquiryDTO.getOfferSendDate())
                .offerExpireDate(inquiryDTO.getOfferExpireDate())
                .orderQuantity(inquiryDTO.getOrderQuantity())
+               .orderUnit(inquiryDTO.getOrderUnit())
                .orderUnitEtc(inquiryDTO.getOrderUnitEtc())
                .expectedPrice(inquiryDTO.getExpectedPrice())
                .originalFileName(inquiryDTO.getOriginalFileName())
