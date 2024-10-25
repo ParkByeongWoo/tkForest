@@ -636,8 +636,9 @@
          </a>
          <div class="product-details">
             <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">Product Name</h3>
-            <p th:text="${product.sellerMemberNo}">Seller Name</p>
+            <!-- <p th:text="${product.sellerMemberNo}">Seller Name</p> -->	<!-- seller 회원번호라 안뜨도록 주석처리함 -->
             <p th:text="${product.registrationDate}">Registration Date</p>
+            <!-- <p th:text="${product.registrationDate.toLocalDate()}">Registration Date</p> -->
             <p>
                <a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
                   <span th:text="${product.brand}">Brand</span>
@@ -647,8 +648,6 @@
          <div class="product-actions">
          <!--  좋아요 보내는 버튼  -->
          <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
-            <button class="contact-button">✉️</button>
-      
 		<!-- 인콰이어리 보내는 버튼 -->
 		<button class="contact-button" 
 		        th:data-seller-member-no="${product.sellerMemberNo}" 

@@ -1,6 +1,6 @@
 package com.tkForest.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -49,7 +49,7 @@ public class ProductEntity {
 
     @Column(name="REGISTRATIONDATE")
     @CreationTimestamp  // 상품 등록될 때 자동으로 날짜 세팅
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
 
     @Column(name="PRODUCTNAME", nullable=false)
     private String productName;
