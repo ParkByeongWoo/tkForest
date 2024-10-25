@@ -636,9 +636,7 @@
          </a>
          <div class="product-details">
             <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">Product Name</h3>
-            <!-- <p th:text="${product.sellerMemberNo}">Seller Name</p> -->	<!-- seller 회원번호라 안뜨도록 주석처리함 -->
             <p th:text="${product.registrationDate}">Registration Date</p>
-            <!-- <p th:text="${product.registrationDate.toLocalDate()}">Registration Date</p> -->
             <p>
                <a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
                   <span th:text="${product.brand}">Brand</span>

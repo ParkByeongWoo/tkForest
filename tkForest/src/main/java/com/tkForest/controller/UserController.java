@@ -289,6 +289,52 @@ public class UserController {
 
    }
    
+   
+   
+   
+   /**
+    * 바이어가 좋아요 한 상품 목록 보기
+    * @param sellerDTO
+    * @param buyerDTO
+    * @return
+    */
+   @GetMapping("/buyerLikeProducts")
+   public String buyerLikeProducts(
+		   Model model
+		   , @AuthenticationPrincipal LoginBuyerDetails userDetails
+		   ) {
+	   
+       if (userDetails != null) {
+    	   
+    	// 로그인한 판매자의 ID를 가져옵니다.
+    	   String buyerId = userDetails.getUsername();
+    	   
+    	   // 바이어 아이디를 이용해 바이어의 정보를 DB에서 가져옴
+    	   BuyerDTO buyerDTO = userService.getBuyerById(buyerId); //서비스에서 가져와야함
+    	   log.info("buyerDTO: {}", buyerDTO);
+    	   
+    	   // 모델에 buyerDTO를 추가합니다.
+    	   model.addAttribute("userDTO", buyerDTO); // buyerDTO는 buyerMypage.html 때문에 userDTO라고 칭하게 됨
+    	   log.info("buyerDTO를 userDTO 모델에 담음");
+    	   
+    	   List<ProductDTO> list = productService.selectAllLike(buyerDTO.getBuyerMemberNo());
+    	   log.info("좋아요 한 상품 리스트: {}", list);
+    	   
+    	   model.addAttribute("list", list);
+    	   
+    	   // 템플릿 이름을 반환합니다.
+    	   return "user/buyerLikeProducts"; // 템플릿 이름
+    	   
+       }  else {
+    	   
+    	   // 로그인이 안되어있으면 로그인 창으로 이동
+    	   return "user/login";
+       }
+
+   }
+   
+   
+   
 //   /**
 //    * 수정 처리 요청
 //    * @param sellerDTO

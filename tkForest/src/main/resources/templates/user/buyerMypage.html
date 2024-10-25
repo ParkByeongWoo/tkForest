@@ -142,7 +142,7 @@
                 <div class="nav-section">
                     <h3>Profile</h3>
                     <ul>
-                        <li><a href="#">My Profile</a></li>
+                        <li><a th:href="@{/user/buyerMypage}">My Profile</a></li>
                         <li><a href="#">Edit Profile</a></li>
                         <li><a href="#">Delete Profile</a></li>
                     </ul>
@@ -156,7 +156,7 @@
                         <li><a href="#">Deleted Inquiries</a></li>
                     </ul>
                 </div>
-                <div class="nav-section">
+                <div class="nav-section" sec:authorize="hasRole('ROLE_SELLER')">
                     <h3>Products</h3>
                     <ul>
                         <li><a href="#">Manage Product</a></li>
@@ -167,7 +167,7 @@
                 <div class="nav-section">
                     <h3>Favorites</h3>
                     <ul>
-                        <li><a href="#">Liked Items</a></li>
+                        <li><a th:href="@{/user/buyerLikeProducts}">Liked Items</a></li>
                         <li><a href="#">Liked Companies</a></li>
                     </ul>
                 </div>
@@ -190,20 +190,6 @@
                     <input type="text" name="companyName" id="companyName"
                         th:value="${userDTO.companyName != null ? userDTO.companyName : '정보 없음'}" readOnly>
                 </div>
-                <!-- 
-                <div>
-                    <h4>address</h4>
-                    <input type="text" name="address" id="address" th:value="${userDTO.address != null ? userDTO.address : '정보 없음'}" readOnly>
-                </div>
-                <div>
-                    <h4>bizreg No</h4>
-                    <input type="text" name="bizregNo" id="bizregNo" th:value="${userDTO.bizregNo != null ? userDTO.bizregNo : '정보 없음'}" readOnly>
-                </div>
-                <div>
-                    <h4>ownerName</h4>
-                    <input type="text" name="ownerName" id="ownerName" th:value="${userDTO.ownerName != null ? userDTO.ownerName : '정보 없음'}" readOnly>
-                </div>
-                 -->
                 <div>
                     <h4>Phone Number</h4>
                     <input type="text" name="bizPhoneNumber" id="bizPhoneNumber"
@@ -235,70 +221,7 @@
                     <input type="text" name="buyerKeyword" id="buyerKeyword"
                         th:value="${userDTO.concernKeyword != null ? userDTO.concernKeyword : '정보 없음'}" readOnly>
                 </div>
-                <div>
-                    <h4>Like Products List</h4>
-                    <!-- 좋아요 한 상품 목록 나열 -->
-
-                    <div class="product-grid">
-                    	<div>
-                    	<th:block th:if="${#lists.isEmpty(list)}">
-    						<p>좋아요 한 상품이 없습니다</p>
-						</th:block>
-                    	
-                    	<th:block th:unless="${#lists.isEmpty(list)}">
-                        <th:block th:each="product : ${list}">
-                            <!-- product-card 안에 a 태그를 넣어서 레이아웃이 깨지지 않도록 수정 -->
-                            <div class="product-card">
-                                <a th:href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
-                                    class="product-card-link">
-                                    <div class="product-image">
-                                        <!-- 이미지가 없을 경우 텍스트로 대체 -->
-                                        <img th:src="@{/images/products/ + ${product.image}}" alt="Product Image"
-                                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                                        <div class="image-placeholder"
-                                            style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
-                                            <span>800 X 700</span> <!-- 이미지가 없을 때 나타날 대체 텍스트 -->
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <div class="product-details">
-                                	<p>
-                                		<a th:href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
-                                		th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">
-                                		Product Name
-                                		</a>
-                                	</p>
-                                	<!--
-                                    <h3 th:text="${product.productName}"
-                                        style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">Product Name
-                                    </h3>
-                                     
-                                    <p th:text="${product.sellerMemberNo}">Seller Name</p>
-                                    <p th:text="${product.registrationDate}">Registration Date</p>
-                                     -->
-                                    <p>
-                                        <a
-                                            th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
-                                            <span th:text="${product.brand}">Brand</span>
-                                        </a>
-                                    </p>
-                                </div>
-                                <!-- Ajax 전송할 때 필요한 정보(hidden) -->
-								<input type="hidden" id="productNo" th:value="${product.productNo}">
-                                
-                                <div class="product-actions">
-                                    <button class="like-button">❤️</button>
-                                    <button class="contact-button">✉️</button>
-                                </div>
-                            </div>
-                        </th:block>
-                        </th:block>
-                        </div>
-                    </div>
-                </div>
-
-
+ 
             </div>
             <button class="edit-button">
                 <a th:href="@{/user/buyerProfileUpdate}" class="btn btn-primary">Edit Profile</a>
