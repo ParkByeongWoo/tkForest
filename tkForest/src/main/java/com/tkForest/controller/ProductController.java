@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-
 import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
@@ -138,68 +137,80 @@ public class ProductController {
    }
 
    
-   /**
-    * index에서 넘어올 경우
-    * + 검색해서 넘어올 경우 searchType(전체or상품or셀러)/query(검색어)
-    * @param 
-    * @param searchType
-    * @param query
-    * @param model
-    * @return
-    */
-   @GetMapping("/productList")
-   public String productList(
-           @PageableDefault(page=1) Pageable pageable,
-           @RequestParam(name="searchType", defaultValue="ALL") String searchType,
-           @RequestParam(name="query", defaultValue="") String query,
-           @AuthenticationPrincipal LoginBuyerDetails userDetails,
-           Model model) {
-	   
-      // 검색기능 + 페이징
-       Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
-
-       int totalPages = list.getTotalPages();
-       int page = pageable.getPageNumber();
-
-       PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
-
-       
-       model.addAttribute("list", list);
-       model.addAttribute("searchType", searchType);
-       model.addAttribute("query", query);
-       model.addAttribute("navi", navi);
-       
-       // 바이어로 로그인한 경우에만 buyerMemberNo 추가
-       // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
-       if (userDetails != null) {
-           String buyerMemberNo = userDetails.getBuyerMemberNo();
-           model.addAttribute("buyerMemberNo", buyerMemberNo);
-       }  
-       
-       return "product/productList";  
-       
-       
-       
-   }
+//   /**
+//    * index에서 넘어올 경우
+//    * + 검색해서 넘어올 경우 searchType(전체or상품or셀러)/query(검색어) + 정렬
+//    * 전체카테고리
+//    * @param 
+//    * @param searchType
+//    * @param query
+//    * @param model
+//    * @return
+//    */
+//   @GetMapping("/productList")
+//   public String productList(
+//           @PageableDefault(page=1, size=9) Pageable pageable,
+//           @RequestParam(name="searchType", defaultValue="ALL") String searchType,
+//           @RequestParam(name="query", defaultValue="") String query,
+//           @RequestParam(name = "sortBy", required = false, defaultValue = "registrationDate") String sortBy, // 수정된 부분, 이름명시
+//           @AuthenticationPrincipal LoginBuyerDetails userDetails,
+//           Model model) {
+//	   
+//      // 검색기능 + 페이징
+//       Page<ProductDTO> list = productService.selectAll(pageable, searchType, query, sortBy);
+//
+//       int totalPages = list.getTotalPages();
+//       int page = pageable.getPageNumber();
+//
+//       PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
+//
+//       
+//       model.addAttribute("list", list);
+//       model.addAttribute("searchType", searchType);
+//       model.addAttribute("query", query);
+//       model.addAttribute("navi", navi);
+//       
+//       // 바이어로 로그인한 경우에만 buyerMemberNo 추가
+//       // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
+//       if (userDetails != null) {
+//           String buyerMemberNo = userDetails.getBuyerMemberNo();
+//           model.addAttribute("buyerMemberNo", buyerMemberNo);
+//       }  
+//       
+//       return "product/productList";  
+//       
+//   }
+   
+//   // 검색 및 정렬된 상품 목록 제공
+//   @GetMapping("/productListOrderBy")
+//   @ResponseBody
+//   public Page<ProductEntity> productListOrderBy(
+//           @RequestParam(name = "searchType", defaultValue = "ALL") String searchType,
+//           @RequestParam(name = "query", defaultValue = "") String query,
+//           @RequestParam(name = "orderBy", defaultValue = "latest") String orderBy,
+//           @RequestParam(name = "page", defaultValue = "1") int page) {
+//
+//       return productService.getProducts(searchType, query, page, orderBy);
+//   }
    
    
-	/**
-	 * (비회원용) 카테고리 필터링 된 상품 목록 조회
+	/** (카테고리 필터링 테스트 위한 이전 코드)
+	 * 카테고리 필터링 된 상품 목록 조회
 	 * @param pageable
 	 * @param searchType
 	 * @param query
 	 * @param userDetails
-	 * @param categoryId
+	 * @param categoryNo
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/user/{categoryId}")
+	@GetMapping("/user/{categoryNo}")
 	public String productListByCategory(
 			@PageableDefault(page=1) Pageable pageable,
 	        @RequestParam(name="searchType", defaultValue="ALL") String searchType,
 	        @RequestParam(name="query", defaultValue="") String query,
 	        @AuthenticationPrincipal LoginBuyerDetails userDetails,
-			@PathVariable("categoryId") Integer categoryId, 
+			@PathVariable("categoryNo") Integer categoryNo, 
 			Model model
 			) {
       
@@ -207,7 +218,7 @@ public class ProductController {
 		
 		// 검색기능 + 페이징 + 카테고리
 	    // Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
-		Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryId);
+		Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryNo);
 		log.info("Page<ProductDTO> list: {}", list);
 		
 			int totalPages = list.getTotalPages();
@@ -230,15 +241,60 @@ public class ProductController {
 	       return "product/productList";  
   
 	}
-   
+
+	/** (최종)
+    * index에서 넘어올 경우
+    * + 검색해서 넘어올 경우 searchType(전체or상품or셀러)/query(검색어) + 정렬
+    * + 카테고리 필터링
+    **/
+	@GetMapping("/productList")
+	public String productList(
+	           @PageableDefault(page=1, size=9) Pageable pageable,
+	           @RequestParam(name="searchType", defaultValue="ALL") String searchType,
+	           @RequestParam(name="query", defaultValue="") String query,
+	           @RequestParam(name = "sortBy", required = false, defaultValue = "registrationDate") String sortBy, // 수정된 부분, 이름명시
+	           @AuthenticationPrincipal LoginBuyerDetails userDetails,
+//	           @PathVariable("categoryNo") Integer categoryNo, 
+	           @RequestParam(name = "categoryNo", required = false) Integer categoryNo,  // categoryNo 추가
+			Model model
+			) {
+      
+		log.info("컨트롤러 도착함 categoryNo: {}", categoryNo);
+		
+		// 검색기능 + 페이징 + 카테고리
+	    // Page<ProductDTO> list = productService.selectAll(pageable, searchType, query);
+		// Page<ProductDTO> list = productService.getProductsByCategory(pageable, searchType, query, categoryNo);
+		Page<ProductDTO> list = productService.selectAll(pageable, searchType, query, sortBy, categoryNo);
+		log.info("Page<ProductDTO> list: {}", list.toString());
+		
+			int totalPages = list.getTotalPages();
+			int page = pageable.getPageNumber();
+
+	       PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
+
+	       model.addAttribute("list", list);
+	       model.addAttribute("searchType", searchType);
+	       model.addAttribute("query", query);
+	       model.addAttribute("navi", navi);
+	       model.addAttribute("categoryNo", categoryNo);
+	       
+	        // 바이어로 로그인한 경우에만 buyerMemberNo 추가
+	        // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
+	        if (userDetails != null) {
+	            String buyerMemberNo = userDetails.getBuyerMemberNo();
+	            model.addAttribute("buyerMemberNo", buyerMemberNo);
+	        }  
+	        
+	       return "product/productList";  
+  
+	}
+	
+	
+	
 	
    
-   
-   
-   
-   
    /**
-    * Like 버튼 누르면 B_Like에 추가
+    * (바이어) 상품 좋아요 : Like 버튼 누르면 B_Like에 추가
     * @param buyerMemberNo
     * @param productNo
     * @param likeUseYn
