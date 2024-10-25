@@ -368,19 +368,25 @@
 		    width: 70%; /* 또는 width: 500px; 처럼 픽셀 단위로 설정 가능 */
 		    margin: 0 auto; /* 가운데 정렬 */
 		}
+        .seller-label {
+    
+    color: #888; /* 회색 */
+    margin-left: 20px; /* 회사명과의 간격 추가 */
+}
         
         </style>
         
 <!-- 셀러스토어 섹션 시작 -->
     <div class="ms-seller-store-section padding-tb-60">
-        <div class="container">
-        <div class="header">
-		<div class="logo" id="company-logo">
-    		<img src="/img/sellerstore_icon2.png" alt="sellerstore" >
-		</div>
-                <div class="company-name" th:text="${seller.companyName}"></div>
-            </div>
+<div class="container">
+    <div class="header">
+        <div class="logo" id="company-logo">
+            <img src="/img/sellerstore_icon2.png" alt="sellerstore">
         </div>
+        <div class="company-name" th:text="${seller.companyName}"></div>
+    </div>
+</div>
+
 
         <table class="info-table">
             <tr>
@@ -421,14 +427,14 @@
 			        <li th:each="product : ${products}">
 			            <span th:text="${product.productName}"></span>
 			            <span th:text="${product.brand}"></span>
-			            <span th:text="${product.productDescription}"></span>
+			            <!-- <span th:text="${product.productDescription}"></span> -->
 			        </li>
 			    </ul>
 			</div>
         </div>
 
         <div class="buttons">
-            <button class="button ms-btn-2" th:onclick="'window.location.href=\'' + @{/inquiry/inquiryWrite} + '\';'">Send Inquiry</button>
+            <button class="button ms-btn-2" th:onclick="'window.location.href=\'' + @{/inquiry/inquiryWriteSeller} + '\';'">Send Inquiry</button>
             <button class="button ms-btn-2">Add to My Favorites</button>
         </div>
     </div>

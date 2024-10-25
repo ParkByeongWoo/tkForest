@@ -1,6 +1,9 @@
 package com.tkForest.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import com.tkForest.dto.ProductDTO;
 import com.tkForest.dto.SellerDTO;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
+import com.tkForest.repository.CategoryRepository;
+import com.tkForest.repository.PCategoryRepository;
 import com.tkForest.repository.ProductRepository;
 import com.tkForest.repository.SellerRepository;
 
@@ -24,15 +29,6 @@ public class SellerstoreService {
             .orElseThrow(() -> new RuntimeException("Seller not found"));
         return SellerDTO.toDTO(sellerEntity);
     }
-        
-
-     // 테스트 메소드
-     // seller 테이블에 존재하는 sellerMemberNo 조회
-//     public void testSellerFetch() {
-//         SellerEntity seller = sellerRepository.findById("S250134")
-//             .orElseThrow(() -> new RuntimeException("Seller not found"));
-//            System.out.println(seller);
-//        }
     
     @Autowired
     private ProductRepository productRepository;
@@ -43,5 +39,40 @@ public class SellerstoreService {
             .map(product -> ProductDTO.toDTO(product, sellerMemberNo))
             .collect(Collectors.toList());
     }
+    
+    private final PCategoryRepository pCategoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    public SellerstoreService(ProductRepository productRepository, PCategoryRepository pCategoryRepository, CategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.pCategoryRepository = pCategoryRepository;
+        this.categoryRepository = categoryRepository;
+    }
+
+//    /**
+//     * 특정 셀러가 등록한 모든 상품의 카테고리명을 조회하기
+//     * @param sellerMemberNo 셀러 고유 번호
+//     * @return 셀러가 가진 모든 카테고리 이름 리스트
+//     */
+//    public List<String> getSellerProductCategories(String sellerMemberNo) {
+//        // 셀러의 모든 상품 번호를 조회
+//        List<Integer> productNos = productRepository.findProductNosBySellerMemberNo(sellerMemberNo);
+//
+//        // 각 상품 번호에 대해 카테고리 번호를 조회하고, 카테고리 이름으로 변환
+//        Set<String> categoryNames = new HashSet<>();
+//        for (Integer productNo : productNos) {
+//            // 상품 번호에 해당하는 카테고리 번호 목록 조회
+//            List<Integer> categoryNos = pCategoryRepository.findCategoryNosByProductNo(productNo);
+//            
+//            // 각 카테고리 번호에 대해 카테고리 이름 조회 후 Set에 추가
+//            for (Integer categoryNo : categoryNos) {
+//                categoryRepository.findById(categoryNo).ifPresent(category -> categoryNames.add(category.getCategoryName()));
+//            }
+//        }
+//        
+//        return new ArrayList<>(categoryNames); // 중복 제거를 위해 Set을 사용
+//    }
+
+   
  
 }
