@@ -3,7 +3,6 @@ package com.tkForest.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tkForest.dto.ProductDTO;
@@ -16,17 +15,19 @@ import com.tkForest.repository.ProductRepository;
 import com.tkForest.repository.SCategoryRepository;
 import com.tkForest.repository.SellerRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class SellerstoreService {
 
-    @Autowired
-    private SellerRepository sellerRepository;
-    private SCategoryRepository sCategoryRepository;
-    private final CategoryRepository categoryRepository;
-    private final PCategoryRepository pCategoryRepository;
+    final SellerRepository sellerRepository;
+    final SCategoryRepository sCategoryRepository;
+    final CategoryRepository categoryRepository;
+    final PCategoryRepository pCategoryRepository;
+    final ProductRepository productRepository;
 
     public SellerDTO getSellerByMemberNo(String sellerMemberNo) {
         SellerEntity sellerEntity = sellerRepository.findById(sellerMemberNo)
@@ -34,8 +35,6 @@ public class SellerstoreService {
         return SellerDTO.toDTO(sellerEntity);
     }
     
-    @Autowired
-    private ProductRepository productRepository;
 
     public List<ProductDTO> getProductsBySeller(String sellerMemberNo) {
         List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
@@ -46,7 +45,11 @@ public class SellerstoreService {
     
     
     
-    // 셀러MemberNo로 카테고리명 리스트 반환
+    /**
+     * 셀러MemberNo -> cateNos -> cateNames 리스트 반환
+     * @param sellerMemberNo
+     * @return
+     */
     public List<String> getSellerCategoryNames(String sellerMemberNo) {
     	
     	log.info(sellerMemberNo);
@@ -67,11 +70,11 @@ public class SellerstoreService {
     
     
 
-    public SellerstoreService(ProductRepository productRepository, PCategoryRepository pCategoryRepository, CategoryRepository categoryRepository) {
-        this.productRepository = productRepository;
-        this.pCategoryRepository = pCategoryRepository;
-        this.categoryRepository = categoryRepository;
-    }
+//    public SellerstoreService(ProductRepository productRepository, PCategoryRepository pCategoryRepository, CategoryRepository categoryRepository) {
+//        this.productRepository = productRepository;
+//        this.pCategoryRepository = pCategoryRepository;
+//        this.categoryRepository = categoryRepository;
+//    }
 
 //    /**
 //     * 특정 셀러가 등록한 모든 상품의 카테고리명을 조회하기
