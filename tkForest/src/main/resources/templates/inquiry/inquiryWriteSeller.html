@@ -93,19 +93,20 @@
                   cursor: pointer;
                   transition: background-color 0.3s;
                   margin: 0 10px;
+                  font-weight: bold; 
                }
             </style>
 
             <!-- 제목 입력 -->
             <div class="form-group">
-               <label for="subject">제목</label>
+               <label for="subject">subject</label>
                <input type="text" id="subject" name="subject" class="form-control" placeholder="subject" required>
             </div>
 
 
             <!-- 발신자 (From) -->
             <div class="form-group">
-               <label for="userName">발신자 (From)</label>
+               <label for="userName">Sender</label>
                <!-- 화면에는 바이어의 이름이 보이도록 -->
                <input type="text" id="userName" name="userName" class="form-control" th:value="${#authentication.name}"
                   readonly>
@@ -117,14 +118,14 @@
            <!-- 수신자 (To) -->
            <!--  
 			<div class="form-group">
-			    <label for="sellerMemberNo">수신자 (To)</label>
+			    <label for="sellerPicName">Reciever</label>
 			    <input type="text" id="sellerMemberNo" name="sellerMemberNo" class="form-control" 
 			           th:value="${inquiry.sellerMemberNo}" readonly>
 			</div> -->
 			
 			<!-- 수신자 (To) -->
 			<div class="form-group">
-			    <label for="sellerPicName">수신자 (To)</label>
+			    <label for="sellerPicName">Reciever</label>
 			    <input type="text" id="sellerPicName" name="sellerPicName" class="form-control"
 			           th:value="${sellerPicName}" readonly>
 			</div>
@@ -139,16 +140,16 @@
     		
     		 <!-- 상품 선택 드롭다운 -->
 			<div class="form-group">
-			        <label for="productNo">상품 선택</label>
+			        <label for="productNo">Select Product</label>
 			        <select id="productNo" name="productNo" class="form-control">
 			            <option th:each="product : ${productList}" th:value="${product.productNo}"
-			                    th:text="${product.productName}">상품 선택</option>
+			                    th:text="${product.productName}">Select Product</option>
 			        </select>
 			</div>		    		
 			
 			<!-- 상품 고유번호 -->
 			<div class="form-group">
-			    <label for="productNo">상품 고유번호</label>
+			    <label for="productNo">Product No.</label>
 			    <input type="text" id="productNo" name="productNo" class="form-control" 
 			           th:value="${inquiry.productNo}" readonly>
 			</div>
@@ -156,7 +157,7 @@
 
             <!-- 발송일 -->
             <div class="form-group">
-               <label for="offerSendDate">발송일</label>
+               <label for="offerSendDate">Send Date</label>
                <input type="datetime-local" id="offerSendDate" name="offerSendDate" class="form-control">
             </div>
 
@@ -182,7 +183,7 @@
             
             <!-- 만료일 선택 -->
 			<div class="form-group">
-			   <label for="offerExpireDate">만료일 선택</label>
+			   <label for="offerExpireDate">Expiration Date Selection</label>
 			   <input type="datetime-local" id="offerExpireDate" name="offerExpireDate" class="form-control" required>
 			</div>
 
@@ -201,14 +202,14 @@
 				-->
             <!-- 주문 수량 -->
             <div class="form-group">
-               <label for="orderQuantity">주문 수량</label>
+               <label for="orderQuantity">Order Quantity</label>
                <input type="number" id="orderQuantity" name="orderQuantity" class="form-control" min="1" placeholder=0
                   required>
             </div>
 
             <!-- 주문 수량 단위 -->
             <div class="form-group">
-               <label for="orderUnit">주문 수량 단위</label>
+               <label for="orderUnit">Order Unit</label>
                <select id="orderUnit" name="orderUnit" class="form-control" required>
                   <option value="" disabled selected>Order unit</option>
                   <option value="pieces">Pieces (PCS)</option>
@@ -226,28 +227,28 @@
 
             <!-- 주문 단위 기타 입력 -->
 			<div class="form-group">
-               <label for="orderUnitEtc">주문단위 기타</label>
+               <label for="orderUnitEtc">Order Unit Etc</label>
                <input type="text" id="orderUnitEtc" name="orderUnitEtc" class="form-control"
                   placeholder="Please specify the order unit in text.">
             </div>
             
             <!-- 희망 가격 -->
 			<div class="form-group">
-               <label for="expectedPrice">희망 가격</label>
+               <label for="expectedPrice">Expected Price</label>
                <input type="number" id="expectedPrice" name="expectedPrice" class="form-control"
                   placeholder="0.0 $ ">
             </div>
             			
             <!-- 내용 -->
             <div class="form-group">
-               <label for="contents">내용</label>
+               <label for="contents">Contents</label>
                <textarea id="contents" name="contents" class="form-control" rows="3" placeholder="Contents"
                   required></textarea>
             </div>
 
             <!-- 파일 첨부 -->
             <div class="form-group">
-               <label for="file">파일 첨부</label>
+               <label for="file">Attach File</label>
                <input type="file" id="uploadFile" name="uploadFile" class="form-control">
             </div>
 
