@@ -1060,10 +1060,11 @@
   align-self: flex-start;
   gap: 3px;
   margin-left: 15px;
-  margin-top:5px;
+  margin-top: 5px;
   flex-wrap: wrap;
 
-  justify-content: flex-start; /* 좌측 정렬 */
+  justify-content: flex-start;
+  /* 좌측 정렬 */
 }
 
 .recommendationmember .border {
@@ -1103,8 +1104,10 @@
 }
 
 .product-image {
-    width: 238.4px;      /* 가로 크기 */
-    height: 230.6px;     /* 세로 크기 */
+  width: 238.4px;
+  /* 가로 크기 */
+  height: 230.6px;
+  /* 세로 크기 */
 }
 
 
@@ -1172,7 +1175,8 @@
   margin-left: 5.0px;
   margin-top: 1px;
   position: relative;
-      flex: 0 1 30%; /* 요소들이 적절한 너비를 차지하도록 설정 */
+  flex: 0 1 30%;
+  /* 요소들이 적절한 너비를 차지하도록 설정 */
 }
 
 .recommendationmember .margin {
@@ -1192,8 +1196,10 @@
   height: 28.6px;
   padding: 0.8px 10.8px;
   position: relative;
-      word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 */
-    max-width: 100%; /* 요소의 최대 너비 설정 */
+  word-wrap: break-word;
+  /* 긴 단어가 있을 경우 줄바꿈 */
+  max-width: 100%;
+  /* 요소의 최대 너비 설정 */
 }
 
 .recommendationmember .beauty-health {
@@ -1368,8 +1374,7 @@
 }
 
 .recommendationmember .flex-row-1 {
-  align-items: flex-start;
-  display: flex;
+
   min-width: 1320px;
 }
 
@@ -1417,6 +1422,21 @@
   position: relative;
   width: 238.4px;
 }
+.like-image0{
+	margin:3px;
+		display:flex;
+	  align-items: center; /* 세로 중앙 */
+	  justify-content: center;
+}
+.like-image {
+  background-image: url(../img/25-1-jpg@2x.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  width: 110px;
+  height: 130px;
+  display: flex;
+}
+
 
 .recommendationmember .border-1 {
   align-items: center;
@@ -2162,62 +2182,207 @@
 }
 
 .product-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px; /* 항목 간의 간격을 10px로 설정 */
-    padding: 10px; /* 좌우에 여백을 줘서 여유 공간 */
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  /* 항목 간의 간격을 10px로 설정 */
+  padding: 10px;
+  /* 좌우에 여백을 줘서 여유 공간 */
+  box-sizing: border-box;
 }
 
 .component-8 {
-    flex: 1 1 calc(20% - 10px); /* 각 항목의 너비를 정확히 5개로 맞추기 위해 20%로 설정하고 간격 보정 */
-    margin-bottom: 20px; /* 세로 간격 */
-    box-sizing: border-box; /* 패딩과 마진을 포함한 전체 너비 계산 */
+  flex: 1 1 calc(20% - 10px);
+  /* 각 항목의 너비를 정확히 5개로 맞추기 위해 20%로 설정하고 간격 보정 */
+  margin-bottom: 20px;
+  /* 세로 간격 */
+  box-sizing: border-box;
+  /* 패딩과 마진을 포함한 전체 너비 계산 */
 }
 
 @media (max-width: 1200px) {
-    .component-8 {
-        flex: 1 1 calc(33.33% - 10px); /* 화면이 줄어들면 3개씩 배치 */
-    }
+  .component-8 {
+    flex: 1 1 calc(33.33% - 10px);
+    /* 화면이 줄어들면 3개씩 배치 */
+  }
 }
 
 @media (max-width: 768px) {
-    .component-8 {
-        flex: 1 1 calc(50% - 10px); /* 태블릿에서는 2개씩 배치 */
-    }
+  .component-8 {
+    flex: 1 1 calc(50% - 10px);
+    /* 태블릿에서는 2개씩 배치 */
+  }
 }
 
 @media (max-width: 480px) {
-    .component-8 {
-        flex: 1 1 100%; /* 모바일에서는 한 줄에 하나씩 */
-    }
+  .component-8 {
+    flex: 1 1 100%;
+    /* 모바일에서는 한 줄에 하나씩 */
+  }
 }
 
 .container-99 {
   display: flex;
-    justify-content: space-between;
-    width: 100%;
-        max-width: 1200px; /* 최대 너비 설정 */
-    margin: 0 auto; /* 화면 가운데 정렬 */
-        text-align: left; /* 텍스트 왼쪽 정렬 */
-        margin-top:25px;
-        margin-bottom:25px;
-    
-    
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  /* 최대 너비 설정 */
+  margin: 0 auto;
+  /* 화면 가운데 정렬 */
+  text-align: left;
+  /* 텍스트 왼쪽 정렬 */
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+
 }
 
-.left-panel, .right-panel {
-    width: 48%; /* 각각 50%에서 약간의 여유를 두고 반반씩 차지 */
-	    width: 48%; /* 각각 반반씩 차지 */
-    border: 1px solid #ccc; /* 박스 형태의 구분선 */
+.container-100 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  /* 최대 너비 설정 */
+  margin: 0 auto;
+  /* 화면 가운데 정렬 */
+  text-align: left;
+  /* 텍스트 왼쪽 정렬 */
+  margin-top: 25px;
+  margin-bottom: 25px;
 
-    border-radius: 20px; /* 모서리를 둥글게 */
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+
+}
+
+
+.left-panel,
+.right-panel {
+  width: 48%;
+  /* 각각 50%에서 약간의 여유를 두고 반반씩 차지 */
+  border: 1px solid #ccc;
+  /* 박스 형태의 구분선 */
+
+  border-radius: 20px;
+  /* 모서리를 둥글게 */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  /* 약간의 그림자 효과 */
 }
 
 .see-more-container {
-    display: flex;
-    align-items: center; /* 이미지와 텍스트가 세로로 정렬되도록 설정 */
+  display: flex;
+  align-items: center;
+  /* 이미지와 텍스트가 세로로 정렬되도록 설정 */
 }
 
+/* 기존 CSS에 추가 */
+.spinner {
+
+  display: flex;
+  flex-direction: column;
+  /* 세로 방향으로 정렬 */
+  justify-content: center;
+  /* 수직 중앙 정렬 */
+  align-items: center;
+  /* 가로 중앙 정렬 */
+  height: 100vh;
+  /* 뷰포트 전체 높이 */
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+  /* 로딩 아이콘과 텍스트 사이 간격 */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.pfy {
+  color: #b0b0b0;
+  /* 약한 회색 */
+
+  text-align: center;
+  /* 수평 중앙 정렬 */
+  font-size: 1rem;
+  /* 글자 크기 */
+  display: flex;
+  justify-content: center;
+  /* 가로 중앙 정렬 */
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  /* 가로 스크롤 활성화 */
+  white-space: nowrap;
+  /* 줄바꿈 방지 */
+  gap: 15px;
+  /* 아이템 간격 */
+  padding: 10px;
+  /* 내부 여백 */
+}
+
+.scroll-item {
+  flex: 0 0 auto;
+  /* 각 아이템의 크기를 고정 */
+  text-align: center;
+  /* 텍스트 중앙 정렬 */
+}
+
+.scroll-item img {
+  width: 50px;
+  /* 이미지 크기 설정 */
+  height: 50px;
+  object-fit: cover;
+  /* 이미지가 크기에 맞게 잘림 */
+}
+
+.scroll-item span {
+  display: block;
+  margin-top: 5px;
+  /* 이미지와 텍스트 사이 간격 */
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.like-list {
+  border: 1px solid #ccc;
+  /* 박스 형태의 구분선 */
+  width: 136px;
+  /* 이미지 크기 설정 */
+  height: 190px;
+  border-radius: 5px;
+  /* 모서리를 둥글게 */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ellipsis {
+	margin-bottom: auto;
+	margin-left : 3px;
+	margin-right : 3px;
+  width: 130px;
+  /* 원하는 너비로 제한 */
+  white-space: nowrap;
+  /* 텍스트를 한 줄로 표시 */
+  overflow: hidden;
+  /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis;
+  /* 말줄임표(...) 표시 */
+}

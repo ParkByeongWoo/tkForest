@@ -1,84 +1,103 @@
-/**
- * 댓글 관련 Ajax 코드
- */
-
-$(function () {
-	$('#recBtn').on('click', recList);
-});
-
-// 모든 댓글 목록(게시글의 모든 댓글)을 읽어옴 
-function recList() {
-	let buyerMemberNo = $("#buyerMemberNo").val();   // '${board.boardNum}'
-
-	$.ajax({
-		url: '/rec/recList'
-		, method: 'POST'
-		, data: { "buyerMemberNo": buyerMemberNo }
-		, success: output
-	})
-}
-
-function output(resp) {
-	if (resp.length === 0) return; // 응답이 없으면 종료
-	let chk = 0;
-	let tags = '';
-	tags += `<div class="product-container">`; // 컨테이너 시작
-
-	$.each(resp, function (index, product) {
-		chk += 1;
-		if (chk > 10) return false; // 최대 10개까지만 표시
-
-		// 각 product에 대해 HTML 태그 생성
-		tags += `
-	    <article class="component-8">
-		<div class="link-1">
-		    <div class="_1jpg">
-				<img src="/product-imgs/${product.productNo}.jpg" alt="Product Image" class="product-image">
-		    <div class="border-1">
-		        <div class="background-1"></div>
-		    </div>
-		</div>
-
-	        <div class="background-2">
-	            <div class="heading-5margin heading">
-	                <div class="component-7">
-	                    <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
-	                        <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">
-	                            ${product.productName}
-	                        </h3>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="margin-1 margin-6">
-	                <div class="container-49">
-	                    <div class="margin-2 margin-6">
-	                        <div class="container-7">
-	                            <div class="container-8">
-	                                <a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
-	                                    <span th:text="${product.brand}">${product.brand}</span>
-	                                </a>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="container-10">
-	                        <div class="margin-3 margin-6">
-	                            <div class="price valign-text-middle price-2 x127001poppinsbold-14">
-	                                <p th:text="${product.registrationDate}">${product.registrationDate}</p>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </article>
-	    `;
+	/**
+	 * 댓글 관련 Ajax 코드
+	 */
+	
+	$(function () {
+		$('#recBtn').on('click', recList);
 	});
-
-	tags += `</div>`; // 컨테이너 끝	
-
-	tag2 = `<img class="vector-1" src="img/vector-1.svg" alt="Vector">
-	   <a th:href="@{/product/productList}" class="see-more-link">See More</a>`
-	// 생성된 HTML을 #product-list에 삽입
-	$('#product-list').html(tags);
-	$('#see-more-container').html(tag2);
-}
+	
+	// 모든 댓글 목록(게시글의 모든 댓글)을 읽어옴 
+	function recList() {
+		let buyerMemberNo = $("#buyerMemberNo").val();   // '${board.boardNum}'
+	
+		// 로딩 스피너 보이기
+		$('#loading-spinner').removeClass('hidden');
+	
+		$.ajax({
+			url: '/rec/recList'
+			, method: 'POST'
+			, data: { "buyerMemberNo": buyerMemberNo }
+			, success: function (resp) {
+				output(resp);
+			},
+			error: function () {
+				alert('댓글 목록을 불러오는 중 오류가 발생했습니다.');
+			},
+			complete: function () {
+				// 로딩 스피너 숨기기
+				$('#loading-spinner').addClass('hidden');
+			}
+		})
+	}
+	
+	function output(resp) {
+		if (resp.length === 0) return; // 응답이 없으면 종료
+		let chk = 0;
+		let tags = '';
+		tags += `<div class="product-container">`; // 컨테이너 시작
+	
+		$.each(resp, function (index, product) {
+			chk += 1;
+			if (chk > 10) return false; // 최대 10개까지만 표시
+	
+			// 각 product에 대해 HTML 태그 생성
+			tags +=`
+				<article class="component-8">
+					<div class="link-1">
+					<div>
+					<a href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
+					   class="product-card-link">
+						<div class="_1jpg">
+							<img src="/product-imgs/${product.productNo}.jpg" alt="Product Image" class="product-image">
+								<div class="border-1">
+									<div class="background-1"></div>
+								</div>
+						</div>
+						</a>
+						</div>
+						<div class="background-2">
+							<div class="heading-5margin heading">
+								<div class="component-7">
+									<div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+									<a href="{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
+									                           class="product-card-link">	
+									<h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">
+											${product.productName}
+										</h3>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="margin-1 margin-6">
+								<div class="container-49">
+									<div class="margin-2 margin-6">
+										<div class="container-7">
+											<div class="container-8">
+											<a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
+													<span text="${product.brand}">${product.brand}</span>
+											</a>
+													</div>
+										</div>
+									</div>
+									<div class="container-10">
+										<div class="margin-3 margin-6">
+											<div class="price valign-text-middle price-2 x127001poppinsbold-14">
+											<p th:text="${product.registrationDate}">${product.registrationDate}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</article>`
+				;
+		});
+	
+		tags += `</div>`; // 컨테이너 끝	
+	
+		tag2 = `<img class="vector-1" src="img/vector-1.svg" alt="Vector">
+		   <a th:href="@{/product/productList}" class="see-more-link">See More</a>`
+		// 생성된 HTML을 #product-list에 삽입
+		$('#product-list').html(tags);
+		$('#see-more-container').html(tag2);
+	}

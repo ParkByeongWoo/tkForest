@@ -409,7 +409,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 바이어 id로 셀러 정보 조회
+	 * 바이어 id로 바이어 정보 조회
 	 * @param buyerId
 	 * @return
 	 */

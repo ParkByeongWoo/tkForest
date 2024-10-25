@@ -431,6 +431,65 @@
             </div>
          </div>
 
+         <div class=container-100>
+            <div class="left-panel">
+               <div class="your-categorie valign-text-middle">
+                  <span><span class="span0">your </span><span class="span1">Likes</span> </span>
+               </div>
+               <div class="scroll-container">
+                  <div th:each="like : ${likeList}">
+                     <div class="like-list">
+						<div class="like-image0">
+                        <a th:href="@{/product/productDetail(productNo=${like.productNo}, searchType=${searchType}, query=${query})}"
+                           class="product-card-link">
+                           <div class="like-image">
+                              <img src="/product-imgs/${like.productNo}.jpg">
+                           </div>
+                        </a>
+						</div>
+                           <a th:href="@{/product/productDetail(productNo=${like.productNo}, searchType=${searchType}, query=${query})}"
+                           class="product-card-link">
+                        <h3 class="ellipsis" th:text="${like.productName}"
+                           style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem; color: black;"></h3>
+                        </a>
+                        <a th:href="@{/product/productList(query=${like.brand}, searchType='Brand')}">
+                           <span th:text="${like.brand}" class="ellipsis" style="font-size: 0.8rem;">${like .brand}</span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="right-panel">
+               <div class="your-categorie valign-text-middle">
+                  <span><span class="span0">your </span><span class="span1">Inquiries</span> </span>
+               </div>
+               <div class="scroll-container">
+                  <div th:each="inquiry : ${inquiryList}">
+                     <div class="like-list">
+						<div class="like-image0">
+                           <a th:href="@{/product/productDetail(productNo=${inquiry.productNo}, searchType=${searchType}, query=${query})}"
+                              class="product-card-link">
+                        <div class="like-image">
+                              <img src="/product-imgs/${inquiry.productNo}.jpg">
+                        </div>
+                           </a>
+                        </div>
+                        <a th:href="@{/product/productDetail(productNo=${inquiry.productNo}, searchType=${searchType}, query=${query})}"
+                           class="product-card-link">
+                           <h3 class="ellipsis" th:text="${inquiry.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem; color: black;"></h3>
+                        </a>
+                        
+                        <a th:href="@{/product/productList(query=${inquiry.brand}, searchType='Brand')}">
+                           <span th:text="${inquiry.brand}" class="ellipsis" style="font-size: 0.8rem;">${inquiry.brand}</span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+
 
 
 
@@ -442,7 +501,12 @@
                   </div>
 
                   <div class="flex-row-1">
-                     <div id="product-list"></div>
+                     <div id="loading-spinner" class="spinner hidden">
+                        <div class="loader"></div>
+                        <span class="pfy">products for you</span>
+                     </div>
+                     <div id="product-list">
+                     </div>
                      <div class="frame-28 frame">
                      </div>
                   </div>

@@ -29,6 +29,7 @@ import com.tkForest.repository.BLikeRepository;
 import com.tkForest.repository.BuyerRepository;
 import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.CertificateRepository;
+import com.tkForest.repository.InquiryRepository;
 import com.tkForest.repository.PCategoryRepository;
 import com.tkForest.repository.ProductCertificateRepository;
 import com.tkForest.repository.ProductRepository;
@@ -47,7 +48,7 @@ public class ProductService {
 	final ProductRepository productRepository;
 	final SellerRepository sellerRepository;
 	final BuyerRepository buyerRepository;
-	
+	final InquiryRepository inquiryRepository;
 	final PCategoryRepository pCategoryRepository;
 	final CategoryRepository categoryRepository;
 	final CertificateRepository certificateRepository;
@@ -504,12 +505,28 @@ public class ProductService {
                     product.getBrand()
             );
             list.add(dto);
-            log.info("productDTO list: {}", list);
         }
+        log.info("productDTO list: {}", list);
         
         return list;
 		
     }
+	
+	public List<ProductDTO> selectAllInquiry(String buyerMemberNo){
+		List<ProductEntity> productEntityList = inquiryRepository.findProductEntitiesByBuyerMemberNoContains(buyerMemberNo);
+        List<ProductDTO> list = new ArrayList<>();
+        // for 루프를 사용하여 ProductEntity -> ProductDTO 변환
+        for (ProductEntity product : productEntityList) {
+            ProductDTO dto = new ProductDTO(
+                    product.getProductNo(),  // productNo 추가
+                    product.getProductName(),
+                    product.getBrand()
+            );
+            list.add(dto);
+        }
+        log.info("productDTO list: {}", list);
+        return list;
+	}
 	    
 	/**
 	 * 상품 좋아요(B_Like 추가)

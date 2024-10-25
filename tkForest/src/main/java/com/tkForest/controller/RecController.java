@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BCategoryDTO;
+import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.CategoryDTO;
 import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductDTO;
 import com.tkForest.entity.ProductEntity;
+import com.tkForest.service.InquiryService;
+import com.tkForest.service.ProductService;
 import com.tkForest.service.RecService;
+import com.tkForest.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RecController {
 	
 	final RecService recService;
+	final ProductService productService;
 	
     @GetMapping("/recList")
     public String recPage(@AuthenticationPrincipal LoginBuyerDetails userDetails, Model model) {
@@ -38,12 +43,19 @@ public class RecController {
         	{
         	// GET 요청 시 카테고리 데이터를 미리 로드
         	String buyerMemberNo = userDetails.getBuyerMemberNo();
+
         	List<BCategoryDTO> bCategoryDTOList = recService.recCategory(buyerMemberNo);
         	List<CategoryDTO> categoryList = recService.category(bCategoryDTOList);
         	List<String> keywordList = recService.keyword(buyerMemberNo);
-             
+     	   	List<ProductDTO> likeList = productService.selectAllLike(buyerMemberNo);
+     	   	List<ProductDTO> inquiryList = productService.selectAllInquiry(buyerMemberNo);
+     	   	System.out.println(inquiryList);
         	model.addAttribute("categoryList", categoryList);
-        	model.addAttribute("keywordList", keywordList);}
+        	model.addAttribute("keywordList", keywordList);
+        	model.addAttribute("likeList", likeList);
+        	model.addAttribute("inquiryList",inquiryList);
+        	}
+
         return "rec/recommendationmember";  // 카테고리 데이터가 포함된 페이지 렌더링
     }
 	
