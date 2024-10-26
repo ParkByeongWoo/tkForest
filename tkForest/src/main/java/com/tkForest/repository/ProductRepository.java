@@ -60,6 +60,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     
     // 카테고리 필터링 오류나서 query 없이 단순 필터링은 적용되나 확인용
 	Page<ProductEntity> findByProductNoIn(List<Integer> uniqueProductNos, PageRequest of);
-
 }
 

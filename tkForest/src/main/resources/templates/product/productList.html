@@ -240,7 +240,7 @@
 
 <body>
 
-   <!-- Page Navigation -->
+   <!-- 헤더 -->
    <header class="ms-header">
       <!-- Header Top Start -->
       <div class="header-top">
@@ -257,7 +257,7 @@
                   <div class="header-top-message">
                      Leading Platform to Discover and Source Korean Products
                      <div sec:authorize="isAuthenticated()">
-                        <a th:href="@{/user/logout}"> Welcome, [[${loginName}]]([[ ${#authentication.name} ]])</a>
+                        <a th:href="@{/user/logout}"> Welcome, [[${loginName}]]([[ ${#authentication.name} ]]) !</a>
                      </div>
                   </div>
                </div>
@@ -306,7 +306,7 @@
                   <!-- Header Logo Start -->
                   <div class="align-self-center ms-header-logo">
                      <div class="header-logo">
-                        <a th:href="@{/}"><img th:src="@{/img/tkforestlogo.png}" alt="Site Logo"></a>
+                        <a th:href="@{/}"><img th:src="@{/img/tkForestlogoB2BLong.png}" alt="Site Logo"></a>
                      </div>
                   </div>
                   <!-- Header Logo End -->
@@ -316,10 +316,10 @@
                      <!-- Header Search Start -->
                      <div class="align-self-center ms-header-search mx-auto"> <!-- mx-auto 추가 -->
                         <div class="header-search">
-                           <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET" id="searchForm">
-                            <input type="hidden" name="page" id="requestPage" th:value="${page}">
-                            <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
-                            <input type="hidden" name="categoryNo" th:value="${categoryNo}" />
+                           <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET"
+                              id="searchForm">
+                              <input type="hidden" name="page" id="requestPage" th:value="${page}">
+                              <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
                               <div class="ms-search-select-inner">
                                  <select class="ms-search-cat selectpicker" id="searchType" name="searchType">
                                     <option value="ALL" th:selected="${searchType == 'ALL'}">ALL</option>
@@ -409,7 +409,7 @@
                               <ul style="display: flex; justify-content: flex-start;">
                                  <li class="non-drop"><a th:href="@{/}">Home</a></li>
                                  <li class="dropdown drop-list position-static">
-                                    <a href="javascript:void(0)" class="dropdown-arrow">Categories<i
+                                    <a th:href="@{/product/productList}" class="dropdown-arrow">Categories<i
                                           class="msicon msi-angle-right"></i></a>
                                     <ul class="mega-menu d-block">
                                        <li class="d-flex">
@@ -471,14 +471,14 @@
                                        </li>
                                     </ul>
                                     <ul class="d-block">
-                                       <li class="menu_title"><a href="javascript:void(0)">More+</a>
+                                       <li class="menu_title"><a href="javascript:void(0)">More+</a> 
                                        </li>
                                     </ul>
                                  </li>
                               </ul>
                               </li>
-                              <li class="non-drop"><a th:href="@{/recList}"><img src="/assets/img/icons/discover.svg"
-                                       class="svg_img" alt="discover">Discover(보따리)</a></li>
+                              <li class="non-drop"><a th:href="@{/rec/recList}"><img src="/assets/img/icons/discover.svg"
+                                       class="svg_img" alt="discover">Discover</a></li>
                               </ul>
                            </div>
                         </div>
@@ -629,7 +629,7 @@
                <!-- 이미지가 없을 경우 텍스트로 대체 -->
 
                <img th:src="@{'/uploadimage/' + ${product.productNo} + '.jpg'}" alt="Product Image"
-                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:255.4px; height:250px; object-fit: contain; background-color:#ffffff;" />
                <div class="image-placeholder" style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
                   <span>800 X 700</span> <!-- 이미지가 없을 때 나타날 대체 텍스트 -->
                </div>
@@ -648,6 +648,7 @@
 
          <!--  좋아요 보내는 버튼  -->
          <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
+
 		<!-- 인콰이어리 보내는 버튼 -->
 		<button class="contact-button" 
 		        th:data-seller-member-no="${product.sellerMemberNo}" 

@@ -693,6 +693,7 @@ public class ProductService {
      * @param sellerMemberNo
      * @return List<ProductDTO>
      */
+
 	public List<ProductDTO> findProductsBySellerMemberNo(String sellerMemberNo) {
 	    // sellerMemberNo로 셀러의 상품 목록을 조회하는 로직
 	    List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
@@ -702,7 +703,6 @@ public class ProductService {
 	            .map(product -> ProductDTO.toDTO(product, product.getSellerEntity().getSellerMemberNo()))
 	            .collect(Collectors.toList());
 	}
-	
 
     // 상품 번호로 상품명 조회
     public String findProductNameById(Integer productNo) {

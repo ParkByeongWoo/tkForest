@@ -1,57 +1,50 @@
-	/**
-	 * 댓글 관련 Ajax 코드
-	 */
-	
-	$(function () {
-		$('#recBtn').on('click', recList);
-	});
-	
-	// 모든 댓글 목록(게시글의 모든 댓글)을 읽어옴 
-	function recList() {
-		let buyerMemberNo = $("#buyerMemberNo").val();   // '${board.boardNum}'
-	
-		// 로딩 스피너 보이기
-		$('#loading-spinner').removeClass('hidden');
-	
-		$.ajax({
-			url: '/rec/recList'
-			, method: 'POST'
-			, data: { "buyerMemberNo": buyerMemberNo }
-			, success: function (resp) {
-				output(resp);
-			},
-			error: function () {
-				alert('댓글 목록을 불러오는 중 오류가 발생했습니다.');
-			},
-			complete: function () {
-				// 로딩 스피너 숨기기
-				$('#loading-spinner').addClass('hidden');
-			}
-		})
-	}
-	
-	function output(resp) {
-		if (resp.length === 0) return; // 응답이 없으면 종료
-		let chk = 0;
-		let tags = '';
-		tags += `<div class="product-container">`; // 컨테이너 시작
-	
-		$.each(resp, function (index, product) {
-			chk += 1;
-			if (chk > 10) return false; // 최대 10개까지만 표시
-	
-			// 각 product에 대해 HTML 태그 생성
-			tags +=`
+
+$(function () {
+	$('#recBtn').on('click', recList);
+});
+
+function recList() {
+	let buyerMemberNo = $("#buyerMemberNo").val();   // '${board.boardNum}'
+
+	// 로딩 스피너 보이기
+	$('#loading-spinner').removeClass('hidden');
+
+	$.ajax({
+		url: '/rec/recList'
+		, method: 'POST'
+		, data: { "buyerMemberNo": buyerMemberNo }
+		, success: function (resp) {
+			output(resp);
+		},
+		error: function () {
+			alert('댓글 목록을 불러오는 중 오류가 발생했습니다.');
+		},
+		complete: function () {
+			// 로딩 스피너 숨기기
+			$('#loading-spinner').addClass('hidden');
+		}
+	})
+}
+
+function output(resp) {
+	if (resp.length === 0) return; // 응답이 없으면 종료
+	let chk = 0;
+	let tags = '';
+	tags += `<div class="product-container">`; // 컨테이너 시작
+
+	$.each(resp, function (index, product) {
+		chk += 1;
+		if (chk > 10) return false; // 최대 10개까지만 표시
+
+		// 각 product에 대해 HTML 태그 생성
+		tags += `
 				<article class="component-8">
 					<div class="link-1">
 					<div>
-					<a href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
+					<a href="/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})"
 					   class="product-card-link">
 						<div class="_1jpg">
-							<img src="/uploadimage/${product.productNo}.jpg" alt="Product Image" class="product-image">
-								<div class="border-1">
-									<div class="background-1"></div>
-								</div>
+							<img src="/uploadimage/${product.productNo}.jpg" alt="Product Image" class="product-image"onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:238.4px; height:208.6px; object-fit: contain; background-color:#ffffff;">
 						</div>
 						</a>
 						</div>
@@ -90,14 +83,14 @@
 							</div>
 						</div>
 				</article>`
-				;
-		});
-	
-		tags += `</div>`; // 컨테이너 끝	
-	
-		tag2 = `<img class="vector-1" src="img/vector-1.svg" alt="Vector">
-		   <a th:href="@{/product/productList}" class="see-more-link">See More</a>`
-		// 생성된 HTML을 #product-list에 삽입
-		$('#product-list').html(tags);
-		$('#see-more-container').html(tag2);
-	}
+			;
+	});
+
+	tags += `</div>`; // 컨테이너 끝	
+
+	let tag2 = `<img class="vector-1" src="img/vector-1.svg" alt="Vector">
+		   	<a href="/product/productList" class="see-more-link">See More</a>`
+	// 생성된 HTML을 #product-list에 삽입
+	$('#product-list').html(tags);
+	$('#see-more-container').html(tag2);
+}

@@ -1,49 +1,27 @@
 package com.tkForest.controller;
 
-import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.InquiryDTO;
 import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.ProductDTO;
-import com.tkForest.entity.BuyerEntity;
-import com.tkForest.entity.InquiryEntity;
-import com.tkForest.entity.ProductEntity;
 import com.tkForest.repository.BuyerRepository;
-import com.tkForest.repository.InquiryRepository;
-import com.tkForest.repository.ProductRepository;
 import com.tkForest.service.InquiryService;
 import com.tkForest.service.ProductService;
-import com.tkForest.util.PageNavigator;
 
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -106,7 +84,7 @@ public class InquiryController {
         if (inquiry != null) {
             model.addAttribute("inquiry", inquiry);
 
-            // 상품 번호를 이용해 상품명 조회
+            // 상품 번호를 이용해 상품명 조회  -- ProductService 밑단에 임시로 생성함
             Integer productNo = inquiry.getProductNo();
             String productName = productService.findProductNameById(productNo);
 
@@ -252,7 +230,7 @@ public class InquiryController {
 	        ) {
 	        InquiryDTO inquiryDTO = new InquiryDTO();
 	        
-	        // 셀러의 상품 목록 조회
+	        // 셀러의 상품 목록 조회 -- ProductService 밑단에 임시로 생성함
 	        List<ProductDTO> productList = productService.findProductsBySellerMemberNo(sellerMemberNo);
 	        
 	        // 로그인한 사용자가 바이어일 경우

@@ -49,7 +49,6 @@ public class RecController {
         	List<String> keywordList = recService.keyword(buyerMemberNo);
      	   	List<ProductDTO> likeList = productService.selectAllLike(buyerMemberNo);
      	   	List<ProductDTO> inquiryList = productService.selectAllInquiry(buyerMemberNo);
-     	   	System.out.println(inquiryList);
         	model.addAttribute("categoryList", categoryList);
         	model.addAttribute("keywordList", keywordList);
         	model.addAttribute("likeList", likeList);

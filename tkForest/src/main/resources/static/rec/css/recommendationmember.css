@@ -5,16 +5,13 @@
   background-color: var(--x127001white);
   display: flex;
   flex-direction: column;
-
-  padding: 117px 104px;
-  width: 1728px;
+  width:100%;
 }
 
 .recommendationmember .overlap-group3 {
   align-self: flex-start;
-  height: 267px;
   position: relative;
-  width: 1519px;
+  width: 100%;
 }
 
 .recommendationmember .header {
@@ -754,9 +751,7 @@
   flex-direction: column;
   left: 0;
   padding: 30px 99.6px 30.8px;
-  position: absolute;
   top: 182px;
-  width: 1519px;
 }
 
 .recommendationmember .container-36 {
@@ -1402,7 +1397,7 @@
 }
 
 .recommendationmember .link-1 {
-  align-items: flex-start;
+  align-items: center;
   align-self: stretch;
   display: flex;
   flex: 0 0 auto;
@@ -2271,7 +2266,8 @@
 .see-more-container {
   display: flex;
   align-items: center;
-  /* 이미지와 텍스트가 세로로 정렬되도록 설정 */
+  flex-direction: row;   /* 가로 정렬 (기본값이므로 생략 가능) */
+  justify-content: center;
 }
 
 /* 기존 CSS에 추가 */
