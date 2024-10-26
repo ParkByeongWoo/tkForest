@@ -387,6 +387,7 @@ public class ProductController {
       rttr.addAttribute("boardNum", productNo);
       return "redirect:/product/productDetail";
    }
+
 }
    
 

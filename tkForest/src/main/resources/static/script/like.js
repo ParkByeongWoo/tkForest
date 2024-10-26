@@ -15,7 +15,7 @@ $(function() {
 });		
 
 function productLike() {
-	alert("상품을 좋아요 합니다");
+	alert("Like Product");
 	
     // 버튼에 있는 data-productno 속성에서 productNo 값을 가져옴
     let productNo = $(this).data('productno');
@@ -35,11 +35,11 @@ function productLike() {
         },
         success: function(response) {
             // 성공적으로 처리되면 알림 메시지
-            alert('상품 좋아요가 처리되었습니다.');
+            alert('Success');
         },
         error: function(xhr, status, error) {
             // 오류가 발생했을 때 오류 메시지 표시
-            alert('상품 좋아요 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+            alert('Error. Please try again.');
         }
     });
 }

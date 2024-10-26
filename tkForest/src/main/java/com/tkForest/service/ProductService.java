@@ -479,11 +479,6 @@ public class ProductService {
         
 		log.info(buyerMemberNo);
 		
-		// 되는 코드들
-		// List<Integer> likedProductNos = bLikeRepository.findProductNosByBuyerMemberNoAndLikeUseYn();
-        // log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
-		// 되는 코드 끝
-		
 		List<Integer> likedProductNos = bLikeRepository.findLikedProductsByBuyerMemberNo(buyerMemberNo, "Y");
         log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
 		

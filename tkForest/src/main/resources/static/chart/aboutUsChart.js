@@ -7,19 +7,19 @@ const words = ['care', 'skin', 'mask', 'beauty', 'face', 'cream', 'jewelry', 'fa
 const frequencies = [11236, 5605, 4950, 4158, 3808, 3774, 3321, 3206, 2963, 2578];
 
 // Beauty top 10 keywords data
-const beautyKeywords = ['INJECTION PDRN', 'LIPOLYSIS', 'MAKEUP TOOL', 'PERSONAL CARE', 'PDO THREAD & NEEDLE', 'MASK', 'BOTOX', 'FACE SKIN', 'WRINKLE CARE', 'FACIAL MASK SHEET'];
+const beautyKeywords = ['Injection PDRN', 'Lipolysis', 'Makeup Tool', 'Personal Care', 'PDO Thread & Needle', 'Mask', 'Botox', 'Face Skin', 'Wrinkle Care', 'Facial Mask Sheet'];
 const beautyKeywordFrequencies = [54, 26, 22, 16, 14, 14, 14, 11, 10, 10];
 
 // Fashion top 10 keywords data
-const fashionKeywords = ['KOREA JEWELRY', 'EARRINGS', 'HANDMADE', 'TODDLER', 'COSTUME', 'BABY SHOES', 'PEARL', 'TRENDY FASHION', 'SOCKS', 'ACCESSORIES'];
+const fashionKeywords = ['Korea Jewelry', 'Earrings', 'Handmade', 'Toddler', 'Costume', 'Baby Shoes', 'Pearl', 'Trendy Fashion', 'Socks', 'Accessories'];
 const fashionKeywordFrequencies = [59, 24, 21, 16, 16, 15, 13, 11, 11, 8];
 
 // Food top 10 keywords data
-const foodKeywords = ['EMULSIFIER', 'PET FOOD', 'FROZEN DUMPLINGS', 'NOODLE', 'HALAL RICE CAKES', 'SEAFOOD', 'MANDU', 'FERMENT', 'VEGAN FOOD', 'LAVER SEASONED FLAKE'];
+const foodKeywords = ['Emulsifier', 'Pet Food', 'Frozen Dumplings', 'Noodle', 'Halal Rice Cakes', 'Seafood', 'Mandu', 'Ferment', 'Vegan Food', 'Laver Seasoned Flake'];
 const foodKeywordFrequencies = [7, 7, 6, 5, 5, 5, 4, 4, 4, 4];
 
 // Other top 10 keywords data
-const otherKeywords = ['POLYSTYRENE MOULDING', 'AUTO SPARE PARTS', 'INFLATABLES', 'HOME DECO FRAME', 'INTERMEDIATES', 'Garden Tools', 'sports equipment', 'STEERING OIL', 'EYEWEAR', 'STOCK LOT FABRIC'];
+const otherKeywords = ['Polystyrene Moulding', 'Auto Spare Parts', 'Inflatables', 'Home Deco Frame', 'Intermediates', 'Garden Tools', 'Sports Equipment', 'Steering Oil', 'Eyewear', 'Stock Lot Fabric'];
 const otherKeywordFrequencies = [107, 91, 88, 86, 67, 46, 39, 34, 30, 29];
 
 // Pie chart (All Top 10 Words)
