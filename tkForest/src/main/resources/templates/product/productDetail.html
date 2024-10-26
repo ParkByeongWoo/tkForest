@@ -550,7 +550,7 @@
                     <div class="product-card">
                         <div class="product-image">
                             <!-- 이미지가 없을 경우 텍스트로 대체 -->
-                            <img th:src="@{/images/products/ + ${product.image}}" alt="Product Image"
+                            <img th:src="@{'/uploadimage/' + ${product.productNo} + '.jpg'}" alt="Product Image"
                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
                             <div class="image-placeholder"
                                 style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
@@ -589,15 +589,7 @@
                         <p>Year Established: 2022</p>
                         <p>Business Type: Manufacturer</p>
                         <div class="product-actions">
-<<<<<<< HEAD
 
-	                        <!--  좋아요 보내는 버튼  -->
-	                         <button id="like-button" class="like-button" th:data-productNo="${product.productNo}">❤️</button>
-	                         <!-- 인콰이어리 보내는 버튼 -->
-							<button class="contact-button" 
-							        th:data-seller-member-no="${product.sellerMemberNo}" 
-							        th:data-product-no="${product.productNo}">✉️</button>
-=======
                         <!--  좋아요 보내는 버튼  -->
                             <button class="like-button">❤️</button>
                             
@@ -632,7 +624,7 @@
 						});
 		
 					</script>   
->>>>>>> 001b059af95b7e6c213883427da01858fee2e46d
+
                         </div>
                     </div>
                     <!-- Ajax 전송할 때 필요한 정보(hidden) -->

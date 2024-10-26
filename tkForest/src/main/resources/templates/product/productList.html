@@ -628,7 +628,7 @@
             <div class="product-image">
                <!-- 이미지가 없을 경우 텍스트로 대체 -->
 
-               <img th:src="@{/images/products/ + ${product.image}}" alt="Product Image"
+               <img th:src="@{'/uploadimage/' + ${product.productNo} + '.jpg'}" alt="Product Image"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
                <div class="image-placeholder" style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
                   <span>800 X 700</span> <!-- 이미지가 없을 때 나타날 대체 텍스트 -->

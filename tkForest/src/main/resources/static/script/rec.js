@@ -48,7 +48,7 @@
 					<a href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
 					   class="product-card-link">
 						<div class="_1jpg">
-							<img src="/product-imgs/${product.productNo}.jpg" alt="Product Image" class="product-image">
+							<img src="/uploadimage/${product.productNo}.jpg" alt="Product Image" class="product-image">
 								<div class="border-1">
 									<div class="background-1"></div>
 								</div>

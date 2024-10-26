@@ -443,7 +443,7 @@
                         <a th:href="@{/product/productDetail(productNo=${like.productNo}, searchType=${searchType}, query=${query})}"
                            class="product-card-link">
                            <div class="like-image">
-                              <img src="/product-imgs/${like.productNo}.jpg">
+                     <img th:src="@{'/uploadimage/' + ${like.productNo} + '.jpg'}" alt="Product Image">
                            </div>
                         </a>
 						</div>
@@ -470,7 +470,7 @@
                            <a th:href="@{/product/productDetail(productNo=${inquiry.productNo}, searchType=${searchType}, query=${query})}"
                               class="product-card-link">
                         <div class="like-image">
-                              <img src="/product-imgs/${inquiry.productNo}.jpg">
+                     <img th:src="@{'/uploadimage/' + ${inquiry.productNo} + '.jpg'}" alt="Product Image">
                         </div>
                            </a>
                         </div>
