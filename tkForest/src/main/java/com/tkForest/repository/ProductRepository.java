@@ -40,10 +40,12 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
    
    // 상품 번호로 상품 조회
-   Optional<ProductEntity> findById(Integer productNo);
+   // Optional<ProductEntity> findById(Integer productNo);
 
    
    Page<ProductEntity> findPageByProductNoIn(List<Integer> productNos, PageRequest pageRequest);
+
+ 
 
   
 }

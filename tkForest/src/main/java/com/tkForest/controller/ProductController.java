@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.tkForest.dto.LoginBuyerDetails;
 import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
-import com.tkForest.entity.ProductEntity;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
