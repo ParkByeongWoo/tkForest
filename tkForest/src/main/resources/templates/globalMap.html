@@ -228,6 +228,32 @@
             text-align: center;
             z-index: 1;
         }
+        .spinner {
+		    position: fixed;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    z-index: 1000;
+		}
+		
+		.hidden {
+		    display: none;
+		}
+		
+		.loader {
+		    border: 8px solid #f3f3f3;
+		    border-top: 8px solid #3498db;
+		    border-radius: 50%;
+		    width: 60px;
+		    height: 60px;
+		    animation: spin 1s linear infinite;
+		}
+		
+		@keyframes spin {
+		    0% { transform: rotate(0deg); }
+		    100% { transform: rotate(360deg); }
+		}
+        
     </style>
 
 
@@ -524,7 +550,10 @@
     </div>
     <!-- Breadcrumb end -->
     </header>
-    
+    <div id="loading-spinner" class="spinner hidden">
+    <!-- Spinner animation -->
+    <div class="loader"></div>
+</div>
     
 
     <div class="trend-container mx-auto">
@@ -645,7 +674,7 @@
             <div class="d-flex justify-content-between mb-4">
                 <div class="form-group w-45">
                     <label for="numOfRows" class="highlight-label">Number of Rows</label><br><br>
-                    <input type="text" id="numOfRows" name="numOfRows" class="form-control" value="3">
+                    <input type="text" id="numOfRows" name="numOfRows" class="form-control" value="10">
                 </div>
                 <div class="form-group w-45">
                     <label for="pageNo" class="highlight-label">Page Number</label><br><br>
@@ -673,60 +702,67 @@
 
 
     <script>
-        function callTrendApi() {
-            // 폼 데이터 수집
-            const formData = new FormData(document.getElementById('trendForm'));
-            const params = new URLSearchParams(formData).toString();
+    function callTrendApi() {
+        // 로딩 스피너 표시
+        document.getElementById('loading-spinner').classList.remove('hidden');
 
-            // AJAX 요청을 통해 서버에 API 호출
-            fetch(`/api/trend?${params}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.json(); // JSON 형식으로 응답 처리
-                })
-                .then(data => {
-                    filterAndDisplayResponse(data);
-                })
-                .catch(error => {
-                    document.getElementById('response').textContent = 'Error: ' + error;
-                });
+        // 폼 데이터 수집
+        const formData = new FormData(document.getElementById('trendForm'));
+        const params = new URLSearchParams(formData).toString();
+
+        // AJAX 요청을 통해 서버에 API 호출
+        fetch(`/api/trend?${params}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json(); // JSON 형식으로 응답 처리
+            })
+            .then(data => {
+                filterAndDisplayResponse(data);
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = 'Error: ' + error;
+            })
+            .finally(() => {
+                // 로딩 스피너 숨기기
+                document.getElementById('loading-spinner').classList.add('hidden');
+            });
+    }
+
+    function filterAndDisplayResponse(data) {
+        if (!data || !data.response || !data.response.body || !data.response.body.itemList || !data.response.body.itemList.item) {
+            document.getElementById('response').textContent = 'No data available';
+            return;
         }
 
-        function filterAndDisplayResponse(data) {
-            if (!data || !data.response || !data.response.body || !data.response.body.itemList || !data.response.body.itemList.item) {
-                document.getElementById('response').textContent = 'No data available';
-                return;
-            }
+        const regionFilter = document.getElementById('region').value.trim().toLowerCase();
+        const items = data.response.body.itemList.item;
+        const filteredItems = items.filter(item => {
+            return !regionFilter || (item.regn && item.regn.toLowerCase().includes(regionFilter));
+        });
 
-            const regionFilter = document.getElementById('region').value.trim().toLowerCase();
-            const items = data.response.body.itemList.item;
-            const filteredItems = items.filter(item => {
-                return !regionFilter || (item.regn && item.regn.toLowerCase().includes(regionFilter));
-            });
-
-            if (filteredItems.length === 0) {
-                document.getElementById('response').textContent = 'No data available for the selected region';
-                return;
-            }
-
-            let output = '<table>';
-            output += '<tr><th>Country</th><th>Title</th><th>Summary</th><th>Date</th><th>Link</th></tr>';
-
-            filteredItems.forEach(item => {
-                output += '<tr>';
-                output += `<td>${item.natn || 'N/A'}</td>`;
-                output += `<td>${item.newsTitl || 'N/A'}</td>`;
-                output += `<td>${item.cntntSumar || 'N/A'}</td>`;
-                output += `<td>${item.othbcDt || 'N/A'}</td>`;
-                output += `<td><a href="${item.kotraNewsUrl}" target="_blank"><img src="/img/news_icon.png" alt="View Article" class="link-icon"></a></td>`;
-                output += '</tr>';
-            });
-
-            output += '</table>';
-            document.getElementById('response').innerHTML = output;
+        if (filteredItems.length === 0) {
+            document.getElementById('response').textContent = 'No data available for the selected region';
+            return;
         }
+
+        let output = '<table>';
+        output += '<tr><th>Country</th><th>Title</th><th>Summary</th><th>Date</th><th>Link</th></tr>';
+
+        filteredItems.forEach(item => {
+            output += '<tr>';
+            output += `<td>${item.natn || 'N/A'}</td>`;
+            output += `<td>${item.newsTitl || 'N/A'}</td>`;
+            output += `<td>${item.cntntSumar || 'N/A'}</td>`;
+            output += `<td>${item.othbcDt || 'N/A'}</td>`;
+            output += `<td><a href="${item.kotraNewsUrl}" target="_blank"><img src="/img/news_icon.png" alt="View Article" class="link-icon"></a></td>`;
+            output += '</tr>';
+        });
+
+        output += '</table>';
+        document.getElementById('response').innerHTML = output;
+    }
     </script>
 
 
