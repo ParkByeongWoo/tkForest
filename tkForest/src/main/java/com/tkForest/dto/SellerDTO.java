@@ -17,7 +17,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@Builder
+@Builder 
 public class SellerDTO {
 	private String sellerMemberNo;
     private LocalDateTime sellerMemberJoinDate;

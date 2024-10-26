@@ -14,14 +14,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
-@Getter
+@Getter 
 @ToString
 @Builder
-public class SellerCertificateDTO {
+public class SellerCertificateDTO { 
 	private Integer sellerCertificateNo;
 	private String sellerMemberNo;
 	private Integer certificateTypeCode;
 	private List<Integer> sellerCertificateTypeCodes;
+	
+	
 	
 	public static SellerCertificateDTO toDTO(SellerCertificateEntity sellerCertificateEntity, String sellerMemberNo, Integer certificateTypeCode) {
 		return SellerCertificateDTO.builder()
@@ -29,5 +31,6 @@ public class SellerCertificateDTO {
 				.sellerMemberNo(sellerMemberNo)
 				.certificateTypeCode(certificateTypeCode)
 				.build();
-	}
+	} 
 }
+ 

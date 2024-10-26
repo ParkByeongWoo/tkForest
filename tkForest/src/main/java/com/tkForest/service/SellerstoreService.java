@@ -1,12 +1,8 @@
 package com.tkForest.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tkForest.dto.ProductDTO;
@@ -16,13 +12,22 @@ import com.tkForest.entity.SellerEntity;
 import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.PCategoryRepository;
 import com.tkForest.repository.ProductRepository;
+import com.tkForest.repository.SCategoryRepository;
 import com.tkForest.repository.SellerRepository;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class SellerstoreService {
 
-    @Autowired
-    private SellerRepository sellerRepository;
+    final SellerRepository sellerRepository;
+    final SCategoryRepository sCategoryRepository;
+    final CategoryRepository categoryRepository;
+    final PCategoryRepository pCategoryRepository;
+    final ProductRepository productRepository;
 
     public SellerDTO getSellerByMemberNo(String sellerMemberNo) {
         SellerEntity sellerEntity = sellerRepository.findById(sellerMemberNo)
@@ -30,8 +35,6 @@ public class SellerstoreService {
         return SellerDTO.toDTO(sellerEntity);
     }
     
-    @Autowired
-    private ProductRepository productRepository;
 
     public List<ProductDTO> getProductsBySeller(String sellerMemberNo) {
         List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
@@ -40,14 +43,38 @@ public class SellerstoreService {
             .collect(Collectors.toList());
     }
     
-    private final PCategoryRepository pCategoryRepository;
-    private final CategoryRepository categoryRepository;
-
-    public SellerstoreService(ProductRepository productRepository, PCategoryRepository pCategoryRepository, CategoryRepository categoryRepository) {
-        this.productRepository = productRepository;
-        this.pCategoryRepository = pCategoryRepository;
-        this.categoryRepository = categoryRepository;
+    
+    
+    /**
+     * 셀러MemberNo -> cateNos -> cateNames 리스트 반환
+     * @param sellerMemberNo
+     * @return
+     */
+    public List<String> getSellerCategoryNames(String sellerMemberNo) {
+    	
+    	log.info(sellerMemberNo);
+    	
+    	List<Integer> sellerCateNos = sCategoryRepository.findCategoryNosBySellerMemberNo(sellerMemberNo);
+        log.info("셀러 관심카테고리 categNos 리스트 조회함: {}", sellerCateNos);
+    	
+        if (sellerCateNos != null) {
+        	List<String> sellerCateNames = categoryRepository.findCategoryNameByCategoryNo(sellerCateNos);
+        	log.info("셀러 관심카테고리의 카테고리명 리스트 조회함: {}", sellerCateNames);
+        	return sellerCateNames;
+        }
+    	
+        return null;
     }
+    
+    
+    
+    
+
+//    public SellerstoreService(ProductRepository productRepository, PCategoryRepository pCategoryRepository, CategoryRepository categoryRepository) {
+//        this.productRepository = productRepository;
+//        this.pCategoryRepository = pCategoryRepository;
+//        this.categoryRepository = categoryRepository;
+//    }
 
 //    /**
 //     * 특정 셀러가 등록한 모든 상품의 카테고리명을 조회하기

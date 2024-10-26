@@ -41,7 +41,7 @@ public class UserService {
     final SCategoryRepository sCategoryRepository;
     final BCategoryRepository bCategoryRepository;
     final CategoryRepository categoryRepository;
-    
+  
     final CertificateRepository certificateRepository;
     final SellerCertificateRepository sellerCertificateRepository;
     

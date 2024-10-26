@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3단계 카테고리 네비게이션</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .category-container {
+            background-color: white;
+            width: 250px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .category-list {
+            list-style-type: none;
+        }
+
+        .category-item {
+            font-size: 16px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            color: #333;
+            display: block;
+        }
+
+        .category-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-icon {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            float: right;
+        }
+
+        .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .subcategory-list,
+        .third-category-list {
+            display: none;
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .subcategory-item,
+        .third-category-item {
+            font-size: 14px;
+            padding: 5px 0;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .third-category-item {
+            padding-left: 20px;
+            /* Ensure deeper indent for 3rd level */
+        }
+
+        /* Use '+' for the 3rd depth */
+        .third-toggle-icon {
+            font-size: 14px;
+            float: right;
+        }
+
+        .third-toggle-icon.open {
+            content: '-';
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- 네비게이션 바 시작 -->
+    <div class="category-container">
+        <h2 class="category-title">Category</h2>
+        <ul class="category-list">
+            <li class="category-item">
+                Beauty & Personal Care
+                <span class="toggle-icon">&#9662;</span>
+                <ul class="subcategory-list">
+                    <li class="subcategory-item">
+                        Beauty
+                        <span class="toggle-icon">&#9662;</span>
+                        <ul class="third-category-list">
+                            <li class="third-category-item">Makeup</li>
+                            <li class="third-category-item">Other Beauty Products</li>
+                            <li class="third-category-item">Makeup Tools</li>
+                            <li class="third-category-item">Body & Nail</li>
+                            <li class="third-category-item">Beauty Appliance</li>
+                            <li class="third-category-item">Fragrance & Deodorant</li>
+                        </ul>
+                    </li>
+                    <li class="subcategory-item">
+                        Personal Care
+                        <span class="toggle-icon">&#9662;</span>
+                        <ul class="third-category-list">
+                            <li class="third-category-item">Facial Care</li>
+                            <li class="third-category-item">Hair Care</li>
+                            <li class="third-category-item">Other Personal Care</li>
+                            <li class="third-category-item">Bath Supplies</li>
+                            <li class="third-category-item">Body Care</li>
+                            <li class="third-category-item">Oral Hygiene</li>
+                            <li class="third-category-item">Sanitary Paper</li>
+                            <li class="third-category-item">Home Care</li>
+                            <li class="third-category-item">Shaving & Hair Removal</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="category-item">
+                Construction & Safety
+                <span class="toggle-icon">&#9662;</span>
+            </li>
+            <li class="category-item">
+                Electrical Components & Telecoms
+                <span class="toggle-icon">&#9662;</span>
+            </li>
+            <!-- Add other categories here -->
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Toggle for 1st depth categories
+            $(".category-item").on("click", function () {
+                $(this).find(".toggle-icon").toggleClass("open");
+                $(this).find(".subcategory-list").slideToggle();
+            });
+
+            // Toggle for 2nd depth subcategories
+            $(".subcategory-item").on("click", function (e) {
+                e.stopPropagation(); // Prevent parent toggle from triggering
+                $(this).find(".toggle-icon").toggleClass("open");
+                $(this).find(".third-category-list").slideToggle();
+            });
+        });
+    </script>
+    <!-- 네비게이션 바 끝 -->
+
+</body>
+
+</html>

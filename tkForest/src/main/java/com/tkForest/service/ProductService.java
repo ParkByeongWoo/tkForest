@@ -1,5 +1,6 @@
 package com.tkForest.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
+import com.tkForest.entity.B_LikeEntity;
+import com.tkForest.entity.BuyerEntity;
 import com.tkForest.entity.CategoryEntity;
 import com.tkForest.entity.CertificateEntity;
 import com.tkForest.entity.PCategoryEntity;
@@ -23,6 +26,7 @@ import com.tkForest.entity.ProductCertificateEntity;
 import com.tkForest.entity.ProductEntity;
 import com.tkForest.entity.SellerEntity;
 import com.tkForest.repository.BLikeRepository;
+import com.tkForest.repository.BuyerRepository;
 import com.tkForest.repository.CategoryRepository;
 import com.tkForest.repository.CertificateRepository;
 import com.tkForest.repository.PCategoryRepository;
@@ -42,12 +46,12 @@ public class ProductService {
    
 	final ProductRepository productRepository;
 	final SellerRepository sellerRepository;
+	final BuyerRepository buyerRepository;
 	
 	final PCategoryRepository pCategoryRepository;
 	final CategoryRepository categoryRepository;
 	final CertificateRepository certificateRepository;
 	final ProductCertificateRepository productCertificateRepository;
-	
 	final BLikeRepository bLikeRepository;
    
    // 페이징할 때 한 페이지 출력할 글 개수
@@ -169,6 +173,7 @@ public class ProductService {
     * 등록중인 상품에 카테고리 추가하기
     * @param pCategoryDTOList
 
+>>>>>>> 245c0971e27f9f1798e3459c5a6adef45c326510
    public void categoryInsert(List<PCategoryDTO> pCategoryDTOList) {
       for (PCategoryDTO pCategoryDTO : pCategoryDTOList) {
 		  Optional<ProductEntity> productEntity = productRepository.findById(pCategoryDTO.getProductNo());
@@ -296,44 +301,158 @@ public class ProductService {
 	    
 	    return CertificateTypeCodes;
 	}
-	
+
 	/**
+	 * (상품리스트 최종)
+	 * 카테고리필터링 + 검색 + 정렬 All
 	 * (검색기능 포함) 상품 리스트 불러오기 (상품 검색, 상품 조회)
 	 * @param pageable
 	 * @param searchItem 아니고 searchType
 	 * @param searchWord 아니고 query
 	 * @return
 	 */
-	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query) {
+	public Page<ProductDTO> selectAll(Pageable pageable, String searchType, String query, String sortBy, Integer CategoryNo) {
+	    
+	    log.info("서비스 CategoryNo: {}", CategoryNo);
+	    
+	    int page = pageable.getPageNumber() - 1;
+	    int pageLimit = pageable.getPageSize();
+	    
+	    // 기본 정렬 기준 (없으면 registrationDate)
+	    if (sortBy == null || sortBy.isEmpty()) {
+	        sortBy = "registrationDate";
+	    }
+	    
+	   // 동적으로 정렬 기준을 설정
+	    Sort sort = Sort.by(Sort.Direction.DESC, sortBy);
+	    
+	    Page<ProductEntity> entityList = null;
+
+	    if (CategoryNo != null) {
+	        // 카테고리가 지정된 경우, 해당 카테고리의 상품만 조회
+	        List<Integer> uniqueProductNos = pCategoryRepository.findProductNosByCategoryNoStartsWith(CategoryNo).stream()
+	                .distinct()
+	                .toList();  // 중복제거된 productNos 리스트
+	        
+	        log.info("카테고리가 지정됨: {}", CategoryNo);
+	        log.info("중복제거 ProductNos: {}", uniqueProductNos);
+	        
+	        if (query == null || query.isEmpty()) {
+	            // 검색어 없이 단순히 카테고리로만 필터링
+	            entityList = productRepository.findByProductNoIn(
+	                uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	        } else {
+	            // 상품 이름, 브랜드 검색 및 카테고리 필터링을 함께 적용
+	            switch (searchType) {
+	                case "ALL":
+	                    entityList = productRepository.findByProductNameContainsOrBrandContainsAndProductNoIn(
+	                        query, query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	                case "Products":
+	                    entityList = productRepository.findByProductNameContainsAndProductNoIn(
+	                        query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	                case "Brand":
+	                    entityList = productRepository.findByBrandContainsAndProductNoIn(
+	                        query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	                default:
+	                    entityList = productRepository.findByProductNameContainsOrBrandContainsAndProductNoIn(
+	                        query, query, uniqueProductNos, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	            }
+	        }
+	    } else {
+	        // 카테고리가 지정되지 않은 경우, 전체 검색
+	        if (query == null || query.isEmpty()) {
+	            // 검색어가 없을 때는 전체 상품 목록 반환
+	            entityList = productRepository.findAll(PageRequest.of(page, pageLimit, sort));
+	        } else {
+	            // 검색어가 있을 때는 검색어로 필터링
+	            switch (searchType) {
+	                case "ALL":
+	                    entityList = productRepository.findByProductNameContainsOrBrandContains(
+	                        query, query, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	                case "Products":
+	                    entityList = productRepository.findByProductNameContains(
+	                        query, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	                case "Brand":
+	                    entityList = productRepository.findByBrandContains(
+	                        query, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	                default:
+	                    entityList = productRepository.findByProductNameContainsOrBrandContains(
+	                        query, query, PageRequest.of(page, pageLimit, sort));
+	                    break;
+	            }
+	        }
+	    }
+
+	    // ProductEntity를 ProductDTO로 매핑
+	    Page<ProductDTO> list = entityList.map(
+	        (product) -> new ProductDTO(
+	            product.getProductNo(),
+	            product.getSellerEntity().getSellerMemberNo(), 
+	            product.getRegistrationDate(),
+	            product.getProductName(),
+	            product.getBrand(),
+	            product.getProductImagePath1())
+	    );
+
+	    return list;
+	}
+
+	
+	
+	
+	/**
+	 * 특정 카테고리에 속한 상품들 가져오기
+	 * @param query 
+	 * @param searchType 
+	 * @param pageable 
+	 * @param categoryId
+	 * @return
+	 */
+	public Page<ProductDTO> getProductsByCategory(Pageable pageable, String searchType, String query, Integer categoryId) {
+		log.info("categoryId: {}", categoryId);
+		
 		int page = pageable.getPageNumber() - 1;
 		int pageLimit = pageable.getPageSize();
 		
 		Page<ProductEntity> entityList = null;
+		
+		// 특정 카테고리에 해당하는 상품No 조회함
+		// List<Integer> productNosByCategory = pCategoryRepository.findProductNosByCategoryNo(categoryId);
+		
+//		// 특정 카테고리에 해당하는 상품No 조회함 - categoryId로 시작하는 카테고리(즉, 대분류)
+//		List<Integer> productNosByCategory = pCategoryRepository.findProductNosByCategoryNoStartsWith(categoryId);
+//		// log.info("카테고리 필터링된 상품의 productNos 리스트 조회함: {}", productNosByCategory);
+//		
+//		// 위에서 불러온 List<Integer> productNosByCategory에는 productNo가 중복되어 들어가있기 때문에 중복제거 작업
+//		List<Integer> uniqueProductNos = productNosByCategory.stream()
+//	            .distinct()  // 중복 제거
+//	            .collect(Collectors.toList());
+//		log.info("중복 제거된 카테고리 필터링된 상품의 productNos 리스트 조회함: {}", uniqueProductNos);
+		
+		
+		// 특정 카테고리에 해당하는 상품No 조회 후 중복 제거 작업 - categoryId로 시작하는 카테고리(즉, 대분류)
+		List<Integer> uniqueProductNos = pCategoryRepository.findProductNosByCategoryNoStartsWith(categoryId).stream()
+		    .distinct()
+		    .toList();  // Java 16 이상에서 사용 가능
 
-	    switch (searchType) {
-        case "ALL":
-            // ProductName 또는 Brand에 포함된 항목 모두 검색
-            entityList = productRepository.findByProductNameContainsOrBrandContains(query, query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
-            break;
-        case "Products":
-            // ProductName으로 검색
-            entityList = productRepository.findByProductNameContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
-            break;
-        case "Brand":
-            // Brand로 검색
-            entityList = productRepository.findByBrandContains(query, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "brand")));
-            break;
-        default:
-            // 기본 전체 검색 (ProductName 또는 Brand로 정렬)
-            entityList = productRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "productName")));
-            break;
-    }
-	    
-	    Page<ProductDTO> list = null;
+		log.info("중복 제거된 카테고리 필터링된 상품의 productNos 리스트 조회함: {}", uniqueProductNos);
+		
+		 // 해당 productNo에 해당하는 ProductEntity 리스트 조회
+        Page<ProductEntity> cateProductEntityList = productRepository.findPageByProductNoIn(uniqueProductNos, PageRequest.of(page, pageLimit));
+        log.info("좋아요 한 상품엔티티 리스트: {}", cateProductEntityList.get());
+
+        Page<ProductDTO> list = null;
 
 		// 페이징 형태의 list로 변환
 		// 목록에서 사용할 필요한 데이터만 간추림(생성자 만듦)
-		list = entityList.map(
+		list = cateProductEntityList.map(
 				(product) -> new ProductDTO(
 						product.getProductNo(),
 						product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
@@ -344,8 +463,9 @@ public class ProductService {
 				);
 
 		return list;
-	}
 	
+	}
+		
 	
 	/**
 	 * (B_마이페이지) 좋아요 한 상품 리스트 불러오기
@@ -357,12 +477,6 @@ public class ProductService {
         // List<Integer> likedProductNos = bLikeRepository.findByLikefromBuyerEntity_BuyerMemberNoAndLikeUseYn(buyerMemberNo, "Y");
         
 		log.info(buyerMemberNo);
-		
-		// 되는 코드들
-		// List<Integer> likedProductNos = bLikeRepository.findProductNosByBuyerMemberNoAndLikeUseYn();
-        // log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
-		// 되는 코드 끝
-
 		
 		List<Integer> likedProductNos = bLikeRepository.findLikedProductsByBuyerMemberNo(buyerMemberNo, "Y");
         log.info("좋아요 한 상품의 productNos 리스트 조회함: {}", likedProductNos);
@@ -392,10 +506,66 @@ public class ProductService {
 		
     }
 	    
-	
-	
-	
-	
+	/**
+	 * 상품 좋아요(B_Like 추가)
+	 * @param buyerMemberNo
+	 * @param productNo
+	 * @param likeUseYn
+	 * @return
+	 */
+	public boolean productLikeCreate(String buyerMemberNo, Integer productNo, String likeUseYn) {
+		
+		// buyer정보가 없으면 null 반환
+		BuyerEntity buyer = buyerRepository.findByBuyerMemberNo(buyerMemberNo)
+				.orElse(null);
+		
+		if (buyer == null) {
+			log.info("buyer회원 정보를 찾을 수 없습니다: {}", buyerMemberNo);
+	        return false;  // 메소드가 실패했음을 나타내는 값 반환
+		}
+		
+//		Optional<ProductEntity> productEntityOpt = productRepository.findByProductNo(productNo);
+//		Optional<BLikeEntity> BLikeEntityOpt = BLikeRepository.(productNo);
+//		
+//		if (productEntityOpt.isPresent()) {
+//			ProductEntity productEntity = productEntityOpt.get();
+//		}
+		
+//		BuyerEntity buyer = buyerRepository.findByBuyerMemberNo(buyerMemberNo)
+//	                .orElseThrow(() -> new IllegalArgumentException("Buyer not found"));
+
+		ProductEntity product = productRepository.findByProductNo(productNo)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+		
+		 B_LikeEntity blike = B_LikeEntity.builder()
+	                .likefromBuyerEntity(buyer)         // Set the buyer entity
+	                .likedProductEntity(product)        // Set the product entity
+	                .likeCreatedDate(LocalDateTime.now())  // Automatically set the current date/time
+	                .likeUseYn(likeUseYn)               // Set the like status (e.g., "Y")
+	                .build();
+		
+		bLikeRepository.save(blike);
+		log.info("B_like 추가함:{}", blike);
+		
+		return true;
+	}
+//		
+//		B_LikeEntity bLikeEntity = new B_LikeEntity();
+//		bLikeEntity.setLikefromBuyerEntity(buyerMemberNo);
+//		blikeEntity.set
+//		
+//		public LikeEntity saveLike(String fromBuyerMemberNo, String toSellerMemberNo, Long toProductNo) {
+//	        LikeEntity like = new LikeEntity();
+//	        like.setFromBuyerMemberNoLike(fromBuyerMemberNo);
+//	        like.setToSellerMemberNoLike(toSellerMemberNo);
+//	        like.setToProductNoLike(toProductNo);
+//	        like.setLikeCreateDate(LocalDateTime.now());
+//	        like.setLikeUseYn("Y");  // Assuming "Y" means active
+//
+//	        return likeRepository.save(like);
+//	    }
+		
+
 	/**
 	 * 상품 1개 정보 수정하기
 	 * @param product
@@ -528,6 +698,7 @@ public class ProductService {
             throw new RuntimeException("Product not found with productNo: " + productNo);
         }
     }
-    
-
+	
+	
 }
+

@@ -7,8 +7,6 @@
  */
 let idCheck = false;	// 일단 기본은 false(가입 불가능)
 let pwdCheck = false;
-let bizregNoCheck = false;
-let categoryData = {};
 
 $(function(){
 	
@@ -31,7 +29,7 @@ $(function(){
 });
 
 
-// (셀러) 사용가능한 아이디인지 여부를 판단(ajax로 작업);
+// 사용가능한 아이디인지 여부를 판단(ajax로 작업);
 function confirmSellerId(){
 	event.preventDefault();
 	
@@ -213,6 +211,14 @@ function initializeModal() {
 		event.preventDefault();
         modal.show();
     });
+	
+	// 초기화 버튼 클릭 시 선택된 카테고리 비우기
+	    $('#clearCategoryBtn').on('click', function() {
+			event.preventDefault();
+	        $('#selectedCategoryList').text('');  // 선택된 카테고리 텍스트 초기화
+	        $('#selectedCategory').val('');       // 숨겨진 input 값 초기화
+	        $('#hiddenCategoryInputs').empty();   // hidden input 요소 초기화
+	    });
 
     // 모달 닫기 버튼 클릭 시
     closeModalBtn.on('click', function() {
