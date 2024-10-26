@@ -22,4 +22,4 @@ function updateTimera() {
         '<div class="time-block"><div class="time">' + s + '</div><span class="dots"></span></div></div>';
 }
 
-setInterval('updateTimera()', 1000);
+// setInterval('updateTimera()', 1000);

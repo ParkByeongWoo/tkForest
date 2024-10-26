@@ -374,6 +374,21 @@
             </div>
         </div>
 
+<div>
+<ul>
+    <li th:each="cateName : ${cateNames}" th:text="${cateName}">카테고리 없음</li>
+    <li th:if="${#lists.isEmpty(cateNames)}">카테고리가 없습니다</li>
+</ul>
+     				
+     				<!-- cateNames가 전달되었는지 확인하는 임시 로그 -->
+<p th:text="${cateNames != null ? '카테고리 있음' : '카테고리 없음'}">카테고리 상태 확인</p>
+
+
+<!-- cateNamesCheck가 제대로 렌더링되는지 확인 -->
+<p th:text="${cateNamesCheck}">카테고리 상태 확인</p>
+</div>
+
+
         <table class="info-table">
             <tr>
                 <td>President</td>
@@ -394,7 +409,19 @@
             </tr>
             <tr>
                 <td>Product Category</td>
-                <td id="productCategory"></td>
+                <td id="productCategory">
+             	   	<ul>
+    <li th:each="cateName : ${cateNames}" th:text="${cateName}">카테고리 없음</li>
+    <li th:if="${#lists.isEmpty(cateNames)}">카테고리가 없습니다</li>
+</ul>
+     				
+     				<!-- cateNames가 전달되었는지 확인하는 임시 로그 -->
+<p th:text="${cateNames != null ? '카테고리 있음' : '카테고리 없음'}">카테고리 상태 확인</p>
+
+
+<!-- cateNamesCheck가 제대로 렌더링되는지 확인 -->
+<p th:text="${cateNamesCheck}">카테고리 상태 확인</p>
+                </td>
             </tr>
             <tr>
                 <td>Seller Keyword</td>

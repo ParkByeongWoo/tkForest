@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-public class PCategoryDTO {
+public class PCategoryDTO { 
     private Integer pCategoryNo; 
     private Integer productNo;   
     private Integer categoryNo;  

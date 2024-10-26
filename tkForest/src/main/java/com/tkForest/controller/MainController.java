@@ -17,7 +17,8 @@ public class MainController {
      */
     @GetMapping({"/", ""})
     public String index(Model model) {
-        return "index";
+//        return "index";
+        return "home/userHome";
     }
     
    /**
@@ -28,6 +29,23 @@ public class MainController {
    public String aboutUs() {
        return "aboutUs";  
    }
+   
+   /**
+    * (비회원) 메인 홈
+    */
+   @GetMapping("/home/userHome")
+   public String userHome() {
+	   return "home/userHome";  
+   }
+   
+   /**
+    * (회원) 메인 홈
+    */
+   @GetMapping("/home/memberHome")
+   public String memberHome() {
+       return "home/memberHome";  
+   }
+   
    
    /**
     * 보따리 추천

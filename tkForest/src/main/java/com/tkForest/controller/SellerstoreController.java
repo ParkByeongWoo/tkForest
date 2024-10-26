@@ -44,26 +44,29 @@
 //}
 package com.tkForest.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tkForest.dto.SellerDTO;
-import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.ProductDTO;
+import com.tkForest.dto.SellerDTO;
 import com.tkForest.service.SellerstoreService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class SellerstoreController {
 
     @Autowired
@@ -110,6 +113,12 @@ public class SellerstoreController {
 //        return "product/productSellerStore"; // 페이지 이름은 적절하게 수정
 //    }
     
+    /**
+     * 
+     * @param sellerMemberNo
+     * @param model
+     * @return
+     */
     @GetMapping("/productSellerStore/{sellerMemberNo}")
     public String getSellerStore(@PathVariable("sellerMemberNo") String sellerMemberNo, Model model) {
         // 셀러 정보 가져오기
@@ -119,10 +128,47 @@ public class SellerstoreController {
         // 셀러의 상품 리스트 가져오기
         List<ProductDTO> productDTOs = sellerstoreService.getProductsBySeller(sellerMemberNo);
         model.addAttribute("products", productDTOs);
+        
+        // 셀러의 카테고리명 리스트 가져오기
+        List<String> sellerCateNames = sellerstoreService.getSellerCategoryNames(sellerMemberNo);
+        
+        log.info("셀러의 카테고리명 리스트: {}", sellerCateNames);
+        
+         model.addAttribute("cateNames", sellerCateNames);
 
+         
+     // 임시로 cateNames를 테스트용 문자열로 설정
+//        List<String> testCateNames = List.of("테스트1", "테스트2");
+//        model.addAttribute("cateNames", testCateNames);
+
+        
+     // 기존 코드에서 cateNames 변수 전달 후 임시 확인용 변수 추가
+        model.addAttribute("cateNamesCheck", sellerCateNames.isEmpty() ? "카테고리 없음" : "카테고리 있음");
+        
+        
         return "product/productSellerStore"; // 셀러 스토어 페이지로 이동
     }
 
+    
+//    @GetMapping("/productSellerStore/{sellerMemberNo}")
+//    @ResponseBody // JSON 형식으로 리턴하게 설정
+//    public Map<String, Object> getSellerStore(@PathVariable("sellerMemberNo") String sellerMemberNo) {
+//        Map<String, Object> response = new HashMap<>();
+//        
+//        // 셀러 정보 가져오기
+//        SellerDTO sellerDTO = sellerstoreService.getSellerByMemberNo(sellerMemberNo);
+//        response.put("seller", sellerDTO);
+//        
+//        // 셀러의 상품 리스트 가져오기
+//        List<ProductDTO> productDTOs = sellerstoreService.getProductsBySeller(sellerMemberNo);
+//        response.put("products", productDTOs);
+//        
+//        // 셀러의 카테고리명 리스트 가져오기
+//        List<String> sellerCateNames = sellerstoreService.getSellerCategoryNames(sellerMemberNo);
+//        response.put("cateNames", sellerCateNames);
+//
+//        return response;
+//    }
 
 }
 

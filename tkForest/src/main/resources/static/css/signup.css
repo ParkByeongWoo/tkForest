@@ -1,208 +1,109 @@
-/* 모달 창 배경 설정 */
-.modal-dialog {
-    max-width: 800px; /* 모달 창 너비 */
-    width: 90%; /* 화면의 90%를 차지하게 설정 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5); /* 반투명 검정 배경 */
-    overflow: auto; /* 작은 화면에서 스크롤 가능하도록 설정 */
-}
-
-/* 모달 내용 설정 */
-.modal-content {
-    background-color: white;
-    margin: 10% auto; /* 페이지 중앙 정렬 */
+.ms-login-content {
+    display: flex;
+    justify-content: center;
     padding: 20px;
-    border-radius: 10px;
-    width: 70%; /* 기본 모달 너비 */
-    max-width: 600px; /* 최대 너비 제한 */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+}
+
+.ms-login-box {
+    flex: 0 0 500px;
+    width: 500px;
+    min-height: 400px;
+    background-color: #f9f9f9;
+    padding: 100px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 0 40px;
     position: relative;
 }
 
-/* 반응형 모달: 화면이 작아졌을 때 */
-@media screen and (max-width: 768px) {
-    .modal-content {
-        width: 90%; /* 작은 화면에서 너비를 90%로 */
-    }
+.ms-login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* 닫기 버튼 설정 */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-}
-
-.close-btn:hover {
-    color: #999;
-}
-
-/* 제목 스타일 */
-.modal h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #444;
-}
-
-/* 카테고리 선택 영역 스타일 */
-.category-wrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
+.ms-login-wrapper {
+    flex-direction: column;
     align-items: center;
-    flex-wrap: nowrap;
+    width: 100%;
+    position: relative;
 }
 
-@media screen and (max-width: 768px) {
-    .category-wrapper {
-        flex-direction: column;
-        gap: 10px;
-    }
+.ms-login-wrap {
+    text-align: center;
+    width: 100%;
+    margin: 30px 0;
 }
 
-/* 레이블 스타일 */
-.category-wrapper label {
+.ms-login-wrap label {
+    color: #00695C;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0.16px;
+    line-height: 36px;
+    display: block;
+    margin-bottom: 30px;
+}
+
+.ms-login-wrap p {
+    color: #808080;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
-    color: #666;
-    margin-bottom: 0;
-    line-height: 1.5;
+    font-weight: 400;
+    letter-spacing: 0.32px;
+    line-height: 24px;
+    margin: 0;
 }
 
-/* 선택 박스 스타일 */
-.category-wrapper select {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    min-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.clickable-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
-/* 카테고리 추가 버튼 스타일 */
-#addCategoryBtn {
-    padding: 10px 20px;
-    background-color: #0056b3;
+/* 특정 버튼에만 적용되는 스타일 */
+#registerBtn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -100px;
+    background-color: #232323;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 3px;
+    padding: 15px 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.1s ease;
-    align-self: center;
     white-space: nowrap;
-    flex-shrink: 0;
-    width: 100px;
-    text-align: center;
 }
 
-#addCategoryBtn:hover {
-    background-color: #000080;
+#registerBtn:hover {
+    background-color: #00695C;
 }
 
-/* 선택된 카테고리 리스트 스타일 */
-#selectedCategoryListContainer {
-    margin-top: 20px;
-}
-
-#selectedCategoryList {
-    display: inline-block;
-    white-space: normal;
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/**** 중복확인 버튼 ****/
-button#confirmBizregNo,
-button#confirmSellerId,
-button#confirmBuyerId,
-button#openModalBtn {
-	border: 0.5px solid #eee;
-	color: #aaa;
-    font-size: 0.8rem;
-    margin-left: 5px;
-    margin-bottom: 9px;
-}
-      
-button#confirmBizregNo:hover,
-button#confirmSellerId:hover,
-button#openModalBtn:hover {
-    color: #555;
-}
-
-span#confirmSellerPwd, 
-span#confirmBuyerPwd {
-    font-size: 0.8rem;
-    margin-left: 5px;
-    margin-bottom: 9px;
-}
-
-/**** 인증서 선택 ****/
-
-/* 체크박스와 텍스트를 한 줄로 정렬 */
-.sellerCertificateTypeCodes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-    justify-content: flex-start;
-}
-
-.sellerCertificateTypeCodes label {
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    padding: 3px 8px;
-    background-color: #fafafa;
-    border-radius: 5px;
-    transition: background-color 0.1s ease;
-    margin: 1px;
-    line-height: 1.2;
-}
-
-/* 체크박스 크기 조정 및 마진 제거 */
-.sellerCertificateTypeCodes input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    margin: 0;
-    padding: 0;
-    vertical-align: middle;
-}
-
-/* 레이블 hover 효과 */
-.sellerCertificateTypeCodes label:hover {
-    background-color: #f0f0f0;
-}
-
-.ms-register-wrapper .ms-register-container .ms-register-form input[name="sellerCertificateTypeCodes"] {
-    margin-bottom: 0px;
-    margin-right: 5px;
-}
-
-div.sellerCertificateTypeCodes {
-	margin-bottom: 26px;
-}
-
-/* 무역 거래를 밑줄로 내리기 위한 스타일 */
-.sellerCertificateTypeCodes label.trade {
-    flex-basis: auto;
+/* 반응형 디자인 */
+@media (max-width: 992px) {
+    .ms-login-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .ms-login-box {
+        margin: 40px 0;
+        width: 100%;
+        max-width: 500px;
+    }
 }
