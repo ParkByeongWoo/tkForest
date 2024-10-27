@@ -187,25 +187,30 @@
 												    <img src="/assets/img/icons/price_tag.png" alt="categories icon" style="width: 20px; margin-right: 5px;">
 												    Categories<i class="msicon msi-angle-right"></i>
 												</a>
-					                            
-					                            <ul class="mega-menu d-block">
+	
+					                                  <ul class="mega-menu d-block">
 					                                <li class="d-flex">
 					                                    <span class="bg"></span>
 					                                    <ul class="d-block">
-					                                        <li class="menu_title"><a href="javascript:void(0)">Beauty</a></li>
-					                                        <li><a href="shop-left-sidebar-col-3.html">Beauty Appliance</a></li>
-					                                        <li><a href="shop-left-sidebar-col-4.html">Body & Nail</a></li>
-					                                        <li><a href="shop-right-sidebar-col-3.html">Fragrance & Deodorant</a></li>
-					                                        <li><a href="shop-right-sidebar-col-4.html">Makeup</a></li>
-					                                        <li><a href="shop-full-width.html">Other Beauty Products</a></li>
+					                                        <li class="menu_title"><a th:href="@{/product/productList(categoryNo=11)}">Beauty</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111101)}">Makeup</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111102)}">Other Beauty Products</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111103)}">Makeup Tools</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111104)}">Body & Nail</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111105)}">Beauty Appliance</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111106)}">Fragrance & Deodorant</a></li>
 					                                    </ul>
 					                                    <ul class="d-block">
-					                                        <li class="menu_title"><a href="javascript:void(0)">Personal Care</a></li>
-					                                        <li><a href="shop-banner-left-sidebar-col-3.html">Bath Supplies</a></li>
-					                                        <li><a href="shop-banner-left-sidebar-col-4.html">Body Care</a></li>
-					                                        <li><a href="shop-banner-right-sidebar-col-3.html">Facial Care</a></li>
-					                                        <li><a href="shop-banner-right-sidebar-col-4.html">Hair Care</a></li>
-					                                        <li><a href="shop-banner-full-width.html">Other Personal Care</a></li>
+					                                        <li class="menu_title"><a th:href="@{/product/productList(categoryNo=11)}">Personal Care</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111201)}">Facial Care</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111202)}">Hair Care</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111203)}">Other Personal Care</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111204)}">Bath Supplies</a></li>
+					                                        <li><a th:href="@{/product/productList(categoryNo=111205)}">Body Care</a></li>
+					                                  		<li><a th:href="@{/product/productList(categoryNo=111206)}">Oral Hygiene</a></li>
+							                                <li><a th:href="@{/product/productList(categoryNo=111207)}">Sanitary Paper</a></li>
+							                                <li><a th:href="@{/product/productList(categoryNo=111208)}">Home Care</a></li>
+							                                <li><a th:href="@{/product/productList(categoryNo=111209)}">Shaving & Hair Removal</a></li>
 					                                    </ul>
 					                                    <ul class="d-block">
 					                                        <li class="menu_title"><a href="javascript:void(0)">Foods</a></li>
@@ -235,9 +240,12 @@
 												            <li class="menu_title"><a th:href="@{/product/productList}">All Product</a></li>
 												        </ul>
 												        <ul class="d-block">
-												            <li class="menu_title"><a th:href="@{/recList}">Recommendation</a></li>
+												            <li class="menu_title"><a th:href="@{/rec/recList}">Recommendation</a></li>
 												        </ul>
-												        <ul class="d-block" style="margin-right: 20px;"> <!-- 오른쪽 여백을 줄임 -->
+												        <ul class="d-block">
+												            <li class="menu_title"><a th:href="@{/api/globalMap}">Trend News</a></li>
+												        </ul>
+												        <ul class="d-block">
 												            <li class="menu_title"><a th:href="@{/aboutUs}">About Us</a></li>
 												        </ul>
 												    </li>
