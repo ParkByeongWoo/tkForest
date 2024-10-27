@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 1번째 줄부터 274번째에 있는 '헤더 끝!을 HTML에 넣으면 OK -->
-    <title>헤더 적용 페이지</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>Masterkart - Multipurpose eCommerce HTML Template.</title>
+    <meta name="keywords"
+        content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
+    <meta name="description" content="Multipurpose eCommerce HTML Template">
+    <meta name="author" content="ashishmaraviya">
 
     <!-- site Favicon -->
     <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
@@ -15,225 +20,65 @@
 
     <!-- css All Plugins Files -->
     <link rel="stylesheet" href="/assets/css/plugins/animate.css">
-    <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/owl.carousel.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/slick.min.css">
     <link rel="stylesheet" href="/assets/css/plugins/nouislider.css">
 
     <!-- Main Style -->
-    <link rel="stylesheet" id="main_style" href="/assets/css/demo-1.css">
+    <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link rel="stylesheet" href="/assets/scss/pages/_shop-page.scss">
+    <link rel="stylesheet" href="/assets/css/pages/_shop-page.css">
 
-
-    <!-- 인덱스 메인용 css -->
+    <!-- 좌측 카테고리 토글 용 -->
     <style>
-        .main-content {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-            gap: 2rem;
-        }
-
-        .hero {
-            flex: 0;
-            background-color: #f8f8f8;
-            padding: 2rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            width: 250px;
-            flex-shrink: 1;
-            /* 박스가 줄어들지 않도록 설정 */
-        }
-
-        .hero-text {
-            text-align: center;
-        }
-
-        .cta {
-            background-color: #f0f0f0;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-            border-radius: 8px;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .product-details p {
-
-            margin-bottom: 0;
-            font-size: 0.7rem;
-
-        }
-
-
-
-        .button {
-            display: inline-block;
-            background-color: #4CAF50;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #45a049;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .main-content {
-                flex-direction: column;
-            }
-
-        }
-
-        .category-container {
-            background-color: white;
-            width: 250px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .category-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-
-        .category-list {
-            list-style-type: none;
-        }
-
-        .category-item {
-            font-size: 16px;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            color: #333;
-            display: block;
-        }
-
-        .category-item:last-child {
-            border-bottom: none;
-        }
-
-        .toggle-icon {
-            font-size: 14px;
-            transition: transform 0.3s ease;
-            float: right;
-        }
-
-        .toggle-icon.open {
-            transform: rotate(180deg);
-        }
-
         .subcategory-list,
         .third-category-list {
             display: none;
-            list-style-type: none;
-            padding-left: 20px;
-            margin-top: 5px;
         }
 
-        .subcategory-item,
-        .third-category-item {
-            font-size: 14px;
-            padding: 5px 0;
-            color: #666;
+        .third-category-list {
+            display: none;
+            /* 기본적으로 숨김 */
+        }
+
+        .ms-sidebar-block-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-icon {
             cursor: pointer;
         }
 
+        /* 하위 카테고리 토글 기능 */
+        .ms-sidebar-block-item.active+.third-category-list {
+            display: block;
+        }
+
         .third-category-item {
-            padding-left: 20px;
-            /* Ensure deeper indent for 3rd level */
-        }
-
-        /* Use '+' for the 3rd depth */
-        .third-toggle-icon {
+            color: #aaa;
             font-size: 14px;
-            float: right;
-        }
-
-        .third-toggle-icon.open {
-            content: '-';
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            /* 카드 사이 간격 */
-            padding: 20px;
-            flex-grow: 1;
-            /* 나머지 공간을 차지하도록 설정 */
-        }
-
-
-        .product-card {
-            background-color: white;
-            border: 1px solid #eee;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.2s;
-
-        }
-
-
-
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: auto;
-            background-color: #e0e0e0;
-            /* 회색 배경 */
-            object-fit: cover;
-            /* 이미지 크기에 맞게 조정 */
-        }
-
-        /* 이미지가 없을 경우에도 회색 배경 유지 */
-        .product-card img:empty {
-            background-color: #e0e0e0;
-        }
-
-        .content-container {
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            /* 남은 공간을 차지하도록 설정 */
-            height: 100%;
-            /* 전체 높이 설정 */
-
+            letter-spacing: 0;
+            word-break: break-all;
+            line-height: 26px;
+            font-family: "Poppins, sans-serif";
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Page Navigation -->
+    <!-- Loader -->
+    <div id="ms-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- 헤더 -->
     <header class="ms-header">
         <!-- Header Top Start -->
         <div class="header-top">
@@ -250,8 +95,8 @@
                         <div class="header-top-message">
                             Leading Platform to Discover and Source Korean Products
                             <div sec:authorize="isAuthenticated()">
-                                <a th:href="@{/user/logout}"> Welcome, [[${loginName}]]([[ ${#authentication.name}
-                                    ]])</a>
+                                <a th:href="@{/user/logout}"> Welcome, [[${loginName}]]([[ ${#authentication.name} ]])
+                                    !</a>
                             </div>
                         </div>
                     </div>
@@ -300,7 +145,7 @@
                         <!-- Header Logo Start -->
                         <div class="align-self-center ms-header-logo">
                             <div class="header-logo">
-                                <a th:href="@{/}"><img th:src="@{/img/tkforestlogo.png}" alt="Site Logo"></a>
+                                <a th:href="@{/}"><img th:src="@{/img/tkForestlogoB2BLong.png}" alt="Site Logo"></a>
                             </div>
                         </div>
                         <!-- Header Logo End -->
@@ -313,6 +158,7 @@
                                     <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET"
                                         id="searchForm">
                                         <input type="hidden" name="page" id="requestPage" th:value="${page}">
+                                        <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
                                         <div class="ms-search-select-inner">
                                             <select class="ms-search-cat selectpicker" id="searchType"
                                                 name="searchType">
@@ -409,7 +255,7 @@
                                         <ul style="display: flex; justify-content: flex-start;">
                                             <li class="non-drop"><a th:href="@{/}">Home</a></li>
                                             <li class="dropdown drop-list position-static">
-                                                <a href="javascript:void(0)" class="dropdown-arrow">Categories<i
+                                                <a th:href="@{/product/productList}" class="dropdown-arrow">Categories<i
                                                         class="msicon msi-angle-right"></i></a>
                                                 <ul class="mega-menu d-block">
                                                     <li class="d-flex">
@@ -499,7 +345,7 @@
                                         </li>
                                         <li class="non-drop"><a th:href="@{/recList}"><img
                                                     src="/assets/img/icons/discover.svg" class="svg_img"
-                                                    alt="discover">Discover(보따리)</a></li>
+                                                    alt="discover">Discover</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -535,107 +381,323 @@
 
     <!-- 헤더 끝 -->
 
-    <!-- 페이지 본문 -->
-    <div class="container">
-        <!-- 헤더 부분은 그대로 유지됩니다 -->
+    <!-- Breadcrumb start -->
+    <div class="ms-breadcrumb m-b-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row ms_breadcrumb_inner">
+                        <div class="col-md-6 col-sm-12">
+                            <h2 class="ms-breadcrumb-title">Product Page</h2>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <!-- ms-breadcrumb-list start -->
+                            <ul class="ms-breadcrumb-list">
+                                <li class="ms-breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="ms-breadcrumb-item active">Product Page</li>
+                            </ul>
+                            <!-- ms-breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb end -->
 
-        <div class="main-content">
+    <!-- Start Single Product -->
+    <section class="ms-single-product padding-b-30">
+        <div class="container">
+            <div class="row">
+                <div class="ms-pro-rightside ms-common-rightside col-lg-9 order-lg-last col-md-12 order-md-first">
+
+                    <!-- Single product content Start -->
+                    <div class="single-pro-block">
+                        <div class="single-pro-inner">
+                            <div class="row">
+                                <div class="single-pro-img">
+                                    <div class="single-product-scroll">
+                                        <div class="single-product-cover">
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" th:src="@{'/uploadimage/' + ${product.productNo} + '.jpg'}"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="/assets/img/product-images/2_1.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="/assets/img/product-images/3_1.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="/assets/img/product-images/1_1.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="/assets/img/product-images/5_1.jpg"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                        <div class="single-nav-thumb">
+                                            <div class="single-slide">
+                                                <img class="img-responsive" th:src="@{'/uploadimage/' + ${product.productNo} + '.jpg'}"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="/assets/img/product-images/2_1.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="/assets/img/product-images/3_1.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="/assets/img/product-images/1_1.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="/assets/img/product-images/5_1.jpg"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-pro-desc m-t-991">
+                                    <div class="single-pro-content">
+                                        <h5 class="ms-single-title" th:text="${product.productName}">상품명</h5>
+
+                                        <div class="ms-single-price-stoke">
+                                            <div class="ms-single-price">
+                                                <div class="final-price">
+                                                    <span th:text="${product.brand}">브랜드</span>
+                                                    <span class="price-des" th:text="${product.sellerMemberNo}"
+                                                        style="margin-left:0px;">판매자 정보</span>
+                                                </div>
+                                                <div class="mrp" th:text="${product.registrationDate}">등록일</div>
+                                            </div>
+                                        </div>
+                                        <div class="ms-single-desc" th:text="${product.productDescription}">상품설명</div>
 
 
-            <!--  상품목록 밑에 네비가 있게 하기 위함 -->
-            <div class="content-container">
-                <div class="product-grid">
-
-                    <div class="product-card">
-                        <div class="product-image">
-                            <!-- 이미지가 없을 경우 텍스트로 대체 -->
-                            <img th:src="@{'/uploadimage/' + ${product.productNo} + '.jpg'}" alt="Product Image"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                            <div class="image-placeholder"
-                                style="display: none; align-items: center; justify-content: center; height: 250px; background-color: #e0e0e0; color: #333; text-align: center;">
-                                <span>800 X 700</span> <!-- 이미지가 없을 때 나타날 대체 텍스트 -->
+                                        <div class="ms-single-list">
+                                            <ul>
+                                                <li><strong>Place of Origin: :</strong> South Korea</li>
+                                                <li><strong>Payment Terms :</strong> D/A, L/C, T/T, Others</li>
+                                                <li><strong>Production Method :</strong> Available, ODM, OEM </li>
+                                                <li><strong>Shipping / Lead Time :</strong> Negotiable / Not-Negotiable
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="ms-single-qty">
+                                            <div class="ms-single-cart">
+                                                <!-- 인콰이어리 보내는 버튼 -->
+                                                <button class="btn btn-primary ms-btn-2 contact-button"
+                                                    th:data-seller-member-no="${product.sellerMemberNo}"
+                                                    th:data-product-no="${product.productNo}">
+                                                    Inquiry
+                                                </button>
+                                            </div>
+                                            <!-- 좋아요 보내는 버튼 -->
+                                            <div class="ms-single-wishlist">
+                                                <a class="ms-btn-group wish" title="Interest"
+                                                    th:data-productNo="${product.productNo}" style="cursor: pointer;">
+                                                    <img src="/assets/img/icons/wishlist.svg" class="svg_img pro_svg"
+                                                        alt="Interest">
+                                                </a>
+                                            </div>
+                                            <!-- 셀러스토어 입장 버튼 -->
+                                            <div class="ms-single-quickview">
+                                                <a th:href="@{'/product/productSellerStore/' + ${product.sellerMemberNo}}"
+                                                    class="ms-btn-group quickview" title="Seller Store">
+                                                    <img th:src="@{/img/product/shop.png}" class="svg_img pro_svg"
+                                                        alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="product-description">
-                        <h2 th:text="${product.productName}">상품명</h2>
-                        <p th:text="'브랜드: ' + ${product.brand}">브랜드</p>
-                        <p th:text="'등록일: ' + ${product.registrationDate}">등록일</p>
+                    <!--Single product content End -->
 
-                        <h3>상품 설명</h3>
-                        <p th:text="${product.productDescription}">이곳에 상품 설명이 들어갑니다.</p>
+                    <!-- 셀러 상품란 시작 Add More and get discount content Start -->
+                    <div class="single-add-more m-tb-30">
+                        <div class="ms-add-more-slider owl-carousel">
+                            <th:block th:each="product : ${list}">
+                                <a class="add-more-item"
+                                    th:href="@{'/product/productDetail?productNo=' + ${product.productNo}}"
+                                    style="cursor: pointer; color: inherit; text-decoration: none;">
+                                    <!-- 상품 이미지 -->
+                                    <div class="add-more-img">
+                                        <img th:src="@{'/uploadimage/' + ${product.productNo} + '.jpg'}" alt="product">
+                                    </div>
 
-                        <p>-------------------------</p>
-                        <p>Place of Origin: South Korea</p>
-                        <p>Brand Name: 3CE</p>
-                        <p>Payment Terms: D/A, L/C, T/T, Others</p>
-                        <p>Production Method: Available, ODM, OEM</p>
-                        <p>Shipping / Lead Time: Negotiable / Negotiable</p>
-                        <p>Registration Date: 2024-10-01</p>
-                        <div>
-                            <button>Interest</button>
-                            <button>Inquiry</button>
+                                    <!-- 상품 정보 -->
+                                    <div class="add-more-info">
+                                        <h5 th:text="${product.productName}"
+                                            style="display: inline-block; max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            상품명</h5>
+                                        <span class="ms-price">
+                                            <span class="price-des" th:text="${product.sellerMemberNo}"
+                                                style="font-size:12px;">판매자 정보</span>
+                                        </span>
+                                    </div>
+                                </a>
+
+                            </th:block>
                         </div>
                     </div>
-                    <div class="company-info">
-                        <h3>회사 정보</h3>
-                        <p th:text="'판매자: ' + ${product.sellerMemberNo}">판매자 정보</p>
-                        <img src="path_to_your_company_logo.jpg" alt="회사 로고" style="width: 100%;" />
-                        <p>-------------------------</p>
-                        <p>Country: South Korea</p>
-                        <p>Year Established: 2022</p>
-                        <p>Business Type: Manufacturer</p>
-                        <div class="product-actions">
-                        <!--  좋아요 보내는 버튼  -->
-                            <button class="like-button">❤️</button>
-                            
-                        <!-- 셀러스토어로 가는 버튼 추가 -->
-        				<a th:href="@{'/product/productSellerStore/' + ${product.sellerMemberNo}}" class="btn btn-primary">셀러 스토어 방문</a>
-                            
-                         <!-- 인콰이어리 보내는 버튼 -->
-						<button class="contact-button" 
-						        th:data-seller-member-no="${product.sellerMemberNo}" 
-						        th:data-product-no="${product.productNo}">✉️</button>
-						
-						<script>
-						document.addEventListener('DOMContentLoaded', function() {
-						    // 모든 contact-button 요소를 선택
-						    const contactButtons = document.querySelectorAll('.contact-button');
-						    
-						    // 각 버튼에 대해 이벤트 리스너 등록
-						    contactButtons.forEach(button => {
-						        button.addEventListener('click', function() {
-						            const sellerMemberNo = button.getAttribute('data-seller-member-no');
-						            const productNo = button.getAttribute('data-product-no');
-						
-						            // URL 인코딩을 사용하여 안전한 URL을 만듦
-						            const encodedSellerMemberNo = encodeURIComponent(sellerMemberNo);
-						            const encodedProductNo = encodeURIComponent(productNo);
-						
-						            // 인콰이어리 작성 페이지로 이동
-						            const url = `/inquiry/inquiryWriteSeller?sellerMemberNo=${encodedSellerMemberNo}&productNo=${encodedProductNo}`;
-						            window.location.href = url;s
-						        });
-						    });
-						});
-		
-					</script>   
+
+
+
+                    <!-- 셀러 상품란 끝 Add More and get discount content end -->
+
+                    <!-- Single product tab start 제품 설명란 -->
+                    <div class="ms-single-pro-tab">
+                        <div class="ms-single-pro-tab-wrapper">
+                            <div class="ms-single-pro-tab-nav">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#ms-spt-nav-details" role="tab" type="button"
+                                            aria-controls="ms-spt-nav-details" aria-selected="true">Detail</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content  ms-single-pro-tab-content">
+                                <div id="ms-spt-nav-details" class="tab-pane fade show active">
+                                    <div class="ms-single-pro-tab-desc">
+                                        <p th:text="${product.productDescription}"></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- Ajax 전송할 때 필요한 정보(hidden) -->
-					<input type="hidden" id="buyerMemberNo" th:value="${buyerMemberNo}">
-					<!-- end. Ajax 전송 위한 hidden -->
+                    <!-- product details description area end -->
                 </div>
+
+
+                <!-- 카테고리 사이드바 Start -->
+
+                <div class="ms-shop-sidebar col-lg-3 order-lg-first col-md-12 order-md-last m-t-991">
+                    <div id="shop_sidebar">
+                        <div class="ms-sidebar-wrap">
+                            <div class="ms-sidebar-block">
+                                <div class="ms-sb-title">
+                                    <h3 class="ms-sidebar-title">Category</h3>
+                                </div>
+                                <div class="ms-sb-block-content">
+                                    <ul>
+                                        <!-- Beauty 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=11)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/skincare.png}" class="svg_img"
+                                                            alt="drink">Beauty & <br> &emsp; &nbsp;&nbsp; Personal Care
+                                                    </span>
+                                                </a>
+                                                <span class="category-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+                                                <li class="third-category-item">&emsp;Makeup</li>
+                                                <li class="third-category-item">&emsp;Other Beauty Products</li>
+                                                <li class="third-category-item">&emsp;Makeup Tools</li>
+                                                <li class="third-category-item">&emsp;Body & Nail</li>
+                                                <li class="third-category-item">&emsp;Beauty Appliance</li>
+                                                <li class="third-category-item">&emsp;Fragrance & Deodorant</li>
+                                                <hr style="width:50%;">
+                                                <li class="third-category-item">&emsp;Bath Supplies</li>
+                                                <li class="third-category-item">&emsp;Body Care</li>
+                                                <li class="third-category-item">&emsp;Hair Care</li>
+                                                <li class="third-category-item">&emsp;Other Personal Care</li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
+
+                                        <!-- Foods 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=22)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/apple.png}" class="svg_img"
+                                                            alt="drink">Foods & <br> &emsp; &nbsp;&nbsp; Beverage
+                                                    </span>
+                                                </a>
+                                                <span class="foods-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+                                                <li class="third-category-item">&emsp;Admixture & Additives</li>
+                                                <li class="third-category-item">&emsp;Animal Feeds</li>
+                                                <li class="third-category-item">&emsp;Animal Products</li>
+                                                <li class="third-category-item">&emsp;Baby Food</li>
+                                                <li class="third-category-item">&emsp;Baked Goods</li>
+                                                <hr style="width:50%;">
+
+                                                <!-- Beverage 하위 카테고리 -->
+                                                <li class="third-category-item">&emsp;Alcoholic Beverages</li>
+                                                <li class="third-category-item">&emsp;Coffee & Tea</li>
+                                                <li class="third-category-item">&emsp;Dairy</li>
+                                                <li class="third-category-item">&emsp;Drinks</li>
+                                                <li class="third-category-item">&emsp;Other Beverages</li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
+
+                                        <!-- Machinery 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=22)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/tool.png}" class="svg_img"
+                                                            alt="drink">Machinery & <br> &emsp; &nbsp;&nbsp; Parts
+                                                    </span>
+                                                </a>
+                                                <span class="machinery-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+                                                <li class="third-category-item">&emsp;Agriculture & Farm</li>
+                                                <li class="third-category-item">&emsp;Analyzers</li>
+                                                <li class="third-category-item">&emsp;Apparel & Accessories</li>
+                                                <li class="third-category-item">&emsp;Chemical & Pharmaceutical</li>
+                                                <li class="third-category-item">&emsp;Electrical Instrument</li>
+                                                <li class="third-category-item">&emsp;Other Machinery</li>
+                                                <hr style="width:50%;">
+                                                <li class="third-category-item">&emsp;Abrasives & Abrasive Tools</li>
+                                                <li class="third-category-item">&emsp;Bearings</li>
+                                                <li class="third-category-item">&emsp;Fasteners</li>
+                                                <li class="third-category-item">&emsp;Other Machinery ... </li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 카테고리바 종료 -->
+
+
             </div>
-
         </div>
-        <!-- 메인은 여기서 끝 (상품 사진 + 상품 설명 + 회사 정보가 한줄)-->
-        <div>
-            <a th:href="@{/product/productList}">목록으로 돌아가기</a>
-        </div>
-
-    </div>
+    </section>
+    <!-- End Single Product -->
 
 
     <!-- 푸터 시작-->
@@ -653,9 +715,9 @@
                                     KITA's global B2B marketplace, tradeKorea!
                                     A leading B2B Marketplace to Discover and Source Korean Products</p>
                                 <div class="ms-app-store">
-                                    <a href="#" class="app-img"><img src="assets/img/app/android.png" class="adroid"
+                                    <a href="#" class="app-img"><img src="/assets/img/app/android.png" class="adroid"
                                             alt="apple"></a>
-                                    <a href="#" class="app-img"><img src="assets/img/app/apple.png" class="apple"
+                                    <a href="#" class="app-img"><img src="/assets/img/app/apple.png" class="apple"
                                             alt="apple"></a>
                                 </div>
                             </div>
@@ -778,17 +840,14 @@
 
     <!-- 푸터 끝 -->
 
-
-    <!-- 다른 프래그먼트나 내용 추가 가능 -->
     <!-- Plugins JS -->
     <script src="/assets/js/plugins/jquery-3.5.1.min.js"></script>
     <script src="/assets/js/plugins/popper.min.js"></script>
     <script src="/assets/js/plugins/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/plugins/bootstrap-select.min.js"></script>
-    <script src="/assets/js/plugins/swiper-bundle.min.js"></script>
     <script src="/assets/js/plugins/fontawesome.js"></script>
     <script src="/assets/js/plugins/owl.carousel.min.js"></script>
-    <script src="/assets/js/plugins/countdownTimer.js"></script>
+    <script src="/assets/js/plugins/swiper-bundle.min.js"></script>
     <script src="/assets/js/plugins/infiniteslidev2.js"></script>
     <script src="/assets/js/plugins/jquery.zoom.min.js"></script>
     <script src="/assets/js/plugins/slick.min.js"></script>
@@ -799,25 +858,56 @@
     <script src="/assets/js/demo-1.js"></script>
     <script defer th:src="@{/script/search.js}"></script>
 
+
     <!-- 네비게이션 바 용 js -->
     <script>
         $(document).ready(function () {
-            // Toggle for 1st depth categories
-            $(".category-item").on("click", function () {
-                $(this).find(".toggle-icon").toggleClass("open");
-                $(this).find(".subcategory-list").slideToggle();
+            // category-toggle은 beauty에 사용되며 그대로 유지합니다.
+            $(".category-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".category-list").slideToggle();
             });
 
-            // Toggle for 2nd depth subcategories
-            $(".subcategory-item").on("click", function (e) {
-                e.stopPropagation(); // Prevent parent toggle from triggering
-                $(this).find(".toggle-icon").toggleClass("open");
-                $(this).find(".third-category-list").slideToggle();
+            // foods 카테고리용 독립 이벤트 리스너
+            $(".foods-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+
+            // machinery 카테고리용 독립 이벤트 리스너
+            $(".machinery-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
             });
         });
     </script>
+    <!-- 인콰이어리 전송용 js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 모든 contact-button 요소를 선택
+            const contactButtons = document.querySelectorAll('.btn.ms-btn-2.contact-button');
 
+
+            // 각 버튼에 대해 이벤트 리스너 등록
+            contactButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const sellerMemberNo = button.getAttribute('data-seller-member-no');
+                    const productNo = button.getAttribute('data-product-no');
+
+                    // URL 인코딩을 사용하여 안전한 URL을 만듦
+                    const encodedSellerMemberNo = encodeURIComponent(sellerMemberNo);
+                    const encodedProductNo = encodeURIComponent(productNo);
+
+                    // 인콰이어리 작성 페이지로 이동
+                    const url = `/inquiry/inquiryWriteSeller?sellerMemberNo=${encodedSellerMemberNo}&productNo=${encodedProductNo}`;
+                    window.location.href = url; s
+                });
+            });
+        });
+    </script>
 </body>
-
 
 </html>

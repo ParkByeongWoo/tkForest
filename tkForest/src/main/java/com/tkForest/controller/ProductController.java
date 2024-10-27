@@ -109,6 +109,7 @@ public class ProductController {
       ProductDTO product = productService.selectOne(productNo);
       List<Integer> categoryNos = productService.categoryAll(productNo);
       List<Integer> productCertificate = productService.certificateAll(productNo);
+      List<ProductDTO> list = productService.findProductsBySellerMemberNo(product.getSellerMemberNo());
       
       log.info("조회된 상품: {}", product.toString());
       productService.incrementHitcount(productNo);
@@ -123,6 +124,7 @@ public class ProductController {
       // 검색 기능이 추가되면 계속 달고 다녀야 함
       model.addAttribute("searchType", searchType);
       model.addAttribute("query", query);
+      model.addAttribute("list", list); // 같은 판매자의 상품 리스트 추가
       
       // 바이어로 로그인한 경우에만 buyerMemberNo 추가
       // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
