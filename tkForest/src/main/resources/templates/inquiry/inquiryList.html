@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>About Us</title>
+    <title>inquiry List</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="keywords"
         content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
@@ -16,6 +16,7 @@
     <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
 
     <!-- css Icon Font -->
+    
     <link rel="stylesheet" href="/assets/css/vendor/msicons.min.css">
 
     <!-- css All Plugins Files -->
@@ -33,13 +34,6 @@
     <link rel="stylesheet" href="/assets/css/responsive.css">
     
     <style>
-
-
-        .sidebar {
-            width: 250px;
-            background-color: transparent;
-        }
-
         .nav-section {
             background-color: #fff;
             border-radius: 5px;
@@ -78,18 +72,35 @@
             background-color: #f5f5f5;
         }
 
-        .content {
-            flex: 1;
-            margin-left: 20px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-        }
+.side-container {
+    display: flex;
+    max-width: 80%; /* 화면 가로 너비를 80%로 제한 */
+    margin: 0 auto; /* 화면 중앙에 배치 */
+    padding: 20px; /* 컨테이너 외부 여백 추가 */
+    box-sizing: border-box;
+}
+
+.sidebar {
+    width: 220px; /* 사이드바의 너비를 조금 줄임 */
+    background-color: #fafafa; /* 연한 배경색 추가 */
+    border: 1px solid #ddd; /* 테두리 추가 */
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.inq-content {
+    flex: 1;
+    margin-left: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd; /* 테두리 추가 */
+    padding: 20px;
+    border-radius: 5px;
+}
+
 
         .breadcrumb {
             margin-bottom: 20px;
-            color: #666;
+            color: black;
             font-size: 14px;
         }
 
@@ -456,13 +467,13 @@
                 <div class="col-12">
                     <div class="row ms_breadcrumb_inner">
                         <div class="col-md-6 col-sm-12">
-                            <h2 class="ms-breadcrumb-title">About TK Forest</h2>
+                            <h2 class="ms-breadcrumb-title">My Page</h2>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <!-- ms-breadcrumb-list start -->
                             <ul class="ms-breadcrumb-list">
                                 <li class="ms-breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="ms-breadcrumb-item active">About TK forest</li>
+                                <li class="ms-breadcrumb-item active">My Page</li>
                             </ul>
                             <!-- ms-breadcrumb-list end -->
                         </div>
@@ -474,12 +485,20 @@
     <!-- Breadcrumb end -->
 	</header>
 
-    <div class="container">
+    <div class="side-container">
         <div class="sidebar">
             <div class="nav-section">
                 <h3>Profile</h3>
                 <ul>
-                    <li><a th:href="@{/user/buyerMypage}">My Profile</a></li>
+                    <!-- 바이어인 경우 보여줄 링크 -->
+					<li sec:authorize="hasRole('ROLE_BUYER')">
+					    <a th:href="@{/user/buyerMypage}">My Profile</a>
+					</li>
+
+					<!-- 셀러인 경우 보여줄 링크 -->
+					<li sec:authorize="hasRole('ROLE_SELLER')">
+					    <a th:href="@{/user/sellerMypage}">My Profile</a>
+					</li>
                     <li><a href="#">Edit Profile</a></li>
                     <li><a href="#">Delete Profile</a></li>
                 </ul>
@@ -487,8 +506,15 @@
             <div class="nav-section">
                 <h3>Inquiries</h3>
                 <ul>
-                    <li><a href="/inquiry/inquiryList">Received Inquiries</a></li>
-                    <li><a href="/inquiry/inquiryList">Sent Inquiries</a></li>
+				    <!-- 셀러일 경우에만 "Received Inquiries" 항목을 표시 -->
+				    <li sec:authorize="hasRole('ROLE_SELLER')">
+				        <a href="/inquiry/inquiryList">Received Inquiries</a>
+				    </li>			
+				    <!-- 바이어일 경우에만 "Sent Inquiries" 항목을 표시 -->
+				    <li sec:authorize="hasRole('ROLE_BUYER')">
+				        <a href="/inquiry/inquiryList">Sent Inquiries</a>
+				    </li>
+
                     <li><a href="#">Spam</a></li>
                     <li><a href="#">Deleted Inquiries</a></li>
                 </ul>
@@ -504,12 +530,12 @@
             <div class="nav-section">
                 <h3>Favorites</h3>
                 <ul>
-                    <li><a th:href="@{/user/buyerLikeProducts}">Liked Items</a></li>
-                    <li><a href="#">Liked Companies</a></li>
+                 	<li><a th:href="@{/user/buyerLikeProducts}">Liked Items</a></li>
+                     <li><a href="#">Liked Companies</a></li>
                 </ul>
             </div>
         </div>
-        <div class="content">
+        <div class="inq-content">
             <div class="breadcrumb">
                 <h1>My Inquiries</h1>
             </div>
