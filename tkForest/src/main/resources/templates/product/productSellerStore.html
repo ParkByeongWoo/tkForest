@@ -6,7 +6,28 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <title>Product Seller Store</title>
- <style>
+
+   <!-- site Favicon -->
+   <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
+
+   <!-- css Icon Font -->
+   <link rel="stylesheet" href="/assets/css/vendor/msicons.min.css">
+
+   <!-- css All Plugins Files -->
+   <link rel="stylesheet" href="/assets/css/plugins/animate.css">
+   <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
+   <link rel="stylesheet" href="/assets/css/plugins/bootstrap.css">
+   <link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
+   <link rel="stylesheet" href="/assets/css/plugins/owl.carousel.min.css">
+   <link rel="stylesheet" href="/assets/css/plugins/owl.theme.default.min.css">
+   <link rel="stylesheet" href="/assets/css/plugins/slick.min.css">
+   <link rel="stylesheet" href="/assets/css/plugins/nouislider.css">
+
+   <!-- Main Style -->
+   <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
+   <link rel="stylesheet" href="/assets/css/responsive.css">
+   
+    <style>
     .header {
         display: flex;
         align-items: center;
@@ -93,28 +114,24 @@
     .add-to-favorites {
         background-color: #20B2AA;
     }
+    .edit-button {
+		    background-color: #333;
+		    color: white;
+		    border: none;
+		    padding: 10px 20px;
+		    cursor: pointer;
+		    border-radius: 5px;
+		    float: right;
+		    text-align: center; 
+		}
+		
+		.edit-button a {
+		    color: white; /* 글씨 색을 흰색으로 */
+		    text-decoration: none; /* 밑줄 제거 */
+		    display: inline; /* inline으로 변경 */
+		}
+    
 </style>
- 
-
-   <!-- site Favicon -->
-   <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
-
-   <!-- css Icon Font -->
-   <link rel="stylesheet" href="/assets/css/vendor/msicons.min.css">
-
-   <!-- css All Plugins Files -->
-   <link rel="stylesheet" href="/assets/css/plugins/animate.css">
-   <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/bootstrap.css">
-   <link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/owl.carousel.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/owl.theme.default.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/slick.min.css">
-   <link rel="stylesheet" href="/assets/css/plugins/nouislider.css">
-
-   <!-- Main Style -->
-   <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
-   <link rel="stylesheet" href="/assets/css/responsive.css">
 
 </head>
 
@@ -396,7 +413,13 @@
             <div class="company-name" th:text="${seller.companyName}"></div>
          </div>
       </div>
-
+		<!-- 로그인한 셀러가 본인 셀러스토어에 들어갔을 때만 보이는 Edit Info 버튼 -->
+		<div sec:authorize="hasRole('ROLE_SELLER')"
+		     th:if="${#authentication.principal.sellerMemberNo == seller.sellerMemberNo}">
+		    <button class="edit-button">
+		        <a th:href="@{/user/sellerMypage}">Edit Info</a>
+		    </button>
+		</div>
 
       <table class="info-table">
          <tr>
@@ -517,8 +540,16 @@
                height: auto;
             }
          </style>
+    <!-- 셀러 본인 상품 리스트가 비어 있는 경우 대체 텍스트 출력 -->
+		<div th:if="${products.size() == 0}" class="no-products-message">
+		    <p>There are no registered products.</p>
+		    <div sec:authorize="hasRole('ROLE_SELLER')"
+		         th:if="${#authentication.principal.sellerMemberNo == seller.sellerMemberNo}">
+		        <a th:href="@{/product/productCreate}"> ▶️ Add Product</a>
+		    </div> 
+		</div>
 
-      </div>
+    </div>
    </div>
    <!-- 셀러 인콰이어리&좋아요 보내는 버튼 -->
    <!-- 
