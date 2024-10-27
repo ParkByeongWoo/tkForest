@@ -131,9 +131,15 @@ public class RecService {
 	    
 	    for (Integer productNo : recommendations) {
             Optional<ProductEntity> entity = productRepository.findById(productNo);
-            ProductEntity temp = entity.get();
-            ProductDTO dto = ProductDTO.toDTO(temp, temp.getSellerEntity().getSellerMemberNo());
-	        productDTOList.add(dto);
+            ProductEntity product = entity.get();
+            ProductDTO dto = new ProductDTO(
+					product.getProductNo(),
+					product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
+					product.getRegistrationDate(),
+					product.getProductName(),
+					product.getBrand(),
+					product.getSellerEntity().getCompanyName());
+            productDTOList.add(dto);
 	    }
 	    return productDTOList; // 정상 결과 반환
 	}

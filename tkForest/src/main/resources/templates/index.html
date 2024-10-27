@@ -600,7 +600,7 @@
                               </div>
                               <div class="ms-pro-content">
                                  <h5 class="ms-pro-title">
-                                 <a href="product-left-sidebar.html" th:text="${product.productName}">Product Name</a>
+                                 <a th:href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}" th:text="${product.productName}">Product Name</a>
                                  </h5>
                                  <h6 class="ms-pro-stitle">
                                     <a th:href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}" th:text="${product.registrationDate}">Seller
@@ -609,7 +609,7 @@
                                  <div class="ms-pro-rat-price">
                                     <div class="ms-pro-rat-pri-inner">
                                        <span class="ms-price">
-                                          <span class="new-price" th:text="${product.sellerMemberNo}">Seller Name</span>
+                                          <span class="new-price" th:text="${product.companyName}">Company Name</span>
                                           <span class="qty" th:text="${product.brand}">Brand</span>
                                        </span>
                                     </div>
@@ -651,15 +651,14 @@
                                        Name</a>
                                  </h5>
                                  <h6 class="ms-pro-stitle">
-                                    <a href="shop-left-sidebar-col-3.html" th:text="${product.registrationDate}">Seller
+                                    <a th:href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}" th:text="${product.registrationDate}">Seller
                                        Name</a>
                                  </h6>
                                  <div class="ms-pro-rat-price">
                                     <div class="ms-pro-rat-pri-inner">
                                        <span class="ms-price">
-                                          <span class="new-price" th:text="${product.sellerMemberNo}">Seller Name</span>
-                                          <span class="qty" th:text="${product.brand}">Brand</span>
-                                       </span>
+                                          	<span class="new-price" th:text="${product.companyName}">Company Name</span>
+                                         	<span class="qty" th:text="${product.brand}">Brand</span>
                                     </div>
                                  </div>
                               </div>

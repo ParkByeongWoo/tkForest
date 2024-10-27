@@ -17,7 +17,7 @@ function recList() {
 			output(resp);
 		},
 		error: function () {
-			alert('댓글 목록을 불러오는 중 오류가 발생했습니다.');
+			alert('추천 목록을 불러오는 중 오류가 발생했습니다.');
 		},
 		complete: function () {
 			// 로딩 스피너 숨기기
@@ -41,7 +41,7 @@ function output(resp) {
 				<article class="component-8">
 					<div class="link-1">
 					<div>
-					<a href="/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})"
+					<a href="{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query}})"
 					   class="product-card-link">
 						<div class="_1jpg">
 							<img src="/uploadimage/${product.productNo}.jpg" alt="Product Image" class="product-image"onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:238.4px; height:208.6px; object-fit: contain; background-color:#ffffff;">
@@ -54,7 +54,7 @@ function output(resp) {
 									<div class="text-2 valign-text-middle x127001poppinsregular-13-title">
 									<a href="{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
 									                           class="product-card-link">	
-									<h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">
+									<h3 text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">
 											${product.productName}
 										</h3>
 										</a>
@@ -66,8 +66,8 @@ function output(resp) {
 									<div class="margin-2 margin-6">
 										<div class="container-7">
 											<div class="container-8">
-											<a th:href="@{/product/productList(query=${product.brand}, searchType='Brand')}">
-													<span text="${product.brand}">${product.brand}</span>
+											<a href="{/product/productList(query=${product.brand}, searchType='Brand')}">
+													<span text="${product.companyName}">${product.companyName}</span>
 											</a>
 													</div>
 										</div>
@@ -75,7 +75,7 @@ function output(resp) {
 									<div class="container-10">
 										<div class="margin-3 margin-6">
 											<div class="price valign-text-middle price-2 x127001poppinsbold-14">
-											<p th:text="${product.registrationDate}">${product.registrationDate}</p>
+											<p text="${product.registrationDate}">${product.registrationDate}</p>
 											</div>
 										</div>
 									</div>

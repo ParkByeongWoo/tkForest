@@ -1,7 +1,6 @@
 package com.tkForest.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,16 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkForest.dto.BCategoryDTO;
-import com.tkForest.dto.BuyerDTO;
 import com.tkForest.dto.CategoryDTO;
 import com.tkForest.dto.LoginBuyerDetails;
-import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductDTO;
-import com.tkForest.entity.ProductEntity;
-import com.tkForest.service.InquiryService;
 import com.tkForest.service.ProductService;
 import com.tkForest.service.RecService;
-import com.tkForest.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,9 +59,9 @@ public class RecController {
 	public List<ProductDTO> recList(@ModelAttribute String buyerMember,
 			@AuthenticationPrincipal LoginBuyerDetails userDetails) {
 		String buyerMemberNo = userDetails.getBuyerMemberNo();
-		List<ProductDTO> productEntityList = recService.recList(buyerMemberNo);
+		List<ProductDTO> productDTOList = recService.recList(buyerMemberNo);
 		
 		
-		return productEntityList;
+		return productDTOList;
 	}
 }

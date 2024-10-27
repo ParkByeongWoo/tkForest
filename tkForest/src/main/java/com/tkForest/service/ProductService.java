@@ -399,7 +399,7 @@ public class ProductService {
 	            product.getRegistrationDate(),
 	            product.getProductName(),
 	            product.getBrand(),
-	            product.getProductImagePath1())
+	            product.getSellerEntity().getCompanyName())
 	    );
 
 	    return list;
@@ -460,7 +460,7 @@ public class ProductService {
 						product.getRegistrationDate(),
 						product.getProductName(),
 						product.getBrand(),
-						product.getProductImagePath1())
+						product.getSellerEntity().getCompanyName())
 				);
 
 		return list;
@@ -495,10 +495,12 @@ public class ProductService {
         // for 루프를 사용하여 ProductEntity -> ProductDTO 변환
         for (ProductEntity product : likedProductEntityList) {
             ProductDTO dto = new ProductDTO(
-                    product.getProductNo(),  // productNo 추가
-                    product.getProductName(),
-                    product.getBrand()
-            );
+					product.getProductNo(),
+					product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
+					product.getRegistrationDate(),
+					product.getProductName(),
+					product.getBrand(),
+					product.getSellerEntity().getCompanyName());
             list.add(dto);
         }
         log.info("productDTO list: {}", list);
@@ -513,10 +515,12 @@ public class ProductService {
         // for 루프를 사용하여 ProductEntity -> ProductDTO 변환
         for (ProductEntity product : productEntityList) {
             ProductDTO dto = new ProductDTO(
-                    product.getProductNo(),  // productNo 추가
-                    product.getProductName(),
-                    product.getBrand()
-            );
+					product.getProductNo(),
+					product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
+					product.getRegistrationDate(),
+					product.getProductName(),
+					product.getBrand(),
+					product.getSellerEntity().getCompanyName());
             list.add(dto);
         }
         log.info("productDTO list: {}", list);
@@ -714,6 +718,7 @@ public class ProductService {
             throw new RuntimeException("Product not found with productNo: " + productNo);
         }
     }
+    
 
 }
 

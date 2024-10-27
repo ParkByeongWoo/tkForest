@@ -25,8 +25,6 @@ import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
-import com.tkForest.entity.ProductEntity;
-import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
@@ -387,7 +385,9 @@ public class ProductController {
       rttr.addAttribute("boardNum", productNo);
       return "redirect:/product/productDetail";
    }
-
+   
+   
+   
 }
    
 

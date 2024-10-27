@@ -453,8 +453,8 @@
                               style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem; color: black;"></h3>
                         </a>
                         <a th:href="@{/product/productList(query=${like.brand}, searchType='Brand')}">
-                           <span th:text="${like.brand}" class="ellipsis" style="font-size: 0.8rem;">${like
-                              .brand}</span>
+                           <span th:text="${like.companyName}" class="ellipsis" style="font-size: 0.8rem;">${like
+                              .companyName}</span>
                         </a>
                      </div>
                   </div>
@@ -484,8 +484,8 @@
                         </a>
 
                         <a th:href="@{/product/productList(query=${inquiry.brand}, searchType='Brand')}">
-                           <span th:text="${inquiry.brand}" class="ellipsis"
-                              style="font-size: 0.8rem;">${inquiry.brand}</span>
+                           <span th:text="${inquiry.companyName}" class="ellipsis"
+                              style="font-size: 0.8rem;">${inquiry.companyName}</span>
                         </a>
                      </div>
                   </div>

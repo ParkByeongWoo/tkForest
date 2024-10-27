@@ -14,8 +14,8 @@ import nest_asyncio
 # FastAPI 인스턴스 생성
 app = FastAPI()
 
-df_item = pd.read_excel("./상품.xlsx")
-df_buyer = pd.read_excel("./바이어(행동데이터o).xlsx")
+df_item = pd.read_excel("C:/RecServer/상품.xlsx")
+df_buyer = pd.read_excel("C:/RecServer/바이어(행동데이터o).xlsx")
 # Pydantic 모델 정의
 class Item(BaseModel):
     buyerMemberNo: str
@@ -25,9 +25,9 @@ def myrec(item: Item) :
     dicted = dict(item)
     num = dicted['buyerMemberNo']
     if num.startswith('B') :
-        with open('./1sorted_idx.pkl', 'rb') as f :
+        with open('C:/RecServer/1sorted_idx.pkl', 'rb') as f :
             # 엑셀 파일 로드
-            df_concat = pd.read_excel("./df_cancat.xlsx")
+            df_concat = pd.read_excel("C:/RecServer/df_cancat.xlsx")
             sorted_idx = pickle.load(f)
             num = int(num.lstrip('B'))
             print(num)
@@ -79,7 +79,7 @@ def myrec(item: Item) :
 
         return JSONResponse(content={"recommendations": recProducts})
     else :
-        with open('./combined_matrix.pkl', 'rb') as f :
+        with open('C:/RecServer/combined_matrix.pkl', 'rb') as f :
             print(num)
             num = int(num)
             combined_matrix = pickle.load(f)

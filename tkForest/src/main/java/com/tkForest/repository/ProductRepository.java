@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tkForest.entity.ProductEntity;
@@ -60,5 +62,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     
     // 카테고리 필터링 오류나서 query 없이 단순 필터링은 적용되나 확인용
 	Page<ProductEntity> findByProductNoIn(List<Integer> uniqueProductNos, PageRequest of);
+	
 }
 

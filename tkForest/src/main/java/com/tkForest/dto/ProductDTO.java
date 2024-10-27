@@ -29,13 +29,14 @@ public class ProductDTO {
     private LocalDate registrationDate;  // 자동으로 생성되지만 필요함
     private String productName;
     private String brand;
-   private MultipartFile uploadFile;
+    private MultipartFile uploadFile;
     private String productImagePath1;
     private String productImagePath2;
     private String productDescription;
     private String keyword;
     private Integer viewCnt;
 
+    private String companyName;
     private List<String> categoryNames;
     private List<Integer> productCertificateTypeCodes;
     
@@ -45,25 +46,15 @@ public class ProductDTO {
           , LocalDate registrationDate
           , String productName
           , String brand
-          , String productImagePath1) {
+          , String companyName) {
        this.productNo = productNo;
        this.sellerMemberNo = sellerMemberNo;
        this.registrationDate = registrationDate;
        this.productName = productName;
        this.brand = brand;
-       this.productImagePath1 = productImagePath1;
+       this.companyName = companyName;
     }
-    
-    // 마이페이지 좋아요한 상품 목록위한 DTO
-    public ProductDTO(
-    		Integer productNo
-    		, String productName
-    		, String brand
-    		) {
-    	this.productNo = productNo;
-    	this.productName = productName;
-    	this.brand = brand;
-    }
+
     
     // Entity -> DTO 변환 메서드
     public static ProductDTO toDTO(ProductEntity productEntity, String sellerMemberNo) {
