@@ -493,8 +493,15 @@
                 <div class="nav-section">
                     <h3>Inquiries</h3>
                     <ul>
-                        <li><a href="/inquiry/inquiryList">Received Inquiries</a></li>
-                        <li><a href="/inquiry/inquiryList">>Sent Inquiries</a></li>
+         			    <!-- 셀러일 경우에만 "Received Inquiries" 항목을 표시 -->
+					    <li sec:authorize="hasRole('ROLE_SELLER')">
+					        <a href="/inquiry/inquiryList">Received Inquiries</a>
+					    </li>
+					
+					    <!-- 바이어일 경우에만 "Sent Inquiries" 항목을 표시 -->
+					    <li sec:authorize="hasRole('ROLE_BUYER')">
+					        <a href="/inquiry/inquiryList">Sent Inquiries</a>
+					    </li>
                         <li><a href="#">Spam</a></li>
                         <li><a href="#">Deleted Inquiries</a></li>
                     </ul>
