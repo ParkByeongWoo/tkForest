@@ -206,7 +206,7 @@
 		.header-image {
 		    position: relative;
 		    height: 300px;
-		    background-image: url('/img/trend.png');
+		    background-image: url('/img/trend_news.jpg');
 		    background-size: cover;
 		    background-position: center;
 		    display: flex;
@@ -261,6 +261,7 @@
 
 <body>
  <!-- Header start  -->
+
     <header class="ms-header">
         <!-- Header Top Start -->
         <div class="header-top">
@@ -290,6 +291,7 @@
                           About Us
                       </a>
                   </div>
+
                     </div>
                     <!-- Header Top Language Currency -->
                     <!-- Header Top responsive Action -->
@@ -520,6 +522,7 @@
                    </div>
                </div>
 
+
                     <!-- Main Menu End -->
                     <div class="col ms-location-block">
                         <div class="ms-location-menu">
@@ -561,7 +564,8 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
                         <!-- ms-breadcrumb-list start -->
                         <ul class="ms-breadcrumb-list">
                             <li class="ms-readcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="ms-breadcrumb-item active">Trend News</li>
+
+                            <li class="ms-breadcrumb-item active"> > Trend News</li>
                         </ul>
                         <!-- ms-breadcrumb-list end -->
                     </div>
@@ -576,7 +580,15 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
     <div id="loading-spinner" class="spinner hidden">
     <!-- Spinner animation -->
     <div class="loader"></div>
+
 </div>
+<!-- Breadcrumb end -->
+
+	<!-- 로딩 창 -->
+	    <div id="loading-spinner" class="spinner hidden">
+	    <!-- Spinner animation -->
+	    <div class="loader"></div>
+	</div>
     
 
     <div class="trend-container mx-auto">
@@ -787,6 +799,7 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
         document.getElementById('response').innerHTML = output;
     }
     </script>
+
 
 
 	<!-- Footer Start -->
