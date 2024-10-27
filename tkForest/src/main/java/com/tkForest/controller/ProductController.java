@@ -25,6 +25,8 @@ import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.PCategoryDTO;
 import com.tkForest.dto.ProductCertificateDTO;
 import com.tkForest.dto.ProductDTO;
+
+import com.tkForest.repository.SellerRepository;
 import com.tkForest.service.ProductService;
 import com.tkForest.util.PageNavigator;
 
@@ -40,6 +42,7 @@ public class ProductController {
    // 컨트롤러   
    
    final ProductService productService;
+   final SellerRepository sellerRepository;
    
    // 한 페이지의 게시글 수
    @Value("${user.inquiry.pageLimit}")
@@ -107,6 +110,7 @@ public class ProductController {
          , Model model) {
       
       ProductDTO product = productService.selectOne(productNo);
+      String companyName = sellerRepository.findById(product.getSellerMemberNo()).get().getCompanyName();
       List<Integer> categoryNos = productService.categoryAll(productNo);
       List<Integer> productCertificate = productService.certificateAll(productNo);
       List<ProductDTO> list = productService.findProductsBySellerMemberNo(product.getSellerMemberNo());
@@ -121,6 +125,7 @@ public class ProductController {
       model.addAttribute("product", product);
       model.addAttribute("categoryNos", categoryNos);
       model.addAttribute("productCertificate", productCertificate);
+      model.addAttribute("companyName", companyName);
       // 검색 기능이 추가되면 계속 달고 다녀야 함
       model.addAttribute("searchType", searchType);
       model.addAttribute("query", query);

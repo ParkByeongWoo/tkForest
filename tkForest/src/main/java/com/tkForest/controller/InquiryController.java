@@ -156,6 +156,7 @@ public class InquiryController {
 
 	        return "inquiry/inquiryWrite";  // 폼을 반환할 HTML 파일
 	    }
+	    
 	    /*
 	     * 상품 리스트 화면에서 인콰이어리 작성(상품)
 	     */

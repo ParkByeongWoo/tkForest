@@ -700,14 +700,21 @@ public class ProductService {
 
 	public List<ProductDTO> findProductsBySellerMemberNo(String sellerMemberNo) {
 	    // sellerMemberNo로 셀러의 상품 목록을 조회하는 로직
-	    List<ProductEntity> productEntities = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
+	    List<ProductEntity> productEntityList = productRepository.findBySellerEntitySellerMemberNo(sellerMemberNo);
 	    
+	    List<ProductDTO> list = new ArrayList<>();
 	    // ProductEntity를 ProductDTO로 변환하여 반환
-	    return productEntities.stream()
-	            .map(product -> ProductDTO.toDTO(product, product.getSellerEntity().getSellerMemberNo()))
-	            .collect(Collectors.toList());
+	    for (ProductEntity product : productEntityList) {
+	    	ProductDTO dto = new ProductDTO(
+	    			product.getProductNo(),
+	    			product.getSellerEntity().getSellerMemberNo(), // ******혹시 나중에 오류나면 확인해보시길******
+	    			product.getRegistrationDate(),
+	    			product.getProductName(),
+	    			product.getBrand(),
+	    			product.getSellerEntity().getCompanyName());
+	    	list.add(dto);}
+	    return list;
 	}
-
     // 상품 번호로 상품명 조회
     public String findProductNameById(Integer productNo) {
         Optional<ProductEntity> productEntity = productRepository.findById(productNo);

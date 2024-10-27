@@ -41,8 +41,7 @@ function output(resp) {
 				<article class="component-8">
 					<div class="link-1">
 					<div>
-					<a href="{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query}})"
-					   class="product-card-link">
+					<a href="/product/productDetail?productNo=${product.productNo}&searchType=null&query=null" class="product-card-link">
 						<div class="_1jpg">
 							<img src="/uploadimage/${product.productNo}.jpg" alt="Product Image" class="product-image"onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:238.4px; height:208.6px; object-fit: contain; background-color:#ffffff;">
 						</div>
@@ -52,8 +51,7 @@ function output(resp) {
 							<div class="heading-5margin heading">
 								<div class="component-7">
 									<div class="text-2 valign-text-middle x127001poppinsregular-13-title">
-									<a href="{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}"
-									                           class="product-card-link">	
+									<a href="/product/productDetail?productNo=${product.productNo}&searchType=null&query=null" class="product-card-link">	
 									<h3 text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">
 											${product.productName}
 										</h3>
@@ -66,7 +64,7 @@ function output(resp) {
 									<div class="margin-2 margin-6">
 										<div class="container-7">
 											<div class="container-8">
-											<a href="{/product/productList(query=${product.brand}, searchType='Brand')}">
+													<a href="/product/productSellerStore/${product.sellerMemberNo}" >
 													<span text="${product.companyName}">${product.companyName}</span>
 											</a>
 													</div>

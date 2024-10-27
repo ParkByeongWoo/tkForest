@@ -177,3 +177,6 @@
   font-style: normal;
   font-weight: 500;
 }
+.poppins-only{
+	font-family: var(--font-family-poppins);
+}

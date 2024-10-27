@@ -34,7 +34,7 @@ public class ReplyService {
     public ReplyDTO replyInsert(ReplyDTO replyDTO) {
         // 부모의 인콰이어리 존재 여부 확인
         Optional<InquiryEntity> inquiryEntityOpt = inquiryRepository.findById(replyDTO.getInquiryNo());
-
+        log.info("보내는 중");
         if (inquiryEntityOpt.isPresent()) {
             InquiryEntity inquiryEntity = inquiryEntityOpt.get();
             

@@ -1207,13 +1207,11 @@
                     <input type="text" id="productName" name="productName" class="form-control"
                         th:value="${productName}" readonly>
                 </div>
+				<div class="form-group" style="display: none;">
+				    <label for="productNo">Product No.</label>
+				    <input type="text" id="productNo" name="productNo" class="form-control" th:value="${inquiry.productNo}" readonly>
+				</div>
 
-                <!-- 상품 고유번호 -->
-                <div class="form-group">
-                    <label for="productNo">Product No.</label>
-                    <input type="text" id="productNo" name="productNo" class="form-control"
-                        th:value="${inquiry.productNo}" readonly>
-                </div>
 
                 <!-- 발송일 -->
                 <div class="form-group">
@@ -1278,14 +1276,14 @@
                     <p>Send and Receive Responses.</p>
                 </div>
 
-                <!-- 댓글 작성 폼 -->
-                <form id="reply-form" class="form-group">
-                    <input type="hidden" name="inquiryNo" id="inquiryNo" th:value="${inquiry.inquiryNo}">
-                    <input type="hidden" name="replyWriter" id="replyWriter"
-                        th:value="${#authentication.principal.buyerMemberNo ?: #authentication.principal.sellerMemberNo}">
-                    <input type="hidden" name="replyWriterType" id="replyWriterType"
-                        th:value="${#authentication.principal.authorities.iterator().next().authority == 'ROLE_BUYER' ? 'BUYER' : 'SELLER'}">
-                </form>
+				<form id="reply-form" class="form-group">
+				    <input type="hidden" name="inquiryNo" id="inquiryNo" th:value="${inquiry.inquiryNo}">
+				    <input type="hidden" name="replyWriter" id="replyWriter"
+				         th:value="${#authentication.principal instanceof T(com.tkForest.dto.LoginBuyerDetails) ? #authentication.principal.buyerMemberNo : #authentication.principal.sellerMemberNo}">
+				    <input type="hidden" name="replyWriterType" id="replyWriterType"
+				        th:value="${#authentication.principal.authorities.iterator().next().authority == 'ROLE_BUYER' ? 'BUYER' : 'SELLER'}">
+				</form>
+
 
                 <div class="form-group">
                     <textarea name="replyContents" id="replyContents" class="form-control"
@@ -1295,9 +1293,10 @@
 
                 <!-- 댓글 리스트 -->
                 <div id="comments-list">
-                    <div th:each="reply : ${replyList}"
-                        th:classappend="${reply.replyWriterType == 'BUYER' ? 'buyer-comment' : 'seller-comment'}">
-                        <div class="comment">
+                <div th:each="reply : ${replyList}"
+    				 th:classappend="${reply.replyWriterType == 'BUYER' ? 'buyer-comment' : 'seller-comment'} comment-container">
+                
+                     <div class="comment">
                             <div class="comment-header">
                                 <strong class="comment-author" th:text="${reply.replywriter}">작성자</strong>
                                 <small class="comment-date"
