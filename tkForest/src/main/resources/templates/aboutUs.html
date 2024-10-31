@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>About Us</title>
+    <title>TK Forest</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="keywords"
         content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
@@ -536,7 +536,7 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
                         <ul class="ms-breadcrumb-list">
                             <li class="ms-readcrumb-item"><a href="index.html">Home</a></li>
 
-                            <li class="ms-breadcrumb-item active">> About Us</li>
+                            <li class="ms-breadcrumb-item active"> > About Us</li>
                         </ul>
                         <!-- ms-breadcrumb-list end -->
                     </div>
@@ -779,7 +779,9 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
                   <div class="row m-minus-991">
                      <div class="col-sm-12 col-lg-3 ms-footer-cat">
                         <div class="ms-footer-widget ms-footer-company">
+                        <a th:href="@{/}">
                            <img th:src="@{/img/TKforestlogo_clear.png}" class="ms-footer-logo" alt="footer logo">
+                           </a>
                            <p class="ms-footer-detail">
                               DIMA 4th Generation, Team 3's global B2B marketplace, TK FOREST!
                               We aim to be a leading B2B marketplace for discovering and sourcing Korean products.</p>

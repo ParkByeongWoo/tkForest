@@ -78,16 +78,24 @@ public class InquiryService {
     // 인콰이어리 번호로 상세 정보 조회
     public InquiryDTO findInquiryByNo(Integer inquiryNo) {
         Optional<InquiryEntity> inquiryEntity = inquiryRepository.findById(inquiryNo);
-
         // 엔티티가 존재할 경우에만 DTO로 변환
         if (inquiryEntity.isPresent()) {
-            InquiryEntity entity = inquiryEntity.get();
-            return InquiryDTO.toDTO(
-                entity,
-                entity.getProductEntity().getProductNo(),
-                entity.getBuyerEntity().getBuyerMemberNo(),
-                entity.getSellerEntity().getSellerMemberNo()
-            );
+        	InquiryEntity entity = inquiryEntity.get(); 
+            InquiryDTO dto = new InquiryDTO(
+            		entity.getInquiryNo(),
+            		entity.getSubject(),
+            		entity.getBuyerEntity().getPicName(),
+            		entity.getSellerEntity().getPicName(),
+            		entity.getProductEntity().getProductName(),
+            		entity.getOfferSendDate(),
+            		entity.getOfferExpireDate(),
+            		entity.getOrderQuantity(),
+            		entity.getOrderUnit(),
+            		entity.getOrderUnitEtc(),
+            		entity.getExpectedPrice(),
+            		entity.getContents(),
+            		entity.getOriginalFileName());
+            return dto;
         }
         return null;
     }

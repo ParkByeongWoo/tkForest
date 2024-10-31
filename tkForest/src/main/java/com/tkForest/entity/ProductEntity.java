@@ -72,6 +72,7 @@ public class ProductEntity {
     @Column(name="VIEWCNT")
     private Integer viewCnt;
 
+    
     // DTO -> Entity 변환 메서드
     public static ProductEntity toEntity(ProductDTO productDTO, SellerEntity sellerEntity) {
         return ProductEntity.builder()

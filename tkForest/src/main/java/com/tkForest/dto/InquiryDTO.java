@@ -40,6 +40,39 @@ public class InquiryDTO {
     private String originalFileName;
     private String savedFileName;
 
+    private String buyerPicName;
+    private String sellerPicName;
+    private String ProductName;
+    
+    public InquiryDTO(
+    	Integer inquiryNo
+    	, String subject
+    	, String buyerPicName
+    	, String sellerPicName
+    	, String productName
+    	, LocalDateTime offerSendDate
+    	, LocalDateTime offerExpireDate
+    	, Integer orderQuantity
+    	, String orderUnit
+    	, String orderUnitEtc
+    	, Double expectedPrice
+    	, String contents
+    	, String originalFileName){
+    	this.inquiryNo = inquiryNo;
+    	this.subject = subject;
+    	this.buyerPicName = buyerPicName;
+    	this.sellerPicName = sellerPicName;
+    	this.ProductName = productName;
+    	this.offerSendDate = offerSendDate;
+    	this.offerExpireDate = offerExpireDate;
+    	this.orderQuantity = orderQuantity;
+    	this.orderUnit = orderUnit;
+    	this.orderUnitEtc = orderUnitEtc;
+    	this.expectedPrice = expectedPrice;
+    	this.contents = contents;
+    	this.originalFileName = originalFileName;
+    }
+    
     // Entity -> DTO 변환 메서드
     public static InquiryDTO toDTO(InquiryEntity inquiryEntity, Integer productNo, String buyerMemberNo, String sellerMemberNo) {
         return InquiryDTO.builder()

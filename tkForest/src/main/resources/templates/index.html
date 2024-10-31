@@ -5,7 +5,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!-- 1번째 줄부터 274번째에 있는 '헤더 끝!을 HTML에 넣으면 OK -->
-   <title>헤더 적용 페이지</title>
+   <title>TK Forest</title>
 
    <!-- site Favicon -->
    <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
@@ -113,6 +113,12 @@
 </head>
 
 <body>
+
+    <!-- Loader -->
+    <div id="ms-overlay">
+        <div class="loader"></div>
+    </div>
+    
 <!-- Header start  -->
     <header class="ms-header">
         <!-- Header Top Start -->
@@ -248,11 +254,14 @@
                                         </li>
                                         <!-- 셀러용 옵션 -->
                                         <li sec:authorize="hasRole('ROLE_SELLER')">
-                                            <a th:href="@{/user/sellerMypage}">Seller My Page</a>
+                                            <a class="dropdown-item" th:href="@{/user/sellerMypage}">Seller My Page</a>
+                                        </li>
+                                        <li sec:authorize="hasRole('ROLE_SELLER')">
+                                            <a class="dropdown-item" th:href="@{'/product/productSellerStore/' + ${sellerMemberNo}}">Seller Store</a>
                                         </li>
                                         <!-- 바이어용 옵션 -->
                                         <li sec:authorize="hasRole('ROLE_BUYER')">
-                                            <a th:href="@{/user/buyerMypage}">Buyer My Page</a>
+                                            <a class="dropdown-item" th:href="@{/user/buyerMypage}">Buyer My Page</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -415,7 +424,7 @@
                         <div class="ms-slide-item swiper-slide d-flex slide-1">
                            <div class="ms-slide-content slider-animation">
                               <h1 class="ms-slide-title">TK Forest</h1>
-                              <h2 class="ms-slide-stitle">A Leading Platform to Discover and Source Korean Products</h2>
+                              <h2 class="ms-slide-stitle">We are the Best team of DM4.</h2>
                               <div class="ms-slide-desc">
                                  <p style="color:white;">Discover <b>new</b> products of Korea</p>
                                  <a th:href="@{/product/productList}" class="ms-btn-2">All Products <i
@@ -448,7 +457,7 @@
             <div class="ms-banner-content align-self-center">
                <div class="ms-slider-grid-item grid-img-4">
                   <div class="ms-detail">
-                     <p>First time?</p>
+                     <p style="color:white;">First time?</p>
                      <h6 class="grid-animation" style="color:white;"><span class="ms-grid-sub-title">Welcome,</span>
                      </h6>
                      <a th:href="@{/aboutUs}" class="ms-btn-2">About Us<i class="msicon msi-angle-double-right"
@@ -460,9 +469,9 @@
             <div class="ms-banner-content align-self-center">
                <div class="ms-slider-grid-item grid-img-5">
                   <div class="ms-detail">
-                     <p style="color:skyblue;">We find what you wants</p>
-                     <h6 class="grid-animation"><span class="ms-grid-sub-title">Recommendation</span></h6>
-                     <a href="#" class="ms-btn-2">Click here<i class="msicon msi-angle-double-right"
+                     <p style="color:white;">We find what you wants</p>
+                     <h6 class="grid-animation"><span class="ms-grid-sub-title" style="color:white;">Recommendation</span></h6>
+                     <a th:href="@{/rec/recList}" class="ms-btn-2">Click here<i class="msicon msi-angle-double-right"
                            aria-hidden="true"></i></a>
                   </div>
                </div>
@@ -474,7 +483,7 @@
 
    <div class="container">
 
-      <!-- Category section -->
+            <!-- 대분류 카테고리 Category section -->
       <section class="ms-category ms-category-shop body-bg p-b-30">
          <div class="container">
             <div class="row">
@@ -493,91 +502,91 @@
                            <span class="ms-lbl">HOT</span>
                            <img src="assets/img/icons/cat-3.svg" class="svg_img" alt="icon">
                            <h3 class="ms-cat-title">Food &<br>Beverage</h4>
-                              <p class="items">65 Items</p>
+                              <p class="items">fruit, noodles +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-3">
                         <a th:href="@{/product/productList(categoryNo=13)}" class="ms-cat-icon">
                            <img src="/img/index/clothes.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Fashion &<br>Styling</h4>
-                           <p class="items">548 Items</p>
+                           <p class="items">T-shirt, jacket +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-4">
                         <a th:href="@{/product/productList(categoryNo=14)}" class="ms-cat-icon">
                            <img src="/img/index/pot.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Home &<br> Kitchen</h4>
-                           <p class="items">48 Items</p>
+                           <p class="items">pot, utensil +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-5">
                         <a th:href="@{/product/productList(categoryNo=15)}" class="ms-cat-icon">
                            <img src="/img/index/sports.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Sport, Gifts<br>& Toys</h4>
-                           <p class="items">59 Items</p>
+                           <p class="items">ball, ribbon + </p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-6">
                         <a th:href="@{/product/productList(categoryNo=16)}" class="ms-cat-icon">
                            <img src="/img/index/pencil.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Stationery<br>& Printing </h4>
-                           <p class="items">845 Items</p>
+                           <p class="items">pen, paper +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-7">
                         <a th:href="@{/product/productList(categoryNo=17)}" class="ms-cat-icon">
                            <img src="/img/index/medical.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Health &<br> Medical</h4>
-                           <p class="items">652 Items</p>
+                           <p class="items">vitamin, stethoscope +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-8">
                         <a th:href="@{/product/productList(categoryNo=18)}" class="ms-cat-icon">
                            <img src="/img/index/electrical.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Electronic<br>Products</h4>
-                           <p class="items">253 Items</p>
+                           <p class="items">camera, computer +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-9">
                         <a th:href="@{/product/productList(categoryNo=19)}" class="ms-cat-icon">
                            <img src="/img/index/car.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Vehicles &<br> Accessories </h4>
-                           <p class="items">154 Items</p>
+                           <p class="items">auto drive, engine +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-10">
                         <a th:href="@{/product/productList(categoryNo=20)}" class="ms-cat-icon">
                            <img src="/img/index/package.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Equipment<br>& Packaging</h4>
-                           <p class="items">154 Items</p>
+                           <p class="items">storage Equipment +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-11">
                         <a th:href="@{/product/productList(categoryNo=21)}" class="ms-cat-icon">
                            <img src="/img/index/tele.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Electrical Compo-<br>nents & Telecoms</h4>
-                           <p class="items">154 Items</p>
+                           <p class="items">batteries +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-12">
                         <a th:href="@{/product/productList(categoryNo=22)}" class="ms-cat-icon">
                            <img src="/img/index/tools.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Machinery<br>& Parts</h4>
-                           <p class="items">154 Items</p>
+                           <p class="items">agriculture machinery +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-9">
                         <a th:href="@{/product/productList(categoryNo=23)}" class="ms-cat-icon">
                            <img src="/img/index/material.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Industrial<br>Supplies</h4>
-                           <p class="items">154 Items</p>
+                           <p class="items">aluminum, copper +</p>
                         </a>
                      </div>
                      <div class="ms-cat-box ms-cat-box-14">
                         <a th:href="@{/product/productList(categoryNo=24)}" class="ms-cat-icon">
                            <img src="/img/index/safety.png" class="svg_img" alt="icon">
                            <h4 class="ms-cat-title">Construction<br>& Safety</h4>
-                           <p class="items">154 Items</p>
+                           <p class="items">locks&keys + </p>
                         </a>
                      </div>
                   </div>
@@ -585,7 +594,7 @@
             </div>
          </div>
       </section>
-      <!-- Category section End -->
+      <!-- 대분류 카테고리 Category section End -->
 
 
       <!-- New Arrivals, Trending Product, Top Selling, Top Rated Start-->

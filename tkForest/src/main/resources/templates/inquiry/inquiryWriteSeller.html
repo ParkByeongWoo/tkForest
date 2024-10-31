@@ -6,7 +6,7 @@
    <meta http-equiv="x-ua-compatible" content="ie=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-   <title>인콰이어리 작성 화면(셀러)</title>
+   <title>TK Forest</title>
    <meta name="keywords"
       content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
    <meta name="description" content="Multipurpose eCommerce HTML Template">
@@ -37,6 +37,12 @@
 </head>
 
 <body>
+
+    <!-- Loader -->
+    <div id="ms-overlay">
+        <div class="loader"></div>
+    </div>
+    
 <!-- Header start  -->
     <header class="ms-header">
         <!-- Header Top Start -->
@@ -338,7 +344,7 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
                         <!-- ms-breadcrumb-list start -->
                         <ul class="ms-breadcrumb-list">
                             <li class="ms-readcrumb-item">Inquiry</li>
-                            <li class="ms-breadcrumb-item active">Write</li>
+                            <li class="ms-breadcrumb-item active"> > Write</li>
                         </ul>
                         <!-- ms-breadcrumb-list end -->
                     </div>

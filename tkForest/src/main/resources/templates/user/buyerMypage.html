@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>My Page</title>
+   <title>TK Forest</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="keywords"
         content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
@@ -168,6 +168,12 @@
 </head>
 
 <body>
+
+    <!-- Loader -->
+    <div id="ms-overlay">
+        <div class="loader"></div>
+    </div>
+    
 <!-- Header start  -->
     <header class="ms-header">
         <!-- Header Top Start -->
@@ -193,11 +199,11 @@
                     <!-- Header Top Language Currency -->
                     <div class="col header-top-right d-none d-lg-block">
                         <div class="header-top-right-inner d-flex justify-content-end">
-						    <a class="ms-help" th:href="@{/aboutUs}" style="display: flex; align-items: center;">
-						        <img src="/assets/img/icons/leaf.png" alt="about us icon" style="width: 16px; margin-right: 5px;">
-						        About Us
-						    </a>
-						</div>
+                      <a class="ms-help" th:href="@{/aboutUs}" style="display: flex; align-items: center;">
+                          <img src="/assets/img/icons/leaf.png" alt="about us icon" style="width: 16px; margin-right: 5px;">
+                          About Us
+                      </a>
+                  </div>
                     </div>
                     <!-- Header Top Language Currency -->
                     <!-- Header Top responsive Action -->
@@ -339,86 +345,94 @@
                     </div>
 
                     <!-- Main Menu Start -->
-					<div id="ms-main-menu-desk" class="d-none d-lg-block sticky-nav">
-					    <div class="position-relative nav-desk">
-					        <div class="row">
-					            <div class="col-md-12 align-self-center">
-					                <div class="ms-main-menu">
-					                    <ul style="display: flex; justify-content: flex-start;">
-					                   <li class="non-drop">
-									    <a th:href="@{/}" style="display: flex; align-items: center;">
-									        <img src="/assets/img/icons/home.png" alt="home icon" style="width: 20px; margin-right: 5px;">
-									        Home
-									    </a>
-									</li>
-					                        <!-- Categories Dropdown -->
-					                        <li class="dropdown drop-list position-static">
-					                            <a th:href="@{/product/productList}" class="dropdown-arrow" style="display: flex; align-items: center;">
-												    <img src="/assets/img/icons/price_tag.png" alt="categories icon" style="width: 20px; margin-right: 5px;">
-												    Categories<i class="msicon msi-angle-right"></i>
-												</a>
-					                            
-					                            <ul class="mega-menu d-block">
-					                                <li class="d-flex">
-					                                    <span class="bg"></span>
-					                                    <ul class="d-block">
-					                                        <li class="menu_title"><a href="javascript:void(0)">Beauty</a></li>
-					                                        <li><a href="shop-left-sidebar-col-3.html">Beauty Appliance</a></li>
-					                                        <li><a href="shop-left-sidebar-col-4.html">Body & Nail</a></li>
-					                                        <li><a href="shop-right-sidebar-col-3.html">Fragrance & Deodorant</a></li>
-					                                        <li><a href="shop-right-sidebar-col-4.html">Makeup</a></li>
-					                                        <li><a href="shop-full-width.html">Other Beauty Products</a></li>
-					                                    </ul>
-					                                    <ul class="d-block">
-					                                        <li class="menu_title"><a href="javascript:void(0)">Personal Care</a></li>
-					                                        <li><a href="shop-banner-left-sidebar-col-3.html">Bath Supplies</a></li>
-					                                        <li><a href="shop-banner-left-sidebar-col-4.html">Body Care</a></li>
-					                                        <li><a href="shop-banner-right-sidebar-col-3.html">Facial Care</a></li>
-					                                        <li><a href="shop-banner-right-sidebar-col-4.html">Hair Care</a></li>
-					                                        <li><a href="shop-banner-full-width.html">Other Personal Care</a></li>
-					                                    </ul>
-					                                    <ul class="d-block">
-					                                        <li class="menu_title"><a href="javascript:void(0)">Foods</a></li>
-					                                        <li><a href="shop-full-width-col-3.html">Admixture & Additives</a></li>
-					                                        <li><a href="shop-full-width-col-4.html">Animal Feeds</a></li>
-					                                        <li><a href="shop-full-width-col-5.html">Animal Products</a></li>
-					                                        <li><a href="shop-full-width-col-6.html">Baby Food</a></li>
-					                                        <li><a href="shop-banner-full-width-col-3.html">Baked Goods</a></li>
-					                                    </ul>
-					                                    <ul class="d-block">
-					                                        <li class="menu_title"><a href="javascript:void(0)">More+</a></li>
-					                                    </ul>
-					                                </li>
-					                            </ul>
-					                        </li>
-					                        
-					                        <!-- Discover Dropdown -->
-					                        <li class="dropdown drop-list position-static">
-					                            <a th:href="@{/}" class="dropdown-arrow" style="display: flex; align-items: center;">
-					                                <img src="/assets/img/icons/discover.svg" alt="discover" style="width: 20px; margin-right: 5px;">
-					                                Discover<i class="msicon msi-angle-right"></i>
-					                            </a>
-					                            <ul class="mega-menu d-block" style="margin-right: 0;">
-												    <li class="d-flex">
-												        <span class="bg"></span>
-												        <ul class="d-block">
-												            <li class="menu_title"><a th:href="@{/product/productList}">All Product</a></li>
-												        </ul>
-												        <ul class="d-block">
-												            <li class="menu_title"><a th:href="@{/recList}">Recommendation</a></li>
-												        </ul>
-												        <ul class="d-block" style="margin-right: 20px;"> <!-- 오른쪽 여백을 줄임 -->
-												            <li class="menu_title"><a th:href="@{/aboutUs}">About Us</a></li>
-												        </ul>
-												    </li>
-												</ul>
-					                        </li>
-					                    </ul>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-					</div>
+               <div id="ms-main-menu-desk" class="d-none d-lg-block sticky-nav">
+                   <div class="position-relative nav-desk">
+                       <div class="row">
+                           <div class="col-md-12 align-self-center">
+                               <div class="ms-main-menu">
+                                   <ul style="display: flex; justify-content: flex-start;">
+                                  <li class="non-drop">
+                               <a th:href="@{/}" style="display: flex; align-items: center;">
+                                   <img src="/assets/img/icons/home.png" alt="home icon" style="width: 20px; margin-right: 5px;">
+                                   Home
+                               </a>
+                           </li>
+                                       <!-- Categories Dropdown -->
+                                       <li class="dropdown drop-list position-static">
+                                           <a th:href="@{/product/productList}" class="dropdown-arrow" style="display: flex; align-items: center;">
+                                        <img src="/assets/img/icons/price_tag.png" alt="categories icon" style="width: 20px; margin-right: 5px;">
+                                        Categories<i class="msicon msi-angle-right"></i>
+                                    </a>
+   
+                                                 <ul class="mega-menu d-block">
+                                               <li class="d-flex">
+                                                   <span class="bg"></span>
+                                                   <ul class="d-block">
+                                                       <li class="menu_title"><a th:href="@{/product/productList(categoryNo=11)}">Beauty</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111101)}">Makeup</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111102)}">Other Beauty Products</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111103)}">Makeup Tools</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111104)}">Body & Nail</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111105)}">Beauty Appliance</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111106)}">Fragrance & Deodorant</a></li>
+                                                   </ul>
+                                                   <ul class="d-block">
+                                                       <li class="menu_title"><a th:href="@{/product/productList(categoryNo=11)}">Personal Care</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111201)}">Facial Care</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111202)}">Hair Care</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111203)}">Other Personal Care</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111204)}">Bath Supplies</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111205)}">Body Care</a></li>
+                                                       <li><a th:href="@{/product/productList(categoryNo=111206)}">Oral Hygiene</a></li>
+                                                     <li><a th:href="@{/product/productList(categoryNo=111207)}">Sanitary Paper</a></li>
+                                                     <li><a th:href="@{/product/productList(categoryNo=111208)}">Home Care</a></li>
+                                                     <li><a th:href="@{/product/productList(categoryNo=111209)}">Shaving & Hair Removal</a></li>
+                                                   </ul>
+                                                   <ul class="d-block">
+                                                       <li class="menu_title"><a href="javascript:void(0)">Foods</a></li>
+                                                       <li><a href="shop-full-width-col-3.html">Admixture & Additives</a></li>
+                                                       <li><a href="shop-full-width-col-4.html">Animal Feeds</a></li>
+                                                       <li><a href="shop-full-width-col-5.html">Animal Products</a></li>
+                                                       <li><a href="shop-full-width-col-6.html">Baby Food</a></li>
+                                                       <li><a href="shop-banner-full-width-col-3.html">Baked Goods</a></li>
+                                                   </ul>
+                                                   <ul class="d-block">
+                                                       <li class="menu_title"><a href="javascript:void(0)">More+</a></li>
+                                                   </ul>
+                                               </li>
+                                           </ul>
+                                       </li>
+                                       
+                                       <!-- Discover Dropdown -->
+                                       <li class="dropdown drop-list position-static">
+                                           <a th:href="@{/}" class="dropdown-arrow" style="display: flex; align-items: center;">
+                                               <img src="/assets/img/icons/discover.svg" alt="discover" style="width: 20px; margin-right: 5px;">
+                                               Discover<i class="msicon msi-angle-right"></i>
+                                           </a>
+                                           <ul class="mega-menu d-block" style="margin-right: 0;">
+                                        <li class="d-flex">
+                                            <span class="bg"></span>
+                                            <ul class="d-block">
+                                                <li class="menu_title"><a th:href="@{/product/productList}">All Product</a></li>
+                                            </ul>
+                                            <ul class="d-block">
+                                                <li class="menu_title"><a th:href="@{/rec/recList}">Recommendation</a></li>
+                                            </ul>
+                                            <ul class="d-block">
+                                                <li class="menu_title"><a th:href="@{/api/globalMap}">Trend News</a></li>
+                                            </ul>
+                                            <ul class="d-block">
+                                                <li class="menu_title"><a th:href="@{/aboutUs}">About Us</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                       </li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
 
                     <!-- Main Menu End -->
                     <div class="col ms-location-block">

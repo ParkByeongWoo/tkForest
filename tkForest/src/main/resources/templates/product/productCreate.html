@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>Masterkart - Multipurpose eCommerce HTML Template.</title>
+    <title>TK Forest</title>
     <meta name="keywords"
         content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
     <meta name="description" content="Multipurpose eCommerce HTML Template">
@@ -343,7 +343,7 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
                         <!-- ms-breadcrumb-list start -->
                         <ul class="ms-breadcrumb-list">
                             <li class="ms-readcrumb-item">My Page</li>
-                            <li class="ms-breadcrumb-item active">Product Create</li>
+                            <li class="ms-breadcrumb-item active"> > Product Create</li>
                         </ul>
                         <!-- ms-breadcrumb-list end -->
                     </div>
@@ -646,6 +646,8 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
      <!-- Main Js -->
       <script src="/assets/js/main.js"></script>
       <script src="/assets/js/demo-1.js"></script>
+      
+      <script th:src="@{/script/product.js}"></script>
 </body>
 
 

@@ -6,6 +6,8 @@
    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
    <meta name="viewport" content="width=1728, maximum-scale=1.0" />
+      <title>TK Forest</title>
+   
    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
    <meta name="og:type" content="website" />
    <meta name="twitter:card" content="photo" />
@@ -509,13 +511,13 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
                <form th:action="@{/recList}" method="POST">
                   
                   <div class="d-grid gap-2">
-                     <input type="button" id="recBtn" class="btn btn-primary" value="click">
+                     <input type="button" id="recBtn" class="btn btn-primary" value="Find Optimal Products for You">
                   </div>
 
                   <div class="flex-row-1">
                      <div id="loading-spinner" class="spinner hidden">
                         <div class="loader"></div>
-                        <span class="pfy">products for you</span>
+                        <span class="pfy">We are searching for optimal products for you.</span>
                      </div>
                      <div id="product-list">
                      </div>

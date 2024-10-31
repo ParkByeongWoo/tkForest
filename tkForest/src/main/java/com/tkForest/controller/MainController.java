@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tkForest.dto.LoginBuyerDetails;
+import com.tkForest.dto.LoginSellerDetails;
 import com.tkForest.dto.ProductDTO;
 import com.tkForest.service.ProductService;
 
@@ -42,6 +43,7 @@ public class MainController {
 	        @RequestParam(name="searchType", defaultValue="ALL") String searchType,
 	        @RequestParam(name="query", defaultValue="") String query,
 	        @AuthenticationPrincipal LoginBuyerDetails userDetails,
+	        @AuthenticationPrincipal LoginSellerDetails sellerDetails,
 	        Model model) {
 
 	    // registrationDate 기준으로 정렬된 리스트
@@ -60,6 +62,12 @@ public class MainController {
 	        String buyerMemberNo = userDetails.getBuyerMemberNo();
 	        model.addAttribute("buyerMemberNo", buyerMemberNo);
 	    }
+	    
+	    if (sellerDetails != null) {
+	        String sellerMemberNo = sellerDetails.getSellerMemberNo();
+	        model.addAttribute("sellerMemberNo", sellerMemberNo);
+	    }
+	    
 
 	    return "index";
 	}

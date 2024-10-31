@@ -83,19 +83,6 @@ public class InquiryController {
         // 인콰이어리 정보가 존재할 때만 모델에 추가
         if (inquiry != null) {
             model.addAttribute("inquiry", inquiry);
-
-            // 상품 번호를 이용해 상품명 조회  -- ProductService 밑단에 임시로 생성함
-            Integer productNo = inquiry.getProductNo();
-            String productName = productService.findProductNameById(productNo);
-
-            // 상품명 모델에 추가
-            model.addAttribute("productName", productName);
-            
-            // 셀러 번호를 이용해 셀러의 이름(picName) 조회
-            String sellerMemberNo = inquiry.getSellerMemberNo();
-            String sellerPicName = inquiryService.getSellerNameByMemberNo(sellerMemberNo);
-            model.addAttribute("sellerPicName", sellerPicName);
-
             return "inquiry/inquiryDetail";
         }
 

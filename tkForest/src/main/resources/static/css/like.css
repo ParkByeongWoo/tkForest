@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.custom-confirm-button {
+    background-color: #1f865a; /* 버튼 색 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+}

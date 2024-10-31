@@ -17,7 +17,7 @@ function recList() {
 			output(resp);
 		},
 		error: function () {
-			alert('추천 목록을 불러오는 중 오류가 발생했습니다.');
+			alert('Connecting Error');
 		},
 		complete: function () {
 			// 로딩 스피너 숨기기

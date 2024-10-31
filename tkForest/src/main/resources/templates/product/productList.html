@@ -5,7 +5,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!-- 1번째 줄부터 274번째에 있는 '헤더 끝!을 HTML에 넣으면 OK -->
-   <title>헤더 적용 페이지</title>
+   <title>TK Forest</title>
 
     <!-- site Favicon -->
     <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
@@ -28,13 +28,15 @@
     <link rel="stylesheet" href="/assets/css/responsive.css">
     <link rel="stylesheet" href="/assets/scss/pages/_shop-page.scss">
     <link rel="stylesheet" href="/assets/css/pages/_shop-page.css">
-
+	    <!-- 좋아요 alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" th:href="@{/css/like.css}">
    <!-- 인덱스 메인용 css -->
    <style>
       .main-content {
          display: flex;
          justify-content: space-between;
-         margin-top: 2rem;
+		 width: 1000px;
          gap: 2rem;
       }
 
@@ -229,6 +231,9 @@
     color: green !important;
 }  
       
+.category-product{
+	display: flex;
+}
       
    </style>
    
@@ -330,6 +335,7 @@
                                         id="searchForm">
                                         <input type="hidden" name="page" id="requestPage" th:value="${page}">
                                         <input type="hidden" name="sortBy" id="sortBy" value="registrationDate">
+                                        <input type="hidden" id="categoryNo" name="categoryNo" th:value="${categoryNo}">
                                         <div class="ms-search-select-inner">
                                             <select class="ms-search-cat selectpicker" id="searchType"
                                                 name="searchType">
@@ -560,101 +566,295 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
 <!-- Breadcrumb end -->
 
    <!-- 페이지 본문 -->
-      <div class="container">
+      <div class="container category-product" >
          <!-- 헤더 부분은 그대로 유지됩니다 -->
-
-         <div class="main-content">
-            <div class="hero">
                <!-- 네비게이션 바 시작 -->
-               <div class="category-container">
-   <h2 class="category-title">Category</h2>
-   <ul class="category-list">
-      <!-- Beauty & Personal Care 카테고리 -->
-      <li class="category-item ${categoryNo == 11 ? 'active' : ''}">
-         <a th:href="@{/product/productList(categoryNo=11)}">Beauty & Personal Care</a>
-         <span class="toggle-icon">&#9662;</span>
-         <ul class="subcategory-list">
-            <!-- Beauty 서브 카테고리 -->
-            <li class="subcategory-item ${categoryNo == 1111 ? 'active' : ''}">
-               <a th:href="@{/product/productList(categoryNo=1111)}">Beauty</a>
-               <span class="toggle-icon">&#9662;</span>
-               <ul class="third-category-list">
-                  <li class="third-category-item ${categoryNo == 111101 ? 'active' : ''}">
-                     <a th:href="@{/product/productList(categoryNo=111101)}">Makeup</a>
-                  </li>
-                  <li class="third-category-item ${categoryNo == 111102 ? 'active' : ''}">
-                     <a th:href="@{/product/productList(categoryNo=111102)}">Other Beauty Products</a>
-                  </li>
-                  <li class="third-category-item ${categoryNo == 111103 ? 'active' : ''}">
-                     <a th:href="@{/product/productList(categoryNo=111103)}">Makeup Tools</a>
-                  </li>
-                  <li class="third-category-item ${categoryNo == 111104 ? 'active' : ''}">
-                     <a th:href="@{/product/productList(categoryNo=111104)}">Body & Nail</a>
-                  </li>
-                  <li class="third-category-item ${categoryNo == 111105 ? 'active' : ''}">
-                     <a th:href="@{/product/productList(categoryNo=111105)}">Beauty Appliance</a>
-                  </li>
-                  <li class="third-category-item ${categoryNo == 111106 ? 'active' : ''}">
-                     <a th:href="@{/product/productList(categoryNo=111106)}">Fragrance & Deodorant</a>
-                  </li>
-               </ul>
-            </li>
+                              <!-- 카테고리 사이드바 Start -->
 
-            <!-- Personal Care 서브 카테고리 -->
-            <li class="subcategory-item ${categoryNo == 1112 ? 'active' : ''}">
-               <a th:href="@{/product/productList(categoryNo=1112)}">Personal Care</a>
-               <span class="toggle-icon">&#9662;</span>
-               <ul class="third-category-list">
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111201)}">Facial Care</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111202)}">Hair Care</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111203)}">Other Personal Care</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111204)}">Bath Supplies</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111205)}">Body Care</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111206)}">Oral Hygiene</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111207)}">Sanitary Paper</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111208)}">Home Care</a>
-                  </li>
-                  <li class="third-category-item">
-                     <a th:href="@{/product/productList(categoryNo=111209)}">Shaving & Hair Removal</a>
-                  </li>
-               </ul>
-            </li>
-         </ul>
-      </li>
+                <div class="ms-shop-sidebar col-lg-3 order-lg-first col-md-12 order-md-last m-t-991">
+                    <div id="shop_sidebar">
+                        <div class="ms-sidebar-wrap">
+                            <div class="ms-sidebar-block">
+                                <div class="ms-sb-title">
+                                    <h3 class="ms-sidebar-title">Category</h3>
+                                </div>
+                                <div class="ms-sb-block-content">
+                                    <ul>
+                                        <!-- Beauty 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=11)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/skincare.png}" class="svg_img"
+                                                            alt="drink">Beauty & Personal Care
+                                                    </span>
+                                                </a>
+                                                <span class="beauty-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+                                                <li class="third-category-item">&emsp;Makeup</li>
+                                                <li class="third-category-item">&emsp;Other Beauty Products</li>
+                                                <li class="third-category-item">&emsp;Makeup Tools</li>
+                                                <li class="third-category-item">&emsp;Body & Nail</li>
+                                                <li class="third-category-item">&emsp;Beauty Appliance</li>
+                                                <li class="third-category-item">&emsp;Fragrance & Deodorant</li>
+                                                <hr style="width:50%;">
+                                                <li class="third-category-item">&emsp;Bath Supplies</li>
+                                                <li class="third-category-item">&emsp;Body Care</li>
+                                                <li class="third-category-item">&emsp;Hair Care</li>
+                                                <li class="third-category-item">&emsp;Other Personal Care</li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
 
-      <!-- Construction & Safety 카테고리 -->
-      <li class="category-item ${categoryNo == 12 ? 'active' : ''}">
-         <a th:href="@{/product/productList(categoryNo=12)}">Construction & Safety</a>
-         <span class="toggle-icon">&#9662;</span>
-      </li>
+                                        <!-- Foods 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=12)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/apple.png}" class="svg_img"
+                                                            alt="drink">Foods & Beverage
+                                                    </span>
+                                                </a>
+                                                <span class="foods-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+                                                <li class="third-category-item">&emsp;Admixture & Additives</li>
+                                                <li class="third-category-item">&emsp;Animal Feeds</li>
+                                                <li class="third-category-item">&emsp;Animal Products</li>
+                                                <li class="third-category-item">&emsp;Baby Food</li>
+                                                <li class="third-category-item">&emsp;Baked Goods</li>
+                                                <hr style="width:50%;">
 
-      <!-- Electrical Components & Telecoms 카테고리 -->
-      <li class="category-item ${categoryNo == 13 ? 'active' : ''}">
-         <a th:href="@{/product/productList(categoryNo=13)}">Electrical Components & Telecoms</a>
-         <span class="toggle-icon">&#9662;</span>
-      </li>
-      
-      <!-- 다른 카테고리 추가 가능 -->
-   </ul>
-</div>
+                                                <!-- Beverage 하위 카테고리 -->
+                                                <li class="third-category-item">&emsp;Alcoholic Beverages</li>
+                                                <li class="third-category-item">&emsp;Coffee & Tea</li>
+                                                <li class="third-category-item">&emsp;Dairy</li>
+                                                <li class="third-category-item">&emsp;Drinks</li>
+                                                <li class="third-category-item">&emsp;Other Beverages</li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
+                                        
+                                        <!-- Fashion & Styling 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=13)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/clothes.png}" class="svg_img"
+                                                            alt="drink">Fashion & Styling
+                                                    </span>
+                                                </a>
+                                                <span class="fashion-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+													<li class="third-category-item">&emsp;Children Clothing</li>
+													<li class="third-category-item">&emsp;Costumes & Uniforms</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Bags & Luggages</li>
+													<li class="third-category-item">&emsp;Belts</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Fabric</li>
+													<li class="third-category-item">&emsp;Feather & Fur</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Bag Materials & Parts</li>
+													<li class="third-category-item">&emsp;Garment Accessories</li>
+													<hr style="width:60%;">
+                                            </ul>
+                                        </li>
+                                        
+                                        <!-- Home & Kitchen 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=14)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/pot.png}" class="svg_img"
+                                                            alt="drink">Home & Kitchen
+                                                    </span>
+                                                </a>
+                                                <span class="home-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+													<li class="third-category-item">&emsp;Baby Supplies & Products</li>
+													<li class="third-category-item">&emsp;Bathroom</li>
+													<li class="third-category-item">&emsp;Bedding</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Cookware & Cooking Tools</li>
+													<li class="third-category-item">&emsp;Drinkware</li>
+													<li class="third-category-item">&emsp;Kitchen Utensil & Storage</li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
+                                        
+                                        <!-- Sport & gifts & Toys 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=15)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/sports.png}" class="svg_img"
+                                                            alt="drink">Sport, Gifts & Toys
+                                                    </span>
+                                                </a>
+                                                <span class="sports-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+                                                <li class="third-category-item">&emsp;Fitness & Body Building</li>
+												<li class="third-category-item">&emsp;Indoor Sports</li>
+												<hr style="width:50%;">
+												<li class="third-category-item">&emsp;Crafts</li>
+												<li class="third-category-item">&emsp;Event Supplies</li>
+												<hr style="width:50%;">
+												<li class="third-category-item">&emsp;Animation & Character Service</li>
+												<li class="third-category-item">&emsp;Hobbies</li>
+												<hr style="width:60%;">
+                                            </ul>
+                                        </li>
+                                        
+                                        <!-- Stationery printing 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=16)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/pencil.png}" class="svg_img"
+                                                            alt="drink">Stationery & Printing
+                                                    </span>
+                                                </a>
+                                                <span class="stationery-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+													<li class="third-category-item">&emsp;Printer Supplies</li>
+													<li class="third-category-item">&emsp;Printing Machines</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Boards & Markers</li>
+													<li class="third-category-item">&emsp;Calculators & Rulers</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Event Papers</li>
+													<li class="third-category-item">&emsp;Education Supplies</li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
+                                        
+                                        <!-- Health & Medical 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=17)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/medical.png}" class="svg_img"
+                                                            alt="drink">Health & Medical
+                                                    </span>
+                                                </a>
+                                                <span class="health-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+													<li class="third-category-item">&emsp;Beauty Equipment</li>
+													<li class="third-category-item">&emsp;Clinical Analytical Instrument</li>
+													<li class="third-category-item">&emsp;Dental Equipment</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Animal & Veterinary</li>
+													<li class="third-category-item">&emsp;Extract</li>
+													<li class="third-category-item">&emsp;Health Products</li>
+													<hr style="width:60%;">
+                                            </ul>
+                                        </li>
+
+                                        <!-- Electronic 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=18)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/electrical.png}" class="svg_img"
+                                                            alt="drink">Electronic Products
+                                                    </span>
+                                                </a>
+                                                <span class="electronic-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+													<li class="third-category-item">&emsp;Cameras & Photos</li>
+													<li class="third-category-item">&emsp;Computer Accessories</li>
+													<hr style="width:50%;">
+													<li class="third-category-item">&emsp;Air Conditioning Appliances</li>
+													<li class="third-category-item">&emsp;Cleaning Appliances</li>
+													<hr style="width:60%;">
+
+                                            </ul>
+                                        </li>
+                                        
+                                        <!-- Machinery 항목 -->
+                                        <li>
+                                            <div class="ms-sidebar-block-item"
+                                                style="display: flex; align-items: center;">
+                                                <a th:href="@{/product/productList(categoryNo=22)}"
+                                                    style="padding-left: 5px; flex-grow: 1;">
+                                                    <span>
+                                                        <img th:src="@{/img/index/tools.png}" class="svg_img"
+                                                            alt="drink">Machinery & Parts
+                                                    </span>
+                                                </a>
+                                                <span class="machinery-toggle" title="Products"
+                                                    style="cursor: pointer;">&#9662;</span>
+                                            </div>
+                                            <ul class="third-category-list"
+                                                style="display: none; padding-left: 25px; margin-top: 10px;">
+													<li class="third-category-item">&emsp;Agriculture & Farm</li>
+                                                <li class="third-category-item">&emsp;Analyzers</li>
+                                                <li class="third-category-item">&emsp;Apparel & Accessories</li>
+                                                <li class="third-category-item">&emsp;Chemical & Pharmaceutical</li>
+                                                <li class="third-category-item">&emsp;Electrical Instrument</li>
+                                                <li class="third-category-item">&emsp;Other Machinery</li>
+                                                <hr style="width:50%;">
+                                                <li class="third-category-item">&emsp;Abrasives & Abrasive Tools</li>
+                                                <li class="third-category-item">&emsp;Bearings</li>
+                                                <li class="third-category-item">&emsp;Fasteners</li>
+                                                <li class="third-category-item">&emsp;Other Machinery ... </li>
+                                                <hr style="width:60%;">
+                                            </ul>
+                                        </li>
+                                        
+                                      
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 카테고리바 종료 -->
 
                <!-- 네비게이션 바 끝 -->
-            </div> 
+         <div class="main-content">
             
 <!--  상품목록 밑에 네비가 있게 하기 위함 -->
 <div class="content-container">
@@ -681,7 +881,9 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
             </div>
          </a>
          <div class="product-details">
-            <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem;">Product Name</h3>
+                     <a th:href="@{/product/productDetail(productNo=${product.productNo}, searchType=${searchType}, query=${query})}" class="product-card-link">
+            <h3 th:text="${product.productName}" style="font-size: 0.9rem; font-weight: bold; margin-top:0.5rem; color:black;">Product Name</h3>
+            </a>
             <p th:text="${product.registrationDate}">Registration Date</p>
             <p>
                <a th:href="@{'/product/productSellerStore/' + ${product.sellerMemberNo}}">
@@ -957,25 +1159,78 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
 		});
 		
    </script>   
-   
-   
-   <!-- 네비게이션 바 용 js -->
-        <script>
+    <!-- 카테고리 바 용 js -->
+    <script>
         $(document).ready(function () {
-           // Toggle for 1st depth categories
-           $(".category-item").on("click", function () {
-              $(this).find(".toggle-icon").toggleClass("open");
-              $(this).find(".subcategory-list").slideToggle();
-           });
+            // category-toggle은 beauty에 사용되며 그대로 유지합니다.
+            $(".beauty-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".category-list").slideToggle();
+            });
 
-           // Toggle for 2nd depth subcategories
-           $(".subcategory-item").on("click", function (e) {
-              e.stopPropagation(); // Prevent parent toggle from triggering
-              $(this).find(".toggle-icon").toggleClass("open");
-              $(this).find(".third-category-list").slideToggle();
-           });
+            // foods 카테고리용 독립 이벤트 리스너
+            $(".foods-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+            
+            // machinery 카테고리용 독립 이벤트 리스너
+            $(".fashion-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+            
+            // home 카테고리용 독립 이벤트 리스너
+            $(".home-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+            
+            $(".sports-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+            
+            $(".stationery-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+            
+            $(".health-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+            
+            $(".electronic-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+
+            // machinery 카테고리용 독립 이벤트 리스너
+            $(".machinery-toggle").on("click", function (e) {
+                e.stopPropagation();
+                $(this).toggleClass("open");
+                $(this).closest("li").find(".third-category-list").slideToggle();
+            });
+            
+         // 하이퍼링크 클릭 시 이벤트 전파 차단
+            $(".ms-sidebar-block-item a").on("click", function (e) {
+                e.stopPropagation(); // 클릭 이벤트가 상위로 전달되지 않도록 합니다.
+                // e.preventDefault(); // 필요하다면 링크 동작을 막으려면 이 부분을 활성화하세요.
+            });
         });
-     </script>
+    </script>
+   
+   
+  
      <!-- 페이징 -->
      <script>
    function pageFormSubmit(pageNumber) {

@@ -111,7 +111,7 @@ public class ProductController {
       
       ProductDTO product = productService.selectOne(productNo);
       String companyName = sellerRepository.findById(product.getSellerMemberNo()).get().getCompanyName();
-      List<Integer> categoryNos = productService.categoryAll(productNo);
+      List<String> categoryNames = productService.categoryAll(productNo);
       List<Integer> productCertificate = productService.certificateAll(productNo);
       List<ProductDTO> list = productService.findProductsBySellerMemberNo(product.getSellerMemberNo());
       
@@ -122,8 +122,9 @@ public class ProductController {
          return "redirect:/product/productList"; 
       }
       
+      System.out.println(categoryNames);
       model.addAttribute("product", product);
-      model.addAttribute("categoryNos", categoryNos);
+      model.addAttribute("categoryName", categoryNames);
       model.addAttribute("productCertificate", productCertificate);
       model.addAttribute("companyName", companyName);
       // 검색 기능이 추가되면 계속 달고 다녀야 함

@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>인콰이어리 조회 화면</title>
+    <title>TK Forest</title>
     <meta name="keywords"
         content="Bootstrap 5.x, ecommerce, farming, food market, grocery market, grocery shop, grocery store, grocery supper market, multi vendor, organic food, supermarket, supermarket grocery">
     <meta name="description" content="Multipurpose eCommerce HTML Template">
@@ -510,30 +510,23 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
                 <div class="form-group">
                     <label for="userName">Sender</label>
                     <!-- 화면에는 바이어의 이름이 보이도록 -->
-                    <input type="text" id="userName" name="userName" class="form-control"
-                        th:value="${#authentication.name}" readonly>
-
-                    <!-- 숨겨진 필드로 buyerMemberNo를 서버로 전달 -->
-                    <input type="hidden" id="buyerMemberNo" name="buyerMemberNo" th:value="${buyerMemberNo}">
+                    <input type="text" id="buyerPicName" name="buyerPicName" class="form-control"
+                        th:value="${inquiry.buyerPicName}" readonly>
                 </div>
 
                 <!-- 수신자 (To) -->
                 <div class="form-group">
                     <label for="sellerMemberNo">Reciever</label>
                     <input type="text" id="sellerPicName" name="sellerPicName" class="form-control"
-                        th:value="${sellerPicName}" readonly>
+                        th:value="${inquiry.sellerPicName}" readonly>
                 </div>
 
                 <!-- 상품 이름 -->
                 <div class="form-group">
                     <label for="productName">Product Name</label>
                     <input type="text" id="productName" name="productName" class="form-control"
-                        th:value="${productName}" readonly>
+                        th:value="${inquiry.productName}" readonly>
                 </div>
-				<div class="form-group" style="display: none;">
-				    <label for="productNo">Product No.</label>
-				    <input type="text" id="productNo" name="productNo" class="form-control" th:value="${inquiry.productNo}" readonly>
-				</div>
 
 
                 <!-- 발송일 -->
@@ -601,12 +594,22 @@ th:style="${#authorization.expression('hasRole(''ROLE_SELLER'')')} ? 'background
 
 				<form id="reply-form" class="form-group">
 				    <input type="hidden" name="inquiryNo" id="inquiryNo" th:value="${inquiry.inquiryNo}">
-				    <input type="hidden" name="replyWriter" id="replyWriter"
-				         th:value="${#authentication.principal instanceof T(com.tkForest.dto.LoginBuyerDetails) ? #authentication.principal.buyerMemberNo : #authentication.principal.sellerMemberNo}">
+				    
+				    <!-- Buyer일 경우 -->
+				    <input type="hidden" name="replyWriter" id="replyWriter" 
+				           th:if="${#authentication.principal instanceof T(com.tkForest.dto.LoginBuyerDetails)}" 
+				           th:value="${#authentication.principal.buyerMemberNo}">
+				    
+				    <!-- Seller일 경우 -->
+				    <input type="hidden" name="replyWriter" id="replyWriter" 
+				           th:if="${#authentication.principal instanceof T(com.tkForest.dto.LoginSellerDetails)}" 
+				           th:value="${#authentication.principal.sellerMemberNo}">
+				    
+				    <!-- WriterType에 따른 값 설정 -->
 				    <input type="hidden" name="replyWriterType" id="replyWriterType"
-				        th:value="${#authentication.principal.authorities.iterator().next().authority == 'ROLE_BUYER' ? 'BUYER' : 'SELLER'}">
-				</form>
+				           th:value="${#authentication.principal.authorities.iterator().next().authority == 'ROLE_BUYER' ? 'BUYER' : 'SELLER'}">
 
+				</form>
 
                 <div class="form-group">
                     <textarea name="replyContents" id="replyContents" class="form-control"

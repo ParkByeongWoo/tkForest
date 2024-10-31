@@ -74,5 +74,13 @@ public class FileService {
 		
 		return result;
 	}
+	
+	public static void renameFile(String oldPath, String newPath) {
+	    File oldFile = new File(oldPath);
+	    File newFile = new File(newPath);
+	    if (oldFile.exists()) {
+	        oldFile.renameTo(newFile);
+	    }
+	}
 }
 

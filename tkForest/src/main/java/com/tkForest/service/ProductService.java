@@ -60,7 +60,7 @@ public class ProductService {
 	private int pageLimit;	
 	
    // 업로드된 파일이 저장될 디렉토리 경로를 읽어옴
-   @Value("${spring.servlet.multipart.location}") // 확인 필요
+   @Value("${download.image.path}") // 확인 필요
    private String uploadPath;
    
    /**
@@ -69,59 +69,67 @@ public class ProductService {
     */
    @Transactional
    public boolean productCreate(ProductDTO productDTO, String sellerMemberNo) {
-      
-	  log.info("저장 경로: {}", uploadPath);
-      
-	  // 셀러 존재여부 확인
-      Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerMemberNo(sellerMemberNo);
-      log.info("셀러엔티티 불러옴: {}", sellerEntity.get());
-      
-      // 셀러가 있으면
-      if (sellerEntity.isPresent()) {
-    	  log.info("셀러의 Id: {}", sellerEntity.get().getSellerId());
-          
-          // 첨부 파일 처리
-          String productImagePath1 = null;
-          String productImagePath2 = null;
+       log.info("저장 경로: {}", uploadPath);
 
-          // 파일 첨부여부 확인
-          if(!productDTO.getUploadFile().isEmpty()) {
-             productImagePath1 = FileService.saveFile(productDTO.getUploadFile(), uploadPath);
-             productImagePath2 = productDTO.getUploadFile().getOriginalFilename();
+       // 셀러 존재여부 확인
+       Optional<SellerEntity> sellerEntity = sellerRepository.findBySellerMemberNo(sellerMemberNo);
+       log.info("셀러엔티티 불러옴: {}", sellerEntity.orElse(null));
 
-             productDTO.setProductImagePath2(productImagePath2);
-             productDTO.setProductImagePath1(productImagePath1);
-          }
+       // 셀러가 있으면
+       if (sellerEntity.isPresent()) {
+           log.info("셀러의 Id: {}", sellerEntity.get().getSellerId());
 
-          SellerEntity entity = sellerEntity.get();
-          log.info("셀러 엔티티: {}", entity);
-          
-          // 기본값 설정 - sellerMemberNo 설정, viewCnt를 디폴트 0으로 설정
-          productDTO.setSellerMemberNo(sellerMemberNo);
-          productDTO.setViewCnt(0);
-          log.info("셀러번호, viewCnt 기본값 설정 완료");
-          
-          // 1) Entity로 변환
-          ProductEntity productEntity = ProductEntity.toEntity(productDTO, entity);
-          log.info("변환한 productEntity: {}", productEntity);
-          log.info("entity 변환함");
-          
-          // 2) save()로 데이터 저장
-          ProductEntity savedEntity = productRepository.save(productEntity);
-          
-          // 카테고리, 키워드 추가 위해 productDTO에 productNo set하기
-          productDTO.setProductNo(savedEntity.getProductNo());
-          
-          // 저장된 엔티티 확인
-          if (savedEntity != null && savedEntity.getProductNo() != null) {
-              log.info("상품(기본데이터) 저장 완료, 저장된 상품 정보: {}", savedEntity.toString());
-              return true;
-          } else {
-              log.warn("상품 저장 실패 또는 저장된 상품 번호를 확인할 수 없습니다.");
-              return false;
-          }
-      }
-      return false;
+           // 첨부 파일 처리
+           String tempFilePath = null;
+
+           // 파일 첨부여부 확인
+           if (!productDTO.getUploadFile().isEmpty()) {
+               // 임시 파일을 먼저 저장
+               tempFilePath = FileService.saveFile(productDTO.getUploadFile(), uploadPath);
+
+               // 임시 저장된 파일 이름 설정
+               String originalFilename = productDTO.getUploadFile().getOriginalFilename();
+               productDTO.setProductImagePath2(originalFilename);
+               productDTO.setProductImagePath1(tempFilePath);
+           }
+
+           SellerEntity entity = sellerEntity.get();
+           log.info("셀러 엔티티: {}", entity);
+
+           // 기본값 설정 - sellerMemberNo 설정, viewCnt를 디폴트 0으로 설정
+           productDTO.setSellerMemberNo(sellerMemberNo);
+           productDTO.setViewCnt(0);
+           log.info("셀러번호, viewCnt 기본값 설정 완료");
+
+           // 1) Entity로 변환
+           ProductEntity productEntity = ProductEntity.toEntity(productDTO, entity);
+           log.info("변환한 productEntity: {}", productEntity);
+
+           // 2) save()로 데이터 저장
+           ProductEntity savedEntity = productRepository.save(productEntity);
+           productDTO.setProductNo(savedEntity.getProductNo());
+
+           // 3) 파일 이름을 productNo.jpg로 변경 후 이동
+           if (tempFilePath != null && savedEntity.getProductNo() != null) {
+               String newFilename = savedEntity.getProductNo() + ".jpg";
+               String newFilePath = uploadPath + newFilename;
+               FileService.renameFile(tempFilePath, newFilePath);
+
+               // 새로운 파일 경로를 productDTO에 설정
+               productDTO.setProductImagePath1(newFilePath);
+               log.info("파일이 저장되었습니다: {}", newFilePath);
+           }
+
+           // 저장된 엔티티 확인
+           if (savedEntity != null && savedEntity.getProductNo() != null) {
+               log.info("상품(기본데이터) 저장 완료, 저장된 상품 정보: {}", savedEntity);
+               return true;
+           } else {
+               log.warn("상품 저장 실패 또는 저장된 상품 번호를 확인할 수 없습니다.");
+               return false;
+           }
+       }
+       return false;
    }
    
    /**
@@ -281,12 +289,13 @@ public class ProductService {
 	 * @param productNo
 	 * @return
 	 */
-	public List<Integer> categoryAll(Integer productNo) {
+	public List<String> categoryAll(Integer productNo) {
 		List<Integer> categoryNos = pCategoryRepository.findCategoryNosByProductNo(productNo);
-
-	    System.out.println(categoryNos);
+		List<String> categoryNames = categoryRepository.findCategoryNameByCategoryNo(categoryNos);
+		
+	    System.out.println(categoryNames);
 	    
-	    return categoryNos;
+	    return categoryNames;
 	} 
 	
 	/**
