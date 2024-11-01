@@ -577,7 +577,7 @@
                 </div>
 
 
-                <!-- 카테고리 사이드바 Start -->
+                <!-- 좌측 카테고리 사이드바 Start -->
 
                 <div class="ms-shop-sidebar col-lg-3 order-lg-first col-md-12 order-md-last m-t-991">
                     <div id="shop_sidebar">
@@ -602,28 +602,57 @@
                                                 <span class="category-toggle" title="Products"
                                                     style="cursor: pointer;">&#9662;</span>
                                             </div>
-                                            <ul class="category-list"
-                                                style="display: none; padding-left: 25px; margin-top: 10px;">
-                                                <li class="third-category-item">&emsp;Makeup</li>
-                                                <li class="third-category-item">&emsp;Other Beauty Products</li>
-                                                <li class="third-category-item">&emsp;Makeup Tools</li>
-                                                <li class="third-category-item">&emsp;Body & Nail</li>
-                                                <li class="third-category-item">&emsp;Beauty Appliance</li>
-                                                <li class="third-category-item">&emsp;Fragrance & Deodorant</li>
-                                                <hr style="width:50%;">
-                                                <li class="third-category-item">&emsp;Bath Supplies</li>
-                                                <li class="third-category-item">&emsp;Body Care</li>
-                                                <li class="third-category-item">&emsp;Hair Care</li>
-                                                <li class="third-category-item">&emsp;Other Personal Care</li>
-                                                <hr style="width:60%;">
-                                            </ul>
+												<ul style="display: none; padding-left: 25px; margin-top: 10px;">
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1111)}" 
+												        style="text-decoration: none; color: inherit;">Makeup</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1111)}" 
+												        style="text-decoration: none; color: inherit;">Other Beauty Products</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1111)}" 
+												        style="text-decoration: none; color: inherit;">Makeup Tools</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1111)}" 
+												        style="text-decoration: none; color: inherit;">Body & Nail</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1111)}" 
+												        style="text-decoration: none; color: inherit;">Beauty Appliance</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1111)}" 
+												        style="text-decoration: none; color: inherit;">Fragrance & Deodorant</a>
+												    </li>
+												    <hr style="width:50%;">
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1112)}" 
+												        style="text-decoration: none; color: inherit;">Bath Supplies</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1112)}" 
+												        style="text-decoration: none; color: inherit;">Body Care</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1112)}" 
+												        style="text-decoration: none; color: inherit;">Hair Care</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1112)}" 
+												        style="text-decoration: none; color: inherit;">Other Personal Care</a>
+												    </li>
+												    <hr style="width:60%;">
+												</ul>
                                         </li>
 
                                         <!-- Foods 항목 -->
                                         <li>
                                             <div class="ms-sidebar-block-item"
                                                 style="display: flex; align-items: center;">
-                                                <a th:href="@{/product/productList(categoryNo=22)}"
+                                                <a th:href="@{/product/productList(categoryNo=12)}"
                                                     style="padding-left: 5px; flex-grow: 1;">
                                                     <span>
                                                         <img th:src="@{/img/index/apple.png}" class="svg_img"
@@ -633,23 +662,52 @@
                                                 <span class="foods-toggle" title="Products"
                                                     style="cursor: pointer;">&#9662;</span>
                                             </div>
-                                            <ul class="third-category-list"
-                                                style="display: none; padding-left: 25px; margin-top: 10px;">
-                                                <li class="third-category-item">&emsp;Admixture & Additives</li>
-                                                <li class="third-category-item">&emsp;Animal Feeds</li>
-                                                <li class="third-category-item">&emsp;Animal Products</li>
-                                                <li class="third-category-item">&emsp;Baby Food</li>
-                                                <li class="third-category-item">&emsp;Baked Goods</li>
-                                                <hr style="width:50%;">
-
-                                                <!-- Beverage 하위 카테고리 -->
-                                                <li class="third-category-item">&emsp;Alcoholic Beverages</li>
-                                                <li class="third-category-item">&emsp;Coffee & Tea</li>
-                                                <li class="third-category-item">&emsp;Dairy</li>
-                                                <li class="third-category-item">&emsp;Drinks</li>
-                                                <li class="third-category-item">&emsp;Other Beverages</li>
-                                                <hr style="width:60%;">
-                                            </ul>
+												<ul style="display: none; padding-left: 25px; margin-top: 10px;">
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Admixture & Additives</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Animal Feeds</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Animal Products</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Baby Food</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Baked Goods</a>
+												    </li>
+												    <hr style="width:50%;">
+												
+												    <!-- Beverage 하위 카테고리 -->
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Alcoholic Beverages</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Coffee & Tea</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Dairy</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Drinks</a>
+												    </li>
+												    <li class="third-category-item">
+												        &emsp;<a th:href="@{/product/productList(categoryNo=1213)}" 
+												        style="text-decoration: none; color: inherit;">Other Beverages</a>
+												    </li>
+												    <hr style="width:60%;">
+												</ul>
                                         </li>
 
                                         <!-- Machinery 항목 -->
@@ -689,7 +747,40 @@
                     </div>
                 </div>
 
-                <!-- 카테고리바 종료 -->
+			    <!-- 좌측 카테고리 바용 js -->
+			    <script>
+			        $(document).ready(function () {
+			        	 // .category-toggle 클릭 시 다음에 위치한 ul을 슬라이드 토글
+			            $(".category-toggle").on("click", function (e) {
+			                e.preventDefault(); // 기본 링크 이동 방지
+			                e.stopPropagation(); // 이벤트 전파 방지
+			
+			                $(this).toggleClass("open");
+			                // .category-toggle의 바로 다음에 위치한 ul을 토글
+			                $(this).closest(".ms-sidebar-block-item").next("ul").slideToggle();
+			            });
+			
+			         // foods 카테고리용 독립 이벤트 리스너
+			            $(".foods-toggle").on("click", function (e) {
+			                e.preventDefault(); // 기본 링크 이동 방지
+			                e.stopPropagation(); // 이벤트 전파 방지
+			
+			                $(this).toggleClass("open");
+			                // .foods-toggle의 바로 다음에 위치한 ul을 토글
+			                $(this).closest(".ms-sidebar-block-item").next("ul").slideToggle();
+			            });
+			
+			
+			            // machinery 카테고리용 독립 이벤트 리스너
+			            $(".machinery-toggle").on("click", function (e) {
+			                e.stopPropagation();
+			                $(this).toggleClass("open");
+			                $(this).closest("li").find(".third-category-list").slideToggle();
+			            });
+			        });
+			    </script>
+
+                <!-- 좌측 카테고리 사이드바 end -->
 
 
             </div>
@@ -861,19 +952,26 @@
     <!-- 네비게이션 바 용 js -->
     <script>
         $(document).ready(function () {
-            // category-toggle은 beauty에 사용되며 그대로 유지합니다.
+        	 // .category-toggle 클릭 시 다음에 위치한 ul을 슬라이드 토글
             $(".category-toggle").on("click", function (e) {
-                e.stopPropagation();
+                e.preventDefault(); // 기본 링크 이동 방지
+                e.stopPropagation(); // 이벤트 전파 방지
+
                 $(this).toggleClass("open");
-                $(this).closest("li").find(".category-list").slideToggle();
+                // .category-toggle의 바로 다음에 위치한 ul을 토글
+                $(this).closest(".ms-sidebar-block-item").next("ul").slideToggle();
             });
 
-            // foods 카테고리용 독립 이벤트 리스너
+         // foods 카테고리용 독립 이벤트 리스너
             $(".foods-toggle").on("click", function (e) {
-                e.stopPropagation();
+                e.preventDefault(); // 기본 링크 이동 방지
+                e.stopPropagation(); // 이벤트 전파 방지
+
                 $(this).toggleClass("open");
-                $(this).closest("li").find(".third-category-list").slideToggle();
+                // .foods-toggle의 바로 다음에 위치한 ul을 토글
+                $(this).closest(".ms-sidebar-block-item").next("ul").slideToggle();
             });
+
 
             // machinery 카테고리용 독립 이벤트 리스너
             $(".machinery-toggle").on("click", function (e) {

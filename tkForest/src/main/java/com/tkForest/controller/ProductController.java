@@ -171,7 +171,7 @@ public class ProductController {
        
        // 바이어로 로그인한 경우에만 buyerMemberNo 추가
        // 상품 보고있는 바이어의 buyerMemberNo (상품 좋아요 추가하기 위함)
-       if (userDetails != null) {
+       if (userDetails != null) {`
            String buyerMemberNo = userDetails.getBuyerMemberNo();
            model.addAttribute("buyerMemberNo", buyerMemberNo);
        }  

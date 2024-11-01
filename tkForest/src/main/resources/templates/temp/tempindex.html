@@ -1,1000 +1,1920 @@
-<!--========================================================= 
-Item Name: Masterkart - Multipurpose eCommerce HTML Template.
-Author: ashishmaraviya
-Version: 1.1.0
-Copyright 2024
-============================================================-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Best ecommerce html template for single and multi vendor store.">
-	<meta name="keywords"
-		content="apparel, catalog, clean, ecommerce, ecommerce HTML, electronics, fashion, html eCommerce, html store, minimal, multipurpose, multipurpose ecommerce, online store, responsive ecommerce template, shops">
-	<meta name="author" content="ashishmaraviya">
-	<title>Masterkart - Multipurpose eCommerce HTML Template.</title>
-	<!-- Fav icon인데 우리 로고로 임시 교체 -->
-	<link rel="icon" href="../../static/images/tkforestlogo.png">
-	<!-- Font Family -->
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-		integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+  <meta charset="utf-8" />
+  <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+  <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+  <meta name="viewport" content="width=1728, maximum-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+  <meta name="og:type" content="website" />
+  <meta name="twitter:card" content="photo" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/home/userHome/userhome.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/home/userHome/styleguide.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/home/userHome/globals.css}" />
 
-	<!-- Bootstrap stylesheet -->
-	<link rel="stylesheet" href="../../static/css/bootstrap.css">
-	<!-- Site Main stylesheet -->
-	<link rel="stylesheet" href="../../static/css/landing-style.css">
-	<!-- Responsive stylesheet -->
-	<link rel="stylesheet" href="../../static/css/landing-responsive.css">
+  <!-- site Favicon -->
+  <link rel="icon" href="/assets/img/favicon/favicon.png" sizes="32x32">
+
+  <!-- css Icon Font -->
+  <link rel="stylesheet" href="/assets/css/vendor/msicons.min.css">
+
+  <!-- css All Plugins Files -->
+  <link rel="stylesheet" href="/assets/css/plugins/animate.css">
+  <link rel="stylesheet" href="/assets/css/plugins/swiper-bundle.min.css">
+  <link rel="stylesheet" href="/assets/css/plugins/bootstrap.css">
+  <link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
+  <link rel="stylesheet" href="/assets/css/plugins/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/css/plugins/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/assets/css/plugins/slick.min.css">
+  <link rel="stylesheet" href="/assets/css/plugins/nouislider.css">
+
+  <!-- Main Style -->
+  <link rel="stylesheet" id="main_style" href="/assets/css/demo-1.css">
+  <link rel="stylesheet" id="main_style" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+
+  <style>
+    .row {
+      display: flex;
+      flex-wrap: nowrap;
+      /* 위치 바가 아래로 내려갈 경우에 적용 - 자식 요소들이 한 줄에 유지되도록 설정 */
+    }
+  </style>
+
+
 </head>
 
-<body class="hero-anime">
+<body style="margin: 0; background: #ffffff">
+  <div class="container-center-horizontal">
+    <div class="userhome screen">
 
-	<!-- Loader -->
-	<div id="ms-overlay">
-		<div class="loader"></div>
-	</div>
 
-	<!-- Navigation -->
-	<div class="nav-body hero-anime">
-		<div class="navigation-wrap bg-light start-header start-style">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<nav class="navbar navbar-expand-md navbar-light">
+      <!-- 헤더! 바디 바로 아래에 넣으면 OK -->
+      <!-- Header start  -->
+      <header class="ms-header">
+        <!-- Header Top Start -->
+        <div class="header-top">
+          <div class="container">
+            <div class="row align-items-center">
+              <!-- Header Top social Start -->
+              <div class="col text-left header-top-left d-none d-lg-block">
+                <div class="header-top-social">
+                </div>
+              </div>
+              <!-- Header Top social End -->
+              <!-- Header Top Message Start -->
+              <div class="col text-center header-top-center">
+                <div class="header-top-message">
+                  Leading Platform to Discover and Source Korean Products
+                  <div sec:authorize="isAuthenticated()">
+                    <a th:href="@{/user/logout}"> Welcome, [[${loginName}]]([[ ${#authentication.name} ]])</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Header Top Message End -->
+              <!-- Header Top Language Currency -->
+              <div class="col header-top-right d-none d-lg-block">
+                <div class="header-top-right-inner d-flex justify-content-end">
+                  <a class="ms-help" th:href="@{/aboutUs}">About Us</a>
+                </div>
+              </div>
+              <!-- Header Top Language Currency -->
+              <!-- Header Top responsive Action -->
+              <div class="col header-top-res d-lg-none">
+                <div class="ms-header-bottons">
+                  <!-- Category Toggle -->
+                  <div class="col ms-category-icon-block">
+                    <div class="ms-category-menu">
+                      <div class="ms-category-toggle">
+                        <img src="/assets/img/icons/category-icon.svg" class="svg_img header_svg svg_cat" alt="icon">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="right-icons">
+                    <!-- Header User Start -->
+                    <a href="login.html" class="ms-header-btn ms-header-user">
+                      <div class="header-icon"><img src="/assets/img/icons/user.svg" class="svg_img header_svg" alt="">
+                      </div>
+                    </a>
+                    <!-- Header User End -->
+                  </div>
+                </div>
+              </div>
+              <!-- Header Top responsive Action -->
+            </div>
+          </div>
+        </div>
+        <!-- Header Top  End -->
 
-							<a class="navbar-brand" href="index.html" target=""><img
-									src="../../static/images/tkforestlogo.png" alt=""></a>
+        <!-- Header Bottom Start -->
+        <div class="ms-header-bottom d-none d-lg-block">
+          <div class="container position-relative">
+            <div class="row">
+              <div class="ms-flex d-flex align-items-center justify-content-between"> <!-- Flexbox 추가 -->
+                <!-- Header Logo Start -->
+                <div class="align-self-center ms-header-logo">
+                  <div class="header-logo">
+                    <a th:href="@{/}"><img th:src="@{/img/tkForestlogoB2BLong.png}" alt="Site Logo"></a>
+                  </div>
+                </div>
+                <!-- Header Logo End -->
 
-							<button class="navbar-toggler" type="button" data-toggle="collapse"
-								data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-								aria-expanded="false" aria-label="Toggle navigation">
-								<span class="navbar-toggler-icon ms-header-btn ms-side-toggle d-lg-none"></span>
-							</button>
+                <!-- Header Search and Account Button Start -->
+                <div class="d-flex align-items-center justify-content-center flex-grow-1"> <!-- Flexbox 수정 -->
+                  <!-- Header Search Start -->
+                  <div class="align-self-center ms-header-search mx-auto"> <!-- mx-auto 추가 -->
+                    <div class="header-search">
+                      <form class="ms-search-group-form" th:action="@{/product/productList}" method="GET"
+                        id="searchForm">
+                        <input type="hidden" name="page" id="requestPage" th:value="${page}">
+                        <div class="ms-search-select-inner">
+                          <select class="ms-search-cat selectpicker" id="searchType" name="searchType">
+                            <option value="ALL" th:selected="${searchType == 'ALL'}">ALL</option>
+                            <option value="Products" th:selected="${searchType == 'Products'}">Products</option>
+                            <option value="Brand" th:selected="${searchType == 'Brand'}">Brand</option>
+                          </select>
+                        </div>
+                        <!-- query없으면 빈값 -->
+                        <input class="form-control ms-search-bar" id="query" th:value="${query}"
+                          placeholder="Search Products..." type="text" name="query">
+                        <button class="search_submit" type="submit">
+                          <img src="/assets/img/icons/search.svg" class="svg_img search_svg" alt="">
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                  <!-- Header Search End -->
 
-							<div class="collapse navbar-collapse" id="navbarSupportedContent">
-								<ul class="navbar-nav ml-auto py-4 py-md-0">
-									<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 active">
-										<a class="mn-nav nav-link" href="#overview">Overview</a>
-									</li>
-									<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-										<a class="mn-nav nav-link" href="#demos">Demos</a>
-									</li>
-									<li class="mn-nav nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-										<a class="mn-nav nav-link" href="#features">Features</a>
-									</li>
-									<li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
-										<a class="mn-nav nav-link" href="#core">Core Features</a>
-									</li>
-								</ul>
-							</div>
+                  <!-- Header Button Start -->
+                  <div class="ms-header-bottons">
+                    <div class="ms-acc-drop">
+                      <a href="javascript:void(0)" class="ms-header-btn ms-header-user dropdown-toggle ms-user-toggle"
+                        title="Account">
+                        <div class="header-icon">
+                          <img src="/assets/img/icons/user.svg" class="svg_img header_svg" alt="">
+                        </div>
+                        <div class="ms-btn-desc">
+                          <span class="ms-btn-title">Account</span>
+                          <span sec:authorize="isAuthenticated()" class="ms-btn-stitle">Log Out/My Page</span>
+                          <span sec:authorize="isAnonymous()" class="ms-btn-stitle">Login/Sign Up</span>
+                        </div>
+                      </a>
+                      <ul class="ms-dropdown-menu">
+                        <!-- 비회원용 옵션 -->
+                        <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/signUp}">Sign
+                            Up</a></li>
+                        <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/login}">Login</a>
+                        </li>
+                        <!-- 회원용 옵션 -->
+                        <li sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">Log
+                            out</a></li>
+                        <!-- 셀러용 옵션 -->
+                        <li sec:authorize="hasRole('ROLE_SELLER')"><a th:href="@{/user/sellerMypage}">My
+                            Page(S)</a></li>
+                        <!-- 바이어용 옵션 -->
+                        <li sec:authorize="hasRole('ROLE_BUYER')"><a th:href="@{/user/buyerMypage}">My Page(B)</a>
+                        </li>
 
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="ms-side-cart-overlay"></div>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- Header Button End -->
+                </div>
+                <!-- Header Search and Account Button End -->
+              </div>
+            </div>
+          </div>
 
-	<!-- Mobile Menu Start -->
-	<div id="ms-mobile-menu" class="ms-side-cart ms-mobile-menu">
-		<div class="ms-menu-title">
-			<span class="menu_title">Menu</span>
-			<button class="ms-close">×</button>
-		</div>
-		<div class="ms-menu-inner">
-			<div class="ms-menu-content">
-				<ul>
-					<li><a class="mn-nav" href="#overview">Overview</a></li>
-					<li><a class="mn-nav" href="#demos">Demos</a></li>
-					<li><a class="mn-nav" href="#features">Features</a></li>
-					<li><a class="mn-nav" href="#core">Core Features</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- mobile Menu End -->
+        </div>
+        <!-- Header Bottom End -->
 
-	<!-- Start Page Title Section -->
-	<section class="page-hero hero-anime page-section" id="overview">
+        <!-- Header menu -->
+        <div class="ms-header-cat d-none d-lg-block">
+          <div class="container position-relative">
+            <div class="row justify-content-between">
 
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12 hero-details">
+              <!-- Category Toggle -->
+              <div class="col ms-category-icon-block">
+                <div class="ms-category-menu">
+                  <div class="ms-category-toggle">
+                    <img src="/assets/img/icons/category-icon.svg" class="svg_img header_svg svg_cat" alt="icon">
+                  </div>
+                </div>
+              </div>
 
-					<div class="page-intro disp-block">
+              <!-- Main Menu Start -->
+              <div id="ms-main-menu-desk" class="d-none d-lg-block sticky-nav">
+                <div class="position-relative nav-desk">
+                  <div class="row">
+                    <div class="col-md-12 align-self-center">
+                      <div class="ms-main-menu">
+                        <ul style="display: flex; justify-content: flex-start;">
+                          <li class="non-drop"><a th:href="@{/}">Home</a></li>
+                          <li class="dropdown drop-list position-static">
+                            <a href="javascript:void(0)" class="dropdown-arrow">Categories<i
+                                class="msicon msi-angle-right"></i></a>
+                            <ul class="mega-menu d-block">
+                              <li class="d-flex">
+                              
+                              <div class="overlap-group overlap">
+            <a th:href="@{/product/productList(categoryNo=11)}"> <!-- Beauty & Personal Care -->
+              <img class="rectangle-9" th:src="@{/img/home/userHome/rectangle-9-1.png}" alt="Rectangle 9" />
+              <img class="frame-9" th:src="@{/img/home/userHome/frame-9-1.png}" alt="Frame 9" />
+            </a>
+          </div>
+          <div class="e-container">
+            <div class="rectangle"></div>
+            <img class="frame" th:src="@{/img/home/userHome/frame-10-1.png}" alt="Frame 10" />
+          </div>
+        </div>
+        <div class="group-container">
+          <div class="overlap">
+            <div class="rectangle"></div>
 
-						<img class="logo-intro" src="../../static/images/tkforestlogo.png" alt="logo-img">
-						<h1>현영짱~ <span class="type">Korean B2B</span> transaction brokerage platform</h1>
-						<p>Masterkart has built with advanced, unique and creative UI/UX with structured code.
-							Masterkart has advanced design & features to build website easily for developers.</p>
-						<a class="btn btn-scroll" href="javascript:void(0)">VIEW DEMO</a>
-						<a class="btn btn-primary btn-buy" href="">Buy Now</a>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-12 hero-details dis-none">
-					<img class="desk" src="../../static/images/landing-desk.png" alt="desk">
-					<img class="desk-m" src="../../static/images/landing-desk-m.png" alt="desk">
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Page Title Section -->
+            <a th:href="@{/product/productList(categoryNo=12)}"> <!-- Food & Beverage -->
+              <img class="frame" th:src="@{/img/home/userHome/frame-2-1.png}" alt="Frame 2" />
+            </a>
 
-	<!-- Start All Demo Pages Section -->
-	<section class="portfolio pp-section sms-bg-img page-section" id="demos">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-12">
-					<div class="section-header text-center">
-						<h2 class="title"><span>42+</span> Pre Built Pages</h2>
-						<p class="sub-title sub-title-dark">Easy to find out what you are looking for: shop, product,
-							profile, payment, blog, vendor & many more pages already included by Masterkart. Light
-							weight & Easy to customize, We have did this with high quality standard with unique design
-							to build your marketplace more comfortable.</p>
-					</div>
-				</div>
-			</div>
+          </div>
+          <div class="e-container-1 e-container-6">
+            <div class="rectangle"></div>
+            <img class="frame-11" th:src="@{/img/home/userHome/frame-11-1.png}" alt="Frame 11" />
+          </div>
+        </div>
+        <div class="group-container">
+          <a th:href="@{/product/productList(categoryNo=17)}"> <!-- health&medical -->
+            <div class="group-4"><img class="frame-4" th:src="@{/img/home/userHome/frame-4-1.png}" alt="Frame 4" />
+            </div>
+          </a>
+          <div class="group-10"><img class="frame-12" th:src="@{/img/home/userHome/frame-12-1.png}" alt="Frame 12" />
+          </div>
+        </div>
+        <div class="group-container">
+                                <span class="bg"></span>
+                                <ul class="d-block">
+                                  <li class="menu_title"><a href="javascript:void(0)">Beauty</a></li>
+                                  <li><a href="shop-left-sidebar-col-3.html">Beauty Appliance</a>
+                                  <li><a href="shop-left-sidebar-col-4.html">Body & Nail</a> </li>
+                                  <li><a href="shop-right-sidebar-col-3.html">Fragrance & Deodorant</a> </li>
+                                  <li><a href="shop-right-sidebar-col-4.html">Makeup</a> </li>
+                                  <li><a href="shop-full-width.html">Other Beauty Products</a> </li>
+                              </li>
+                            </ul>
+                            <ul class="d-block">
+                              <li class="menu_title"><a href="javascript:void(0)">Personal Care</a></li>
+                              <li><a href="shop-banner-left-sidebar-col-3.html">Bath Supplies</a></li>
+                              <li><a href="shop-banner-left-sidebar-col-4.html">Body Care</a></li>
+                              <li><a href="shop-banner-right-sidebar-col-3.html">Facial Care</a></li>
+                              <li><a href="shop-banner-right-sidebar-col-4.html">Hair Care</a></li>
+                              <li><a href="shop-banner-full-width.html">Other Personal Care</a>
+                              </li>
+                            </ul>
+                            <ul class="d-block">
+                              <li class="menu_title"><a href="javascript:void(0)">Machinery</a></li>
+                              <li><a href="shop-full-width-col-3.html">Agriculture & Farm Machinery</a></li>
+                              <li><a href="shop-full-width-col-4.html">Analyzers</a></li>
+                              <li><a href="shop-full-width-col-5.html">Apparel & Accessories Machinery</a></li>
+                              <li><a href="shop-full-width-col-6.html">Chemical & Pharmaceutical Machinery</a>
+                              </li>
+                              <li><a href="shop-banner-full-width-col-3.html">Other Machinery & Industry
+                                  Equipment</a>
+                              </li>
+                            </ul>
+                            <ul class="d-block">
+                              <li class="menu_title"><a href="javascript:void(0)">Machinery Parts</a></li>
+                              <li><a href="shop-full-width-col-3.html">Abrasives & Abrasive Tools</a></li>
+                              <li><a href="shop-full-width-col-4.html">Bearings</a></li>
+                              <li><a href="shop-full-width-col-5.html">Fasteners</a></li>
+                              <li><a href="shop-full-width-col-6.html">Filter Supplies</a></li>
+                              <li><a href="shop-banner-full-width-col-3.html">Other Machinery Parts</a>
+                              </li>
+                            </ul>
+                            <ul class="d-block">
+                              <li class="menu_title"><a href="javascript:void(0)">Beverage</a></li>
+                              <li><a href="shop-full-width-col-3.html">Alcoholic Beverages</a></li>
+                              <li><a href="shop-full-width-col-4.html">Coffee & Tea</a></li>
+                              <li><a href="shop-full-width-col-5.html">Dairy</a></li>
+                              <li><a href="shop-full-width-col-6.html">Drinks</a></li>
+                              <li><a href="shop-banner-full-width-col-3.html">Other Beverages</a>
+                              </li>
+                            </ul>
+                            <ul class="d-block">
+                              <li class="menu_title"><a href="javascript:void(0)">Foods</a></li>
+                              <li><a href="shop-full-width-col-3.html">Admixture & Additives</a></li>
+                              <li><a href="shop-full-width-col-4.html">Animal Feeds</a></li>
+                              <li><a href="shop-full-width-col-5.html">Animal Products</a></li>
+                              <li><a href="shop-full-width-col-6.html">Baby Food</a></li>
+                              <li><a href="shop-banner-full-width-col-3.html">Baked Goods</a>
+                              </li>
+                            </ul>
+                            <ul class="d-block">
+                              <li class="menu_title"><a href="javascript:void(0)">More+</a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                        </li>
+                        <li class="non-drop"><a th:href="@{/recList}"><img src="/assets/img/icons/discover.svg"
+                              class="svg_img" alt="discover">Discover(보따리)</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Main Menu End -->
+              <div class="col ms-location-block">
+                <div class="ms-location-menu">
+                  <div class="ms-location-toggle">
+                    <img src="/assets/img/icons/location.svg" class="svg_img header_svg svg_loc" alt="icon">
+                    <span class="ms-location-title d-1199 ms-location" id="ms_location"></span>
+                    <i class="msicon msi-angle-down d-1199" aria-hidden="true"></i>
+                  </div>
+                  <div class="ms-location-content">
+                    <div class="ms-location-dropdown">
+                      <div class="row ms-location-wrapper">
+                        <ul class="loc-grid">
+                          <li class="loc-list current">your location</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="portfolio-menu">
-						<ul>
-							<!-- <li class="mixitup-control-active" data-filter="*">All</li> -->
-							<li class="mixitup-control-active active filter" data-filter=".home">Home<span class="label"
-									title="Added New Demos"></span></li>
-							<li data-filter=".product">테스트1</li>
-							<li data-filter=".shop">aaaShop</li>
-							<li data-filter=".blog">aaaBlog</li>
-							<li data-filter=".other">aaaothers<span class="label" title="Added New Demos"></span></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+            </div>
+          </div>
+        </div>
 
-			<div class="row portfolio-list">
-
-				<!-- Home -->
-				<div class="col-lg-6 col-md-6 mix single-portfolio-item home">
-					<a href="masterkart-html/index.html" class="preview home-preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/01.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/index.html" class="btn-page">
-						<h5 class="card-title">Classic</h5>
-					</a>
-				</div>
-				<div class="col-lg-6 col-md-6 mix single-portfolio-item home">
-					<span class="lable"></span>
-					<a href="masterkart-html/demo-2.html" class="preview home-preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/03.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/demo-2.html" class="btn-page">
-						<h5 class="card-title">Creative - Slider</h5>
-					</a>
-				</div>
-
-				<!-- Shop -->
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-left-sidebar-col-3.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-1.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-left-sidebar-col-3.html" class="btn-page">
-						<h5 class="card-title">Shop left sidebar col 3</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-left-sidebar-col-4.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-2.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-left-sidebar-col-4.html" class="btn-page">
-						<h5 class="card-title">Shop left sidebar col 4</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-right-sidebar-col-3.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-3.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-right-sidebar-col-3.html" class="btn-page">
-						<h5 class="card-title">Shop right sidebar col 3</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-right-sidebar-col-4.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-4.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-right-sidebar-col-4.html" class="btn-page">
-						<h5 class="card-title">Shop right sidebar col 4</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-full-width.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-5.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-full-width.html" class="btn-page">
-						<h5 class="card-title">shop full width</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-banner-left-sidebar-col-3.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-6.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-banner-left-sidebar-col-3.html" class="btn-page">
-						<h5 class="card-title">banner left sidebar col 3</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-banner-left-sidebar-col-4.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-7.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-banner-left-sidebar-col-4.html" class="btn-page">
-						<h5 class="card-title">banner left sidebar col 4</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-banner-right-sidebar-col-3.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-8.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-banner-right-sidebar-col-3.html" class="btn-page">
-						<h5 class="card-title">banner right sidebar col 3</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-banner-right-sidebar-col-4.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-9.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-banner-right-sidebar-col-4.html" class="btn-page">
-						<h5 class="card-title">banner right sidebar col 4</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-banner-full-width.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-10.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-banner-full-width.html" class="btn-page">
-						<h5 class="card-title">banner full width</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-banner-full-width-col-3.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-15.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-banner-full-width-col-3.html" class="btn-page">
-						<h5 class="card-title">banner full width col 3</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-full-width-col-3.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-11.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-full-width-col-3.html" class="btn-page">
-						<h5 class="card-title">shop full width col 3</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-full-width-col-4.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-12.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-full-width-col-4.html" class="btn-page">
-						<h5 class="card-title">shop full width col 4</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-full-width-col-5.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-13.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-full-width-col-5.html" class="btn-page">
-						<h5 class="card-title">shop full width col 5</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-full-width-col-6.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-14.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-full-width-col-6.html" class="btn-page">
-						<h5 class="card-title">shop full width col 6</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-list-left-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-16.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-list-left-sidebar.html" class="btn-page">
-						<h5 class="card-title">shop list left sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-list-right-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-17.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-list-right-sidebar.html" class="btn-page">
-						<h5 class="card-title">shop list right sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-list-banner-left-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-18.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-list-banner-left-sidebar.html" class="btn-page">
-						<h5 class="card-title">list banner left sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-list-banner-right-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-19.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-list-banner-right-sidebar.html" class="btn-page">
-						<h5 class="card-title">list banner right sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item shop">
-					<a href="masterkart-html/shop-list-full-col-2.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/shop-20.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/shop-list-full-col-2.html" class="btn-page">
-						<h5 class="card-title">shop list full col 2</h5>
-					</a>
-				</div>
-
-				<!-- Product -->
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item product">
-					<a href="masterkart-html/product-left-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/p-1.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/product-left-sidebar.html" class="btn-page">
-						<h5 class="card-title">product left sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item product">
-					<a href="masterkart-html/product-right-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/p-2.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/product-right-sidebar.html" class="btn-page">
-						<h5 class="card-title">product right sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item product">
-					<a href="masterkart-html/product-full-width.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/p-9.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/product-full-width.html" class="btn-page">
-						<h5 class="card-title">product full width</h5>
-					</a>
-				</div>
-
-				<!-- Blog -->
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item blog">
-					<a href="masterkart-html/blog-left-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/b-1.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/blog-left-sidebar.html" class="btn-page">
-						<h5 class="card-title">blog left sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item blog">
-					<a href="masterkart-html/blog-right-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/b-2.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/blog-right-sidebar.html" class="btn-page">
-						<h5 class="card-title">blog right sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item blog">
-					<a href="masterkart-html/blog-detail-left-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/b-3.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/blog-detail-left-sidebar.html" class="btn-page">
-						<h5 class="card-title">blog detail left sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item blog">
-					<a href="masterkart-html/blog-detail-right-sidebar.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/b-4.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/blog-detail-right-sidebar.html" class="btn-page">
-						<h5 class="card-title">blog detail right sidebar</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item blog">
-					<a href="masterkart-html/blog-full-width.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/b-5.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/blog-full-width.html" class="btn-page">
-						<h5 class="card-title">blog full width</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item blog">
-					<a href="masterkart-html/blog-detail-full-width.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/b-6.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/blog-detail-full-width.html" class="btn-page">
-						<h5 class="card-title">blog detail full width</h5>
-					</a>
-				</div>
-
-				<!-- Other -->
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/discover.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-10.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/discover.html" class="btn-page">
-						<h5 class="card-title">Discover</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/track-order.html.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-11.png');"
-								class="img-scroll"></span>
-							class="img-scroll"></span>
-
-						</span>
-					</a>
-					<a href="masterkart-html/track-order.html.html" class="btn-page">
-						<h5 class="card-title">Track Order</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/about-us.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-1.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/about-us.html" class="btn-page">
-						<h5 class="card-title">About us</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/contact-us.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-2.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/contact-us.html" class="btn-page">
-						<h5 class="card-title">contact us</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/cart.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-3.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/cart.html" class="btn-page">
-						<h5 class="card-title">cart</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/checkout.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-4.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/checkout.html" class="btn-page">
-						<h5 class="card-title">checkout</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/compare.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-5.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/compare.html" class="btn-page">
-						<h5 class="card-title">compare</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/faq.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-6.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/faq.html" class="btn-page">
-						<h5 class="card-title">faq</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/login.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-7.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/login.html" class="btn-page">
-						<h5 class="card-title">login</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/register.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-8.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/register.html" class="btn-page">
-						<h5 class="card-title">register</h5>
-					</a>
-				</div>
-				<div class="col-lg-4 col-md-6 mix single-portfolio-item other">
-					<a href="masterkart-html/terms-condition.html" class="preview">
-						<span class="pc-bg">
-							<span style="background-image: url('../../static/images/o-9.png');"
-								class="img-scroll"></span>
-						</span>
-					</a>
-					<a href="masterkart-html/terms-condition.html" class="btn-page">
-						<h5 class="card-title">terms condition</h5>
-					</a>
-				</div>
-
-				<div class="col-lg-12">
-					<a class="btn btn-primary btn-buy" href="">Buy Now</a>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End All Demo Pages Section -->
-
-	<!-- Start Key Features Section -->
-	<section class="portfolio pp-section sms-bg-img page-section sms-bg-01" id="feature">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-12">
-					<div class="section-header text-center">
-						<h2 class="title"><span>Key</span> Features</h2>
-						<p class="sub-title sub-title-dark">Easy to find out what you are looking for: shop, product,
-							profile, payment, blog, vendor & many more pages already included by Masterkart. Light
-							weight & Easy to customize, We have did this with high quality standard with unique design
-							to build your marketplace more comfortable.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row m-t-15">
-				<!-- Single Preview -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-11.png"
-							alt="hero image">
-						<p class="features-caption">Automatically get current location or select it manually.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Current Location</p>
-					</a>
-					<p class="features-caption-r">Automatically get current location or select it manually.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-1.png"
-							alt="hero image">
-						<p class="features-caption">Search product by selected categories.</p>
-					</div>
-					<a href="masterkart-html/product-360-left-sidebar.html">
-						<p class="features-text">Custom Search</p>
-					</a>
-					<p class="features-caption-r">Search product by selected categories.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-12.png"
-							alt="hero image">
-						<p class="features-caption">On shop page your products describe with description using grid
-							feature.</p>
-					</div>
-					<a href="masterkart-html/shop-left-sidebar-col-3.html">
-						<p class="features-text">Shop Grids & Filter</p>
-					</a>
-					<p class="features-caption-r">On shop page your products describe with description using grid
-						feature.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-7.png"
-							alt="hero image">
-						<p class="features-caption">Eye catching cart & wish sidebar with increase or decrease quantity
-							of product.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Cart & Wish Sidebar</p>
-					</a>
-					<p class="features-caption-r">Eye catching cart & wish sidebar with increase or decrease quantity of
-						product.</p>
-				</div>
-				<!-- End Single features-->
-
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-14.png"
-							alt="hero image">
-						<p class="features-caption">Modern category sidebar to find product easily.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Category Sidebar</p>
-					</a>
-					<p class="features-caption-r">Modern category sidebar to find product easily.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-2.png"
-							alt="hero image">
-						<p class="features-caption">Discover items to find easily discounted products.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Discover Items</p>
-					</a>
-					<p class="features-caption-r">Discover items to find easily discounted products.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-3.png"
-							alt="hero image">
-						<p class="features-caption">Amazing zoom product image.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Product Zoom</p>
-					</a>
-					<p class="features-caption-r">Amazing zoom product image.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-4.png"
-							alt="hero image">
-						<p class="features-caption">You can use dark mode with more effective and eye catching layout.
-						</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Top Vendor</p>
-					</a>
-					<p class="features-caption-r">You can use dark mode with more effective and eye catching layout.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single Preview -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-5.png"
-							alt="hero image">
-						<p class="features-caption">Subscribe the masterkart to get in touch and get the future update.
-						</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Newsletter</p>
-					</a>
-					<p class="features-caption-r">Subscribe the masterkart to get in touch and get the future update.
-					</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single Preview -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-15.png"
-							alt="hero image">
-						<p class="features-caption">Quickview popup for check product details easily.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Quickview</p>
-					</a>
-					<p class="features-caption-r">Quickview popup for check product details easily.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-9.png"
-							alt="hero image">
-						<p class="features-caption">Footer navigation links collapsed on mobile screen.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Footer Navigation</p>
-					</a>
-					<p class="features-caption-r">Footer navigation links collapsed on mobile screen.</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<span class="lable"></span>
-					<div class="key-box">
-						<img class="key-features-image features-image style-image" src="../../static/images/key-10.png"
-							alt="hero image">
-						<p class="features-caption">Product image zoom and 'add more' features to purchase extra
-							products.</p>
-					</div>
-					<a href="masterkart-html/index.html">
-						<p class="features-text">Zoom & Add more</p>
-					</a>
-					<p class="features-caption-r">Product image zoom and 'add more' features to purchase extra products.
-					</p>
-				</div>
-				<!-- End Single features-->
-				<div class="col-lg-12">
-					<a class="btn btn-primary btn-buy" href="">Buy Now</a>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Key Features Section -->
-
-	<!-- Coming Soon Section -->
-	<section class="portfolio pp-section sms-bg-img page-section bg-icon" id="features">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-12">
-					<div class="section-header text-center">
-						<h2 class="title"><span>Coming</span> Soon</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row m-t-15">
-				<div class="c-list">
-					<ul>
-						<li class="done">Dark Mode</li>
-						<li class="done">RTL Mode</li>
-						<li class="done">Background Skin Mode</li>
-						<li>Vendor Pages</li>
-						<li>User Profile Pages</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Coming Soon Section -->
-
-	<section class="pp-section core page-section sms-bg-01" id="core">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="section-header text-center">
-						<h2 class="title"><span>Core</span> Features</h2>
-						<p class="sub-title">Masterkart have use ultimate core features like SCSS, SEO Optimization, W3
-							validate Code, Well Documentation, Fully Structure | Organized and commented code.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row m-t-15">
-				<!-- Single Preview -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/html-logo.png" alt="hero image">
-					<p class="features-text">HTML5</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/css-logo.png" alt="hero image">
-					<p class="features-text">CSS3</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/sass-icon.png" alt="hero image">
-					<p class="features-text">Sass</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/bootstraap-logo.png"
-						alt="hero image">
-					<p class="features-text">Bootstrap</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/w3c-logo.png" alt="hero image">
-					<p class="features-text">W3 validate</p>
-				</div>
-				<!-- End Single features-->
+        <!-- Header menu End -->
+      </header>
+      <!-- 헤더 끝 -->
+      <!-- Breadcrumb start -->
+      <div class="ms-breadcrumb m-b-30">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="row ms_breadcrumb_inner">
+                <div class="col-md-6 col-sm-12">
+                  <h2 class="ms-breadcrumb-title">HOME</h2>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <!-- ms-breadcrumb-list start -->
+                  <ul class="ms-breadcrumb-list">
+                    <li class="ms-breadcrumb-item"><a href="index.html">Home</a></li>
+                  </ul>
+                  <!-- ms-breadcrumb-list end -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Breadcrumb end -->
 
 
 
-				<!-- Single Preview -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/responsive-icon.png"
-						alt="hero image">
-					<p class="features-text">Responsive</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/google-logo.png" alt="hero image">
-					<p class="features-text">Google Fonts</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/broweser-support.png"
-						alt="hero image">
-					<p class="features-text">Browser Compatibility</p>
-				</div>
-				<!-- End Single features-->
+      <div class="group-15">
+        <img class="container-50" th:src="@{/img/home/userHome/container.png}" alt="Container" />
+        <div class="backgroundborder-container">
+          <div class="background-border">
+            <div class="margin">
+              <div class="container-4">
+                <div class="x2png">
+                  <img class="" th:src="@{/img/home/memberHome/2-png@2x.png}" width="50" height="50">
+                </div>
+              </div>
+            </div>
+            <div class="container-5">
+              <div class="heading-3 heading">
+                <div class="text-1 valign-text-middle x127001semanticheading-3">800,000+</div>
+              </div>
+              <div class="container-51">
+                <div class="products valign-text-middle poppins-normal-sonic-silver-14px">Products</div>
+              </div>
+            </div>
+          </div>
+          <div class="background-border">
+            <div class="margin">
+              <div class="container-4">
+                <div class="x3png">
+                  <img class="" th:src="@{/img/home/memberHome/3-png@2x.png}" width="50" height="50">
+                </div>
+              </div>
+            </div>
+            <div class="container-5">
+              <div class="heading-3-1 heading-3-4">
+                <div class="text-1 valign-text-middle x127001semanticheading-3">2,210,000+</div>
+              </div>
+              <div class="container-52">
+                <div class="global-buyers valign-text-middle poppins-normal-sonic-silver-14px">Global Buyers</div>
+              </div>
+            </div>
+          </div>
+          <div class="background-border">
+            <div class="margin">
+              <div class="container-4">
+                <div class="x1png">
+                  <img class="" th:src="@{/img/home/memberHome/1-png@2x.png}" width="50" height="50">
+                </div>
+              </div>
+            </div>
+            <div class="container-5">
+              <div class="heading-3-2 heading-3-4">
+                <div class="text-1 valign-text-middle x127001semanticheading-3">120,000+</div>
+              </div>
+              <div class="container-53">
+                <div class="suppliers valign-text-middle poppins-normal-sonic-silver-14px">Suppliers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="background-4">
+        <p class="join-for-free-to-dis valign-text-middle">
+          JOIN FOR FREE TO DISCOVER THE BEST KOREAN PRODUCTS FOR YOUR BUSINESS!
+        </p>
+        <div class="component-3-4">
+          <a th:href="@{/user/signUp}">
+            <div class="text-14 valign-text-middle x127001poppinsmedium-14">SIGN UP</div>
+          </a>
+          <div class="container-54">
+            <img class="component-1-11" th:src="@{/img/home/userHome/component-1-268.svg}" alt="Component 1" />
+          </div>
+        </div>
+      </div>
+      <div class="text-15 valign-text-middle">CATEGORIES</div>
+      <div class="frame-17">
+        <div class="overlap-group-container overlap-group-2">
+          <div class="overlap-group overlap">
+            <a th:href="@{/product/user/11}">
+              <img class="rectangle-9" th:src="@{/img/home/userHome/rectangle-9-1.png}" alt="Rectangle 9" />
+              <img class="frame-9" th:src="@{/img/home/userHome/frame-9-1.png}" alt="Frame 9" />
+            </a>
+          </div>
+          <div class="e-container">
+            <div class="rectangle"></div>
+            <img class="frame" th:src="@{/img/home/userHome/frame-10-1.png}" alt="Frame 10" />
+          </div>
+        </div>
+        <div class="group-container">
+          <div class="overlap">
+            <div class="rectangle"></div>
 
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/seo.png" alt="hero image">
-					<p class="features-text">SEO Optimize</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/well-documentation.png"
-						alt="hero image">
-					<p class="features-text">Well Documentation</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/owl-logo.png" alt="hero image">
-					<p class="features-text">Owe Carousel</p>
-				</div>
-				<!-- End Single features-->
-				<!-- Single features -->
-				<div class="col-lg-2 col-md-4 col-sm-6">
-					<img class="features-image style-image" src="../../static/images/slick.png" alt="hero image">
-					<p class="features-text">Slick Carousel</p>
-				</div>
-				<!-- End Single features-->
-			</div>
-		</div>
-	</section>
-	<!-- End Core Features Section -->
+            <a th:href="@{/product/user/12}">
+              <img class="frame" th:src="@{/img/home/userHome/frame-2-1.png}" alt="Frame 2" />
+            </a>
 
-	<!-- Start Built Your Site With Section -->
-	<section class="pp-section page-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="section-header text-center">
-						<h2 class="title">Build your website with <span>Masterkart</span> template.</h2>
-						<h3 class="title">Purchase now.</h3>
-						<p class="s-title">HIGH PERFORMANCE <span>|</span> FREE UPDATES LIFETIME <span>|</span> Trusted
-							Support</p>
-						<p class="sub-title">Masterkart have use ultimate core features like SCSS, SEO Optimization, W3
-							validate Code, Well Documentation, Fully Structure | Organized and commented code.</p>
-						<div class="col-lg-12">
-							<a class="btn btn-primary btn-buy" href="">Buy Now</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Built Your Site With Section -->
+          </div>
+          <div class="e-container-1 e-container-6">
+            <div class="rectangle"></div>
+            <img class="frame-11" th:src="@{/img/home/userHome/frame-11-1.png}" alt="Frame 11" />
+          </div>
+        </div>
+        <div class="group-container">
+          <a th:href="@{/product/user/17}"> <!-- health&medical -->
+            <div class="group-4"><img class="frame-4" th:src="@{/img/home/userHome/frame-4-1.png}" alt="Frame 4" />
+            </div>
+          </a>
+          <div class="group-10"><img class="frame-12" th:src="@{/img/home/userHome/frame-12-1.png}" alt="Frame 12" />
+          </div>
+        </div>
+        <div class="group-container">
+          <div class="group-3"><img class="frame-3" th:src="@{/img/home/userHome/frame-3-1.png}" alt="Frame 3" /></div>
+          <div class="e-container-2 e-container-6">
+            <div class="rectangle"></div>
+            <img class="frame" th:src="@{/img/home/userHome/frame-14.png}" alt="Frame 14" />
+          </div>
+        </div>
+        <div class="group-container">
+          <div class="overlap">
+            <div class="rectangle"></div>
+            <img class="frame" th:src="@{/img/home/userHome/frame-5-1.png}" alt="Frame 5" />
+          </div>
+          <div class="e-container-3 e-container-6">
+            <div class="rectangle"></div>
+            <img class="frame-15" th:src="@{/img/home/userHome/frame-15.png}" alt="Frame 15" />
+          </div>
+        </div>
+        <div class="group-container">
+          <div class="overlap">
+            <div class="rectangle"></div>
+            <img class="frame" th:src="@{/img/home/userHome/frame-6-1.png}" alt="Frame 6" />
+          </div>
+          <div class="e-container-4 e-container-6">
+            <div class="rectangle"></div>
+            <img class="frame" th:src="@{/img/home/userHome/frame-16-1.png}" alt="Frame 16" />
+          </div>
+        </div>
+        <div class="overlap-group-container-1">
+          <div class="overlap">
+            <div class="rectangle"></div>
+            <img class="frame" th:src="@{/img/home/userHome/frame-8-1.png}" alt="Frame 8" />
+          </div>
+          <div class="e-container-5 e-container-6">
+            <div class="rectangle-13"></div>
+            <img class="frame-13" th:src="@{/img/home/userHome/frame-13-1.png}" alt="Frame 13" />
+          </div>
+        </div>
+      </div>
+      <div class="frame-26">
+        <div class="frame-25">
+          <div class="top-selling valign-text-middle">
+            <span><span class="span0">Top </span><span class="span1">Selling</span> </span>
+          </div>
+          <div class="frame-24"></div>
+          <div class="heading-3-3 heading-3-4"></div>
+          <div class="new-products valign-text-middle">
+            <span><span class="span0">New </span><span class="span1">Products</span> </span>
+          </div>
+        </div>
+      </div>
+      <div class="frame-23">
+        <div class="frame-21">
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-55">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-56">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-208.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-57">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-209.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-58">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-210.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-59">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-211.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-60">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-212.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-61">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-62">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-213.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-63">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-214.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-64">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-215.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-65">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-216.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-66">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-217.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-67">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-68">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-218.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-69">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-219.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-70">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-220.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-71">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-221.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-72">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-222.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-73">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-74">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-223.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-75">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-224.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-76">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-225.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-77">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-226.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-78">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-227.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-79">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-80">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-228.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-81">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-229.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-82">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-230.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-83">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-231.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-84">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-232.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-85">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-86">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-233.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-87">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-234.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-88">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-235.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-89">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-236.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-90">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-237.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="frame-22">
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-91">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-92">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-238.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-93">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-239.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-94">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-240.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-95">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-241.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-96">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-242.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-97">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-98">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-208.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-99">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-209.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-100">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-210.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-101">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-211.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-102">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-212.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-103">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-104">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-213.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-105">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-214.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-106">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-215.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-107">
+                            <img class="component-1-1" th:src="@{/img/home/userHome/component-1-216.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-108">
+                            <img class="component-1" th:src="@{/img/home/userHome/component-1-217.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-109">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-110">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-253.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-111">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-254.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-112">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-255.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-113">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-256.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-114">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-257.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-115">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-116">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-223.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-117">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-224.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-118">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-225.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-119">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-226.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-120">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-227.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-6">
+            <div class="component-8">
+              <div class="link-1">
+                <div class="x7_1jpg"></div>
+                <div class="border">
+                  <div class="background"></div>
+                </div>
+              </div>
+              <div class="background-1">
+                <div class="component-12">
+                  <div class="heading-6-13">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="foods valign-text-middle x127001semanticheading-6">FOODS</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="heading-5margin heading">
+                  <div class="component-7-12">
+                    <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                      <div class="text-2 valign-text-middle x127001poppinsregular-13-title">
+                        Mixed Nut Dry Fruits
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="margin-1">
+                  <div class="container-121">
+                    <div class="margin-2">
+                      <div class="container-7">
+                        <div class="container-8">
+                          <div class="container-122">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-228.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-123">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-229.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-124">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-230.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-125">
+                            <img class="component-1-3" th:src="@{/img/home/userHome/component-1-231.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                        <div class="container-8">
+                          <div class="container-126">
+                            <img class="component-1-2" th:src="@{/img/home/userHome/component-1-232.svg}"
+                              alt="Component 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container-9">
+                      <div class="margin-3">
+                        <div class="price valign-text-middle price-3 x127001poppinsbold-14">$49.00</div>
+                      </div>
+                      <div class="container-10">
+                        <div class="price-1 valign-text-middle price-3 x127001semanticstrong">$65.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-28">
+        <div class="text-3 valign-text-middle">See More</div>
+        <img class="vector-2" th:src="@{/img/home/userHome/vector-6.svg}" alt="Vector" />
+      </div>
+      <div class="rectangle-17"></div>
+      <div class="container-127">
+        <div class="container-11">
+          <div class="container-12">
+            <div class="heading-2 heading">
+              <h1 class="title valign-text-middle">
+                <span><span class="span0">New </span><span class="span1">Arrivals</span> </span>
+              </h1>
+            </div>
+          </div>
+          <div class="container-13">
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-128">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-15">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-4 valign-text-middle x127001poppinsmedium-14-title">
+                      Californian Almonds Valu…
+                    </div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Dried Fruits</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$50.00</div>
+                  <div class="x2-pack valign-text-middle x127001poppinsregular-12">- 2 pack</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-129">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-130">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg-8 valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-131">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg-8 valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-132">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg-8 valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="container-11">
+          <div class="container-12">
+            <div class="heading-2 heading">
+              <div class="top-selling-1 valign-text-middle">
+                <span><span class="span0">Top </span><span class="span1">Selling</span> </span>
+              </div>
+            </div>
+          </div>
+          <div class="container-13">
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-133">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-15">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-4 valign-text-middle x127001poppinsmedium-14-title">
+                      Californian Almonds Valu…
+                    </div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Dried Fruits</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$50.00</div>
+                  <div class="x2-pack-1 valign-text-middle x127001poppinsregular-12">- 2 pack</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-134">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg-8 valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-135">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg-8 valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-136">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg-8 valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+            <article class="component-1-4">
+              <div class="container-14">
+                <div class="container-137">
+                  <div class="component-20">
+                    <div class="_1jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-17">
+                <div class="component-9">
+                  <a href="http://127.0.0.1:5500/masterkart-html/product-left-sidebar.html" target="_blank">
+                    <div class="text-6 valign-text-middle x127001poppinsmedium-14-title">Lemon - Seedless</div>
+                  </a>
+                </div>
+                <div class="heading-6 heading">
+                  <div class="component-10-10">
+                    <a href="http://127.0.0.1:5500/masterkart-html/shop-left-sidebar-col-3.html" target="_blank">
+                      <div class="text-5 valign-text-middle x127001quicksandmedium-13-title">Vegetables</div>
+                    </a>
+                  </div>
+                </div>
+                <div class="paragraph-1 paragraph-2">
+                  <div class="price-2 valign-text-middle price-3 x127001poppinsbold-14">$62.00</div>
+                  <div class="x1-kg-8 valign-text-middle x127001poppinsregular-12">- 1 kg</div>
+                </div>
+              </div>
+              <div class="container-16">
+                <div class="background-2"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="frame-27">
+        <p class="text-3 valign-text-middle">Join for free to see more</p>
+        <img class="vector-2" th:src="@{/img/home/userHome/vector-7.svg}" alt="Vector" />
+      </div>
 
-	<!-- Start Footer -->
-	<div class="footer">
-		<p><span id="copyright_year"></span> copyright by Masterkart powered by Masterkart.</p>
-	</div>
-	<a href="javascript:void(0)" id="return-to-top"><span><img src="../../static/images/arrow-up.png" alt=""></span></a>
-	<!-- End Footer -->
-
-	<!-- Theme Custom Cursors -->
-	<div class="ms-cursor"></div>
-	<div class="ms-cursor-2"></div>
-
-	<!-- jquery -->
-	<!-- <script src="../../static/script/jquery-3.1.0.min.js"></script> -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="../../static/script/typer.js"></script>
-	<script src="../../static/script/mixitup.js"></script>
-	<script src="../../static/script/landing-script.js"></script>
 
 
+
+
+      <!-- Footer Start -->
+      <footer class="ms-footer m-t-30">
+        <div class="footer-container">
+          <div class="footer-top padding-tb-60">
+            <div class="container">
+              <div class="row m-minus-991">
+                <div class="col-sm-12 col-lg-3 ms-footer-cat">
+                  <div class="ms-footer-widget ms-footer-company">
+                    <img th:src="@{/img/tkForestlogoB2BLong.png}" class="ms-footer-logo" alt="footer logo">
+                    <p class="ms-footer-detail">
+                      KITA's global B2B marketplace, tradeKorea!
+                      A leading B2B Marketplace to Discover and Source Korean Products</p>
+                    <div class="ms-app-store">
+                      <a href="#" class="app-img"><img src="assets/img/app/android.png" class="adroid" alt="apple"></a>
+                      <a href="#" class="app-img"><img src="assets/img/app/apple.png" class="apple" alt="apple"></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-2 ms-footer-info">
+                  <div class="ms-footer-widget">
+                    <h4 class="ms-footer-heading">About Us</h4>
+                    <div class="ms-footer-links ms-footer-dropdown">
+                      <ul class="align-items-center">
+                        <li class="ms-footer-link"><a href="about-us.html">About tradeKorea</a></li>
+                        <li class="ms-footer-link"><a href="track-order.html">About KITA</a></li>
+                        <li class="ms-footer-link"><a href="privacy-policy.html">Site Map</a></li>
+                        <li class="ms-footer-link"><a href="privacy-policy.html">FAQ</a></li>
+                        <li class="ms-footer-link"><a href="privacy-policy.html">Delivery Guide</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-2 ms-footer-account">
+                  <div class="ms-footer-widget">
+                    <h4 class="ms-footer-heading">Category</h4>
+                    <div class="ms-footer-links ms-footer-dropdown">
+                      <ul class="align-items-center">
+                        <li class="ms-footer-link"><a href="shop-left-sidebar-col-3.html">Beauty&Personal
+                            Care</a></li>
+                        <li class="ms-footer-link"><a href="shop-banner-left-sidebar-col-3.html">Machinery&Parts</a>
+                        </li>
+                        <li class="ms-footer-link"><a href="shop-full-width-col-5.html">Food&Beverage</a>
+                        </li>
+                        <li class="ms-footer-link"><a href="shop-list-left-sidebar.html">Industrial
+                            Supplies</a></li>
+                        <li class="ms-footer-link"><a href="shop-banner-right-sidebar-col-4.html">More+</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-2 ms-footer-service">
+                  <div class="ms-footer-widget">
+                    <h4 class="ms-footer-heading">Support</h4>
+                    <div class="ms-footer-links ms-footer-dropdown">
+                      <ul class="align-items-center">
+                        <li class="ms-footer-link"><a href="register.html">B2B Matchmaking</a></li>
+                        <li class="ms-footer-link"><a href="#">Buyer Invitation Program</a></li>
+                        <li class="ms-footer-link"><a href="cart.html">Request For Quotation</a></li>
+                        <li class="ms-footer-link"><a href="privacy-policy.html">AI-based Auto Match</a>
+                        </li>
+                        <li class="ms-footer-link"><a href="#">tK meet</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-3 ms-footer-cont-social">
+                  <div class="ms-footer-contact">
+                    <div class="ms-footer-widget">
+                      <h4 class="ms-footer-heading">Contact</h4>
+                      <div class="ms-footer-links ms-footer-dropdown">
+                        <ul class="align-items-center">
+                          <li class="ms-footer-link ms-foo-location"><span><img src="assets/img/icons/foo-location.svg"
+                                class="svg_img foo_svg" alt=""></span>
+                            <p>511, Yeongdong-daero, Gangnam-gu, Seoul, Republic of Korea</p>
+                          </li>
+                          <li class="ms-footer-link ms-foo-mail"><span><img src="assets/img/icons/foo-mail.svg"
+                                class="svg_img foo_svg" alt=""></span><a
+                              href="mailto:example@email.com">tradekorea@kita.net</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ms-footer-social">
+                    <div class="ms-footer-widget">
+                      <div class="ms-footer-links ms-footer-dropdown">
+                        <ul class="align-items-center">
+                          <li class="ms-footer-link"><a href="#"><i class="msicon msi-instagram"
+                                aria-hidden="true"></i></a></li>
+                          <li class="ms-footer-link"><a href="#"><i class="msicon msi-twitter-square"
+                                aria-hidden="true"></i></a></li>
+                          <li class="ms-footer-link"><a href="#"><i class="msicon msi-facebook-square"
+                                aria-hidden="true"></i></a></li>
+                          <li class="ms-footer-link"><a href="#"><i class="msicon msi-linkedin-square"
+                                aria-hidden="true"></i></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="container" style="display: flex; align-items: center;">
+              <div class="row">
+                <div class="ms-bottom-info">
+                  <!-- Footer Copyright Start -->
+                  <div class="footer-copy">
+                    <div class="footer-bottom-copy ">
+                      <div class="ms-copy">Copyright ©2008-2024 <a class="site-name" href="index.html">KITA</a>,
+                        All
+                        rights reserved.</div>
+                    </div>
+                  </div>
+                  <!-- Footer Copyright End -->
+                  <!-- Footer NEWSLETTER ... later-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer Area End -->
+
+      <!-- 푸터 끝 -->
+      <!-- 다른 프래그먼트나 내용 추가 가능 -->
+      <!-- Plugins JS -->
+      <script src="/assets/js/plugins/jquery-3.5.1.min.js"></script>
+      <script src="/assets/js/plugins/popper.min.js"></script>
+      <script src="/assets/js/plugins/bootstrap.bundle.min.js"></script>
+      <script src="/assets/js/plugins/bootstrap-select.min.js"></script>
+      <script src="/assets/js/plugins/swiper-bundle.min.js"></script>
+      <script src="/assets/js/plugins/fontawesome.js"></script>
+      <script src="/assets/js/plugins/owl.carousel.min.js"></script>
+      <script src="/assets/js/plugins/countdownTimer.js"></script>
+      <script src="/assets/js/plugins/infiniteslidev2.js"></script>
+      <script src="/assets/js/plugins/jquery.zoom.min.js"></script>
+      <script src="/assets/js/plugins/slick.min.js"></script>
+      <script src="/assets/js/plugins/nouislider.js"></script>
+
+      <!-- Main Js -->
+      <script src="/assets/js/main.js"></script>
+      <script src="/assets/js/demo-1.js"></script>
+
+
+    </div>
+  </div>
 </body>
 
 </html>
