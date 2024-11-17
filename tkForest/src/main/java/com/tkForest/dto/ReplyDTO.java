@@ -27,7 +27,8 @@ public class ReplyDTO {
     private String replyWriter;        // 답변 작성자
     private String replyWriterType;    // 답변 작성자 유형 ('BUYER' 또는 'SELLER')
 
-	
+
+    
 	// Entity --> DTO
 	public static ReplyDTO toDTO(ReplyEntity entity, Integer inquiryNo) {
 		return ReplyDTO.builder()

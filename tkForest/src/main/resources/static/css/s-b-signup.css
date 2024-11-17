@@ -1,0 +1,206 @@
+/* 모달 배경 설정 (검정 불투명) */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+/* 모달 내용 설정 */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 1800px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* "카테고리 검색" 글씨 크기 조정 */
+.modal-content h2 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+/* 대분류, 중분류, 소분류 레이블 세로 가운데 정렬 */
+.category-wrapper label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 0;
+    line-height: 1.5;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* 선택창 스타일 */
+.category-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.category-wrapper select {
+    width: 250px;                /* 선택창 너비 고정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;      /* 텍스트가 넘칠 경우 ... 표시 */
+    overflow: hidden;
+}
+
+/* 선택된 카테고리 리스트 영역의 여백 설정 */
+#selectedCategoryListContainer {
+    margin-top: 20px;  /* 위쪽 간격 */
+    padding-top: 10px; /* 선택된 카테고리 부분 상단 여백 */
+    padding-bottom: 20px; /* 선택된 카테고리 부분 하단 여백 추가 */
+    border-top: 1px solid #ccc;  /* 상단 경계선 */
+     position: relative; /* 버튼을 배치하기 위한 상대 위치 */
+}
+
+
+/* 추가 버튼 */
+#addCategoryBtn {
+    padding: 10px 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    width: 80px;
+    text-align: center;
+}
+
+#addCategoryBtn:hover {
+    background-color: #000080;
+}
+
+/* Clear 버튼 스타일 */
+#clearCategoryBtn {
+    padding: 5px 10px;
+    background-color: #eee;
+    color: #f44336;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    position: absolute;
+    right: 45px; /* 선택된 카테고리 리스트 오른쪽에 배치 */
+    top: 20px;  /* 선택된 카테고리 텍스트와 세로로 맞추기 */
+}
+
+#clearCategoryBtn:hover {
+    background-color: #d32f2f;
+    color: white;
+}
+
+/* 닫기 버튼 설정 */
+.close-btn {
+    position: absolute;
+    top: 10px;                /* 상단에서 10px 내려옴 */
+    right: 20px;              /* 오른쪽에서 20px 떨어지게 설정 */
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #999;
+}
+
+
+
+/**** 중복확인, 카테고리 선택 버튼 ****/
+button#confirmBizregNo,
+button#confirmSellerId,
+button#confirmBuyerId,
+button#openModalBtn {
+    border: 0.5px solid #eee;
+    color: black;	/** #aaa로 했다가 연해서 black으로 바꿈 **/
+    font-size: 0.8rem;
+    margin-left: 5px;
+    margin-bottom: 9px;
+}
+
+button#confirmBizregNo:hover,
+button#confirmSellerId:hover,
+button#openModalBtn:hover {
+    color: #555;
+}
+
+span#confirmSellerPwd, 
+span#confirmBuyerPwd {
+    font-size: 0.8rem;
+    margin-left: 5px;
+    margin-bottom: 9px;
+}
+
+/**** 인증서 선택 ****/
+
+/* 체크박스와 텍스트를 한 줄로 정렬 */
+.sellerCertificateTypeCodes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-start;
+}
+
+.sellerCertificateTypeCodes label {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 3px 8px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    transition: background-color 0.1s ease;
+    margin: 1px;
+    line-height: 1.2;
+}
+
+/* 체크박스 크기 조정 및 마진 제거 */
+.sellerCertificateTypeCodes input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+/* 레이블 hover 효과 */
+.sellerCertificateTypeCodes label:hover {
+    background-color: #f0f0f0;
+}
+
+.ms-register-wrapper .ms-register-container .ms-register-form input[name="sellerCertificateTypeCodes"] {
+    margin-bottom: 0px;
+    margin-right: 5px;
+}
+
+div.sellerCertificateTypeCodes {
+	margin-bottom: 26px;
+}
+
+/* 무역 거래를 밑줄로 내리기 위한 스타일 */
+.sellerCertificateTypeCodes label.trade {
+    flex-basis: auto;
+}
+

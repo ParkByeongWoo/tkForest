@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TK Forest</title>
+
+    <!-- CSS 설정 -->
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <script src="https://kit.fontawesome.com/def97ee41b.js" crossorigin="anonymous"></script>
+
+	<!-- 검증 설정 -->
+	<script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+	<script defer th:src="@{/script/update.js}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" alt="logo">
+            </a>
+            <h2>개인정보 수정</h2>
+        </div>
+    </div> <!-- end .container -->
+
+    <div class="content">
+        <form th:action="@{/user/sellerProfileUpdate}" method="POST" id="sellerUpdateForm">
+            <div class="section">
+                <div class="article">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <input type="text" name="sellerId" id="sellerId" th:value="${sellerDTO.sellerId}" readOnly>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="companyName" id="companyName" th:value="${sellerDTO.companyName}" readOnly>
+                        </li>        
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="ownerName" id="ownerName" th:value="${sellerDTO.ownerName}" readOnly>
+                        </li>   
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="picName" id="picName" th:value="${sellerDTO.picName}">
+                        </li>   
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="bizPhoneNumber" id="bizPhoneNumber" th:value="${sellerDTO.bizPhoneNumber}">
+                        </li> 
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="companyDescription" id="companyDescription" th:value="${sellerDTO.companyDescription}">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="sellerKeyword" id="sellerKeyword" th:value="${sellerDTO.sellerKeyword}">
+                        </li>                                            
+                        <li>
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" name="userPwd" id="userPwd" placeholder="Password 입력">
+                        	<div id="confirmPwd" style="font-size:0.8em;"></div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="userPwdCheck" placeholder="Password 확인">
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" name="email" id="email" placeholder="email 입력" required>
+                            <div id="emailCheck" style="font-size:0.8em;"></div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="address" id="address" th:value="${sellerDTO.address}">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="bizregNo" id="bizregNo" th:value="${sellerDTO.bizregNo}">
+                        </li>   
+                    </ul>
+
+                    <div class="btns">
+                        <input type="button" id="submitBtn" value="회원정보 수정" class="btn btn-primary">
+                        <input type="reset" id="resetBtn" value="초기화" class="btn btn-light">
+                    </div>
+
+                </div> <!-- end .article-->
+            </div> <!-- end .section.pointColor-->
+
+        </form>
+
+    </div>
+</body>
+
+</html>

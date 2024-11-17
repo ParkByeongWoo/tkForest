@@ -16,18 +16,18 @@ public class LoginBuyerDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private String buyerMemberNo;
-	private String id;
+	private String buyerId;
 	private String password;
 	private Boolean buyerStatus;
 	
 	// 생성자 
 	public LoginBuyerDetails(BuyerDTO buyerDTO) {
 		this.buyerMemberNo = buyerDTO.getBuyerMemberNo();
-		this.id = buyerDTO.getId();
+		this.buyerId = buyerDTO.getBuyerId();
 		this.password = buyerDTO.getPassword();
 	}
 	
-	// 사용자의 Role의 정보 반환 (ROLE_SELLER)
+	// 사용자의 Role의 정보 반환 (ROLE_BUYER)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
@@ -47,9 +47,12 @@ public class LoginBuyerDetails implements UserDetails {
 	@Override
 	public String getUsername() { 	// Security에서 아이디 확인을 위해 아이디 달라는 것
 									// 이름은 Username이지만 여기선 ID를 의미하는 것!
-		return this.id;
+		return this.buyerId;
 	}
 	
+	public String getBuyerMemberNo() {	// Security에서 비밀번호 확인을 위해 비밀번호 달라는 것
+		return this.buyerMemberNo;
+	}
 //	// 사용자 정의 메소드(뷰단에서 사용할 사용자의 실명 이름)
 //	public String getUserName() {
 //		return this.userName;

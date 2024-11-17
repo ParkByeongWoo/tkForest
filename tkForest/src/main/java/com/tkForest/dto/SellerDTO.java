@@ -1,6 +1,7 @@
 package com.tkForest.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.tkForest.entity.SellerEntity;
 
@@ -16,23 +17,27 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@Builder
+@Builder 
 public class SellerDTO {
-    private String sellerMemberNo;
+	private String sellerMemberNo;
     private LocalDateTime sellerMemberJoinDate;
     private String companyName;
     private String address;
-    private String bizRegNo;
+    private String bizregNo;
     private String ownerName;
     private String bizPhoneNumber;
     private String companyDescription;
     private String picName;
     private String phoneNumber;
-    private String id;
+    private String sellerId;
     private String password;
     private String email;
     private String sellerKeyword;
     private Boolean sellerStatus;
+    
+    // private String categoryName;
+    private List<String> categoryNames;
+    private List<Integer> sellerCertificateTypeCodes;
 
     // Entity => DTO 변환하는 메소드
     public static SellerDTO toDTO(SellerEntity sellerEntity) {
@@ -41,13 +46,13 @@ public class SellerDTO {
                 .sellerMemberJoinDate(sellerEntity.getSellerMemberJoinDate())
                 .companyName(sellerEntity.getCompanyName())
                 .address(sellerEntity.getAddress())
-                .bizRegNo(sellerEntity.getBizRegNo())
+                .bizregNo(sellerEntity.getBizregNo())
                 .ownerName(sellerEntity.getOwnerName())
                 .bizPhoneNumber(sellerEntity.getBizPhoneNumber())
                 .companyDescription(sellerEntity.getCompanyDescription())
                 .picName(sellerEntity.getPicName())
                 .phoneNumber(sellerEntity.getPhoneNumber())
-                .id(sellerEntity.getId())
+                .sellerId(sellerEntity.getSellerId())
                 .password(sellerEntity.getPassword())
                 .email(sellerEntity.getEmail())
                 .sellerKeyword(sellerEntity.getSellerKeyword())

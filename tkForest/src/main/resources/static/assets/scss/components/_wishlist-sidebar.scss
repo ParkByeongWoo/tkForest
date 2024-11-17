@@ -1,0 +1,217 @@
+/*===== wish sideabr css =====*/
+.ms-open-wish {
+  overflow: hidden;
+  transform: translateX(0) !important;
+  opacity: 1 !important;
+
+  &:before {
+    height: 100%;
+    width: 100;
+    background: #000;
+    opacity: 0.7;
+    position: absolute;
+    z-index: 998;
+    content: '';
+  }
+}
+
+.ms-side-wish-overlay {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 17;
+}
+
+.ms-side-wish {
+  @include custom-scroll-bar;
+  font-size: 14px;
+  font-weight: 400;
+  position: fixed;
+  z-index: 17;
+  top: 0;
+  right: 0;
+  left: auto;
+  display: block;
+  width: 350px;
+  height: 100%;
+  padding: 15px 20px 20px 20px;
+  transition: all 0.5s ease 0s;
+  transform: translateX(100%);
+  background-color: $white;
+  box-shadow: none;
+  overflow: auto;
+  opacity: 0;
+
+  .text-right {
+    font-weight: 700;
+  }
+
+  .ms-wish-inner {
+    position: relative;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+
+    .ms-wish-title {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100;
+      padding: 0 0 10px 0;
+      border-bottom: 2px solid $border-color-1;
+      margin-bottom: 20px;
+
+      .wish_title {
+        font-size: 17px;
+        color: $main-secondary-color;
+        font-family: $font-family-text;
+        font-weight: 600;
+      }
+
+      .ms-wish-close {
+        position: relative;
+        border: 0;
+        font-size: 30px;
+        line-height: 20px;
+        color: $main-secondary-color;
+
+        .svg_img {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+
+    .ms-wish-pro-items {
+      li {
+        display: flex;
+        overflow: hidden;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $border-color-1;
+
+        .ms-pro-img {
+          flex: 1 0 20%;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .ms-pro-content {
+          position: relative;
+          -webkit-box-flex: 1;
+          -ms-flex: 1 0 70%;
+          flex: 1 0 70%;
+          padding-left: 15px;
+          overflow: hidden;
+
+          .wish-pro-title {
+            width: 100%;
+            padding-right: 30px;
+            text-decoration: none;
+            color: $text-color;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            font-size: 15px;
+            line-height: 17px;
+            font-weight: 400;
+          }
+
+          .wish-price {
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+
+            span {
+              color: $text-color;
+              font-weight: 700;
+              font-size: 16px;
+            }
+          }
+
+          .ms-availability {
+            display: flex;
+            flex-direction: column;
+
+            .stock {
+              font-size: 12px;
+            }
+
+            .avail {
+              color: $main-primary-color;
+            }
+
+            .not-avail {
+              color: red;
+            }
+
+            .btn-disabled {
+              cursor: not-allowed !important;
+            }
+
+            .ms-wish-contact-btns {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+
+            a {
+              width: 100px;
+              height: 30px;
+              padding: 0 10px;
+              font-size: 12px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+
+          .remove {
+            line-height: 15px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0 0 0 10px;
+            color: red;
+            font-size: 22px;
+            background: $white;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+/* Responsive css */
+
+@media (max-width: 480px) {
+  .ms-side-wish {
+		.ms-wish-inner {
+			.ms-wish-pro-items {
+				li {
+					.ms-pro-content {
+						.ms-availability {
+							a {
+								width: auto;
+								max-width: 100px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+  .ms-side-wish {
+		width: 300px;
+	}
+}

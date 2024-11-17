@@ -1,0 +1,59 @@
+/*===== Banners section css =====*/
+.ms-ofr-banners {
+	.ms-bnr-body {
+		display: flex;
+		flex-direction: row;
+		position: relative;
+
+		.ms-bnr-img {
+			width: 100%;
+
+			img {
+				width: 100%;
+				border-radius: $main-border-radius;
+			}
+
+			.lbl {
+				padding: 0 5px;
+				font-size: 14px;
+				border-radius: 30px;
+				position: absolute;
+				top: 15px;
+				right: 15px;
+				text-transform: capitalize;
+				background-color: $dark-mode-bg-color;
+				color: $white;
+			}
+		}
+
+		.ms-bnr-detail {
+			max-width: 200px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: center;
+			position: absolute;
+			top: 50%;
+			right: 50px;
+			transform: translateY(-50%);
+
+			h5 {
+				color: $main-primary-color;
+				font-size: 30px;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+
+			p {
+				color: $text-color;
+				text-transform: capitalize;
+				font-size: 16px;
+				line-height: 22px;
+			}
+
+			a {
+				padding: 5px 15px;
+			}
+		}
+	}
+}

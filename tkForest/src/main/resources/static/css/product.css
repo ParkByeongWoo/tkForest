@@ -1,0 +1,223 @@
+button#submitBtn.ms-btn-2 {
+	    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#submitBtn {
+    margin: 0 auto; /* 버튼 자체에도 중앙 정렬을 유지 */
+}
+
+
+/* 모달 배경 설정 (검정 불투명) */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+/* 모달 내용 설정 */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 1800px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* "카테고리 검색" 글씨 크기 조정 */
+.modal-content h2 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+/* 대분류, 중분류, 소분류 레이블 세로 가운데 정렬 */
+.category-wrapper label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 0;
+    line-height: 1.5;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* 선택창 스타일 */
+.category-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.category-wrapper select {
+    width: 250px;                /* 선택창 너비 고정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;      /* 텍스트가 넘칠 경우 ... 표시 */
+    overflow: hidden;
+}
+
+/* 선택된 카테고리 리스트 영역의 여백 설정 */
+#selectedCategoryListContainer {
+    margin-top: 20px;  /* 위쪽 간격 */
+    padding-top: 10px; /* 선택된 카테고리 부분 상단 여백 */
+    padding-bottom: 20px; /* 선택된 카테고리 부분 하단 여백 추가 */
+    border-top: 1px solid #ccc;  /* 상단 경계선 */
+     position: relative; /* 버튼을 배치하기 위한 상대 위치 */
+}
+
+
+/* 추가 버튼 */
+#addCategoryBtn {
+    padding: 10px 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    width: 80px;
+    text-align: center;
+}
+
+#addCategoryBtn:hover {
+    background-color: #000080;
+}
+
+/* Clear 버튼 스타일 */
+#clearCategoryBtn {
+    padding: 5px 10px;
+    background-color: #eee;
+    color: #f44336;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    position: absolute;
+    right: 45px; /* 선택된 카테고리 리스트 오른쪽에 배치 */
+    top: 20px;  /* 선택된 카테고리 텍스트와 세로로 맞추기 */
+}
+
+#clearCategoryBtn:hover {
+    background-color: #d32f2f;
+    color: white;
+}
+
+/* 닫기 버튼 설정 */
+.close-btn {
+    position: absolute;
+    top: 10px;                /* 상단에서 10px 내려옴 */
+    right: 20px;              /* 오른쪽에서 20px 떨어지게 설정 */
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #999;
+}
+
+
+/**** 인증서 선택 ****/
+
+/* 체크박스와 텍스트를 한 줄로 정렬 */
+.productCertificateTypeCodes {
+    display: flex;
+    flex-wrap: wrap; /* 공간이 부족하면 자동으로 줄바꿈 */
+    gap: 10px; /* 각 체크박스 그룹 간의 간격 */
+    margin-top: 10px; /* 부모 요소와의 여백 */
+    justify-content: flex-start; /* 체크박스들이 왼쪽에 정렬되도록 설정 */
+}
+
+.productCertificateTypeCodes label {
+    display: inline-flex; /* 체크박스와 텍스트를 한 줄에 배치 */
+    align-items: center; /* 체크박스와 텍스트를 수직으로 중앙 정렬 */
+    white-space: nowrap; /* 텍스트가 여러 줄로 넘어가는 것을 방지 */
+    padding: 3px 8px; /* 패딩을 줄여 높이를 낮춤 */
+    background-color: #fafafa; /* 배경색 추가 */
+    border-radius: 5px; /* 모서리를 둥글게 */
+    transition: background-color 0.1s ease; /* hover 시 배경색 변경 애니메이션 */
+    margin: 1px;
+    line-height: 1.2; /* 체크박스와 텍스트의 줄 높이 조절 */
+}
+
+/* 체크박스 크기 조정 및 마진 제거 */
+.productCertificateTypeCodes input[type="checkbox"] {
+    width: 16px; /* 체크박스 너비 */
+    height: 16px; /* 체크박스 높이 */
+    margin-right: 8px; /* 체크박스와 텍스트 사이의 간격 */
+    margin: 0; /* 체크박스의 기본 마진 제거 */
+    padding: 0; /* 패딩 제거 */
+    vertical-align: middle; /* 체크박스를 텍스트 중앙에 맞춤 */
+}
+
+/* 레이블 hover 효과 */
+.productCertificateTypeCodes label:hover {
+    background-color: #f0f0f0; /* 마우스가 레이블 위에 있을 때 배경색 변경 */
+}
+
+/* 특정 체크박스에 적용하는 스타일 우선순위 높이기 */
+.ms-register-wrapper .ms-register-container .ms-register-form input[name="productCertificateTypeCodes"] {
+    margin-bottom: 0px;
+    margin-right: 5px;
+}
+
+div.productCertificateTypeCodes {
+	margin-bottom: 26px;
+}
+
+/* 이미지 업로드 부분을 세로 중앙에 정렬하는 스타일 */
+.image-upload-container {
+    display: flex;
+    justify-content: center;  /* 가로 중앙 정렬 */
+    align-items: center;      /* 세로 중앙 정렬 */
+    height: 100px;            /* 부모 요소의 높이를 적절히 설정 (여기에 맞춰 중앙 정렬됨) */
+    flex-direction: column;   /* 레이블과 파일 선택 버튼을 세로로 쌓음 */
+}
+
+/* 파일 선택 버튼 기본 스타일 */
+#uploadFile {
+    width: auto;              /* 버튼의 기본 너비를 유지 */
+    padding: 10px;            /* 버튼 내부 패딩을 설정하여 크기를 조정 */
+    box-sizing: border-box;    /* 패딩을 포함한 크기 조정 */
+}
+
+/* 레이블 스타일 (상품 이미지 텍스트) */
+.image-upload-container label {
+    margin-bottom: 10px;     /* 레이블과 파일 선택 버튼 사이 간격 */
+    font-weight: bold;
+}
+
+/* 폼 요소에 간격 조정 */
+.ms-register-half {
+    width: 100%;
+    margin-bottom: 20px; /* 하단에 여백 추가 */
+}
+
+/**** 카테고리 선택 버튼 ****/
+button#openModalBtn {
+    border: 0.5px solid #eee;
+    color: black;	/** #aaa로 했다가 연해서 black으로 바꿈 **/
+    font-size: 0.8rem;
+    margin-left: 5px;
+    margin-bottom: 9px;
+}

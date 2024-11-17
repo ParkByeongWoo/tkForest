@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TK Forest</title>
+    
+    	<!-- 검증 설정 -->
+	<script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+	<script defer th:src="@{/script/update.js}"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: transparent;
+        }
+        .nav-section {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .nav-section h3 {
+            margin: 0;
+            padding: 15px 20px;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .nav-section ul {
+            list-style-type: none;
+            padding: 15px 0;
+            margin: 0;
+        }
+        .nav-section li {
+            margin: 0;
+        }
+        .nav-section a {
+            display: block;
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            padding: 8px 20px;
+        }
+        .nav-section a:hover {
+            background-color: #f5f5f5;
+        }
+        .content {
+            flex: 1;
+            margin-left: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        .profile-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .profile-info div {
+            margin-bottom: 15px;
+        }
+        .profile-info h4 {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+		.profile-info input {
+		    margin: 5px 0 0;
+		    padding: 10px;
+		    background-color: #f5f5f5; /* 배경색 */
+		    border: none; /* 테두리 제거 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    width: 100%; /* 너비를 100%로 설정 */
+		    box-sizing: border-box; /* 패딩을 포함하여 너비 계산 */
+		}
+		
+		.profile-info p {
+		    margin: 5px 0 0;
+		    padding: 10px;
+		    background-color: #f5f5f5; /* 배경색 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    width: 100%; /* 너비를 100%로 설정 */
+		    box-sizing: border-box; /* 패딩을 포함하여 너비 계산 */
+		}
+        .edit-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+	  <div class="nevigation">
+            <div class="nav-section">
+                <h3>Profile</h3>
+                <ul>
+                    <li><a href="#">My Profile</a></li>
+                    <li><a href="#">Edit Profile</a></li>
+                    <li><a href="#">Delete Profile</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <h3>Inquiries</h3>
+                <ul>
+                    <li><a href="#">Received Inquiries</a></li>
+                    <li><a href="#">Sent Inquiries</a></li>
+                    <li><a href="#">Spam</a></li>
+                    <li><a href="#">Deleted Inquiries</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="#">Manage Product</a></li>
+                    <li><a href="#">Add Product</a></li>
+                    <li><a href="#">Paused Products</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <h3>Favorites</h3>
+                <ul>
+                    <li><a href="#">Liked Items</a></li>
+                    <li><a href="#">Liked Companies</a></li>
+                </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+        
+        
+            <div class="breadcrumb">
+                Home > Profile Update
+            </div>
+            
+        <form th:action="@{/user/sellerProfileUpdate}" method="POST" id="sellerProfileUpdate">
+            <h1>Profile Update</h1>
+            <div class="profile-info">
+                <div>
+                    <h4> ID </h4>
+                    <input type="text" name="userId" id="userId" th:value="${userDTO.sellerId != null ? userDTO.sellerId : '정보 없음'}" readOnly>
+                </div>
+                <div>
+                    <h4>Company Name</h4>
+                    <input type="text" name="companyName" id="companyName" th:value="${userDTO.companyName != null ? userDTO.companyName : '정보 없음'}" readOnly>
+                </div>
+                <div>
+                    <h4>address</h4>
+                    <input type="text" name="address" id="address" th:value="${userDTO.address != null ? userDTO.address : '정보 없음'}" >
+                </div>
+                <div>
+                    <h4>bizreg No</h4>
+                    <input type="text" name="bizregNo" id="bizregNo" th:value="${userDTO.bizregNo != null ? userDTO.bizregNo : '정보 없음'}" readOnly>
+                </div>
+                <div>
+                    <h4>ownerName</h4>
+                    <input type="text" name="ownerName" id="ownerName" th:value="${userDTO.ownerName != null ? userDTO.ownerName : '정보 없음'}" >
+                </div>
+                <div>
+                    <h4>Phone Number</h4>
+                    <input type="text" name="bizPhoneNumber" id="bizPhoneNumber" th:value="${userDTO.bizPhoneNumber != null ? userDTO.bizPhoneNumber : '정보 없음'}" >
+                </div>
+                <div>
+                    <h4>Company Description</h4>
+                    <input type="text" name="companyDescription" id="companyDescription" th:value="${userDTO.companyDescription != null ? userDTO.companyDescription : '정보 없음'}" >
+                </div>
+                <div>
+                    <h4>Name(Person In Charge)</h4>
+                    <input type="text" name="picName" id="picName" th:value="${userDTO.picName != null ? userDTO.picName : '정보 없음'}" >
+                </div>
+                <div>
+                    <h4>phoneNumber</h4>
+                    <input type="text" name="phoneNumber" id="phoneNumber" th:value="${userDTO.phoneNumber != null ? userDTO.phoneNumber : '정보 없음'}" >
+                </div>
+                <div>
+                    <h4>email</h4>
+                    <input type="text" name="email" id="email" th:value="${userDTO.email != null ? userDTO.email : '정보 없음'}" >
+                </div>
+                <div>
+                    <h4>seller Keyword</h4>
+                    <input type="text" name="sellerKeyword" id="sellerKeyword" th:value="${userDTO.sellerKeyword != null ? userDTO.sellerKeyword : '정보 없음'}" >
+                
+            </div>
+ 
+				<div class="btns">
+				    <input type="submit" id="submitBtn" value="회원정보 수정" class="btn btn-primary">
+				    <input type="reset" id="resetBtn" value="초기화" class="btn btn-light">
+				    <input type="submit" id="resetBtn" value="탈퇴" class="btn btn-light">
+				</div>
+
+            </div>
+          </form>
+        </div>
+    </div>
+</body>
+</html>

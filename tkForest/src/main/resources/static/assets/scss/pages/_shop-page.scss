@@ -1,0 +1,590 @@
+/*-------------------------------------------------
+   Shop Page CSS
+---------------------------------------------------*/
+.width-100 {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+}
+.width-50 {
+    -webkit-box-flex: 0 !important;
+    -ms-flex: 0 0 auto !important;
+    flex: 0 0 auto !important;
+    width: 50% !important;
+}
+.list-view, .list-view-50 {
+	@include ease3;
+	.ms-product-inner {
+		display: flex;
+		.ms-pro-image-outer {
+			max-width: 270px;
+			// float: left;
+		}
+		.ms-pro-content {
+			border-left: 1px solid $border-color-grey;
+			justify-content: center;
+			.ms-pro-title {
+				a{
+					font-size: 16px;
+					color: $title-color;
+					font-weight: 20px;
+				}
+			}
+			.ms-info {
+				@include ease3;
+				margin: 5px 0;
+				padding: 0 20px;
+				font-size: 13px;
+				color: $text-color;
+				display: block;
+			}
+		}
+	}
+}
+.ms-shop {
+	.ms-product-content {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	.shop-pro-content {
+		.ms-product-inner {
+			margin-bottom: 24px !important;
+		}
+	}
+	.ms-pro-list-top {
+		background-color: $white;
+		margin-bottom: 30px;
+		align-self: center;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 14px;
+		border: 1px solid $border-color-grey;
+		border-radius: $main-border-radius;
+		.ms-gl-btn {
+			margin-left: 5px;
+			display: flex;
+			align-items: center;
+			flex-direction: row;
+			.grid-btn {
+				height: 40px;
+				width: 40px;
+				border: 0;
+				border-radius: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: row;
+				.svg_img {
+					width: 20px;
+					height: 20px;
+					path {
+						fill: $text-color;
+					}
+				}
+			}
+		}
+		.grid-btn.active {
+			background: $main-primary-color;
+			border: 1px solid $main-primary-color;
+			border-radius: $main-border-radius;
+			.svg_img {
+				path {
+					fill: $white;
+				}
+			}
+		}
+		.ms-sort-select {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			.sort-by {
+				font-size: 14px;
+				color: $text-color;
+				padding-right: 22px;
+			}
+			.ms-select-inner {
+				position: relative;
+				display: flex;
+				width: 140px;
+				height: 50px;
+				line-height: 1.5;
+				background: $white;
+				overflow: hidden;
+				border-radius: 0;
+				border-left: 1px solid $border-color-grey;
+				&:after {
+					padding: 0 10px;
+					content: "\f107";
+					position: absolute;
+					font-family: "Msicons";
+					top: 50%;
+					right: 0;
+					cursor: pointer;
+					pointer-events: none;
+					font-size: 24px;
+					display: flex;
+					line-height: 1;
+					justify-content: center;
+					align-items: center;
+					color: $text-color;
+					transform: translateY(-50%);
+				}
+				select {
+					appearance: none;
+					outline: 0;
+					box-shadow: none;
+					border: 0 !important;
+					background: $white;
+					background-image: none;
+					flex: 1;
+					padding: 0 10px;
+					color: $text-color;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+	.ms-select-bar {
+		margin: -5px -5px 25px -5px;
+		display: flex;
+		flex-wrap: wrap;
+		.ms-select-btn {
+			background-color: $white;
+			margin: 5px;
+			padding: 0 10px;
+			border: 1px solid $border-color-grey;
+			border-radius: $main-border-radius;
+			color: $text-color;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			text-transform: capitalize;
+			.ms-select-cancel {
+				margin-left: 15px;
+				color: #ff8585;
+				font-size: 18px;
+			}
+		}
+	}
+	.ms-select-btn-clear {
+		padding: 0 !important;
+		border: 1px solid $border-color !important;
+		.ms-select-clear {
+			@include ease3;
+			height: 100%;
+			margin: 0;
+			padding: 3px 10px;
+			font-size: 14px;
+			color: $title-color;
+			display: flex;
+			align-items: center;
+			&:hover {
+				color: $white;
+				background-color: $dark-mode-bg-color;
+			}
+		}
+	}
+}
+
+/**  Shop Sidebar  **/
+.ms-shop-sidebar {
+	.ms-sb-title {
+		border-bottom: 2px solid $border-color-grey;
+    	padding-bottom: 15px;
+		h3 {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			position: relative;
+			font-family: $font-family-text;
+			font-size: 18px;
+    		font-weight: 500;
+		}
+	}
+	.ms-blog-sidebar-wrap {
+		padding: 30px;
+		border: 1px solid $border-color-grey;
+		border-radius: $main-border-radius;
+	}
+	.ms-blog-search {
+		height: 50px;
+		width: 100%;
+		margin-bottom: 30px;
+		padding: 0;
+		box-shadow: none;
+		outline: none;
+		border: 1px solid $border-color-grey;
+		color: $title-color;
+		position: relative;
+		border-radius: $main-border-radius;
+		overflow: hidden;
+		.ms-blog-search-form {
+			display: flex;
+			align-items: center;
+			background: $white;
+		}
+		.form-control {
+			display: block;
+			width: 100%;
+			min-height: 48px;
+			height: 48px;
+			padding: 0 20px;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 1;
+			color: $text-color;
+			background-color: transparent;
+			border: none;
+			letter-spacing: 0;
+		}
+		.submit {
+			position: relative;
+			height: 48px;
+			justify-content: center;
+			width: 60px;
+			color: $title-color;
+		}
+	}
+	.ms-sidebar-block {
+		ul {
+			li {
+				a {
+					padding-left: 30px;
+				}
+			}
+		}
+		.ms-sidebar-block-item {
+			position: relative;
+			input {
+				width: 100%;
+				height: calc(100% - 5px);
+				position: absolute;
+				opacity: 0;
+				cursor: pointer;
+				z-index: 9;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+				&:checked ~ .checked::after {
+					display: block;
+				}
+			}
+			a {
+				width: 100%;
+				display: block;
+				color: $text-color;
+				font-size: 14px;
+				margin-top: 0;
+				line-height: 20px;
+				font-weight: 400;
+				text-transform: capitalize;
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				.svg_img {
+					width: 20px;
+					height: 20px;
+					margin-right: 10px;
+				}
+				.products {
+					color: $text-color-999;
+					font-size: 13px;
+				}
+				.toggle-icon{
+					color: $text-color-999;
+					font-size: 13px;					
+				}
+			}
+			.checked {
+				position: absolute;
+				top: 50%;
+				left: 0;
+				height: 18px;
+				width: 18px;
+				background: $white;
+				border: 1px solid $border-color-grey;
+				border-radius: 0;
+				-webkit-transition: all 300ms linear;
+				transition: all 300ms linear;
+				transform: translateY(-50%);
+				border-radius: $main-border-radius;
+				overflow: hidden;
+				&:after {
+					left: -1px;
+					top: -1px;
+					width: 18px;
+					height: 18px;
+					border: 1px solid $main-primary-color;
+					content: "\f00c";
+					position: absolute;
+					display: none;
+					background: $main-primary-color;
+					font-family: "Msicons";
+					font-size: 10px;
+					color: $white;
+					line-height: 16px;
+					text-align: center;
+				}
+			}
+		}
+		&:not(:last-child){
+			margin-bottom: 30px;
+		}
+		.ms-sidebar-block-item {
+			padding: 15px 0;
+			border-bottom: 1px solid $border-color-grey;
+			display: flex;
+			flex-direction: row;
+			&:not(:last-child){
+				// margin-bottom: 15px;
+			}
+			.ms-sidebar-block-img {
+				margin-right: 15px;
+				img {
+					width: 100px;
+					border-radius: $main-border-radius;
+				}
+			}
+			.ms-sidebar-block-detial {
+				.ms-blog-title{
+					a {
+						color: $text-color;
+						font-size: 16px;
+						letter-spacing: 0;
+						line-height: 22px;
+						font-weight: 600;
+					}
+				}
+				.ms-blog-date {
+					margin-bottom: 5px;
+					font-size: 14px;
+					color: $text-color-999;
+					line-height: 1;
+					letter-spacing: 0;
+				}
+				a {
+					font-size: 14px;
+					color: $main-primary-color;
+				}
+			}
+		}
+	}
+	.ms-sidebar-block.color-block {
+		.ms-sb-block-content.ms-sidebar-dropdown {
+			margin-top: 20px;
+		}
+		ul {
+			width: 100%;
+			display: flex;
+    		flex-wrap: wrap;
+			flex-direction: row;
+			li {
+				margin-right: 10px;
+			}
+		}
+		.ms-sidebar-block-item {
+			padding: 5px 0;
+			border: 0 ;
+			.ms-clr-block {
+				@include ease3;
+				width: 20px;
+				height: 20px;
+				border-radius: $main-border-radius;
+				opacity: .7;
+				background: transparent;
+				cursor: pointer;
+				&:hover {
+					opacity: 1;
+				}
+			}
+			input {
+				width: 20px;
+				height: 20px;
+			}
+			.checked {
+				width: 20px;
+				height: 20px;
+				background: transparent;
+				border: 0;
+				&:after {
+					left: -1px;
+					top: 50%;
+					width: 20px;
+					height: 20px;
+					border: 1px solid transparent;
+					content: "\f00c";
+					position: absolute;
+					display: none;
+					background: transparent;
+					font-family: "Msicons";
+					font-size: 12px;
+					color: $white;
+					line-height: 16px;
+					text-align: center;
+					transform: translateY(-50%);
+				}
+			}
+		}
+	}
+	.ms-sidebar-wrap {
+		border-radius: $main-border-radius;
+	}
+	
+}
+
+/* Toggle filter sidebar */
+.filter-sidebar-overlay {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 16;
+    display: none;
+}
+.ms-filter-sidebar {
+	@include custom-scroll-bar;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width: 300px;
+    height: 100vh;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 16;
+    background-color: #ffffff;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+	overflow: auto;
+	.sidebar-filter-title {
+		padding: 15px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		background-color: $light-grey-bg;
+		h5 {
+			margin: 0;
+			font-size: 20px;
+    		font-weight: 700;
+		}
+		.filter-close {
+			margin-left: 15px;
+			color: #ff8585;
+			font-size: 24px;
+    		line-height: 1;
+		}
+	}
+	.ms-sidebar-wrap {
+		border: 0;
+	}
+	.ms-sb-title {
+		h3 {
+			font-size: 18px;
+		}
+	}
+}
+.filter-sidebar-open {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+
+/* Price slider block */
+.ms-price-range-slider {
+	margin-top: 20px !important;
+	.noUi-target {
+		cursor: pointer;
+		&:focus {
+			outline: none;
+		}
+	}
+	.noUi-horizontal {
+		height: 4px;
+		margin-bottom: 5px;
+		.noUi-handle {
+			top: -6px;
+			right: -15px;
+			width: 16px;
+			height: 16px;
+			background: $white;
+			border: 2px solid $main-primary-color;
+			border-radius: 50%;
+			box-shadow: unset;
+			cursor: pointer;
+			transition: transform .1s;
+			&:hover {
+				background: $main-primary-color;
+			}
+		}
+	}
+	.noUi-connect {
+		background: $text-color;
+	}
+	.noUi-base {
+		background: $light-grey-bg;
+	}
+	.noUi-handle.noUi-handle-upper {
+		right: -2px;
+	}
+
+	/*-----  Price Filter  -----*/
+	.filter__input {
+		height: 30px;
+		border: none;
+		border-radius: 0;
+		padding: 0;
+		max-width: 48px;
+		line-height: 30px;
+		background: $white;
+		text-align: center;
+		font-size: 14px;
+		color: $text-color;
+	}
+	.ms-price-filter {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+	}
+	.ms-price-input {
+		margin-bottom: 15px;
+		padding: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: $light-grey-bg;
+		border-radius: $main-border-radius;
+		label {
+			font-size: 14px;
+			color: $text-color;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			input {
+				border-radius: $main-border-radius;
+			}
+		}
+		.ms-price-divider {
+			position: relative;
+			border-bottom: 1px solid $text-color;
+			width: 10px;
+			height: 1px;
+			margin: 0 10px;
+		}
+	}
+}
+/* Tags block */
+.ms-tag-block {
+	margin-top: 20px !important;
+	margin-bottom: -2px;
+	a {
+		margin: 2px 0;
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		text-transform: capitalize;
+		font-weight: 300;
+		font-size: 13px;
+		letter-spacing: .02rem;
+	}
+}

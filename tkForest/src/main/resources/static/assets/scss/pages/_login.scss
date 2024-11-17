@@ -1,0 +1,20 @@
+.ms-login-content {
+	max-width: 1000px;
+	margin: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center; /* 수평 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	height: 100vh; /* 화면의 전체 높이 차지 */
+}
+
+.ms-login-box {
+	width: 50%;
+	padding: 0 15px;
+}
+
+.ms-login-wrapper {
+	max-width: 530px;
+	margin: 0 auto;
+}
+

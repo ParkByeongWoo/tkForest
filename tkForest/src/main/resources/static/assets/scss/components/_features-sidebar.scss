@@ -1,0 +1,249 @@
+/*===== Features sideabr css =====*/
+.ms-features-sidebar-overlay {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 16;
+}
+.ms-features-sidebar {
+    width: 250px;
+    position: fixed;
+    right: -250px;
+    top: 0;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    z-index: 16;
+    .ms-tools-sidebar-toggle {
+        position: absolute;
+        top: 35%;
+        right: 252px;
+        width: 40px;
+        height: 40px;
+        background-color: $main-secondary-color;
+        transition: all ease-in 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        z-index: -1;
+        text-decoration: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        .svg_img {
+            width: 25px;
+            height: 25px;
+            path {
+                fill: $white;
+            }
+        }
+    }
+    .ms-inner-tools{
+        @include custom-scroll-bar;
+        overflow-y: auto;
+        height: 100vh;
+        .tool-title {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #d9d9d9;
+            h3 {
+                line-height: 28px;
+                margin: 0;
+                font-size: 16px;
+                color: #777;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
+        .ms-features-block {
+            padding: 15px;
+            .ms-features-title {
+                margin-bottom: 10px;
+                line-height: 20px;
+                font-size: 14px;
+                color: #777;
+                font-weight: 600;
+            }
+            .ms-tools-content {
+                .ms-mode-rtl,
+                .bg-panel {
+                    margin-bottom: -10px;
+                    padding: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    align-content: flex-start;
+                    align-items: center;
+                    list-style: none;
+                    .ms-rtl,
+                    .ms-panel-bg {
+                        width: 94px;
+                        margin: 0 10px 10px 0;
+                        img {
+                            width: 100%;
+                            cursor: pointer;
+                        }
+                        p {
+                            text-align: center;
+                            margin-bottom: 0;
+                            font-size: 13px;
+                            font-weight: 600;
+                        }
+                    }
+                    .active-rtl-mode,
+                    .active-bg-panel {
+                        position: relative;
+                        &:after {
+                            width: 20px;
+                            height: 20px;
+                            padding: 0;
+                            font-family: $MsIcons;
+                            content: "\f00c";
+                            position: absolute;
+                            top: 5px;
+                            right: 5px;
+                            background-color: $main-primary-color;
+                            color: $white;
+                            border-radius: 5px;
+                            font-size: 12px;
+                            font-weight: 700;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+            ul {
+                margin-bottom: -10px;
+                padding: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-content: flex-start;
+                align-items: center;
+                list-style: none;
+                li {
+                    width: 30px;
+                    height: 30px;
+                    margin: 0 10px 10px 0;
+                    a {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        border-radius: $main-border-radius;
+                        -webkit-transform: scale(1);
+                        transform: scale(1);
+                        -webkit-transition: all 0.2s linear;
+                        transition: all 0.2s linear;
+                        text-align: center;
+                        border: 2px solid transparent;
+                    }
+                    a.colorcode1 {
+                        background-color: $main-primary-color-1;
+                    }
+                    a.colorcode2 {
+                        background-color: $main-primary-color-2;
+                    }
+                    a.colorcode3 {
+                        background-color: $main-primary-color-3;
+                    }
+                    a.colorcode4 {
+                        background-color: $main-primary-color-4;
+                    }
+                    a.colorcode5 {
+                        background-color: $main-primary-color-5;
+                    }
+                    a.colorcode6 {
+                        background-color: $main-primary-color-6;
+                    }
+                    a.colorcode7 {
+                        background-color: $main-primary-color-7;
+                    }
+                    a.colorcode8 {
+                        background-color: $main-primary-color-8;
+                    }
+                    a.colorcode9 {
+                        background-color: $main-primary-color-9;
+                    }
+                }
+                li.active {
+                    a {
+                        border: 2px solid white;
+                        box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
+                    }
+                }
+            }
+            .ms-change-mode {
+                width: 90px;
+                height: 30px;
+                margin-bottom: 10px;
+                padding: 0;
+                display: flex;
+                position: relative;
+                white-space: nowrap;
+                border-radius: 5px;
+                transition: all 0.2s linear;
+                align-items: center;
+                overflow: hidden;
+                div {
+                    width: 90px;
+                    display: flex;
+                    height: 30px;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    color: #ffffff;
+                    font-size: 12px;
+                    border-radius: $main-border-radius;
+                    overflow: hidden;
+                    background: #333;
+                }
+                .ms-mode-switch > * {
+                    width: 45px;
+                    height: 30px;
+                    display: flex;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    padding: 0 10px 0;
+                }
+                .ms-mode-on {
+                    background: #63b760;
+                    color: #fff;
+                    display: none;
+                }
+                .ms-mode-off {
+                    background: #ff7474;
+                    color: #fff;
+                    display: flex;
+                }
+            }
+            .ms-change-mode.active {
+                .ms-mode-on {
+                    background: #63b760;
+                    color: #fff;
+                    display: flex;
+                }
+                .ms-mode-off {
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -31,7 +31,7 @@ import lombok.ToString;
 @Builder
 
 @Entity
-@Table(name="reply")
+@Table(name="INQUIRY_REPLY")
 public class ReplyEntity {
 	@Id
 	@Column(name="REPLYNO")
@@ -43,10 +43,10 @@ public class ReplyEntity {
 	 * 댓글이 다의 위치, inquiryNo은 Join컬럼
 	 */
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="INQUIRYNO")
+	@JoinColumn(name="INQUIRYNO", referencedColumnName = "INQUIRYNO", nullable = false)
 	private InquiryEntity inquiryEntity;
 	
-	@Column(name="REPLY_PARENT")
+	@Column(name="REPLY_PARENT") // 부모 답변 번호 (대답변)
 	private Integer replyParent;   
 	
 	@Column(name="REPLY_CONTENTS")
